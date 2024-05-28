@@ -1,4 +1,4 @@
-from course_analysis import CourseAnalyzer
+from data_processing.course.course_analysis import CourseAnalyzer
 from datetime import datetime
 #from visulization import Visualizer
 #from matplotlib import pyplot as plt

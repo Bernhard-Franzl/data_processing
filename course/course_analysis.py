@@ -4,8 +4,8 @@ import os
 from tqdm import tqdm
 import json
 
-from signal_analysis import SignalAnalyzer
-from preprocessing import Preprocessor
+from data_processing.signal.signal_analysis import SignalAnalyzer
+from data_processing.signal.preprocessing import Preprocessor
 
 
 class CourseAnalyzer():
