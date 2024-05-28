@@ -294,7 +294,8 @@ class Preprocessor:
         
         for room, room_dict in dict_df_room_door.items():
             for door, df_room_door in room_dict.items():  
-
+                
+                # deal with event type 4
                 # deal with event type 5 and 6
                 df_room_door = self.handle_event_type_5_6(df_room_door,k=5, s=3, m=5, ns=1, nm=5)
 

@@ -2,8 +2,9 @@
 from preprocessing import Preprocessor
 from signal_analysis import SignalAnalyzer
 from datetime import datetime as dt
-from datetime import time
+from datetime import time, timedelta
 import pandas as pd
+import numpy as np
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
@@ -22,7 +23,10 @@ data_path = "/home/berni/data_05_26"
 
 #########  Data Preprocessing #########
 cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing()
-#print(cleaned_data)
+cleaned_data.to_csv("cleaned_data.csv")
+
+#cleaned_data = pd.read_csv("cleaned_data.csv", header=0, index_col=0)
+#cleaned_data["time"] = pd.to_datetime(cleaned_data["time"])
 
 #########  Data Analysis #########
 # evaluate methods of the SignalAnalyzer class
@@ -54,7 +58,11 @@ for index, row in manual_control.iterrows():
     
     analyzer = SignalAnalyzer()
     data_analysis = analyzer.filter_by_room(cleaned_data, room_id)
-
+    
+    delta = timedelta(minutes=30)
+    save_df = analyzer.filter_by_time(data_analysis, start_time-delta, end_time+delta)
+    
+    
     # m is an extremely important parameter -> the one that is used to calculate the extrema
     df_list, participants, extrema, df_list_plotting, control = analyzer.calc_participants(data_analysis, 
                                             start_time=start_time,
@@ -83,21 +91,27 @@ for index, row in manual_control.iterrows():
                              title=title)
 
     control_row = df_plotting[df_plotting["time"] == control_time]
-    algo_people_in = control_row["people_inside"].values[0]
-    mse_term = (control_people_in - algo_people_in)**2
-    mse += mse_term
     
-    if mse_term > 10:
-        print("##################")
-        print("Time: ", control_time)
-        print("Room: ", room_id)
-        print("Participants: ", participants)
-        print("Control: ", control_people_in)
-        print("Algorithm: ", algo_people_in)
-        print("MSE: ", mse_term)
-        print("##################")
-        print()
-
+    #prediction = control_row["people_inside"].values[0] # 143.812
+    #prediction = int(np.mean(participants)) # 45.6875
+    #prediction = int(np.max(participants)) # 13.125
+    #prediciton = int(np.min(participants))
+    
+    #term = (control_people_in - prediction)**2
+    #term = abs(control_people_in - prediction)
+    mse += term
+    
+    #if mse_term > 10:
+    #    print("##################")
+    #    print("Time: ", control_time)
+    #    print("Room: ", room_id)
+    #    print("Participants: ", participants)
+    #    print("Control: ", control_people_in)
+    #    print("Prediction: ", prediction)
+    #    print("MSE: ", mse_term)
+    #    print(analyzer.describe_inside(df_list_plotting[1])["std"])
+    #    print("##################")
+    #    print()
 
 print("MSE: ", mse/len(manual_control))
     
