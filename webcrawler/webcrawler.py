@@ -152,13 +152,61 @@ class Snail():
         # harvest all the information from the lva overview page
         lva_page = self.crawl(self.base_url + lva_url)
 
+        print(self.base_url + lva_url)
         
+        
+        ############# Study Handbook #############
+        # get link to study handbook
+        studyhandbook_link = self.search_html(lva_page, "a", {"title":"Studienhandbuch"}, all=False)["href"]
+        studyhandbook_page = self.crawl(studyhandbook_link)
+        
+        handbook_info_dict = dict()
+
+        curriculum_info = self.search_html(studyhandbook_page, "li", {"class":"bread-crumb-trail"}, all=True)
+        # new info
+        if curriculum_info == []:
+            studienfach = "Not available"
+        else:
+            studienfach = curriculum_info[1].get_text(strip=True)
+            
+        handbook_info_dict["Studienfach"] = studienfach
+        
+        # harvest header table
+        first_table = self.search_html(studyhandbook_page, "table", {"cellpadding":"3", "cellspacing":"0"}, all=False)
+        if first_table != None:
+            # get header info
+            for header_element in first_table.find_all("th"):
+                handbook_info_dict[header_element.get_text(strip=True)] = None
+            # get content info
+            keys = list(handbook_info_dict.keys())    
+            for i, header_element in enumerate(first_table.find_all("td")):
+                handbook_info_dict[keys[i%len(keys)]]= header_element.get_text(strip=True)
+
+        # harvest table "Detailinformation"
+        details_table = self.search_html(studyhandbook_page, "table", all=True)[-2]
+        
+        if not ("Diese Lehrveranstaltung konnte leider nicht gefunden werden!" in details_table.get_text()):
+            for row in details_table.find_all("tr")[1:]:
+                row_elements = list(filter(None, row.get_text().split("\n")))
+                handbook_info_dict[row_elements[0]] = "\n".join(row_elements[1:])
+            
+        ############# LVA ############# 
         # get some lva details
         info = self.search_html(lva_page, "tr", attributes={"class":"priorityhighlighted"}, all=False).find_all("td")
+        # crawl some basic info
         lva_number = info[0].get_text(strip=True)
         max_students = int(info[-4].get_text(strip=True))
         registered_students = int(info[-2].get_text(strip=True))
-
+        
+        # crawl more information from second table "subinfo"
+        subinfo_table = self.search_html(lva_page, "table", {"class":"subinfo"}, all=False)
+        subinfo_header = self.search_html(subinfo_table, "td", {"valign":"top"}, all=True)[0]
+        # store the infromation in dictionary
+        subinfo_dict = dict()       
+        for row in subinfo_header.get_text().split("\n"):
+            row_elements = row.split(":")
+            if len(row_elements) == 2:
+                subinfo_dict[row_elements[0].strip()] = row_elements[1].strip()
         
         # extract the dates of the lva
         summary = f"Übersicht aller Termine der Lehrveranstaltung {lva_number}"
@@ -190,7 +238,7 @@ class Snail():
                     dates_dataframe.loc[idx//2, "Anmerkung"] = " ".join(date_info)
 
 
-        return max_students, registered_students, dates_dataframe
+        return max_students, registered_students, dates_dataframe, subinfo_dict, handbook_info_dict
 
     ######### Application #########
     def validate_room(self, room_name):
@@ -212,7 +260,7 @@ class Snail():
             action = link_dict[lva_number]
             
             # get the details and dates of the lva
-            max_students, registered_students, df_dates = self.get_lva_details_and_dates(action)
+            max_students, registered_students, df_dates, subinfo_dict, studyhandbook_dict = self.get_lva_details_and_dates(action)
             # filter the dates by the room
             df_dates = self.filter_by_room(df_dates, room)
             
@@ -221,6 +269,8 @@ class Snail():
             # store the max and registered students
             df_courses.loc[i, "max_students"] = max_students
             df_courses.loc[i, "registered_students"] = registered_students
+            
+            # store infromation from dictionaries
 
         df_dates = pd.concat(dates_list).reset_index(drop=True)
         
