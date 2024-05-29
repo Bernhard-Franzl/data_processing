@@ -150,10 +150,7 @@ class Snail():
     def get_lva_details_and_dates(self, lva_url):
 
         # harvest all the information from the lva overview page
-        lva_page = self.crawl(self.base_url + lva_url)
-
-        print(self.base_url + lva_url)
-        
+        lva_page = self.crawl(self.base_url + lva_url)        
         
         ############# Study Handbook #############
         # get link to study handbook
@@ -168,8 +165,6 @@ class Snail():
             studienfach = "Not available"
         else:
             studienfach = curriculum_info[1].get_text(strip=True)
-            
-        handbook_info_dict["Studienfach"] = studienfach
         
         # harvest header table
         first_table = self.search_html(studyhandbook_page, "table", {"cellpadding":"3", "cellspacing":"0"}, all=False)
@@ -189,6 +184,8 @@ class Snail():
             for row in details_table.find_all("tr")[1:]:
                 row_elements = list(filter(None, row.get_text().split("\n")))
                 handbook_info_dict[row_elements[0]] = "\n".join(row_elements[1:])
+                
+        handbook_info_dict["Studienfach"] = studienfach
             
         ############# LVA ############# 
         # get some lva details
@@ -254,7 +251,7 @@ class Snail():
         df_courses = dataframe_courses.copy()
         
         dates_list = []
-        for i,row in tqdm(df_courses.iterrows()):
+        for i,row in tqdm(df_courses.iterrows(), total=len(df_courses)):
             # extract the lva number and action link
             lva_number = row["LVA-Nr."]
             action = link_dict[lva_number]
@@ -271,6 +268,31 @@ class Snail():
             df_courses.loc[i, "registered_students"] = registered_students
             
             # store infromation from dictionaries
+            for key in subinfo_dict.keys():
+                if key == "Abhaltungs-Sprache":
+                    df_courses.loc[i, "Abhaltungssprache_subinfo"] = subinfo_dict[key]
+                else:
+                    df_courses.loc[i, key] = subinfo_dict[key]
+            
+            # all features
+            # ['Workload', 'Ausbildungslevel', 'Studienfachbereich', 
+            #  'VerantwortlicheR', 'Semesterstunden', 'Anbietende Uni', 
+            #  'Quellcurriculum', 'Ziele', 'Lehrinhalte', 
+            #  'Beurteilungskriterien', 'Lehrmethoden', 
+            #  'Abhaltungssprache', 'Literatur', 'Lehrinhalte wechselnd?', 
+            #  'Sonstige Informationen', 'Äquivalenzen', 'Studienfach']
+                
+            interesting_features = ['Ausbildungslevel', 'Studienfachbereich', 'Anbietende Uni', 
+             'Quellcurriculum', 'Beurteilungskriterien', 'Lehrmethoden', 
+             'Abhaltungssprache', 'Literatur', 'Lehrinhalte wechselnd?', 
+             'Sonstige Informationen', 'Studienfach']
+
+            for key in studyhandbook_dict.keys():
+                if key in interesting_features:
+                    if key == "Abhaltungssprache":
+                        df_courses.loc[i, "Abhaltungssprache_studyhandbook"] = studyhandbook_dict[key]
+                    else:
+                        df_courses.loc[i, key] = studyhandbook_dict[key]
 
         df_dates = pd.concat(dates_list).reset_index(drop=True)
         

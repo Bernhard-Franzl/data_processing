@@ -15,7 +15,7 @@ snail = Snail()
 #action, payload = snail.prepare_catalogue_search(course_catalog)
 
 
-room = "HS 18"
+room = "HS 19"
 df_courses, df_dates = snail.get_courses_by_room(room)
 
 snail.export_to_csv(df_courses, f"{room}_courses.csv")
