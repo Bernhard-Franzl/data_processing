@@ -14,6 +14,8 @@ snail = Snail()
 
 #action, payload = snail.prepare_catalogue_search(course_catalog)
 
+#TODO:
+# - derive regularity of course from Kusss!!
 
 room = "HS 19"
 df_courses, df_dates = snail.get_courses_by_room(room)
