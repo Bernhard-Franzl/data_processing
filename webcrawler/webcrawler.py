@@ -217,7 +217,6 @@ class Snail():
         date_list_uncleaned = dates_table.find_all("tr")[1:]
         
         # filter out all dates not in the desired room
-
         for idx in range(len(date_list_uncleaned)-1):
             
             date_info = [x.strip() for x in self.clean_string_dates(date_list_uncleaned[idx].get_text()) if x!=""]
@@ -246,6 +245,70 @@ class Snail():
             return False
         return True
     
+    def derive_exam_dates(self, dates_dataframe):
+        # conaints exam, prüfung, klausur, test, quiz
+        df = dates_dataframe.copy()
+        df["exam"] = df["Anmerkung"].str.contains("Prüfung|Klausur|TK|Exam|NK", case=False)
+        df["test"] = df["Anmerkung"].str.contains("Test|Quiz", case=False)
+        return df
+    
+    def derive_tutorium_dates(self, dates_dataframe):
+        df = dates_dataframe.copy()
+        df["tutorium"] = df["Anmerkung"].str.contains("Tutorium|Fragestunde|Sprechstunde", case=False)
+        return df
+              
+    def derive_regularity(self, dates_dataframe):
+        
+        df_dates = dates_dataframe.copy()
+        
+        df_dates = df_dates[~df_dates["exam"] & ~df_dates["tutorium"]]
+        
+        # correct the dates
+        dates_total = df_dates["Datum"].apply(lambda x: pd.to_datetime(x, format="%d.%m.%y").date())
+        # filter out dates after end of semester
+        #dates_semester = dates_total[dates_total < pd.to_datetime("2024-07-01").date()]
+        #if dates_semester.empty:
+        #    regularity = "out of semester"
+        #    return regularity
+        
+        ## get the min and max date
+        #min_date = dates_semester.min()
+        #max_date = dates_semester.max()
+        #weeks_between = (max_date - min_date).days/7
+        
+        no_dates_total = len(dates_total)
+        return no_dates_total
+        #if weeks_between >= 10: 
+        #    ratio = no_dates_total / weeks_between
+        #    if 0.7 <= ratio <= 1.2:
+        #        regularity = "weekly"
+                
+        #    elif 1.3 <= ratio <= 2.1:
+        #        regularity = "twice a week"
+                
+        #    elif 2.1 < ratio:
+        #        regularity = "more than 2 a week"
+                
+
+        #    elif 0.5 <= ratio < 0.7:
+        #        regularity = "biweekly"
+        #    else:
+        #        # 0.428 -> irregular
+        #        regularity = "irregular"
+        #        print("irregular")
+        #        print(no_dates_total / weeks_between, weeks_between)
+        #        print()
+                
+                
+        #else:
+        #    # weeks_between 2 & ratio=1.5 -> blocked course
+        #    regularity = "irregular"
+        #    print("irregular")
+        #    print(no_dates_total / weeks_between, weeks_between)
+        #    print()
+            
+            # twice a week
+            
     def accumulate_course_dates(self, dataframe_courses, link_dict, room):
         
         df_courses = dataframe_courses.copy()
@@ -258,7 +321,13 @@ class Snail():
             
             # get the details and dates of the lva
             max_students, registered_students, df_dates, subinfo_dict, studyhandbook_dict = self.get_lva_details_and_dates(action)
-            # filter the dates by the room
+            
+            df_dates = self.derive_exam_dates(df_dates)
+            df_dates = self.derive_tutorium_dates(df_dates)
+            # derive regularity
+            no_dates_total = self.derive_regularity(df_dates)
+            df_courses.loc[i, "no_dates_total"] = no_dates_total
+            # filter the dates by the room            
             df_dates = self.filter_by_room(df_dates, room)
             
             # store the dates

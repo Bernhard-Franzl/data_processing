@@ -27,7 +27,7 @@ df = worker.filter_df_by_timestamp(dataframe=worker.df_combined,
 
 ## must happen before calculating participants
 df = worker.handle_combined_courses(df)
-
+# must happen after time filtering
 df = worker.add_no_dates(df)
 
 

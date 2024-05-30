@@ -15,13 +15,14 @@ snail = Snail()
 #action, payload = snail.prepare_catalogue_search(course_catalog)
 
 #TODO:
-# - derive regularity of course from Kusss!!
+# - derive regularity of course from Kusss!! -> need better idea
+#  maybe involve difference between dates! seems to be better suited than ratio!
 
 room = "HS 19"
 df_courses, df_dates = snail.get_courses_by_room(room)
 
-snail.export_to_csv(df_courses, f"{room}_courses.csv")
-snail.export_to_csv(df_dates, f"{room}_dates.csv")
+snail.export_to_csv(df_courses, f"data/{room}_courses.csv")
+snail.export_to_csv(df_dates, f"data/{room}_dates.csv")
 
 
 
