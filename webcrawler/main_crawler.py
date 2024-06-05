@@ -18,7 +18,7 @@ snail = Snail()
 # - derive regularity of course from Kusss!! -> need better idea
 #  maybe involve difference between dates! seems to be better suited than ratio!
 
-room = "HS 19"
+room = "HS 18"
 df_courses, df_dates = snail.get_courses_by_room(room)
 
 snail.export_to_csv(df_courses, f"data/{room}_courses.csv")

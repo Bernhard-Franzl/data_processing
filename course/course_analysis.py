@@ -139,12 +139,17 @@ class CourseAnalyzer():
             df_courses["room_id"] = self.room_to_id[file.split("_")[0]]
             dataframes.append(df_courses)
         df_courses = pd.concat(dataframes, axis=0).reset_index(drop=True)
-            
+        
+        df_courses.drop(["Nächster Termin", "SSt.", "Abhaltungssprache_subinfo", "Literatur", "Lehrinhalte wechselnd?"], axis=1, inplace=True)
+        
         df_courses = self.rename_columns(df_courses, 
-                                              ["LVA-Nr.", "LVA-Titel", "Typ", "Art", "LeiterIn", "Sem.", "ECTS", "SSt."], 
-                                              ["course_number", "course_name", "type", "kind", "lecturer", "semester", "ects", "sst"])
+                                              ["LVA-Nr.", "LVA-Titel", "Typ", "Art", "LeiterIn", "Sem.", "ECTS"], 
+                                              ["course_number", "course_name", "type", "kind", "lecturer", "semester", "ects"])
+        
+        df_courses = self.rename_columns(df_courses,
+                                         ["Institut", "E-Mail", "Ausbildungslevel", "Studienfachbereich", "Anbietende Uni", "Quellcurriculum", "Beurteilungskriterien", "Lehrmethoden", "Abhaltungssprache_studyhandbook", "Studienfach", "Sonstige Informationen"],
+                                         ["instute", "email", "level", "study_area", "university", "curriculum", "assessment_criteria", "teaching_methods", "language", "study_subject", "other_information"])
         df_courses["course_number"] = df_courses["course_number"].apply(lambda x: self.format_course_number(x))
-        df_courses.drop("Nächster Termin", axis=1, inplace=True)
         
         return df_courses
         
@@ -166,6 +171,7 @@ class CourseAnalyzer():
         df_dates["course_number"] = df_dates["course_number"].apply(lambda x: self.format_course_number(x))
         df_dates = self.add_room_capcity(df_dates)
         df_dates = self.add_calendar_week(df_dates, "start_time")
+
         return df_dates
 
     ###### Filter Dataframes ######
@@ -195,8 +201,8 @@ class CourseAnalyzer():
         # only show courses betwen start and end time
         df = dataframe.copy(deep=True)
         df = df[df["room_id"] == room_id]
-        df = df.sort_values(by="start_time").reset_index(drop=True)
-        return df
+        #df = df.sort_values(by="start_time").reset_index(drop=True)
+        return df.reset_index(drop=True)
    
     #def filter_df_by_courses(self, dataframe, course_numbers):
     #    # only show courses betwen start and end time
@@ -262,9 +268,9 @@ class CourseAnalyzer():
                 df_first_last = self.filter_df_by_date(self.df_dates, cur_date)
                 cur_room = row["room_id"]
                 df_first_last = self.filter_df_by_room(df_first_last, cur_room)
-                
+            
             df_signal_cur = self.filter_df_by_room(self.df_signal, cur_room)                
-                
+            
             start_time = row["start_time"]
             end_time = row["end_time"]
             
