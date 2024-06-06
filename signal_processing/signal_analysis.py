@@ -282,7 +282,7 @@ class SignalAnalyzer():
         extrema = pd.concat([ext_b, ext_a])
         
         if control:
-            return [df_before, df_during, df_after], (part_b, part_a), extrema, [df_list_b, df_during, df_list_a], control
+            return [df_before, df_during, df_after], (part_b, part_a), extrema, [df_list_b, df_during, df_list_a], df_control
         else:
             return [df_before, df_during, df_after], (part_b, part_a), extrema, [df_list_b, df_during, df_list_a]
         

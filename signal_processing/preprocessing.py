@@ -157,7 +157,7 @@ class Preprocessor:
         # neighborhood size
         k = k
         # number of closest neighbors
-        n = n
+        n = nm
         # upper bound for support count
         upper_bound = ub
          
@@ -352,7 +352,7 @@ class Preprocessor:
             df[col] = df[col].astype(int)
         
         # delete hidden file in folder data_HS19_2024-04-25
-        #print(df[df["Entering"]=="l2"])
+        print(df[df["Entering"]=="l2"])
         df["event_type"] = df["Entering"].apply(lambda x: self.correct_entering_column(x))
         
         # convert columnnames to lowercase
@@ -369,14 +369,20 @@ class Preprocessor:
         df = self.discard_samples(df)
         # without => mse:149.23
         
-        #df = self.filter_data_1(df, k=5, n=3, ub=3) # most basic filtering
-        #mse: 150.411. k=5, n=3, ub=3
+        #df = self.filter_data_1(df, k=5, nm=3, ub=3) # most basic filtering
+        # median, max mode
+        #MSE:  12.586206896551724
+        #AE:  2.862068965517241
         
-        #df = self.filter_data_2(df, k=5, ns=1, nm=5, s=2, ub=3)
-        #mse: 145.0588, k=5, ns=1, nm=5, s=2, ub=3
+        df = self.filter_data_2(df, k=5, ns=1, nm=5, s=2, ub=3)
+        # median, max mode
+        #MSE:  11.724137931034482
+        #AE:  2.7586206896551726 
         
-        df = self.filter_data_3(df, k=5, ns=1, nm=5, s=2, ub=3)
-        
+        #df = self.filter_data_3(df, k=5, ns=1, nm=5, s=2, ub=3)
+        # median, max mode
+        #MSE:  11.96551724137931
+        #AE:  2.793103448275862
         # sort by time
         df = df.sort_values(by="time", ascending=True).reset_index(drop=True)
         
