@@ -8,7 +8,7 @@ import numpy as np
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
-data_path = "/home/berni/data_05_26"
+data_path = "/home/franzl/data_05_16"
 
 
 # TODO:
@@ -22,17 +22,17 @@ data_path = "/home/berni/data_05_26"
 
 
 #########  Data Preprocessing #########
-cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing()
-cleaned_data.to_csv("cleaned_data.csv")
+# cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing()
+# cleaned_data.to_csv("data/cleaned_data.csv")
 
-#cleaned_data = pd.read_csv("cleaned_data.csv", header=0, index_col=0)
-#cleaned_data["time"] = pd.to_datetime(cleaned_data["time"])
+cleaned_data = pd.read_csv("data/cleaned_data.csv", header=0, index_col=0)
+cleaned_data["time"] = pd.to_datetime(cleaned_data["time"])
 
 #########  Data Analysis #########
 # evaluate methods of the SignalAnalyzer class
 # manual control data
 
-manual_control = pd.read_csv("zählung.csv")
+manual_control = pd.read_csv("data/zählung.csv")
 manual_control["room_id"] = manual_control["room"].map(room_to_id)
 mse = 0
 for index, row in manual_control.iterrows():
@@ -83,11 +83,11 @@ for index, row in manual_control.iterrows():
     title = f"Control:{control_people_in}, Time:{control_time}"    
     analyzer.plot_participants_algo(file_name = f"{control_time}_{room_id}.png",
                              participants=df_plotting,
-                             df_list = df_list,
+                             df_list = None,
                              control = None,
-                             extrema = extrema,
+                             extrema = None,
                              horizontal_lines=[],
-                             vertical_lines=vertical_lines,
+                             vertical_lines=[],#vertical_lines,
                              title=title)
 
     control_row = df_plotting[df_plotting["time"] == control_time]
@@ -99,7 +99,7 @@ for index, row in manual_control.iterrows():
     
     #term = (control_people_in - prediction)**2
     #term = abs(control_people_in - prediction)
-    mse += term
+    #mse += term
     
     #if mse_term > 10:
     #    print("##################")

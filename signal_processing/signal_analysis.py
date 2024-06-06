@@ -397,7 +397,9 @@ class SignalAnalyzer():
                     
             if title is not None:
                 plt.title(title)
-                
+            
+            plt.xlabel("Time")
+            plt.ylabel("People Inside")   
             plt.legend(legend)
             plt.grid()
             fig.savefig(path + file_name)
