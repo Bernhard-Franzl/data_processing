@@ -42,6 +42,7 @@ class Preprocessor:
         filtered = self.filter_directories(sub_dirs)
         return filtered
      
+     
     #######  Data Extraction Methods ########
     def get_data(self, file_name):
         with open(file_name, "r") as file:
@@ -66,6 +67,9 @@ class Preprocessor:
             # sanity check
             # check if the directory contains the correct files
             #if "door1.csv", "door2.csv", "format.csv":
+            # delete all other files            
+            file_list = [x for x in file_list if x in ["door1.csv", "door2.csv", "format.csv"]]
+            
             if not "door1.csv" in file_list or not "door2.csv" in file_list or not "format.csv" in file_list:
                 print(path)
                 print(file_list)
@@ -91,6 +95,7 @@ class Preprocessor:
                 df_accumulated = pd.concat([df_accumulated, df], axis=0)
         
         return df_accumulated.reset_index(drop=True)
+      
       
     #######  Data Cleaning Methods ########
     def correct_entering_column(self, entry):
@@ -282,10 +287,16 @@ class Preprocessor:
                 
         return df
         
-    def filter_data_3(self, dataframe, k, ns, nm, s, ub):
+    def filter_data_3(self, dataframe, k, ns, nm, s, ub, handle_5, handle_6, m):
         df = dataframe.copy()
         
-        df = df[df["event_type"].isin([0,1,5,6])].sort_values(by="time", ascending=True).reset_index(drop=True)
+        event_types = [0,1]
+        if handle_5:
+            event_types.append(5)
+        if handle_6:
+            event_types.append(6)
+            
+        df = df[df["event_type"].isin(event_types)].sort_values(by="time", ascending=True).reset_index(drop=True)
         
         print("Take care of data: \n 14.05.2024, Event Type 5, HS18 Door1")
         dict_df_room_door = self.df_room_door_dict(df)
@@ -297,7 +308,8 @@ class Preprocessor:
                 
                 # deal with event type 4
                 # deal with event type 5 and 6
-                df_room_door = self.handle_event_type_5_6(df_room_door,k=5, s=3, m=5, ns=1, nm=5)
+                if handle_5 or handle_6:
+                    df_room_door = self.handle_event_type_5_6(df_room_door,k=k, s=s, m=m, ns=ns, nm=nm)
 
                 # deal with events with low directional support! 
                 df_test = df_room_door.copy()
@@ -335,7 +347,7 @@ class Preprocessor:
 
         return df_return
                     
-    def clean_raw_data(self, dataframe):
+    def clean_raw_data(self, dataframe:pd.DataFrame, params:dict):
         
         # make copy of dataframe
         df = dataframe.copy()
@@ -352,7 +364,7 @@ class Preprocessor:
             df[col] = df[col].astype(int)
         
         # delete hidden file in folder data_HS19_2024-04-25
-        print(df[df["Entering"]=="l2"])
+        #print(df[df["Entering"]=="l2"])
         df["event_type"] = df["Entering"].apply(lambda x: self.correct_entering_column(x))
         
         # convert columnnames to lowercase
@@ -365,32 +377,33 @@ class Preprocessor:
         # drop unneccessary columns
         df = df.drop(columns=["entering", "people_in", "people_out"])
         
-        # discard samples between 22:00 and 07:30
-        df = self.discard_samples(df)
-        # without => mse:149.23
+        if params["discard_samples"]:
+            # discard samples between 22:00 and 07:30
+            df = self.discard_samples(df)
+            # without => mse:149.23
+
+        filter_mode = params["filter_mode"]
         
-        #df = self.filter_data_1(df, k=5, nm=3, ub=3) # most basic filtering
-        # median, max mode
-        #MSE:  12.586206896551724
-        #AE:  2.862068965517241
-        
-        df = self.filter_data_2(df, k=5, ns=1, nm=5, s=2, ub=3)
-        # median, max mode
-        #MSE:  11.724137931034482
-        #AE:  2.7586206896551726 
-        
-        #df = self.filter_data_3(df, k=5, ns=1, nm=5, s=2, ub=3)
-        # median, max mode
-        #MSE:  11.96551724137931
-        #AE:  2.793103448275862
-        # sort by time
+        if filter_mode == "n-closest":
+            df = self.filter_data_1(df, k=params["k"], nm=params["nm"], ub=params["ub"]) # most basic filterings
+        #elif filter_mode == "time-window":
+        #    df = self.filter_data_2(df, k=params["k"], ns=params["ns"], nm=params["nm"], s=params["s"], ub=params["ub"])
+        elif filter_mode == "time-window":
+            df = self.filter_data_3(df, k=params["k"], ns=params["ns"], 
+                                    nm=params["nm"], s=params["s"], 
+                                    ub=params["ub"], m=params["m"],
+                                    handle_5=params["handle_5"], handle_6=params["handle_6"])
+        else:
+            raise ValueError("Filter mode not supported") 
+
         df = df.sort_values(by="time", ascending=True).reset_index(drop=True)
         
         return df
     
+    
     ###### Preprocessing Application ########
-    def apply_preprocessing(self):
+    def apply_preprocessing(self, params:dict):
         list_dirs = self.get_list_of_data_dirs()
         data = self.accumulate_raw_data(list_dirs)
-        cleaned_data = self.clean_raw_data(data)
+        cleaned_data = self.clean_raw_data(data, params)
         return cleaned_data

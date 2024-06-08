@@ -10,13 +10,27 @@ door_to_id = {"door1":0, "door2":1}
 data_path = "/home/berni/data_06_06"
 
 ########  Data Preprocessing #########
-#cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing()
-#cleaned_data.to_csv("data/cleaned_data.csv")
 
-cleaned_data = pd.read_csv("data/cleaned_data.csv", header=0, index_col=0)
-cleaned_data["time"] = pd.to_datetime(cleaned_data["time"])
+preprocessing_params = {
+    "discard_samples":True,
+    "filter_mode":"time-window",
+    "k":5,
+    "nm":3,
+    "ub":3,
+    "ns":1,
+    "s":2,
+    "m":5,
+    "handle_5":True,
+    "handle_6":True
+}
 
-cleaned_data = pd.read_csv("data/HS 18_dates.csv", header=0, index_col=0)
+
+cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing(preprocessing_params)
+cleaned_data.to_csv("data/cleaned_data.csv")
+
+#cleaned_data = pd.read_csv("data/cleaned_data.csv", header=0, index_col=0)
+#cleaned_data["time"] = pd.to_datetime(cleaned_data["time"])
+
 
 #########  Data Analysis #########
 # evaluate methods of the SignalAnalyzer class
@@ -114,6 +128,11 @@ for index, row in manual_control.iterrows():
     #Mode: Median
     #MSE:  105.10344827586206
     #AE:  5.24137931034482
+    
+    # try first of participants
+    #prediction = participants[0]
+    # try second of participants
+    #prediction = participants[1]
     
     mse_term = (control_people_in - prediction)**2
     mse += mse_term
