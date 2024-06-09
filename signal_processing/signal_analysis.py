@@ -141,7 +141,7 @@ class SignalAnalyzer():
     def get_people_out(self, dataframe):
         return dataframe.iloc[-1]["people_out"]
         
-    def calc_participants(self, dataframe, start_time, end_time, first, last, control=False, mode="median"):
+    def calc_participants(self, dataframe, start_time, end_time, first, last, control, mode):
         
         #return_tuple = ()
         

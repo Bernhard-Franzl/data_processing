@@ -106,11 +106,8 @@ class Preprocessor:
         else:
             return int(entry)
     
-    def discard_samples(self, dataframe):
+    def discard_samples(self, dataframe, lb, ub):
         df = dataframe.copy()
-        # discard samples betwen 22:00 and 07:30
-        lb = time(hour=7, minute=40, second=0)
-        ub = time(hour=20, minute=00, second=0)
         mask  = df.apply(lambda x: (x["time"].time() >= lb) & (x["time"].time() <= ub), axis=1)
         df = df[mask].reset_index(drop=True)
         return df
@@ -154,17 +151,88 @@ class Preprocessor:
         rows = df.loc[i1:i2]
         return rows
     
-    def filter_data_1(self, dataframe, k, nm, ub):
+    def filter_data_3(self, dataframe, k, ns, nm, s, ub, handle_5, handle_6, m):
         df = dataframe.copy()
         
-        df = df[df["event_type"].isin([0,1])].sort_values(by="time", ascending=True).reset_index(drop=True)
-       
-        # neighborhood size
-        k = k
-        # number of closest neighbors
-        n = nm
-        # upper bound for support count
-        upper_bound = ub
+        event_types = [0,1]
+        if handle_5:
+            event_types.append(5)
+        if handle_6:
+            event_types.append(6)
+            
+        df = df[df["event_type"].isin(event_types)].sort_values(by="time", ascending=True).reset_index(drop=True)
+        
+        print("Take care of data: \n 14.05.2024, Event Type 5, HS18 Door1")
+        dict_df_room_door = self.df_room_door_dict(df)
+        df_return = pd.DataFrame(columns=list(df.columns))
+        df_return = df_return.astype(df.dtypes)
+        
+        for room, room_dict in dict_df_room_door.items():
+            for door, df_room_door in room_dict.items():  
+                
+                # deal with event type 4
+                # deal with event type 5 and 6
+                if handle_5 or handle_6:
+                    df_room_door = self.handle_event_type_5_6(df_room_door,k=k, s=s, m=m, ns=ns, nm=nm)
+
+                # deal with events with low directional support! 
+                df_test = df_room_door.copy()
+                
+                # filter out samples with low support count
+                df_test = df_test[(df_test["in_support_count"] < ub) 
+                                & (df_test["out_support_count"] < ub)]
+            
+                for x in df_test.index:
+                    # use index to get row
+                    x_row = df_room_door.loc[x]
+                    x_time = x_row["time"]
+
+                    # select neighborhood of sample
+                    rows = self.get_neighborhood(df_room_door, x, k)
+        
+                    # try time filter first -> more reliable
+                    x_time_lb = x_time - timedelta(seconds=s)
+                    x_time_ub = x_time + timedelta(seconds=s)
+                    rows_time_filtered = rows[(rows["time"] >= x_time_lb) & (rows["time"] <= x_time_ub)]
+            
+                    # if only one sample in time window
+                    if len(rows_time_filtered) == 1:
+                        # select make majority vote with the n closestest neighbors
+                        common_event_type = self.event_type_majority_vote_closest(rows, x_time, nm, targte_removed=False)
+                    
+                    # if more than one sample in time window     
+                    else:
+                        # make majority vote with the samples in the time window
+                        common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, ns, targte_removed=False)
+                        
+                    df_room_door.loc[x, "event_type"] = common_event_type
+                    
+                df_return = pd.concat([df_return, df_room_door], axis=0)
+
+        return df_return
+    
+    
+    def filter_discard(self, dataframe, lb_in, lb_out, **kwargs):
+        df = dataframe.copy()
+        
+        event_types = [0,1]
+        df = df[df["event_type"].isin(event_types)].reset_index(drop=True)
+
+        # drop all samples with low support count
+        df = df[(df["in_support_count"] >= lb_in) | (df["out_support_count"] >= lb_out)]
+        
+        return df
+    
+    def filter_data_n_closest(self, dataframe, k, nm, lb_in, lb_out, handle_5, handle_6, **kwargs):
+        df = dataframe.copy()
+        
+        event_list = [0,1]
+        if handle_5:
+            event_list.append(5)
+        if handle_6:
+            event_list.append(6)
+            
+        df = df[df["event_type"].isin(event_list)].sort_values(by="time", ascending=True).reset_index(drop=True)
          
         dict_df_room_door = self.df_room_door_dict(df)
         df_return = pd.DataFrame(columns=list(df.columns))
@@ -177,8 +245,8 @@ class Preprocessor:
                 df_test = df_room_door.copy()
             
                 # filter out samples with low support count
-                df_test = df_test[(df_test["in_support_count"] < upper_bound) 
-                                & (df_test["out_support_count"] < upper_bound)]
+                df_test = df_test[(df_test["in_support_count"] < lb_in) 
+                                & (df_test["out_support_count"] < lb_out)]
             
         
                 for x in df_test.index:
@@ -197,10 +265,16 @@ class Preprocessor:
             
         return df_return
             
-    def filter_data_2(self, dataframe, k, ns, nm, s, ub):
+    def filter_data_time_window(self, dataframe, k, ns, nm, s, lb_in, lb_out, handle_5, handle_6, **kwargs):
         df = dataframe.copy()
         
-        df = df[df["event_type"].isin([0,1])].sort_values(by="time", ascending=True).reset_index(drop=True)
+        event_list = [0,1]
+        if handle_5:
+            event_list.append(5)
+        if handle_6:
+            event_list.append(6)
+            
+        df = df[df["event_type"].isin(event_list)].sort_values(by="time", ascending=True).reset_index(drop=True)
          
         dict_df_room_door = self.df_room_door_dict(df)
         df_return = pd.DataFrame(columns=list(df.columns))
@@ -213,8 +287,8 @@ class Preprocessor:
                 df_test = df_room_door.copy()
             
                 # filter out samples with low support count
-                df_test = df_test[(df_test["in_support_count"] < ub) 
-                                & (df_test["out_support_count"] < ub)]
+                df_test = df_test[(df_test["in_support_count"] < lb_in) 
+                                & (df_test["out_support_count"] < lb_out)]
             
                 #handle the samples with low support count
                 for x in df_test.index:
@@ -286,8 +360,8 @@ class Preprocessor:
         df = df[df["event_type"] != -1].reset_index(drop=True)   
                 
         return df
-        
-    def filter_data_3(self, dataframe, k, ns, nm, s, ub, handle_5, handle_6, m):
+    
+    def filter_event_type_5_6(self, dataframe, k, s, m, ns, nm, handle_5, handle_6, **kwargs):
         df = dataframe.copy()
         
         event_types = [0,1]
@@ -309,90 +383,65 @@ class Preprocessor:
                 # deal with event type 4
                 # deal with event type 5 and 6
                 if handle_5 or handle_6:
-                    df_room_door = self.handle_event_type_5_6(df_room_door,k=k, s=s, m=m, ns=ns, nm=nm)
-
-                # deal with events with low directional support! 
-                df_test = df_room_door.copy()
-                
-                # filter out samples with low support count
-                df_test = df_test[(df_test["in_support_count"] < ub) 
-                                & (df_test["out_support_count"] < ub)]
-            
-                for x in df_test.index:
-                    # use index to get row
-                    x_row = df_room_door.loc[x]
-                    x_time = x_row["time"]
-
-                    # select neighborhood of sample
-                    rows = self.get_neighborhood(df_room_door, x, k)
-        
-                    # try time filter first -> more reliable
-                    x_time_lb = x_time - timedelta(seconds=s)
-                    x_time_ub = x_time + timedelta(seconds=s)
-                    rows_time_filtered = rows[(rows["time"] >= x_time_lb) & (rows["time"] <= x_time_ub)]
-            
-                    # if only one sample in time window
-                    if len(rows_time_filtered) == 1:
-                        # select make majority vote with the n closestest neighbors
-                        common_event_type = self.event_type_majority_vote_closest(rows, x_time, nm, targte_removed=False)
-                    
-                    # if more than one sample in time window     
-                    else:
-                        # make majority vote with the samples in the time window
-                        common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, ns, targte_removed=False)
-                        
-                    df_room_door.loc[x, "event_type"] = common_event_type
+                    df_room_door = self.handle_event_type_5_6(df_room_door, k=k, s=s, m=m, ns=ns, nm=nm)
                     
                 df_return = pd.concat([df_return, df_room_door], axis=0)
 
-        return df_return
-                    
-    def clean_raw_data(self, dataframe:pd.DataFrame, params:dict):
+        return df_return       
         
+    def basic_cleaning_and_data_type_correction(self, dataframe:pd.DataFrame):
         # make copy of dataframe
         df = dataframe.copy()
-        # get nan values
+        # drop nan values
         #print(df[df["Entering"].isna()])
         df.dropna(subset=["Entering"], inplace=True)
-        #print(df[df["Entering"].isna()])
-        
         # drop duplicates
         df.drop_duplicates(inplace=True)
-        
         # correct the data types
         for col in df.columns[2:]:
             df[col] = df[col].astype(int)
-        
         # delete hidden file in folder data_HS19_2024-04-25
-        #print(df[df["Entering"]=="l2"])
         df["event_type"] = df["Entering"].apply(lambda x: self.correct_entering_column(x))
-        
         # convert columnnames to lowercase
         df.columns = df.columns.str.lower()
-        
         # rename columns
         df = df.rename(columns={"one_count_1":"sensor_one_support_count", 
                                 "one_count_2":"sensor_two_support_count"})
-
         # drop unneccessary columns
-        df = df.drop(columns=["entering", "people_in", "people_out"])
+        df = df.drop(columns=["entering", "people_in", "people_out"])   
+        return df
+    
+    def clean_raw_data(self, dataframe:pd.DataFrame, params:dict):
         
-        if params["discard_samples"]:
+        # do basic cleaning and data type correction
+        df = self.basic_cleaning_and_data_type_correction(dataframe)
+        
+        filtering_params = params["filtering_params"]
+        # check if samples should be discarded or not
+        if filtering_params["discard_samples"]:
             # discard samples between 22:00 and 07:30
-            df = self.discard_samples(df)
-            # without => mse:149.23
-
-        filter_mode = params["filter_mode"]
+            lb = time(hour=7, minute=40, second=0)
+            ub = time(hour=22, minute=00, second=0)
+            df = self.discard_samples(df, lb, ub)
+            
+            
+        filter_mode = filtering_params["filter_mode"]
+        if filter_mode == "discard":
+            df = self.filter_discard(dataframe=df, **filtering_params)
         
-        if filter_mode == "n-closest":
-            df = self.filter_data_1(df, k=params["k"], nm=params["nm"], ub=params["ub"]) # most basic filterings
-        #elif filter_mode == "time-window":
-        #    df = self.filter_data_2(df, k=params["k"], ns=params["ns"], nm=params["nm"], s=params["s"], ub=params["ub"])
+        elif filter_mode == "n-closest":
+            if filtering_params["handle_5"] or filtering_params["handle_6"]:
+                df = self.filter_event_type_5_6(dataframe=df, **params["handle_56_params"])
+            
+            df = self.filter_data_n_closest(dataframe=df, **filtering_params) # most basic filterings
+            
+
         elif filter_mode == "time-window":
-            df = self.filter_data_3(df, k=params["k"], ns=params["ns"], 
-                                    nm=params["nm"], s=params["s"], 
-                                    ub=params["ub"], m=params["m"],
-                                    handle_5=params["handle_5"], handle_6=params["handle_6"])
+            
+            if filtering_params["handle_5"] or filtering_params["handle_6"]:
+                df = self.filter_event_type_5_6(dataframe=df, **params["handle_56_params"])
+
+            df = self.filter_data_3(dataframe=df, **filtering_params)
         else:
             raise ValueError("Filter mode not supported") 
 
@@ -400,7 +449,7 @@ class Preprocessor:
         
         return df
     
-    
+
     ###### Preprocessing Application ########
     def apply_preprocessing(self, params:dict):
         list_dirs = self.get_list_of_data_dirs()

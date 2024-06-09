@@ -1,0 +1,13 @@
+{   
+    "filtering_params":{
+        "discard_samples":[true],
+        "filter_mode": ["discard"],
+        "k":[1],
+        "lb_in":[1,2,3,4,5],
+        "lb_out":[1,2,3,4,5]
+    },
+    "handle_56_params":{
+        "k":[10],
+        "m":[3]   
+    }
+}

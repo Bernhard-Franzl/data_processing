@@ -1,0 +1,150 @@
+######## Combination: 0 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 1, 'lb_out': 1}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 15.344827586206897
+AE: 2.9310344827586206
+
+
+######## Combination: 1 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 1, 'lb_out': 2}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 14.793103448275861
+AE: 2.793103448275862
+
+
+######## Combination: 2 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 1, 'lb_out': 3}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 14.689655172413794
+AE: 2.8275862068965516
+
+
+######## Combination: 3 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 1, 'lb_out': 4}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 15.413793103448276
+AE: 2.9310344827586206
+
+
+######## Combination: 4 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 1, 'lb_out': 5}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 19.20689655172414
+AE: 2.9310344827586206
+
+
+######## Combination: 5 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 2, 'lb_out': 1}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 16.75862068965517
+AE: 3.103448275862069
+
+
+######## Combination: 6 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 2, 'lb_out': 2}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 16.20689655172414
+AE: 2.9655172413793105
+
+
+######## Combination: 7 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 2, 'lb_out': 3}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 16.0
+AE: 2.896551724137931
+
+
+######## Combination: 8 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 2, 'lb_out': 4}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 17.137931034482758
+AE: 3.0689655172413794
+
+
+######## Combination: 9 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 2, 'lb_out': 5}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 21.137931034482758
+AE: 3.1379310344827585
+
+
+######## Combination: 10 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 3, 'lb_out': 1}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 17.344827586206897
+AE: 3.2758620689655173
+
+
+######## Combination: 11 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 3, 'lb_out': 2}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 16.379310344827587
+AE: 3.0689655172413794
+
+
+######## Combination: 12 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 3, 'lb_out': 3}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 16.24137931034483
+AE: 3.0
+
+
+######## Combination: 13 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 3, 'lb_out': 4}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 17.24137931034483
+AE: 3.1724137931034484
+
+
+######## Combination: 14 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 3, 'lb_out': 5}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 21.137931034482758
+AE: 3.2758620689655173
+
+
+######## Combination: 15 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 4, 'lb_out': 1}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 20.310344827586206
+AE: 3.413793103448276
+
+
+######## Combination: 16 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 4, 'lb_out': 2}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 19.448275862068964
+AE: 3.2413793103448274
+
+
+######## Combination: 17 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 4, 'lb_out': 3}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 19.24137931034483
+AE: 3.1724137931034484
+
+
+######## Combination: 18 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 4, 'lb_out': 4}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 20.0
+AE: 3.310344827586207
+
+
+######## Combination: 19 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 4, 'lb_out': 5}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 26.620689655172413
+AE: 3.586206896551724
+
+
+######## Combination: 20 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 5, 'lb_out': 1}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 19.413793103448278
+AE: 3.2758620689655173
+
+
+######## Combination: 21 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 5, 'lb_out': 2}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 19.0
+AE: 3.206896551724138
+
+
+######## Combination: 22 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 5, 'lb_out': 3}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 18.655172413793103
+AE: 3.1379310344827585
+
+
+######## Combination: 23 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 5, 'lb_out': 4}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 19.06896551724138
+AE: 3.2758620689655173
+
+
+######## Combination: 24 ########
+Parameters: defaultdict(<class 'dict'>, {'filtering_params': {'discard_samples': True, 'filter_mode': 'discard', 'k': 1, 'lb_in': 5, 'lb_out': 5}, 'handle_56_params': {'k': 10, 'm': 3}})
+MSE: 25.551724137931036
+AE: 3.5517241379310347
+
+

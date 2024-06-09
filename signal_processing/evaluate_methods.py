@@ -1,60 +1,48 @@
 from preprocessing import Preprocessor
-from signal_analysis import SignalAnalyzer
-from datetime import datetime as dt
-from datetime import time, timedelta
-import pandas as pd
-import numpy as np
+from utils import ParameterSearch, Evaluator
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
 data_path = "/home/berni/data_06_06"
 
-########  Data Preprocessing #########
 
-params_dict = {
-    "filtering_params":{
-        "discard_samples":[True, False],
-        "filter_mode": ["time-window", "n_closest"],
-        "k":[5,3]
-    },
-    "handle_56_params":{
-        "k":[10,7],
-        "m":[3,1]
-    }
-}
-# preprocessing_params = {
-#     "discard_samples":True,
-#     "filter_mode":"time-window",
-#     "k":5,
-#     "nm":3,
-#     "ub":3,
-#     "ns":1,
-#     "s":2,
-#     "m":5,
-#     "handle_5":True,
-#     "handle_6":True
-# }
-import itertools
+####### Parameter Search ########
+path_to_json = "signal_processing/parameters.json"
+comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
 
-def extract_all_combinations(function_dict):
-    
-    keys = function_dict.keys()
-    combinations = itertools.product(*(function_dict[key] for key in keys))  
-    for comb in combinations:
-        print(dict(zip(keys, comb)))
-        yield dict(zip(keys, comb))
+
+def write_results_to_file(comb_number, params, mse, ae):
+    with open("results.txt", "a") as file:
+        file.write(f"######## Combination: {comb_number} ########\n")
+        file.write(f"Parameters: {params}\n")
+        file.write(f"MSE: {mse}\n")
+        file.write(f"AE: {ae}\n")
+        file.write("\n")
+        file.write("\n")
         
+    return None
+
+for i, params in enumerate(comb_iterator):
+
+    if i == 0:
+        old_params = params
         
-def get_params_combination_list(params_dict):
+    # check if for cases where the combination can be skipped
     
-    listy = []
-    for key in params_dict:
-        print(params_dict[key])
-        print(key, next(extract_all_combinations(params_dict[key])))
-        listy.append((key, extract_all_combinations(params_dict[key])))
-    print(listy)
+    cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing(params)
     
-get_params_combination_list(params_dict=params_dict)
+    mse, mae = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data, params=params)
+    
+    write_results_to_file(i, params, mse, mae)
+    
+# implement a measure to prune unnecessary combinations
+# E.g.: if handle 5 and handle 6 are false --> all the combinations in the handle_56_params dict are not necessary
+# E.g.: if filter_mode == "discard" --> only 2 parameters are necessary
+# We need to make it as modular as possible!
+
+########  Data Preprocessing #########       
+
+
 # cleaned_data = Preprocessor(data_path, room_to_id, door_to_id).apply_preprocessing(preprocessing_params)
 # cleaned_data.to_csv("data/cleaned_data.csv")
 
