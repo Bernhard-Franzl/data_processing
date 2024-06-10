@@ -8,7 +8,7 @@ from tqdm import tqdm
 # Imports for Evaluator
 import pandas as pd
 from signal_analysis import SignalAnalyzer
-from datetime import datetime
+from datetime import datetime, timedelta
 
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
@@ -127,27 +127,45 @@ class Evaluator:
                                 horizontal_lines=[],
                                 vertical_lines=vertical_lines,
                                 title=title)
+    
+    def get_prediction(self, participants, mode):
+        if mode == "mean":
+            return int(np.mean(participants))
+        elif mode == "max":
+            return int(np.max(participants))
+        elif mode == "min":
+            return int(np.min(participants))
+        elif mode == "first":
+            return int(participants[0])
+        elif mode == "second":
+            return int(participants[1])
+        else:
+            raise ValueError("Mode not recognized")
         
-    def evaluate_signal_analyzer(self, data:pd.DataFrame, params:dict):
+    def evaluate_signal_analyzer(self, data:pd.DataFrame, params:dict, raw_data=None):
         
-        mse = 0
-        ae = 0
+        signal_params = params["signal_params"]
+        
+        ae_list = []
+        se_list = []
+        ctd_list = []
         for index, row in self.control_data.iterrows():
             
             control_time, start_time, end_time, control_people_in, room_id, first, last = self.prepare_control_data_signal_analyzer(row)
             
             df_real = self.prepare_real_data_signal_analyzer(data, row["room_id"])
-        
+
             # m is an extremely important parameter -> the one that is used to calculate the extrema
             df_list, participants, extrema, df_list_plotting, control = self.function_to_evaluate(
-                                                    dataframe = df_real, 
+                                                    dataframe=df_real, 
                                                     control=True,
-                                                    mode="median",
                                                     start_time=start_time,
                                                     end_time=end_time,
                                                     first=first,
-                                                    last=last)
-        
+                                                    last=last,
+                                                    params=signal_params)
+
+            
             df_plotting = self.class_to_evaluate.merge_participant_dfs(df_list_plotting)
             
             # plotting functions somehow messes with data reading -> investigate!!!
@@ -157,26 +175,31 @@ class Evaluator:
             #                                   control_time=control_time)
             
             control_row = df_plotting[df_plotting["time"] == control_time]
-            prediction = int(np.max(participants))
+            
+            prediction = self.get_prediction(participants, signal_params["prediction_mode"])
+            
 
             mse_term = (control_people_in - prediction)**2
-            mse += mse_term
             ae_term = abs(control_people_in - prediction)
-            ae += ae_term
+            ctd_term = abs(control_people_in - int(control_row["people_inside"]))
+            
+            #if ctd_term > 1:
+            #    print("Control:",control_people_in, "Algo:", int(control_row["people_inside"]))
+            #    print(participants)
+                
+                #raw_to_save = self.class_to_evaluate.filter_by_room(raw_data, room_id)
+                #raw_to_save = self.class_to_evaluate.filter_by_time(raw_to_save,
+                #                                      start_time-timedelta(minutes=15),
+                #                                      end_time+timedelta(minutes=15))
+                #raw_to_save.sort_values(by="time", inplace=True)
+                #raw_to_save.to_csv(f"data/data_{room_id}_{control_time}_.csv")
+            
+            ae_list.append(ae_term)
+            se_list.append(mse_term)
+            ctd_list.append(ctd_term)
+            
         
-            #if mse_term > 10:
-            #    print("##################")
-            #    print("Time: ", control_time)
-            #    print("Room: ", room_id)
-            #    print("Participants: ", participants)
-            #    print("Control: ", control_people_in)
-            #    print("Prediction: ", prediction)
-            #    print("MSE: ", mse_term)
-            #    print("AE: ", ae_term)
-            #    print("##################")
-            #    print()   
-        
-        return mse/len(self.control_data), ae/len(self.control_data)         
+        return se_list, ae_list, ctd_list      
                              
             #prediction = control_row["people_inside"].values[0]
             #Mode: Mean 
@@ -185,30 +208,7 @@ class Evaluator:
             #Mode: Median
             #MSE: 88.55172413793103
             #AE: 4.0
-        
-            #prediction = int(np.mean(participants))
-            # Mode: Mean
-            #MSE:  32.10344827586207
-            #AE:  3.68965517241379
-            #Mode: Median
-            #MSE: 31.689655172413794
-            #AE:  3.6206896551724137
-        
-            #prediction = int(np.max(participants))
-            # Mode: Mean
-            #MSE:  32.10344827586207
-            #AE:  3.68965517241379
-            #Mode: Median
-            #MSE:  11.96551724137931
-            #AE:  2.793103448275862
-        
-            #prediction = int(np.min(participants))
-            #Mode: Mean, filter
-            #MSE:  100.89655172413794
-            #AE:  5.0344827586206895
-            #Mode: Median
-            #MSE:  105.10344827586206
-            #AE:  5.24137931034482
+
         
             # try first of participants
             #prediction = participants[0]

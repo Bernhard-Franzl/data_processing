@@ -141,9 +141,7 @@ class SignalAnalyzer():
     def get_people_out(self, dataframe):
         return dataframe.iloc[-1]["people_out"]
         
-    def calc_participants(self, dataframe, start_time, end_time, first, last, control, mode):
-        
-        #return_tuple = ()
+    def calc_participants(self, dataframe, start_time, end_time, first, last, control, params:dict):
         
         n = 1
         # make a copy of the dataframe
@@ -169,7 +167,7 @@ class SignalAnalyzer():
             df_control = self.calc_inside_per_min(df_control, n ,start_time_new, end_time_new-timedelta(minutes=1))
             #return_tuple += (df_control,)
 
-        def process_part(dataframe, n=10, before=True, first=False, last=False):
+        def process_part(dataframe, n, before, first, last):
             df = dataframe.copy()
             
             extrema = self.get_local_extrema(dataframe=df, n=n)
@@ -255,9 +253,9 @@ class SignalAnalyzer():
                 
             return extrema, counter, df_list
         
-        m = 2
-        ext_b, in_b, df_list_b = process_part(df_before, n=m, before=True, first=first, last=last)
-        ext_a, out_a, df_list_a = process_part(df_after, n=m, before=False, first=first, last=last)
+        
+        ext_b, in_b, df_list_b = process_part(df_before, n=params["m_before"], before=True, first=first, last=last)
+        ext_a, out_a, df_list_a = process_part(df_after, n=params["m_after"], before=False, first=first, last=last)
         
         def calc_participants(during:pd.DataFrame, in_before:int, out_after:int, mode:str):
             if mode == "median":
@@ -271,14 +269,13 @@ class SignalAnalyzer():
             
             part_before = in_before + inside_during 
             part_after = out_after - during.iloc[-1]["people_inside"] + inside_during
-            sanity_check = abs(part_before - part_after)
             
-            return part_before, part_after, sanity_check
+            return part_before, part_after
             
         
 
-        part_b, part_a, sanity_check = calc_participants(during=df_during, in_before=in_b, 
-                                                         out_after=out_a, mode=mode)
+        part_b, part_a = calc_participants(during=df_during, in_before=in_b, 
+                                            out_after=out_a, mode=params["part_mode"])
         extrema = pd.concat([ext_b, ext_a])
         
         if control:
