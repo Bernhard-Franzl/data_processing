@@ -181,7 +181,8 @@ class Evaluator:
 
             mse_term = (control_people_in - prediction)**2
             ae_term = abs(control_people_in - prediction)
-            ctd_term = abs(control_people_in - int(control_row["people_inside"]))
+            
+            ctd_term = abs(control_people_in - int(control_row["people_inside"].values[0]))
             
             #if ctd_term > 1:
             #    print("Control:",control_people_in, "Algo:", int(control_row["people_inside"]))
