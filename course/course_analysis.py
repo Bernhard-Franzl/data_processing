@@ -38,10 +38,7 @@ class CourseAnalyzer():
         
                
     ###### Basic Methods #####
-    def get_all_sub_files(self, path_to_dir): 
-        sub_files = sorted(list(os.walk(path_to_dir))[0][2])
-        return sub_files  
-    
+
     def format_dates(self, dataframe_dates):
         df_dates = dataframe_dates.copy(deep=True)
         
@@ -55,33 +52,13 @@ class CourseAnalyzer():
         
         return df_dates
     
-    def rename_columns(self, dataframe, old_names, new_names):
-        df = dataframe.copy(deep=True)
-        df.rename(columns=dict(zip(old_names, new_names)), inplace=True)
-        return df
-
-    def format_course_number(self, course_number):
-        if type(course_number) == str:
-            return course_number
-        else:
-            return "{:.3f}".format(course_number)
-
-    def add_room_capcity(self, dataframe):
-        df = dataframe.copy(deep=True)
-        df["room_capacity"] = df["room_id"].apply(lambda x: self.room_capacities[x])
-        return df
-    
-    def add_calendar_week(self, dataframe, time_column):
-        df = dataframe.copy()
-        df["calendar_week"] = df[time_column].apply(lambda x: x.date().isocalendar().week)
-        return df
-    
     def last_entry(self, dataframe, column):
         return dataframe.reset_index().loc[len(dataframe)-1, column]        
     
     def first_entry(self, dataframe, column):
         return dataframe.reset_index().loc[0, column]
-        
+      
+    # sepcial  
     def add_course_info(self, dates_dataframe):
         df = dates_dataframe.copy(deep=True)
         df = df.merge(self.df_courses, 
@@ -89,6 +66,7 @@ class CourseAnalyzer():
                       on="course_number")
         return df
     
+    # special
     def add_no_dates(self, dates_dataframe):
         
         df = dates_dataframe.copy()
@@ -98,20 +76,13 @@ class CourseAnalyzer():
     
     
     ########## Export/Import Methods ##########
-    def import_from_csv(self, path):
-        try:
-            data = pd.read_csv(path)
-            return data
-        except:
-            raise("Error: Could not read file. Please check if the file exists and the path is correct!")
-    
-    def import_signal_csv(self, path):
-        try:
-            data = pd.read_csv(path, header=0, index_col=0)
-            data["time"] = pd.to_datetime(data["time"])
-            return data
-        except:
-            raise("Error: Could not read file. Please check if the file exists and the path is correct!")
+    # def import_signal_csv(self, path):
+    #     try:
+    #         data = pd.read_csv(path, header=0, index_col=0)
+    #         data["time"] = pd.to_datetime(data["time"])
+    #         return data
+    #     except:
+    #         raise("Error: Could not read file. Please check if the file exists and the path is correct!")
               
     def export_csv(self, dataframe, path):
         dataframe.to_csv(path, index=False)
@@ -203,14 +174,7 @@ class CourseAnalyzer():
         df = df[df["room_id"] == room_id]
         #df = df.sort_values(by="start_time").reset_index(drop=True)
         return df.reset_index(drop=True)
-   
-    #def filter_df_by_courses(self, dataframe, course_numbers):
-    #    # only show courses betwen start and end time
-    #    df = dataframe.copy(deep=True)
-    #    df = df[df["course_number"].isin(course_numbers)]
-    #    df = df.sort_values(by="start_time").reset_index(drop=True)
-    #    return df
-    
+        
     
     ###### Basic Analysis Methods ######
     def handle_combined_courses(self, dataframe):
@@ -338,7 +302,7 @@ class CourseAnalyzer():
         df["relative_capacity"] = (df["present_students"] / df["room_capacity"]).round(4)
         return df
           
-              
+                
     ###### Course Attendance Dynamics ######
     def students_running_late(self, dataframe, minutes_interval, minutes_max):
         
@@ -479,4 +443,9 @@ class CourseAnalyzer():
         return df, entering_students_list, leaving_students_list, attendance_dynamics_list
             
 
-            
+    #def filter_df_by_courses(self, dataframe, course_numbers):
+    #    # only show courses betwen start and end time
+    #    df = dataframe.copy(deep=True)
+    #    df = df[df["course_number"].isin(course_numbers)]
+    #    df = df.sort_values(by="start_time").reset_index(drop=True)
+    #    return df

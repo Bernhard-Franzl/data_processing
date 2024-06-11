@@ -4,14 +4,17 @@ import numpy as np
 import json
 import os
 import pandas as pd
+
+
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
-data_path = "/home/berni/data_06_06"
+data_path = "/home/franzl/data_06_06/archive"
 
 #TODO:
 # implement something like 75% percentile in calcl partiicpants
 # before large test run check if results can be read in again!!
+
 
 ####### Parameter Search ########
 path_to_json = "signal_processing/parameters.json"
@@ -46,6 +49,7 @@ preprocessor = Preprocessor(data_path, room_to_id, door_to_id)
 
 for i, params in enumerate(comb_iterator):
     
+
     if i == 0:
         answer = input("Are you sure you want to start? Have you checked file names?")
         if answer == "y":
@@ -61,7 +65,7 @@ for i, params in enumerate(comb_iterator):
                                                                                                           raw_data=raw_data, 
                                                                                                           params=params)
 
-    file_name = "results_time-window.txt"
+    file_name = "results_time-window_test.txt"
     write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
     file_name = f"comb_time-window_{i}"
     write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
