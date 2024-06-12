@@ -13,9 +13,16 @@ class Preprocessor:
         self.door_to_id = door_to_id
            
     #######  File I/O Helper Methods ########
-    def read_from_csv(path_to_file):
+    def read_from_csv(self, path_to_file):
         data = pd.read_csv(path_to_file)
         return data
+    
+    def save_to_csv(self, dataframe, path_to_file, file_name):
+        # store the data in the data directory
+        dataframe.to_csv(os.path.join(path_to_file, file_name) + ".csv", index=False)
+        # store the datatypes in the data directory
+        dataframe.dtypes.to_csv(os.path.join(path_to_file, file_name) + "_dtypes.csv", index=False)
+        return True
     
     ####### Basic File Management Methods ########
     def get_all_sub_directories(self, path_to_dir):
@@ -171,15 +178,28 @@ class CoursePreprocessor(Preprocessor):
     def enhance_dataset(self, dataframe):
         dataframe = self.add_room_capcity(dataframe)
         dataframe = self.add_calendar_week(dataframe, "start_time")
+        return dataframe
     
-    #######  Preprocessing Application ########
-    def apply_preprocessing(self):
+    def correct_curriculum_row(self, row):
+        word_list = row.split(" ")
+        # filter out all words that cointains numbers
+        filtered = [x for x in word_list if not any(c.isdigit() for c in x)]
         
+        return " ".join(filtered)
+        
+    def correct_curriculum(self, dataframe):  
+        # check if curriculum is nan
+        mask = ~dataframe["curriculum"].isna()
+        dataframe.loc[mask, "curriculum"] = dataframe.loc[mask, "curriculum"].apply(lambda x: self.correct_curriculum_row(x))
+        return dataframe
+    #######  Preprocessing Application ########
+    def apply_preprocessing(self):     
         # clean the raw dates 
         cleaned_dates = self.clean_raw_course_dates(self.raw_course_dates)
         cleaned_dates = self.enhance_dataset(cleaned_dates)
         # clean the raw course info
         cleaned_courses = self.clean_raw_course_info(self.raw_course_info)
+        cleaned_courses = self.correct_curriculum(cleaned_courses)
         
         return cleaned_courses, cleaned_dates
     
@@ -251,6 +271,7 @@ class SignalPreprocessor(Preprocessor):
                 
                 file_path = os.path.join(path, x) 
 
+        
                 df = pd.read_csv(file_path, names=self.raw_data_format_signal)
                 
                 df = self.change_time_format(df, "Time", self.time_format).sort_values(by="Time", ascending=False)

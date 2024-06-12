@@ -17,8 +17,8 @@ data_path = "/home/franzl/data_06_06/archive"
 
 
 ####### Parameter Search ########
-path_to_json = "signal_processing/parameters.json"
-comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
+#path_to_json = "signal_processing/parameters.json"
+#comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
 
 
 def write_results_to_txt(file_name, comb_number, params, se_list, ae_list, ctd_list):
@@ -45,64 +45,76 @@ def write_results_to_json(file_name, params, se_list, ae_list, ctd_list):
     return None
 
 
-preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
 
-for i, params in enumerate(comb_iterator):
+#for i, params in enumerate(comb_iterator):
     
 
-    if i == 0:
-        answer = input("Are you sure you want to start? Have you checked file names?")
-        if answer == "y":
-            pass
-        else:
-            raise 
+#    if i == 0:
+#        answer = input("Are you sure you want to start? Have you checked file names?")
+#        if answer == "y":
+#            pass
+#        else:
+#            raise 
     
-    # not handle5 and not handl6 -> skip
-    if (params["filtering_params"]["handle_5"] == False) and (params["filtering_params"]["handle_6"] == False):
-        continue
-    # check if for cases where the combination can be skipped
+#    # not handle5 and not handl6 -> skip
+#    if (params["filtering_params"]["handle_5"] == False) and (params["filtering_params"]["handle_6"] == False):
+#        continue
+#    # check if for cases where the combination can be skipped
     
-    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+#    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 
-    se_list, ae_list, ctd_list = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
-                                                                                                          raw_data=raw_data, 
-                                                                                                          params=params)
+#    se_list, ae_list, ctd_list = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
+#                                                                                                          raw_data=raw_data, 
+#                                                                                                          params=params)
 
-    file_name = "results_time-window_test.txt"
-    write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
-    file_name = f"comb_time-window_{i}"
-    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
+#    file_name = "results_time-window_test.txt"
+#    write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
+#    file_name = f"comb_time-window_{i}"
+#    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
     
 
 # Analyze the results
+parent_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = parent_dir.split("/signal_processing")[0]
+path_to_results = "results_2_10_6_1900"
 
-# path_to_results = "results_2_10_6_1900"
-# files = sorted(list(os.walk(path_to_results))[0][2])
-# print(files[0])
-# se_list = []
-# ae_list = []
-# ctd_list = []
-# parameters_list = []
-# n_files = len(files)
-# for i, file in enumerate(files):
-#    with open(f"{path_to_results}/{file}", "r") as file:
-#        results = json.load(file)
-        
-#        parameters_list.append(results["parameters"])
-#        se_list.append(results["SE"])
-#        ae_list.append(results["AE"])
-#        ctd_list.append(results["CTD"])
+directories = [x for x in list(os.walk(parent_dir))[0][1] if "results" in x]
 
-
-# dataframe = pd.DataFrame({"parameters":parameters_list, "se":se_list, "ae":ae_list, "ctd":ctd_list})
-# dataframe["mse"] = dataframe["se"].apply(lambda x: np.mean(x))
-# dataframe["mae"] = dataframe["ae"].apply(lambda x: np.mean(x))
-# dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
+se_list = []
+ae_list = []
+ctd_list = []
+parameters_list = []
+for directory in directories:
+    files = list(os.walk(os.path.join(parent_dir, directory)))[0][2]
+    for i, file in enumerate(files):
+        with open(f"{directory}/{file}", "r") as file:
+            results = json.load(file)
+            
+            parameters_list.append(results["parameters"])
+            se_list.append(results["SE"])
+            ae_list.append(results["AE"])
+            ctd_list.append(results["CTD"])
 
 
-# for i,row in iter(dataframe.sort_values(by="mse")[:20].iterrows()):
-#    print(row["parameters"])
-#    print(row["mse"], row["mae"], row["mctd"])
+dataframe = pd.DataFrame({"parameters":parameters_list, "se":se_list, "ae":ae_list, "ctd":ctd_list})
+dataframe["mse"] = dataframe["se"].apply(lambda x: np.mean(x))
+dataframe["mae"] = dataframe["ae"].apply(lambda x: np.mean(x))
+dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
+
+dataframe = dataframe.sort_values(by="mae")
+
+parameter_series_list = []
+for i,row in iter(dataframe[:20].iterrows()):
+    parameter_series = pd.json_normalize(row["parameters"], sep="-")
+    parameter_series_list.append(parameter_series)
+    #print(f"######## Combination: {i} ########")
+    #print(row["mse"], row["mae"], row["mctd"])
+    
+parameters_df = pd.concat(parameter_series_list, axis=0)
+unique_values = [list(parameters_df[col].unique()) for col in parameters_df.columns]
+print(dict(list(zip(parameters_df.columns, unique_values))))
+
 ########  Data Preprocessing #########       
 
 
