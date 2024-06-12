@@ -3,19 +3,26 @@
         "discard_samples":[true],
         "apply_filter":[true],
         "filter_mode": ["time_window"],
-        "k":[5],
+        "k":[2],
         "nm":[3,5],
         "ns":[1,2,3],
-        "s":[1,2,3,4],
-        "lb_in":[3,4,5],
-        "lb_out":[3,4,5],
-        "handle_5":[false],
-        "handle_6":[false]
+        "s":[1,2],
+        "lb_in":[3,4],
+        "lb_out":[3,4],
+        "handle_5":[false, true],
+        "handle_6":[false, true]
+    },
+    "handle_56_params":{
+        "k":[1,2,3],
+        "m":[1,2],
+        "s":[1,2,3],
+        "ns":[1,2,3],
+        "nm":[3,4,5]
     },
     "signal_params":{
         "prediction_mode":["max"],
-        "m_before":[1,2,3,5,10],
-        "m_after":[1,2,3,5,10],
+        "m_before":[1],
+        "m_after":[3,5],
         "part_mode":["median"]
     }
 }

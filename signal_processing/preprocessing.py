@@ -37,9 +37,8 @@ class Preprocessor:
     
     def rename_columns(self, dataframe, old_names, new_names):
         df = dataframe.copy(deep=True)
-        df.rename(columns=dict(zip(old_names, new_names)), inplace=True)
+        df = df.rename(columns=dict(zip(old_names, new_names)))
         return df
-
 
 # class CoursePreprocessor that inherits from Preprocessor
 class CoursePreprocessor(Preprocessor):
@@ -444,7 +443,7 @@ class SignalPreprocessor(Preprocessor):
                 if len(rows_time_filtered) == 1:
                     df.loc[x, "event_type"] = rows_time_filtered["event_type"].values[0]
                 else:
-                    common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, ns, targte_removed=True)
+                    common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, ns, target_removed=True)
                     df.loc[x, "event_type"] = common_event_type
             
             else:
@@ -457,7 +456,7 @@ class SignalPreprocessor(Preprocessor):
                     df.loc[x, "event_type"] = -1
                 else:
                     
-                    common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, nm, targte_removed=True)
+                    common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, nm, target_removed=True)
                     df.loc[x, "event_type"] = common_event_type
                     
         # discard invalid samples
@@ -476,7 +475,7 @@ class SignalPreprocessor(Preprocessor):
             
         df = df[df["event_type"].isin(event_types)].sort_values(by="time", ascending=True).reset_index(drop=True)
         
-        print("Take care of data: \n 14.05.2024, Event Type 5, HS18 Door1")
+        #print("Take care of data: \n 14.05.2024, Event Type 5, HS18 Door1")
         dict_df_room_door = self.df_room_door_dict(df)
         df_return = pd.DataFrame(columns=list(df.columns))
         df_return = df_return.astype(df.dtypes)
@@ -516,8 +515,9 @@ class SignalPreprocessor(Preprocessor):
         df.columns = df.columns.str.lower()
         
         # rename columns
-        df = self.rename_columns(df, ["one_count_1, one_count_2"], 
+        df = self.rename_columns(df, ["one_count_1", "one_count_2"], 
                                  ["sensor_one_support_count", "sensor_two_support_count"])
+
 
         # drop unneccessary columns
         df = df.drop(columns=["entering", "people_in", "people_out"])   

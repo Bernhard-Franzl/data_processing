@@ -1,4 +1,4 @@
-from preprocessing import Preprocessor
+from preprocessing import Preprocessor, SignalPreprocessor
 from utils import ParameterSearch, Evaluator
 import numpy as np
 import json
@@ -45,7 +45,7 @@ def write_results_to_json(file_name, params, se_list, ae_list, ctd_list):
     return None
 
 
-preprocessor = Preprocessor(data_path, room_to_id, door_to_id)
+preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
 
 for i, params in enumerate(comb_iterator):
     
@@ -56,7 +56,10 @@ for i, params in enumerate(comb_iterator):
             pass
         else:
             raise 
-
+    
+    # not handle5 and not handl6 -> skip
+    if (params["filtering_params"]["handle_5"] == False) and (params["filtering_params"]["handle_6"] == False):
+        continue
     # check if for cases where the combination can be skipped
     
     cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
@@ -73,16 +76,15 @@ for i, params in enumerate(comb_iterator):
 
 # Analyze the results
 
-# read all the json files in the results folder
-#path_to_results = "results"
-#files = sorted(list(os.walk(path_to_results))[0][2])
-#print(files[0])
-#se_list = []
-#ae_list = []
-#ctd_list = []
-#parameters_list = []
-#n_files = len(files)
-#for i, file in enumerate(files):
+# path_to_results = "results_2_10_6_1900"
+# files = sorted(list(os.walk(path_to_results))[0][2])
+# print(files[0])
+# se_list = []
+# ae_list = []
+# ctd_list = []
+# parameters_list = []
+# n_files = len(files)
+# for i, file in enumerate(files):
 #    with open(f"{path_to_results}/{file}", "r") as file:
 #        results = json.load(file)
         
@@ -92,13 +94,13 @@ for i, params in enumerate(comb_iterator):
 #        ctd_list.append(results["CTD"])
 
 
-#dataframe = pd.DataFrame({"parameters":parameters_list, "se":se_list, "ae":ae_list, "ctd":ctd_list})
-#dataframe["mse"] = dataframe["se"].apply(lambda x: np.mean(x))
-#dataframe["mae"] = dataframe["ae"].apply(lambda x: np.mean(x))
-#dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
+# dataframe = pd.DataFrame({"parameters":parameters_list, "se":se_list, "ae":ae_list, "ctd":ctd_list})
+# dataframe["mse"] = dataframe["se"].apply(lambda x: np.mean(x))
+# dataframe["mae"] = dataframe["ae"].apply(lambda x: np.mean(x))
+# dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
 
 
-#for i,row in iter(dataframe.sort_values(by="mse")[:20].iterrows()):
+# for i,row in iter(dataframe.sort_values(by="mse")[:20].iterrows()):
 #    print(row["parameters"])
 #    print(row["mse"], row["mae"], row["mctd"])
 ########  Data Preprocessing #########       
