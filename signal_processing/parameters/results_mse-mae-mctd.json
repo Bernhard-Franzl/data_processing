@@ -1,0 +1,154 @@
+{
+    "filtering_params-discard_samples": [
+        [
+            true,
+            50
+        ]
+    ],
+    "filtering_params-apply_filter": [
+        [
+            true,
+            50
+        ]
+    ],
+    "filtering_params-filter_mode": [
+        [
+            "time_window",
+            50
+        ]
+    ],
+    "filtering_params-k": [
+        [
+            2,
+            50
+        ]
+    ],
+    "filtering_params-nm": [
+        [
+            3,
+            50
+        ]
+    ],
+    "filtering_params-ns": [
+        [
+            2,
+            17
+        ],
+        [
+            3,
+            17
+        ],
+        [
+            1,
+            16
+        ]
+    ],
+    "filtering_params-s": [
+        [
+            2,
+            50
+        ]
+    ],
+    "filtering_params-lb_in": [
+        [
+            3,
+            50
+        ]
+    ],
+    "filtering_params-lb_out": [
+        [
+            3,
+            50
+        ]
+    ],
+    "filtering_params-handle_5": [
+        [
+            true,
+            50
+        ]
+    ],
+    "filtering_params-handle_6": [
+        [
+            false,
+            50
+        ]
+    ],
+    "handle_56_params-k": [
+        [
+            2,
+            26
+        ],
+        [
+            3,
+            24
+        ]
+    ],
+    "handle_56_params-m": [
+        [
+            1,
+            38
+        ],
+        [
+            2,
+            12
+        ]
+    ],
+    "handle_56_params-s": [
+        [
+            3,
+            50
+        ]
+    ],
+    "handle_56_params-ns": [
+        [
+            3,
+            26
+        ],
+        [
+            2,
+            24
+        ]
+    ],
+    "handle_56_params-nm": [
+        [
+            3,
+            36
+        ],
+        [
+            4,
+            8
+        ],
+        [
+            5,
+            6
+        ]
+    ],
+    "signal_params-prediction_mode": [
+        [
+            "max",
+            50
+        ]
+    ],
+    "signal_params-m_before": [
+        [
+            1,
+            50
+        ]
+    ],
+    "signal_params-m_after": [
+        [
+            3,
+            30
+        ],
+        [
+            5,
+            20
+        ]
+    ],
+    "signal_params-part_mode": [
+        [
+            "median",
+            50
+        ]
+    ]
+}

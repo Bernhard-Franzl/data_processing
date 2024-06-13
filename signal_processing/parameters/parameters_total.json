@@ -19,7 +19,7 @@
         "nm":[1,2,3,4]
     },
     "signal_params":{
-        "prediction_mode":["max", "mean", "first", "last", "min"],
+        "prediction_mode":["max", "mean", "first", "second", "min"],
         "m_before":[1,2,3,4,5],
         "m_after":[1,2,3,4,5],
         "part_mode":["median", "max", "mean"]

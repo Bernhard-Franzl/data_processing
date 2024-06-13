@@ -9,25 +9,63 @@ import pandas as pd
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
-data_path = "/home/franzl/data_06_06/archive"
+data_path = "/home/berni/data_06_06/archive"
 
 #TODO:
+# incorporate paramter search into the Evaluator class
+# implement a method that can be used to evaluate the results of the parameter search inside Evaluator class
+
+# can we somehow implement a rule based approach when to take which prediction mode
+
 # implement something like 75% percentile in calcl partiicpants
 # before large test run check if results can be read in again!!
 
 
-####### Parameter Search ########
-#path_to_json = "signal_processing/parameters.json"
-#comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
+
+# test single parameter set
+path_to_json = "signal_processing/parameters.json"
+#params = json.load(open(path_to_json, "r"))
+#print(params)
+
+#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+#cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+
+#se_list, ae_list, ctd_list, se_min_list, ae_min_list = Evaluator("SignalAnalyzer", 
+#                                       "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
+#                                                                                    raw_data=raw_data, 
+#                                                                                    params=params,
+#                                                                                    details=True)
+                                       
+#for i, ae_min_entry in enumerate(ae_min_list):
+#    mode, value, control_in, control_pred, participants, df = ae_min_entry
+#    diff = abs(np.diff(participants))
+#    describe = df["people_inside"].describe()
+#    std = describe["std"]
+#    diff = abs(np.diff(participants))
+#    diff_ratio = diff/max(participants)
+#    if diff_ratio >= 0.3:
+#        desired_mode = "max"
+#        #print(mode, value, std, diff, "Control:",control_in, " Preds:", control_pred, describe["50%"], round(describe["mean"],2), describe["75%"], " ##### ",participants, describe["std"])
+    
+#    elif diff_ratio <= 0.1:
+#        desired_mode = "mean"
+#        #print(i, mode, value, std, diff, diff_ratio, "Control:",control_in, " Preds:", describe["50%"], describe["75%"], " ###### ", round(describe["mean"],2), control_pred,  " ##### ",participants, describe["std"])
+
+#    else:
+#        print(i, mode, value, std, diff, diff_ratio, "Control:",control_in, " Preds:", describe["50%"], describe["75%"], " ###### ", round(describe["mean"],2), control_pred,  " ##### ",participants, describe["std"])
+
+# Results: 
+# Samples index 9 is not so good -> we miss some signals, but algrotithm is not so bad, its just the data
+# Sample index 13 is no so good -> but its due to not ideal choice of the sample time point -> some students left earlier! CTD is low!
 
 
 def write_results_to_txt(file_name, comb_number, params, se_list, ae_list, ctd_list):
     with open(file_name, "a") as file:
         file.write(f"######## Combination: {comb_number} ########\n")
         file.write(f"Parameters: {params}\n")
-        file.write(f"MSE: {np.round(np.mean(se_list), 4)} max_id: {np.argmax(se_list)}\n")
-        file.write(f"MAE: {np.round(np.mean(ae_list), 4)} max_id: {np.argmax(ae_list)}\n")
-        file.write(f"MCTD: {np.round(np.mean(ctd_list), 4)} max_id: {np.argmax(ctd_list)}\n")
+        file.write(f"MSE: {np.round(np.mean(se_list), 4)} MedianSE: {np.median(se_list)}\n")
+        file.write(f"MAE: {np.round(np.mean(ae_list), 4)} MedianAE: {np.median(ae_list)}\n")
+        file.write(f"MCTD: {np.round(np.mean(ctd_list), 4)} MedianCTD: {np.median(ctd_list)}\n")
         file.write("\n")
         file.write("\n")
         
@@ -45,75 +83,91 @@ def write_results_to_json(file_name, params, se_list, ae_list, ctd_list):
     return None
 
 
-#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+####### Parameter Search ########
+path_to_json = "signal_processing/parameters.json"
+comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
 
-#for i, params in enumerate(comb_iterator):
+preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+
+for i, params in enumerate(comb_iterator):
     
-
-#    if i == 0:
-#        answer = input("Are you sure you want to start? Have you checked file names?")
-#        if answer == "y":
-#            pass
-#        else:
-#            raise 
+    if i == 0:
+        answer = input("Are you sure you want to start? Have you checked file names?")
+        if answer == "y":
+            pass
+        else:
+            raise 
     
-#    # not handle5 and not handl6 -> skip
-#    if (params["filtering_params"]["handle_5"] == False) and (params["filtering_params"]["handle_6"] == False):
-#        continue
-#    # check if for cases where the combination can be skipped
-    
-#    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 
-#    se_list, ae_list, ctd_list = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
-#                                                                                                          raw_data=raw_data, 
-#                                                                                                          params=params)
+    se_list, ae_list, ctd_list = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
+                                                                                                          raw_data=raw_data, 
+                                                                                                          params=params)
 
-#    file_name = "results_time-window_test.txt"
-#    write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
-#    file_name = f"comb_time-window_{i}"
-#    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
+    file_name = "results_time-window_finish.txt"
+    write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
+    file_name = f"comb_time-window_{i}"
+    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
     
 
 # Analyze the results
-parent_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = parent_dir.split("/signal_processing")[0]
-path_to_results = "results_2_10_6_1900"
+#parent_dir = os.path.dirname(os.path.abspath(__file__))
+#parent_dir = parent_dir.split("/signal_processing")[0]
+#path_to_results = "results_2_10_6_1900"
 
-directories = [x for x in list(os.walk(parent_dir))[0][1] if "results" in x]
+#directories = [x for x in list(os.walk(parent_dir))[0][1] if "results" in x]
 
-se_list = []
-ae_list = []
-ctd_list = []
-parameters_list = []
-for directory in directories:
-    files = list(os.walk(os.path.join(parent_dir, directory)))[0][2]
-    for i, file in enumerate(files):
-        with open(f"{directory}/{file}", "r") as file:
-            results = json.load(file)
+#se_list = []
+#ae_list = []
+#ctd_list = []
+#parameters_list = []
+#for directory in directories:
+#    files = list(os.walk(os.path.join(parent_dir, directory)))[0][2]
+#    for i, file in enumerate(files):
+#        with open(f"{directory}/{file}", "r") as file:
+#            results = json.load(file)
             
-            parameters_list.append(results["parameters"])
-            se_list.append(results["SE"])
-            ae_list.append(results["AE"])
-            ctd_list.append(results["CTD"])
+#            parameters_list.append(results["parameters"])
+#            se_list.append(results["SE"])
+#            ae_list.append(results["AE"])
+#            ctd_list.append(results["CTD"])
 
 
-dataframe = pd.DataFrame({"parameters":parameters_list, "se":se_list, "ae":ae_list, "ctd":ctd_list})
-dataframe["mse"] = dataframe["se"].apply(lambda x: np.mean(x))
-dataframe["mae"] = dataframe["ae"].apply(lambda x: np.mean(x))
-dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
+#dataframe = pd.DataFrame({"parameters":parameters_list, "se":se_list, "ae":ae_list, "ctd":ctd_list})
+#dataframe["mse"] = dataframe["se"].apply(lambda x: np.mean(x))
+#dataframe["mae"] = dataframe["ae"].apply(lambda x: np.mean(x))
+#dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
 
-dataframe = dataframe.sort_values(by="mae")
 
-parameter_series_list = []
-for i,row in iter(dataframe[:20].iterrows()):
-    parameter_series = pd.json_normalize(row["parameters"], sep="-")
-    parameter_series_list.append(parameter_series)
-    #print(f"######## Combination: {i} ########")
-    #print(row["mse"], row["mae"], row["mctd"])
+#sort_by_list= [["mae", "mse", "mctd"], ["mse", "mae", "mctd"], ["mctd", "mae", "mse"]]
+
+
+#dict_list = []
+#for  sort_by in sort_by_list:
+#    dataframe_sorted = dataframe.sort_values(by=sort_by)
+
+#    parameter_series_list = []
+#    for i,row in iter(dataframe_sorted[:50].iterrows()):
+#        parameter_series = pd.json_normalize(row["parameters"], sep="-")
+#        parameter_series_list.append(parameter_series)
+#        #print(f"######## Combination: {i} ########")
+#        #print(row["mse"], row["mae"], row["mctd"])
+        
+#    parameters_df = pd.concat(parameter_series_list, axis=0)
+#    #unique_values = [list(parameters_df[col].unique()) for col in parameters_df.columns]
+
+#    #dict_uniqe_params = dict(list(zip(parameters_df.columns, unique_values)))
+#    #print(dict_uniqe_params)
     
-parameters_df = pd.concat(parameter_series_list, axis=0)
-unique_values = [list(parameters_df[col].unique()) for col in parameters_df.columns]
-print(dict(list(zip(parameters_df.columns, unique_values))))
+    
+#    results_dict = dict()
+#    for key in parameters_df.keys():
+#        vcs = parameters_df[key].value_counts()
+#        results_dict[key] = list(vcs.items())
+#        file_name = "-".join(sort_by)
+#        with open(f"results_{file_name}.json", "w") as file:
+#            json.dump(results_dict, file, indent=4)
+
 
 ########  Data Preprocessing #########       
 
