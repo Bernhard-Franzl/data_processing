@@ -9,7 +9,7 @@ import pandas as pd
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
-data_path = "/home/berni/data_06_06/archive"
+data_path = "/home/franzl/data_06_06/archive"
 
 #TODO:
 # incorporate paramter search into the Evaluator class
