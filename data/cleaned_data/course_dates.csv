@@ -15,7 +15,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 257.350,Do.,HS 18,,False,False,False,0,2024-03-21 15:30:00,2024-03-21 17:00:00,164,12
 257.320,Do.,HS 18,,False,False,False,0,2024-03-21 13:45:00,2024-03-21 15:15:00,164,12
 257.320,Mo.,HS 18,,False,False,False,0,2025-02-03 13:45:00,2025-02-03 15:15:00,164,6
-347.000,Di.,HS 18,,False,False,False,0,2024-06-18 17:15:00,2024-06-18 18:45:00,164,25
 364.000,Di.,HS 18,Introduction and Course Overview,False,False,False,0,2024-03-05 13:45:00,2024-03-05 15:15:00,164,10
 364.000,Di.,HS 18,Transformations and Projections,False,False,False,0,2024-03-12 13:45:00,2024-03-12 15:15:00,164,11
 364.000,Di.,HS 18,Raster Algorithms and Depth Handling,False,False,False,0,2024-03-19 13:45:00,2024-03-19 15:15:00,164,12
@@ -141,6 +140,9 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-10 17:15:00,2024-06-10 18:45:00,164,24
 360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-17 17:15:00,2024-06-17 18:45:00,164,25
 360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-24 17:15:00,2024-06-24 18:45:00,164,26
+360.001,Di.,HS 18,,False,False,False,0,2024-06-25 10:15:00,2024-06-25 11:45:00,164,26
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-07-08 15:30:00,2024-07-08 17:00:00,164,28
+256.300,Di.,HS 18,"Klausur - Teil 2, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False,0,2024-06-25 12:00:00,2024-06-25 13:30:00,164,26
 345.130,Mi.,HS 18,,False,False,False,0,2024-06-26 10:15:00,2024-06-26 11:45:00,164,26
 345.130,Do.,HS 18,,False,False,False,0,2024-06-27 10:15:00,2024-06-27 11:45:00,164,26
 249.443,Di.,HS 18,Nachklausur,True,False,False,0,2024-07-09 10:15:00,2024-07-09 11:45:00,164,28
@@ -192,6 +194,8 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 357.125,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
 357.126,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
 357.128,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+245.312,Mi.,HS 18,Final Exam,True,False,False,0,2024-06-26 15:30:00,2024-06-26 17:00:00,164,26
+245.311,Mi.,HS 18,Final Exam,True,False,False,0,2024-06-26 13:45:00,2024-06-26 15:15:00,164,26
 381.013,Mo.,HS 18,Exam - please register in KUSSS,True,False,False,0,2024-07-08 13:45:00,2024-07-08 15:15:00,164,28
 150.031,Di.,HS 18,Klausur,True,False,False,0,2024-05-21 16:15:00,2024-05-21 17:15:00,164,21
 343.355,Fr.,HS 18,,False,False,False,0,2024-06-14 10:15:00,2024-06-14 11:45:00,164,24
@@ -414,6 +418,7 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 229.054,Di.,HS 19,,False,False,False,1,2024-05-14 15:30:00,2024-05-14 18:00:00,152,20
 229.054,Di.,HS 19,,False,False,False,1,2024-06-04 15:30:00,2024-06-04 18:00:00,152,23
 229.054,Di.,HS 19,,False,False,False,1,2024-06-11 15:30:00,2024-06-11 18:00:00,152,24
+229.054,Di.,HS 19,,False,False,False,1,2024-06-18 15:30:00,2024-06-18 18:00:00,152,25
 229.054,Di.,HS 19,,False,False,False,1,2024-06-25 15:30:00,2024-06-25 18:00:00,152,26
 250.900,Mi.,HS 19,Schlussklausur,True,False,False,1,2024-06-12 08:30:00,2024-06-12 10:00:00,152,24
 140.004,Mo.,HS 19,,False,False,False,1,2024-04-08 15:30:00,2024-04-08 18:00:00,152,15
@@ -434,7 +439,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 360.001,Di.,HS 19,,False,False,False,1,2024-06-04 10:15:00,2024-06-04 11:45:00,152,23
 360.001,Di.,HS 19,,False,False,False,1,2024-06-11 10:15:00,2024-06-11 11:45:00,152,24
 360.001,Di.,HS 19,,False,False,False,1,2024-06-18 10:15:00,2024-06-18 11:45:00,152,25
-360.001,Di.,HS 19,,False,False,False,1,2024-06-25 10:15:00,2024-06-25 11:45:00,152,26
 231.115,Mo.,HS 19,,False,False,False,1,2024-03-11 12:00:00,2024-03-11 13:30:00,152,11
 231.115,Mo.,HS 19,,False,False,False,1,2024-03-18 12:00:00,2024-03-18 13:30:00,152,12
 231.115,Mo.,HS 19,,False,False,False,1,2024-04-08 12:00:00,2024-04-08 13:30:00,152,15
@@ -509,7 +513,7 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 190.300,Do.,HS 19,Besprechung HA - Sachenrecht,False,False,False,1,2024-05-16 17:15:00,2024-05-16 19:45:00,152,20
 190.300,Do.,HS 19,Rechtsformen Unternehmen,False,False,False,1,2024-05-23 17:15:00,2024-05-23 19:45:00,152,21
 190.300,Do.,HS 19,Datenschutz,False,False,False,1,2024-06-06 17:15:00,2024-06-06 19:45:00,152,23
-190.300,Do.,HS 19,Fragestunde,False,False,True,1,2024-06-27 17:15:00,2024-06-27 19:45:00,152,26
+190.300,Do.,HS 19,Fragestunde online,False,False,True,1,2024-06-27 17:15:00,2024-06-27 19:45:00,152,26
 365.232,Mi.,HS 19,,False,False,False,1,2024-03-06 14:30:00,2024-03-06 15:15:00,152,10
 365.232,Mi.,HS 19,,False,False,False,1,2024-03-13 14:30:00,2024-03-13 15:15:00,152,11
 365.232,Mi.,HS 19,,False,False,False,1,2024-03-20 14:30:00,2024-03-20 15:15:00,152,12
@@ -561,9 +565,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 190.035,Mo.,HS 19,ABGESAGT!!!,False,False,False,1,2024-05-13 13:45:00,2024-05-13 15:15:00,152,20
 190.035,Mo.,HS 19,,False,False,False,1,2024-05-27 13:45:00,2024-05-27 15:15:00,152,22
 190.035,Mo.,HS 19,,False,False,False,1,2024-06-03 13:45:00,2024-06-03 15:15:00,152,23
-190.035,Mo.,HS 19,,False,False,False,1,2024-06-10 13:45:00,2024-06-10 15:15:00,152,24
-190.035,Mo.,HS 19,,False,False,False,1,2024-06-17 13:45:00,2024-06-17 15:15:00,152,25
-190.035,Mo.,HS 19,,False,False,False,1,2024-06-24 13:45:00,2024-06-24 15:15:00,152,26
 259.022,Mi.,HS 19,Introduction and Organisation,False,False,False,1,2024-03-06 12:00:00,2024-03-06 14:30:00,152,10
 259.022,Mi.,HS 19,Scenarios,False,False,False,1,2024-03-20 12:00:00,2024-03-20 14:30:00,152,12
 259.022,Mi.,HS 19,"OO Architecture, Tactics",False,False,False,1,2024-04-10 12:00:00,2024-04-10 14:30:00,152,15
@@ -573,7 +574,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 259.022,Mi.,HS 19,Distributed and Client/Server Software Architecture,False,False,False,1,2024-05-22 12:00:00,2024-05-22 14:30:00,152,21
 259.022,Mi.,HS 19,"Message-Based, Event-Based, SOA",False,False,False,1,2024-05-29 12:00:00,2024-05-29 14:30:00,152,22
 259.022,Mi.,HS 19,"REST, Microservice Architecture",False,False,False,1,2024-06-05 12:00:00,2024-06-05 14:30:00,152,23
-259.022,Mi.,HS 19,TBD,False,False,False,1,2024-06-12 12:00:00,2024-06-12 14:30:00,152,24
 259.022,Mi.,HS 19,Exercise Part 2: Discussion,False,False,False,1,2024-06-19 12:00:00,2024-06-19 14:30:00,152,25
 339.170,Do.,HS 19,,False,False,False,1,2024-03-07 15:30:00,2024-03-07 17:00:00,152,10
 339.170,Do.,HS 19,,False,False,False,1,2024-03-14 15:30:00,2024-03-14 17:00:00,152,11
@@ -615,6 +615,11 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 238.302,Mo.,HS 19,,False,False,False,1,2024-06-03 10:15:00,2024-06-03 11:45:00,152,23
 238.302,Mo.,HS 19,,False,False,False,1,2024-06-10 10:15:00,2024-06-10 11:45:00,152,24
 150.005,Mo.,HS 19,,False,False,False,1,2024-06-03 15:30:00,2024-06-03 18:45:00,152,23
+269.031,Mi.,HS 19,Klausur,True,False,False,1,2024-06-05 10:15:00,2024-06-05 11:45:00,152,23
+269.035,Mi.,HS 19,Klausur,True,False,False,1,2024-06-05 10:15:00,2024-06-05 11:45:00,152,23
+359.020,Fr.,HS 19,,False,False,False,1,2024-06-07 10:15:00,2024-06-07 11:45:00,152,23
+359.022,Fr.,HS 19,,False,False,False,1,2024-06-07 10:15:00,2024-06-07 11:45:00,152,23
+359.024,Fr.,HS 19,,False,False,False,1,2024-06-07 10:15:00,2024-06-07 11:45:00,152,23
 379.014,Mo.,HS 19,Klausur - bitte im Kusss anmelden,True,False,False,1,2024-07-01 13:45:00,2024-07-01 15:15:00,152,27
 379.014,Mo.,HS 19,Klausur - bitte im Kusss anmelden,True,False,False,1,2024-09-30 13:45:00,2024-09-30 15:15:00,152,40
 365.041,Do.,HS 19,EXAM,True,False,False,1,2024-07-11 10:15:00,2024-07-11 11:45:00,152,28

@@ -9,7 +9,7 @@ import pandas as pd
 #########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
-data_path = "/home/franzl/data_06_06/archive"
+data_path = "/home/berni/data_06_06/archive"
 
 #TODO:
 # incorporate paramter search into the Evaluator class
@@ -17,25 +17,24 @@ data_path = "/home/franzl/data_06_06/archive"
 
 # can we somehow implement a rule based approach when to take which prediction mode
 
-# implement something like 75% percentile in calcl partiicpants
+# implement something like 75% percentile in calcl participants
 # before large test run check if results can be read in again!!
 
 
 
 # test single parameter set
-path_to_json = "signal_processing/parameters.json"
-#params = json.load(open(path_to_json, "r"))
-#print(params)
+path_to_json = "signal_processing/processing_parameters.json"
+params = json.load(open(path_to_json, "r"))
 
-#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
-#cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 
-#se_list, ae_list, ctd_list, se_min_list, ae_min_list = Evaluator("SignalAnalyzer", 
-#                                       "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
-#                                                                                    raw_data=raw_data, 
-#                                                                                    params=params,
-#                                                                                    details=True)
-                                       
+se_list, ae_list, ctd_list  = Evaluator("SignalAnalyzer", 
+                                       "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
+                                                                                    raw_data=raw_data, 
+                                                                                    params=params,
+                                                                                    details=False)
+                                      
 #for i, ae_min_entry in enumerate(ae_min_list):
 #    mode, value, control_in, control_pred, participants, df = ae_min_entry
 #    diff = abs(np.diff(participants))
@@ -84,30 +83,30 @@ def write_results_to_json(file_name, params, se_list, ae_list, ctd_list):
 
 
 ####### Parameter Search ########
-path_to_json = "signal_processing/parameters.json"
-comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
+#path_to_json = "signal_processing/processing_parameters.json"
+#comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
 
-preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
 
-for i, params in enumerate(comb_iterator):
+#for i, params in enumerate(comb_iterator):
     
-    if i == 0:
-        answer = input("Are you sure you want to start? Have you checked file names?")
-        if answer == "y":
-            pass
-        else:
-            raise 
+#    if i == 0:
+#        answer = input("Are you sure you want to start? Have you checked file names?")
+#        if answer == "y":
+#            pass
+#        else:
+#            raise 
     
-    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+#    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 
-    se_list, ae_list, ctd_list = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
-                                                                                                          raw_data=raw_data, 
-                                                                                                          params=params)
+#    se_list, ae_list, ctd_list = Evaluator("SignalAnalyzer", "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
+#                                                                                                          raw_data=raw_data, 
+#                                                                                                          params=params)
 
-    file_name = "results_time-window_finish.txt"
-    write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
-    file_name = f"comb_time-window_{i}"
-    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
+#    file_name = "results_time-window_finish.txt"
+#    write_results_to_txt(file_name, i, params, se_list, ae_list, ctd_list)
+#    file_name = f"comb_time-window_{i}"
+#    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
     
 
 # Analyze the results
@@ -147,7 +146,7 @@ for i, params in enumerate(comb_iterator):
 #    dataframe_sorted = dataframe.sort_values(by=sort_by)
 
 #    parameter_series_list = []
-#    for i,row in iter(dataframe_sorted[:50].iterrows()):
+#    for i,row in iter(dataframe_sorted[:25].iterrows()):
 #        parameter_series = pd.json_normalize(row["parameters"], sep="-")
 #        parameter_series_list.append(parameter_series)
 #        #print(f"######## Combination: {i} ########")
@@ -158,7 +157,6 @@ for i, params in enumerate(comb_iterator):
 
 #    #dict_uniqe_params = dict(list(zip(parameters_df.columns, unique_values)))
 #    #print(dict_uniqe_params)
-    
     
 #    results_dict = dict()
 #    for key in parameters_df.keys():

@@ -2,157 +2,155 @@
     "filtering_params-discard_samples": [
         [
             true,
-            50
-        ]
-    ],
-    "filtering_params-apply_filter": [
-        [
-            true,
-            50
+            25
         ]
     ],
     "filtering_params-filter_mode": [
         [
             "time_window",
-            50
+            25
+        ]
+    ],
+    "filtering_params-apply_filter": [
+        [
+            true,
+            25
         ]
     ],
     "filtering_params-k": [
         [
             2,
-            50
+            25
         ]
     ],
     "filtering_params-nm": [
         [
             3,
-            50
+            25
         ]
     ],
     "filtering_params-ns": [
         [
-            2,
-            18
-        ],
-        [
             1,
-            17
+            20
         ],
         [
             3,
-            15
+            3
+        ],
+        [
+            2,
+            2
         ]
     ],
     "filtering_params-s": [
         [
             2,
-            50
+            25
         ]
     ],
     "filtering_params-lb_in": [
         [
             3,
-            50
+            25
         ]
     ],
     "filtering_params-lb_out": [
         [
             3,
-            50
+            25
         ]
     ],
     "filtering_params-handle_5": [
         [
             true,
-            50
+            25
         ]
     ],
     "filtering_params-handle_6": [
         [
             false,
-            50
+            25
         ]
     ],
     "handle_56_params-k": [
         [
             1,
-            20
+            17
         ],
         [
             2,
-            18
-        ],
-        [
-            3,
-            12
+            8
         ]
     ],
     "handle_56_params-m": [
         [
             2,
-            26
-        ],
-        [
-            1,
-            24
+            25
         ]
     ],
     "handle_56_params-s": [
         [
             3,
-            50
+            25
         ]
     ],
     "handle_56_params-ns": [
         [
             3,
-            24
+            13
         ],
         [
             2,
-            20
-        ],
-        [
-            1,
-            6
+            12
         ]
     ],
     "handle_56_params-nm": [
         [
-            3,
-            23
+            5,
+            9
         ],
         [
             4,
-            14
+            9
         ],
         [
-            5,
-            13
+            3,
+            7
         ]
     ],
     "signal_params-prediction_mode": [
         [
             "max",
-            50
+            25
         ]
     ],
     "signal_params-m_before": [
         [
             1,
-            50
+            25
         ]
     ],
     "signal_params-m_after": [
         [
             3,
-            50
+            13
+        ],
+        [
+            5,
+            12
         ]
     ],
     "signal_params-part_mode": [
         [
             "median",
-            50
+            25
+        ]
+    ],
+    "signal_params-max_mean_cutoff": [
+        [
+            0.3,
+            25
         ]
     ]
 }

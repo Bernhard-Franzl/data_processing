@@ -1,29 +1,29 @@
-{   
+{   "json_note":"These are the results of the evaluation, with the best parameters for each step. If the best parameters are a list of values, the first value is the best one, the second is the second best, and so on.",
     "filtering_params":{
         "discard_samples":[true],
         "filter_mode": ["time_window"],
         "apply_filter":[true],
         "k":[2],
         "nm":[3],
-        "ns":[1,2,3],
+        "ns":[1,2],
         "s":[2],
-        "lb_in":[3,4],
+        "lb_in":[4,3],
         "lb_out":[3],
         "handle_5":[true],
         "handle_6":[false]
     },
     "handle_56_params":{
-        "k":[1,2,3],
+        "k":[3,1],
         "m":[1,2],
         "s":[3],
         "ns":[2,3],
-        "nm":[3,4,5]
+        "nm":[4,5,3]
     },
     "signal_params":{
         "prediction_mode":["max"],
         "m_before":[1],
-        "m_after":[3,5],
+        "m_after":[5,3],
         "part_mode":["median"],
-        "max_mean_cutoff":[0.05, 0.1, 0.15, 0.2, 0.25, 0.3]
+        "max_mean_cutoff":[0.25, 0.3]
     }
 }

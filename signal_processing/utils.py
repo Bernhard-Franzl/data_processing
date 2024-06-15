@@ -149,9 +149,6 @@ class Evaluator:
         ae_list = []
         se_list = []
         ctd_list = []
-        if details:
-            se_min_list = []
-            ae_min_list = []
             
         for index, row in self.control_data.iterrows():
             
@@ -180,7 +177,7 @@ class Evaluator:
             
             control_row = df_plotting[df_plotting["time"] == control_time]
             
-            prediction = self.get_prediction(participants, signal_params["prediction_mode"])
+            #prediction = self.get_prediction(participants, signal_params["prediction_mode"])
             
             diff_ratio = abs(np.diff(participants))/max(participants)
             
@@ -204,58 +201,45 @@ class Evaluator:
                 print("CTD:", ctd_term)
                 print(f"------------------------------------")
                 print("Participants:", participants)
-                ae_list_helper = []
-                se_list_helper = []
-                mode_list = ["max", "mean", "min"]
-                for mode in mode_list:
-                    
-                    prediction = self.get_prediction(participants, mode)
-                    se = (control_people_in - prediction)**2
-                    ae = abs(control_people_in - prediction)
-                    
-                    print(f"Mode: {mode}, Pred: {prediction}")
-                    print(f"SE: ", se, "AE: ", ae)
-                    
-                    ae_list_helper.append(ae)
-                    se_list_helper.append(se)
+                print("Prediction:", prediction, "Max_mean_cutoff", signal_params["max_mean_cutoff"])
+                print("SE:", mse_term, "AE:", ae_term)
                 
-                se_arg_min = np.argmin(se_list_helper)
-                ae_arg_min = np.argmin(ae_list_helper)
-                se_min_tuple = (mode_list[se_arg_min], se_list_helper[se_arg_min])
-                ae_min_tuple = (mode_list[ae_arg_min], ae_list_helper[ae_arg_min], control_people_in, int(control_row["people_inside"].values[0]), participants, df_plotting)
+                #ae_list_helper = []
+                #se_list_helper = []
+                ##mode_list = ["max", "mean", "min"]
+                ##for mode in mode_list:
+                    
+                ##    prediction = self.get_prediction(participants, mode)
+                ##    se = (control_people_in - prediction)**2
+                ##    ae = abs(control_people_in - prediction)
+                    
+                ##    print(f"Mode: {mode}, Pred: {prediction}")
+                ##    print(f"SE: ", se, "AE: ", ae)
+                    
+                ##    ae_list_helper.append(ae)
+                ##    se_list_helper.append(se)
                 
-                se_min_list.append(se_min_tuple)
-                ae_min_list.append(ae_min_tuple)
+                #se_arg_min = np.argmin(se_list_helper)
+                #ae_arg_min = np.argmin(ae_list_helper)
+                #se_min_tuple = (mode_list[se_arg_min], se_list_helper[se_arg_min])
+                #ae_min_tuple = (mode_list[ae_arg_min], ae_list_helper[ae_arg_min], control_people_in, int(control_row["people_inside"].values[0]), participants, df_plotting)
+                
+                #se_min_list.append(se_min_tuple)
+                #ae_min_list.append(ae_min_tuple)
                 
                 print(f"------------------------------------")
                 print()
                 
-                raw_to_save = self.class_to_evaluate.filter_by_room(raw_data, room_id)
-                raw_to_save = self.class_to_evaluate.filter_by_time(raw_to_save,
-                                                      start_time-timedelta(minutes=15),
-                                                      end_time+timedelta(minutes=15))
-                raw_to_save.sort_values(by="time", inplace=True)
-                raw_to_save.to_csv(f"data/data_index:{index}_{room_id}_{control_time}_.csv")
+                #raw_to_save = self.class_to_evaluate.filter_by_room(raw_data, room_id)
+                #raw_to_save = self.class_to_evaluate.filter_by_time(raw_to_save,
+                #                                      start_time-timedelta(minutes=15),
+                #                                      end_time+timedelta(minutes=15))
+                #raw_to_save.sort_values(by="time", inplace=True)
+                #raw_to_save.to_csv(f"data/data_index:{index}_{room_id}_{control_time}_.csv")
             
             ae_list.append(ae_term)
             se_list.append(mse_term)
             ctd_list.append(ctd_term)
             
-        if details:
-            return se_list, ae_list, ctd_list, se_min_list, ae_min_list
-        else:
-            return se_list, ae_list, ctd_list     
-                             
-            #prediction = control_row["people_inside"].values[0]
-            #Mode: Mean 
-            #MSE:  88.55172413793103
-            #AE:  4.0
-            #Mode: Median
-            #MSE: 88.55172413793103
-            #AE: 4.0
-
-        
-            # try first of participants
-            #prediction = participants[0]
-            # try second of participants
-            #prediction = participants[1]
+        return se_list, ae_list, ctd_list     
+                        
