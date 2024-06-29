@@ -14,7 +14,6 @@ class Snail():
         
         # get course catalogue
         self.course_catalogue = self.get_detailed_course_catalogue()
-        
         # prepare general search
         self.action, self.payload = self.prepare_catalogue_search(self.course_catalogue)
         
@@ -77,8 +76,9 @@ class Snail():
         """
         Prepares the search for the course catalog
         """
-        
-        details_form = self.search_html(soup, "form", {"class":"buttonbarinline"}, all=False)
+        #print(soup)
+        details_form = self.search_html(soup, "form", {"method":"get"}, all=True)[-1]
+
         action = details_form["action"]
         
         payload = {}

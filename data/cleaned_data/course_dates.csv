@@ -14,7 +14,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 376.027,Mo.,HS 18,EXAM,True,False,False,0,2024-08-26 10:15:00,2024-08-26 11:45:00,164,35
 257.350,Do.,HS 18,,False,False,False,0,2024-03-21 15:30:00,2024-03-21 17:00:00,164,12
 257.320,Do.,HS 18,,False,False,False,0,2024-03-21 13:45:00,2024-03-21 15:15:00,164,12
-257.320,Mo.,HS 18,,False,False,False,0,2025-02-03 13:45:00,2025-02-03 15:15:00,164,6
 364.000,Di.,HS 18,Introduction and Course Overview,False,False,False,0,2024-03-05 13:45:00,2024-03-05 15:15:00,164,10
 364.000,Di.,HS 18,Transformations and Projections,False,False,False,0,2024-03-12 13:45:00,2024-03-12 15:15:00,164,11
 364.000,Di.,HS 18,Raster Algorithms and Depth Handling,False,False,False,0,2024-03-19 13:45:00,2024-03-19 15:15:00,164,12
@@ -140,11 +139,11 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-10 17:15:00,2024-06-10 18:45:00,164,24
 360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-17 17:15:00,2024-06-17 18:45:00,164,25
 360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-24 17:15:00,2024-06-24 18:45:00,164,26
-360.001,Di.,HS 18,,False,False,False,0,2024-06-25 10:15:00,2024-06-25 11:45:00,164,26
-360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-07-08 15:30:00,2024-07-08 17:00:00,164,28
+360.001,Mo.,HS 18,Fragestunde mit Musterklausur,True,False,True,0,2024-07-08 15:30:00,2024-07-08 17:00:00,164,28
+364.046,Mi.,HS 18,Exam,True,False,False,0,2024-06-26 10:15:00,2024-06-26 11:45:00,164,26
 256.300,Di.,HS 18,"Klausur - Teil 2, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False,0,2024-06-25 12:00:00,2024-06-25 13:30:00,164,26
-345.130,Mi.,HS 18,,False,False,False,0,2024-06-26 10:15:00,2024-06-26 11:45:00,164,26
-345.130,Do.,HS 18,,False,False,False,0,2024-06-27 10:15:00,2024-06-27 11:45:00,164,26
+239.527,Di.,HS 18,Final Exam,True,False,False,0,2024-06-25 15:30:00,2024-06-25 17:00:00,164,26
+239.527,Di.,HS 18,Retake Exam,True,False,False,0,2024-07-09 15:30:00,2024-07-09 17:00:00,164,28
 249.443,Di.,HS 18,Nachklausur,True,False,False,0,2024-07-09 10:15:00,2024-07-09 11:45:00,164,28
 136.309,Mo.,HS 18,,False,False,False,0,2024-03-11 13:45:00,2024-03-11 15:15:00,164,11
 136.309,Mo.,HS 18,,False,False,False,0,2024-03-18 13:45:00,2024-03-18 15:15:00,164,12
@@ -249,7 +248,7 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 361.001,Di.,HS 18,,False,False,False,0,2024-06-18 08:30:00,2024-06-18 10:00:00,164,25
 361.001,Di.,HS 18,,False,False,False,0,2024-06-25 08:30:00,2024-06-25 10:00:00,164,26
 382.059,Mi.,HS 18,,False,False,False,0,2024-07-10 08:30:00,2024-07-10 11:00:00,164,28
-339.170,Do.,HS 18,Klausur,True,False,False,0,2024-06-27 15:30:00,2024-06-27 17:00:00,164,26
+339.170,Do.,HS 18,Klausur A-L,True,False,False,0,2024-06-27 15:30:00,2024-06-27 17:00:00,164,26
 339.191,Do.,HS 18,19:00 - 19:30 Uhr Test,False,True,False,0,2024-04-18 19:00:00,2024-04-18 19:45:00,164,16
 256.600,Mi.,HS 18,Digitalisierung; Social Impact der Digitalisierung,False,False,False,0,2024-03-06 17:15:00,2024-03-06 18:45:00,164,10
 256.600,Mi.,HS 18,Media Ecology - Teil 1/2,False,False,False,0,2024-03-13 17:15:00,2024-03-13 18:45:00,164,11
@@ -259,13 +258,14 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 256.600,Mi.,HS 18,Vertiefungsthema Künstliche Intelligenz (KI),False,False,False,0,2024-04-24 17:15:00,2024-04-24 18:45:00,164,17
 256.600,Mi.,HS 18,Vertiefungsthema Agilität (letztes Kapitel der Hauptunterlage),False,False,False,0,2024-05-08 17:15:00,2024-05-08 18:45:00,164,19
 256.600,Mi.,HS 18,"Flipped Classroom - Selbststudium (Videos zu Media Ecology), siehe Mail",False,False,False,0,2024-05-22 17:15:00,2024-05-22 18:45:00,164,21
-256.600,Mi.,HS 18,"Gastreferenten Mag. Böhm und Mag. Ehrengruber / Fallstudie im Kontext des Kapitels ""Media Ecology""",False,False,False,0,2024-05-29 17:15:00,2024-05-29 18:45:00,164,22
+256.600,Mi.,HS 18,"Gastreferent Mag. Böhm / Fallstudie im Kontext des Kapitels ""Media Ecology""",False,False,False,0,2024-05-29 17:15:00,2024-05-29 18:45:00,164,22
 256.600,Mi.,HS 18,"Vertiefungsthema ""IT und Sustainibility""",False,False,False,0,2024-06-12 17:15:00,2024-06-12 18:45:00,164,24
-256.600,Mi.,HS 18,,False,False,False,0,2024-06-19 17:15:00,2024-06-19 18:45:00,164,25
+256.600,Mi.,HS 18,"Optional: Online per Zoom (siehe Mail), kein neuer Stoff, Möglichkeit für Fragen zum Stoff",False,False,False,0,2024-06-19 17:15:00,2024-06-19 18:45:00,164,25
 339.341,Fr.,HS 18,,False,False,False,0,2024-04-12 12:00:00,2024-04-12 18:00:00,164,15
 339.341,Sa.,HS 18,,False,False,False,0,2024-04-13 08:30:00,2024-04-13 12:45:00,164,15
 339.341,Fr.,HS 18,,False,False,False,0,2024-04-19 12:00:00,2024-04-19 18:00:00,164,16
 339.350,Do.,HS 18,Klausur,True,False,False,0,2024-06-06 15:30:00,2024-06-06 17:00:00,164,23
+366.594,Do.,HS 18,Distance Exercise Exam - check seating plan in Moodle,True,False,False,0,2024-06-27 17:15:00,2024-06-27 18:45:00,164,26
 238.213,Mo.,HS 18,,False,False,False,0,2024-03-04 15:30:00,2024-03-04 17:00:00,164,10
 238.213,Mo.,HS 18,,False,False,False,0,2024-03-11 15:30:00,2024-03-11 17:00:00,164,11
 238.213,Mo.,HS 18,,False,False,False,0,2024-03-18 15:30:00,2024-03-18 17:00:00,164,12
@@ -330,6 +330,8 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 353.006,Mo.,HS 19,EXAM,True,False,False,1,2024-07-01 17:15:00,2024-07-01 18:45:00,152,27
 231.117,Mi.,HS 19,,False,False,False,1,2024-05-15 08:30:00,2024-05-15 10:00:00,152,20
 266.002,Mo.,HS 19,De-brief: Hackathon,False,False,False,1,2024-06-17 10:15:00,2024-06-17 11:45:00,152,25
+239.203,Do.,HS 19,Nachklausur,True,False,False,1,2024-09-19 15:30:00,2024-09-19 17:00:00,152,38
+239.204,Do.,HS 19,Nachklausur,True,False,False,1,2024-09-19 15:30:00,2024-09-19 17:00:00,152,38
 239.706,Fr.,HS 19,Klausur,True,False,False,1,2024-06-28 08:30:00,2024-06-28 10:00:00,152,26
 362.064,Fr.,HS 19,Tutorium 1. TK,True,False,True,1,2024-04-26 10:15:00,2024-04-26 11:45:00,152,17
 362.064,Fr.,HS 19,Synchronmaschine 1 (Krainer),False,False,False,1,2024-05-24 08:30:00,2024-05-24 10:00:00,152,21
@@ -376,7 +378,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 531.240,Do.,HS 19,,False,False,False,1,2024-06-20 13:45:00,2024-06-20 14:30:00,152,25
 531.240,Do.,HS 19,,False,False,False,1,2024-06-20 14:30:00,2024-06-20 15:15:00,152,25
 531.240,Do.,HS 19,2. Test,False,True,False,1,2024-06-27 13:45:00,2024-06-27 14:30:00,152,26
-531.240,Do.,HS 19,,False,False,False,1,2024-06-27 14:30:00,2024-06-27 15:15:00,152,26
 531.240,Do.,HS 19,2. Nachtest,False,True,False,1,2024-07-11 13:45:00,2024-07-11 14:30:00,152,28
 531.241,Do.,HS 19,,False,False,False,1,2024-03-07 13:45:00,2024-03-07 14:30:00,152,10
 531.241,Do.,HS 19,,False,False,False,1,2024-03-07 14:30:00,2024-03-07 15:15:00,152,10
@@ -455,7 +456,6 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 239.010,Mi.,HS 19,Klausur,True,False,False,1,2024-06-19 08:30:00,2024-06-19 10:00:00,152,25
 334.005,Mi.,HS 19,,False,False,False,1,2024-07-17 08:00:00,2024-07-17 11:00:00,152,29
 100.100,Mi.,HS 19,,False,False,False,1,2024-03-20 15:30:00,2024-03-20 17:00:00,152,12
-362.000,Do.,HS 19,Klausur,True,False,False,1,2024-06-27 12:00:00,2024-06-27 13:30:00,152,26
 531.120,Mo.,HS 19,,False,False,False,1,2024-06-24 10:15:00,2024-06-24 11:45:00,152,26
 282.001,Mi.,HS 19,Retry Exam,True,False,False,1,2024-07-10 13:45:00,2024-07-10 15:15:00,152,28
 358.001,Do.,HS 19,,False,False,False,1,2024-03-07 08:30:00,2024-03-07 10:00:00,152,10
@@ -587,7 +587,7 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 339.170,Do.,HS 19,,False,False,False,1,2024-06-06 15:30:00,2024-06-06 17:00:00,152,23
 339.170,Do.,HS 19,,False,False,False,1,2024-06-13 15:30:00,2024-06-13 17:00:00,152,24
 339.170,Do.,HS 19,,False,False,False,1,2024-06-20 15:30:00,2024-06-20 17:00:00,152,25
-339.170,Do.,HS 19,Klausur,True,False,False,1,2024-06-27 15:30:00,2024-06-27 17:00:00,152,26
+339.170,Do.,HS 19,Klausur M-Z,True,False,False,1,2024-06-27 15:30:00,2024-06-27 17:00:00,152,26
 366.560,Di.,HS 19,,False,False,False,1,2024-03-05 08:30:00,2024-03-05 10:00:00,152,10
 366.560,Di.,HS 19,,False,False,False,1,2024-03-12 08:30:00,2024-03-12 10:00:00,152,11
 366.560,Di.,HS 19,,False,False,False,1,2024-03-19 08:30:00,2024-03-19 10:00:00,152,12
@@ -623,6 +623,7 @@ course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,r
 379.014,Mo.,HS 19,Klausur - bitte im Kusss anmelden,True,False,False,1,2024-07-01 13:45:00,2024-07-01 15:15:00,152,27
 379.014,Mo.,HS 19,Klausur - bitte im Kusss anmelden,True,False,False,1,2024-09-30 13:45:00,2024-09-30 15:15:00,152,40
 365.041,Do.,HS 19,EXAM,True,False,False,1,2024-07-11 10:15:00,2024-07-11 11:45:00,152,28
+531.208,Di.,HS 19,,False,False,False,1,2024-09-17 10:15:00,2024-09-17 12:45:00,152,38
 102.016,Mo.,HS 19,,False,False,False,1,2024-03-04 15:30:00,2024-03-04 18:45:00,152,10
 102.016,Mo.,HS 19,,False,False,False,1,2024-03-11 15:30:00,2024-03-11 18:45:00,152,11
 102.016,Mo.,HS 19,,False,False,False,1,2024-03-18 15:30:00,2024-03-18 18:45:00,152,12

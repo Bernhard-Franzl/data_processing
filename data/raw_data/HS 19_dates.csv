@@ -10,6 +10,8 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 353.006,Mo.,01.07.24,17:15,18:45,HS 19,EXAM,True,False,False
 231.117,Mi.,15.05.24,08:30,10:00,HS 19,,False,False,False
 266.002,Mo.,17.06.24,10:15,11:45,HS 19,De-brief: Hackathon,False,False,False
+239.203,Do.,19.09.24,15:30,17:00,HS 19,Nachklausur,True,False,False
+239.204,Do.,19.09.24,15:30,17:00,HS 19,Nachklausur,True,False,False
 239.706,Fr.,28.06.24,08:30,10:00,HS 19,Klausur,True,False,False
 362.064,Fr.,26.04.24,10:15,11:45,HS 19,Tutorium 1. TK,True,False,True
 362.064,Fr.,24.05.24,08:30,10:00,HS 19,Synchronmaschine 1 (Krainer),False,False,False
@@ -56,7 +58,6 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 531.240,Do.,20.06.24,13:45,14:30,HS 19,,False,False,False
 531.240,Do.,20.06.24,14:30,15:15,HS 19,,False,False,False
 531.240,Do.,27.06.24,13:45,14:30,HS 19,2. Test,False,True,False
-531.240,Do.,27.06.24,14:30,15:15,HS 19,,False,False,False
 531.240,Do.,11.07.24,13:45,14:30,HS 19,2. Nachtest,False,True,False
 531.241,Do.,07.03.24,13:45,14:30,HS 19,,False,False,False
 531.241,Do.,07.03.24,14:30,15:15,HS 19,,False,False,False
@@ -98,6 +99,7 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 229.054,Di.,14.05.24,15:30,18:00,HS 19,,False,False,False
 229.054,Di.,04.06.24,15:30,18:00,HS 19,,False,False,False
 229.054,Di.,11.06.24,15:30,18:00,HS 19,,False,False,False
+229.054,Di.,18.06.24,15:30,18:00,HS 19,,False,False,False
 229.054,Di.,25.06.24,15:30,18:00,HS 19,,False,False,False
 250.900,Mi.,12.06.24,08:30,10:00,HS 19,Schlussklausur,True,False,False
 140.004,Mo.,08.04.24,15:30,18:00,HS 19,,False,False,False
@@ -118,7 +120,6 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 360.001,Di.,04.06.24,10:15,11:45,HS 19,,False,False,False
 360.001,Di.,11.06.24,10:15,11:45,HS 19,,False,False,False
 360.001,Di.,18.06.24,10:15,11:45,HS 19,,False,False,False
-360.001,Di.,25.06.24,10:15,11:45,HS 19,,False,False,False
 231.115,Mo.,11.03.24,12:00,13:30,HS 19,,False,False,False
 231.115,Mo.,18.03.24,12:00,13:30,HS 19,,False,False,False
 231.115,Mo.,08.04.24,12:00,13:30,HS 19,,False,False,False
@@ -135,7 +136,6 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 239.010,Mi.,19.06.24,08:30,10:00,HS 19,Klausur,True,False,False
 334.005,Mi.,17.07.24,08:00,11:00,HS 19,,False,False,False
 100.100,Mi.,20.03.24,15:30,17:00,HS 19,,False,False,False
-362.000,Do.,27.06.24,12:00,13:30,HS 19,Klausur,True,False,False
 531.120,Mo.,24.06.24,10:15,11:45,HS 19,,False,False,False
 282.001,Mi.,10.07.24,13:45,15:15,HS 19,Retry Exam,True,False,False
 358.001,Do.,07.03.24,08:30,10:00,HS 19,,False,False,False
@@ -193,7 +193,7 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 190.300,Do.,16.05.24,17:15,19:45,HS 19,Besprechung HA - Sachenrecht,False,False,False
 190.300,Do.,23.05.24,17:15,19:45,HS 19,Rechtsformen Unternehmen,False,False,False
 190.300,Do.,06.06.24,17:15,19:45,HS 19,Datenschutz,False,False,False
-190.300,Do.,27.06.24,17:15,19:45,HS 19,Fragestunde,False,False,True
+190.300,Do.,27.06.24,17:15,19:45,HS 19,Fragestunde online,False,False,True
 365.232,Mi.,06.03.24,14:30,15:15,HS 19,,False,False,False
 365.232,Mi.,13.03.24,14:30,15:15,HS 19,,False,False,False
 365.232,Mi.,20.03.24,14:30,15:15,HS 19,,False,False,False
@@ -245,9 +245,6 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 190.035,Mo.,13.05.24,13:45,15:15,HS 19,ABGESAGT!!!,False,False,False
 190.035,Mo.,27.05.24,13:45,15:15,HS 19,,False,False,False
 190.035,Mo.,03.06.24,13:45,15:15,HS 19,,False,False,False
-190.035,Mo.,10.06.24,13:45,15:15,HS 19,,False,False,False
-190.035,Mo.,17.06.24,13:45,15:15,HS 19,,False,False,False
-190.035,Mo.,24.06.24,13:45,15:15,HS 19,,False,False,False
 259.022,Mi.,06.03.24,12:00,14:30,HS 19,Introduction and Organisation,False,False,False
 259.022,Mi.,20.03.24,12:00,14:30,HS 19,Scenarios,False,False,False
 259.022,Mi.,10.04.24,12:00,14:30,HS 19,"OO Architecture, Tactics",False,False,False
@@ -257,7 +254,6 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 259.022,Mi.,22.05.24,12:00,14:30,HS 19,Distributed and Client/Server Software Architecture,False,False,False
 259.022,Mi.,29.05.24,12:00,14:30,HS 19,"Message-Based, Event-Based, SOA",False,False,False
 259.022,Mi.,05.06.24,12:00,14:30,HS 19,"REST, Microservice Architecture",False,False,False
-259.022,Mi.,12.06.24,12:00,14:30,HS 19,TBD,False,False,False
 259.022,Mi.,19.06.24,12:00,14:30,HS 19,Exercise Part 2: Discussion,False,False,False
 339.170,Do.,07.03.24,15:30,17:00,HS 19,,False,False,False
 339.170,Do.,14.03.24,15:30,17:00,HS 19,,False,False,False
@@ -271,7 +267,7 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 339.170,Do.,06.06.24,15:30,17:00,HS 19,,False,False,False
 339.170,Do.,13.06.24,15:30,17:00,HS 19,,False,False,False
 339.170,Do.,20.06.24,15:30,17:00,HS 19,,False,False,False
-339.170,Do.,27.06.24,15:30,17:00,HS 19,Klausur,True,False,False
+339.170,Do.,27.06.24,15:30,17:00,HS 19,Klausur M-Z,True,False,False
 366.560,Di.,05.03.24,08:30,10:00,HS 19,,False,False,False
 366.560,Di.,12.03.24,08:30,10:00,HS 19,,False,False,False
 366.560,Di.,19.03.24,08:30,10:00,HS 19,,False,False,False
@@ -299,9 +295,15 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 238.302,Mo.,03.06.24,10:15,11:45,HS 19,,False,False,False
 238.302,Mo.,10.06.24,10:15,11:45,HS 19,,False,False,False
 150.005,Mo.,03.06.24,15:30,18:45,HS 19,,False,False,False
+269.031,Mi.,05.06.24,10:15,11:45,HS 19,Klausur,True,False,False
+269.035,Mi.,05.06.24,10:15,11:45,HS 19,Klausur,True,False,False
+359.020,Fr.,07.06.24,10:15,11:45,HS 19,,False,False,False
+359.022,Fr.,07.06.24,10:15,11:45,HS 19,,False,False,False
+359.024,Fr.,07.06.24,10:15,11:45,HS 19,,False,False,False
 379.014,Mo.,01.07.24,13:45,15:15,HS 19,Klausur - bitte im Kusss anmelden,True,False,False
 379.014,Mo.,30.09.24,13:45,15:15,HS 19,Klausur - bitte im Kusss anmelden,True,False,False
 365.041,Do.,11.07.24,10:15,11:45,HS 19,EXAM,True,False,False
+531.208,Di.,17.09.24,10:15,12:45,HS 19,,False,False,False
 102.016,Mo.,04.03.24,15:30,18:45,HS 19,,False,False,False
 102.016,Mo.,11.03.24,15:30,18:45,HS 19,,False,False,False
 102.016,Mo.,18.03.24,15:30,18:45,HS 19,,False,False,False

@@ -3,26 +3,19 @@ import requests
 import re
 import pandas as pd
 
+"""
+Note: 
+Webcrawler worked on 15.6.2024 for HS 19 and HS 18. 
+Due to changes on the website, the webcrawler might not work anymore.
+"""
+
 snail = Snail()
 
-# Get the course catalog
-#course_catalog = snail.get_detailed_course_catalogue()
+for room in ["HS 18", "HS 19"]:
+    df_courses, df_dates = snail.get_courses_by_room(room)
 
-
-#dropdown_entries = snail.search_html(course_catalog, "select", {"name":"room"}, all=False).find_all("option")
-#room_dict = {x.text.strip():x["value"] for x in dropdown_entries}
-
-#action, payload = snail.prepare_catalogue_search(course_catalog)
-
-#TODO:
-# - derive regularity of course from Kusss!! -> need better idea
-#  maybe involve difference between dates! seems to be better suited than ratio!
-
-room = "HS 18"
-df_courses, df_dates = snail.get_courses_by_room(room)
-
-snail.export_to_csv(df_courses, f"data/{room}_courses.csv")
-snail.export_to_csv(df_dates, f"data/{room}_dates.csv")
+    snail.export_to_csv(df_courses, f"data/raw_data/{room}_courses.csv")
+    snail.export_to_csv(df_dates, f"data/raw_data/{room}_dates.csv")
 
 
 

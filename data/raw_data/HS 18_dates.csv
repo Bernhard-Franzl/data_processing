@@ -14,8 +14,6 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 376.027,Mo.,26.08.24,10:15,11:45,HS 18,EXAM,True,False,False
 257.350,Do.,21.03.24,15:30,17:00,HS 18,,False,False,False
 257.320,Do.,21.03.24,13:45,15:15,HS 18,,False,False,False
-257.320,Mo.,03.02.25,13:45,15:15,HS 18,,False,False,False
-347.000,Di.,18.06.24,17:15,18:45,HS 18,,False,False,False
 364.000,Di.,05.03.24,13:45,15:15,HS 18,Introduction and Course Overview,False,False,False
 364.000,Di.,12.03.24,13:45,15:15,HS 18,Transformations and Projections,False,False,False
 364.000,Di.,19.03.24,13:45,15:15,HS 18,Raster Algorithms and Depth Handling,False,False,False
@@ -141,8 +139,11 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 360.001,Mo.,10.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
 360.001,Mo.,17.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
 360.001,Mo.,24.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
-345.130,Mi.,26.06.24,10:15,11:45,HS 18,,False,False,False
-345.130,Do.,27.06.24,10:15,11:45,HS 18,,False,False,False
+360.001,Mo.,08.07.24,15:30,17:00,HS 18,Fragestunde mit Musterklausur,True,False,True
+364.046,Mi.,26.06.24,10:15,11:45,HS 18,Exam,True,False,False
+256.300,Di.,25.06.24,12:00,13:30,HS 18,"Klausur - Teil 2, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False
+239.527,Di.,25.06.24,15:30,17:00,HS 18,Final Exam,True,False,False
+239.527,Di.,09.07.24,15:30,17:00,HS 18,Retake Exam,True,False,False
 249.443,Di.,09.07.24,10:15,11:45,HS 18,Nachklausur,True,False,False
 136.309,Mo.,11.03.24,13:45,15:15,HS 18,,False,False,False
 136.309,Mo.,18.03.24,13:45,15:15,HS 18,,False,False,False
@@ -192,6 +193,8 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 357.125,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
 357.126,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
 357.128,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+245.312,Mi.,26.06.24,15:30,17:00,HS 18,Final Exam,True,False,False
+245.311,Mi.,26.06.24,13:45,15:15,HS 18,Final Exam,True,False,False
 381.013,Mo.,08.07.24,13:45,15:15,HS 18,Exam - please register in KUSSS,True,False,False
 150.031,Di.,21.05.24,16:15,17:15,HS 18,Klausur,True,False,False
 343.355,Fr.,14.06.24,10:15,11:45,HS 18,,False,False,False
@@ -245,7 +248,7 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 361.001,Di.,18.06.24,08:30,10:00,HS 18,,False,False,False
 361.001,Di.,25.06.24,08:30,10:00,HS 18,,False,False,False
 382.059,Mi.,10.07.24,08:30,11:00,HS 18,,False,False,False
-339.170,Do.,27.06.24,15:30,17:00,HS 18,Klausur,True,False,False
+339.170,Do.,27.06.24,15:30,17:00,HS 18,Klausur A-L,True,False,False
 339.191,Do.,18.04.24,19:00,19:45,HS 18,19:00 - 19:30 Uhr Test,False,True,False
 256.600,Mi.,06.03.24,17:15,18:45,HS 18,Digitalisierung; Social Impact der Digitalisierung,False,False,False
 256.600,Mi.,13.03.24,17:15,18:45,HS 18,Media Ecology - Teil 1/2,False,False,False
@@ -255,13 +258,14 @@ LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
 256.600,Mi.,24.04.24,17:15,18:45,HS 18,Vertiefungsthema Künstliche Intelligenz (KI),False,False,False
 256.600,Mi.,08.05.24,17:15,18:45,HS 18,Vertiefungsthema Agilität (letztes Kapitel der Hauptunterlage),False,False,False
 256.600,Mi.,22.05.24,17:15,18:45,HS 18,"Flipped Classroom - Selbststudium (Videos zu Media Ecology), siehe Mail",False,False,False
-256.600,Mi.,29.05.24,17:15,18:45,HS 18,"Gastreferenten Mag. Böhm und Mag. Ehrengruber / Fallstudie im Kontext des Kapitels ""Media Ecology""",False,False,False
+256.600,Mi.,29.05.24,17:15,18:45,HS 18,"Gastreferent Mag. Böhm / Fallstudie im Kontext des Kapitels ""Media Ecology""",False,False,False
 256.600,Mi.,12.06.24,17:15,18:45,HS 18,"Vertiefungsthema ""IT und Sustainibility""",False,False,False
-256.600,Mi.,19.06.24,17:15,18:45,HS 18,,False,False,False
+256.600,Mi.,19.06.24,17:15,18:45,HS 18,"Optional: Online per Zoom (siehe Mail), kein neuer Stoff, Möglichkeit für Fragen zum Stoff",False,False,False
 339.341,Fr.,12.04.24,12:00,18:00,HS 18,,False,False,False
 339.341,Sa.,13.04.24,08:30,12:45,HS 18,,False,False,False
 339.341,Fr.,19.04.24,12:00,18:00,HS 18,,False,False,False
 339.350,Do.,06.06.24,15:30,17:00,HS 18,Klausur,True,False,False
+366.594,Do.,27.06.24,17:15,18:45,HS 18,Distance Exercise Exam - check seating plan in Moodle,True,False,False
 238.213,Mo.,04.03.24,15:30,17:00,HS 18,,False,False,False
 238.213,Mo.,11.03.24,15:30,17:00,HS 18,,False,False,False
 238.213,Mo.,18.03.24,15:30,17:00,HS 18,,False,False,False

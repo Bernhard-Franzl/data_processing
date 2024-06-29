@@ -21,7 +21,7 @@ class Preprocessor:
         # store the data in the data directory
         dataframe.to_csv(os.path.join(path_to_file, file_name) + ".csv", index=False)
         # store the datatypes in the data directory
-        dataframe.dtypes.to_csv(os.path.join(path_to_file, file_name) + "_dtypes.csv", index=False)
+        dataframe.dtypes.to_csv(os.path.join(path_to_file, file_name) + "_dtypes.csv", index=True)
         return True
     
     ####### Basic File Management Methods ########
@@ -83,6 +83,7 @@ class CoursePreprocessor(Preprocessor):
             dataframes.append(df)
         # concatenate all the dataframes
         return pd.concat(dataframes, axis=0).reset_index(drop=True)
+    
     
     def read_course_dates_data(self, path_to_raw_data):
         # get all subfiles in the directory and filter them by the name pattern "dates"
@@ -151,9 +152,8 @@ class CoursePreprocessor(Preprocessor):
         df = self.format_dates(df)
         
         # rename columns
-        df = self.rename_columns(df,
-                                        ["LVA-Nummer", "Wochentag", "Ort", "Anmerkung"],
-                                        ["course_number", "weekday", "room", "note"])
+        df = self.rename_columns(df,["LVA-Nummer", "Wochentag", "Ort", "Anmerkung"],
+                                    ["course_number", "weekday", "room", "note"])
 
         # fill in empty notes with empty string
         df["note"] = df["note"].fillna("")  
@@ -162,7 +162,9 @@ class CoursePreprocessor(Preprocessor):
         df["course_number"] = df["course_number"].apply(lambda x: self.format_course_number(x))
         
         # drop potential duplicates and reset index
+        print(len(df))
         df = df.drop_duplicates().reset_index(drop=True)
+        print(len(df))
         return df
     
     #######  Data Enhancement Methods ########

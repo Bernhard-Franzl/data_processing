@@ -176,7 +176,7 @@ class SignalAnalyzer():
             
             min = extrema[minima_mask]
             max = extrema[maxima_mask]
-            
+
             # differentiate between before and after
             # before take first global min
             # after take last global min
@@ -258,6 +258,7 @@ class SignalAnalyzer():
         ext_a, out_a, df_list_a = process_part(df_after, n=params["m_after"], before=False, first=first, last=last)
         
         def calc_participants(during:pd.DataFrame, in_before:int, out_after:int, mode:str):
+
             if mode == "median":
                 inside_during = self.calc_median_inside(during)
             elif mode == "mean":
@@ -267,13 +268,12 @@ class SignalAnalyzer():
             else:
                 raise Exception("Mode not implemented")
             
+            
             part_before = in_before + inside_during 
             part_after = out_after - during.iloc[-1]["people_inside"] + inside_during
             
             return part_before, part_after
             
-        
-
         part_b, part_a = calc_participants(during=df_during, in_before=in_b, 
                                             out_after=out_a, mode=params["part_mode"])
         extrema = pd.concat([ext_b, ext_a])

@@ -12,50 +12,10 @@ door_to_id = {"door1":0, "door2":1}
 data_path = "/home/berni/data_06_06/archive"
 
 #TODO:
-# incorporate paramter search into the Evaluator class
-# implement a method that can be used to evaluate the results of the parameter search inside Evaluator class
-
-# can we somehow implement a rule based approach when to take which prediction mode
-
-# implement something like 75% percentile in calcl participants
-# before large test run check if results can be read in again!!
-
-
-
-# test single parameter set
-path_to_json = "signal_processing/processing_parameters.json"
-params = json.load(open(path_to_json, "r"))
-
-preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
-cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
-
-se_list, ae_list, ctd_list  = Evaluator("SignalAnalyzer", 
-                                       "data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
-                                                                                    raw_data=raw_data, 
-                                                                                    params=params,
-                                                                                    details=False)
-                                      
-#for i, ae_min_entry in enumerate(ae_min_list):
-#    mode, value, control_in, control_pred, participants, df = ae_min_entry
-#    diff = abs(np.diff(participants))
-#    describe = df["people_inside"].describe()
-#    std = describe["std"]
-#    diff = abs(np.diff(participants))
-#    diff_ratio = diff/max(participants)
-#    if diff_ratio >= 0.3:
-#        desired_mode = "max"
-#        #print(mode, value, std, diff, "Control:",control_in, " Preds:", control_pred, describe["50%"], round(describe["mean"],2), describe["75%"], " ##### ",participants, describe["std"])
-    
-#    elif diff_ratio <= 0.1:
-#        desired_mode = "mean"
-#        #print(i, mode, value, std, diff, diff_ratio, "Control:",control_in, " Preds:", describe["50%"], describe["75%"], " ###### ", round(describe["mean"],2), control_pred,  " ##### ",participants, describe["std"])
-
-#    else:
-#        print(i, mode, value, std, diff, diff_ratio, "Control:",control_in, " Preds:", describe["50%"], describe["75%"], " ###### ", round(describe["mean"],2), control_pred,  " ##### ",participants, describe["std"])
-
-# Results: 
-# Samples index 9 is not so good -> we miss some signals, but algrotithm is not so bad, its just the data
-# Sample index 13 is no so good -> but its due to not ideal choice of the sample time point -> some students left earlier! CTD is low!
+# Try different frequency values -> 0.5 minutes, 1 minute, 5 minutes etc. -> only relevant for calc participants
+# incorporate the read results methods into the Evaluator class
+# in evaluator add option to save results to json
+# in evaluator add option to use stored preprocessed data
 
 
 def write_results_to_txt(file_name, comb_number, params, se_list, ae_list, ctd_list):
@@ -109,7 +69,26 @@ def write_results_to_json(file_name, params, se_list, ae_list, ctd_list):
 #    write_results_to_json(file_name, params, se_list, ae_list, ctd_list)
     
 
-# Analyze the results
+############## Analyze Results ##############
+
+######## test single parameter set ########
+#path_to_json = "signal_processing/processing_parameters.json"
+#params = json.load(open(path_to_json, "r"))
+
+#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+#cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+
+#se_list, ae_list, ctd_list  = Evaluator("SignalAnalyzer", 
+#                                       "data/control_data/zählung.csv").evaluate_signal_analyzer(data=cleaned_data,
+#                                                                                    raw_data=raw_data, 
+#                                                                                    params=params,
+#                                                                                    details=False)
+
+#print("MSE: ", np.mean(se_list))                                      
+#print("MAE: ", np.mean(ae_list))  
+
+
+######## Read out Results ########
 #parent_dir = os.path.dirname(os.path.abspath(__file__))
 #parent_dir = parent_dir.split("/signal_processing")[0]
 #path_to_results = "results_2_10_6_1900"

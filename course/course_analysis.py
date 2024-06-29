@@ -4,6 +4,7 @@ import os
 from tqdm import tqdm
 import json
 import sys
+import numpy as np
 sys.path.insert(0, "/home/berni/github_repos/data_processing")
 #sys.path.insert(0, "/home/franzl/github_repos/data_processing")
 
@@ -15,29 +16,43 @@ class CourseAnalyzer():
     door_to_id = {"door1":0, "door2":1}
     room_capacities = {0:164, 1:152}
 
-    def __init__(self, data_dir_course, path_to_signal):
+    def __init__(self, path_to_courses, path_to_signal):
 
         # class variables
-        self.data_dir_course = data_dir_course
+        self.path_to_courses = path_to_courses
         self.path_to_signal = path_to_signal
         
         # course information dataframe
-        self.df_courses = self.initialize_courses().drop_duplicates().reset_index(drop=True)
+        self.df_course_info = self.import_from_csv(self.path_to_courses, "course_info", load_dtypes=True)
         # course dates dataframe
-        self.df_dates = self.initialize_dates().drop_duplicates().reset_index(drop=True)
+        self.df_course_dates = self.import_from_csv(self.path_to_courses, "course_dates", load_dtypes=True)
+
 
         # enrich dates with course information
-        self.df_combined = self.add_course_info(self.df_dates)
+        self.df_combined = self.add_course_info(self.df_course_dates, self.df_course_info)
         self.df_combined.drop("room_id_y", axis=1, inplace=True)
         self.df_combined.rename(columns={"room_id_x":"room_id"}, inplace=True)
         self.df_combined = self.df_combined.drop_duplicates().reset_index(drop=True)
         
         self.signal_analyzer = SignalAnalyzer()
-        # get signal data
-        self.df_signal = self.import_signal_csv(self.path_to_signal)
+        ## get signal data
+        self.df_frequency_data = self.import_from_csv(self.path_to_signal, "frequency_data", load_dtypes=True)
         
+        self.signal_params = {
+            "prediction_mode":"max",
+            "m_before":1,
+            "m_after":5,
+            "part_mode":"median",
+            "max_mean_cutoff":0.3
+        }
                
     ###### Basic Methods #####
+    def import_from_csv(self, path, file_name, load_dtypes):
+        data = pd.read_csv(os.path.join(path, f"{file_name}.csv"), header=0)
+        if load_dtypes:
+            dtypes = pd.read_csv(os.path.join(path, f"{file_name}_dtypes.csv"), index_col=0)
+            data = data.astype(dtypes.to_dict()["0"])
+        return data
 
     def format_dates(self, dataframe_dates):
         df_dates = dataframe_dates.copy(deep=True)
@@ -57,16 +72,14 @@ class CourseAnalyzer():
     
     def first_entry(self, dataframe, column):
         return dataframe.reset_index().loc[0, column]
-      
-    # sepcial  
-    def add_course_info(self, dates_dataframe):
+       
+    def add_course_info(self, dates_dataframe, course_info_dataframe):
         df = dates_dataframe.copy(deep=True)
-        df = df.merge(self.df_courses, 
+        df = df.merge(course_info_dataframe, 
                       how="inner", 
                       on="course_number")
         return df
     
-    # special
     def add_no_dates(self, dates_dataframe):
         
         df = dates_dataframe.copy()
@@ -76,14 +89,6 @@ class CourseAnalyzer():
     
     
     ########## Export/Import Methods ##########
-    # def import_signal_csv(self, path):
-    #     try:
-    #         data = pd.read_csv(path, header=0, index_col=0)
-    #         data["time"] = pd.to_datetime(data["time"])
-    #         return data
-    #     except:
-    #         raise("Error: Could not read file. Please check if the file exists and the path is correct!")
-              
     def export_csv(self, dataframe, path):
         dataframe.to_csv(path, index=False)
     
@@ -99,51 +104,7 @@ class CourseAnalyzer():
         
         with open(path, "w") as file:
             json.dump(metadata, file, indent=4)
-        
-        
-    ###### Dataframe Initialization ######
-    def initialize_courses(self):
-        sub_files = [x for x in self.get_all_sub_files(self.data_dir_course) if "courses" in x]
-        dataframes = []
-        for file in sub_files:
-            df_courses = self.import_from_csv(os.path.join(self.data_dir_course, file))
-            df_courses["room_id"] = self.room_to_id[file.split("_")[0]]
-            dataframes.append(df_courses)
-        df_courses = pd.concat(dataframes, axis=0).reset_index(drop=True)
-        
-        df_courses.drop(["Nächster Termin", "SSt.", "Abhaltungssprache_subinfo", "Literatur", "Lehrinhalte wechselnd?"], axis=1, inplace=True)
-        
-        df_courses = self.rename_columns(df_courses, 
-                                              ["LVA-Nr.", "LVA-Titel", "Typ", "Art", "LeiterIn", "Sem.", "ECTS"], 
-                                              ["course_number", "course_name", "type", "kind", "lecturer", "semester", "ects"])
-        
-        df_courses = self.rename_columns(df_courses,
-                                         ["Institut", "E-Mail", "Ausbildungslevel", "Studienfachbereich", "Anbietende Uni", "Quellcurriculum", "Beurteilungskriterien", "Lehrmethoden", "Abhaltungssprache_studyhandbook", "Studienfach", "Sonstige Informationen"],
-                                         ["instute", "email", "level", "study_area", "university", "curriculum", "assessment_criteria", "teaching_methods", "language", "study_subject", "other_information"])
-        df_courses["course_number"] = df_courses["course_number"].apply(lambda x: self.format_course_number(x))
-        
-        return df_courses
-        
-    def initialize_dates(self):
-        sub_files = [x for x in self.get_all_sub_files(self.data_dir_course) if "dates" in x]
-        
-        dataframes = []
-        for file in sub_files:
-            df_dates = self.import_from_csv(os.path.join(self.data_dir_course, file))
-            df_dates["room_id"] = self.room_to_id[file.split("_")[0]]
-            dataframes.append(df_dates)    
-        df_dates = pd.concat(dataframes, axis=0).reset_index(drop=True)
-                  
-        df_dates = self.format_dates(df_dates)
-        df_dates = self.rename_columns(df_dates,
-                                        ["LVA-Nummer", "Wochentag", "Ort", "Anmerkung"],
-                                        ["course_number", "weekday", "room", "note"])
-        df_dates["note"] = df_dates["note"].fillna("")  
-        df_dates["course_number"] = df_dates["course_number"].apply(lambda x: self.format_course_number(x))
-        df_dates = self.add_room_capcity(df_dates)
-        df_dates = self.add_calendar_week(df_dates, "start_time")
 
-        return df_dates
 
     ###### Filter Dataframes ######
     def filter_df_by_timestamp(self, dataframe, start_time, end_time):
@@ -212,7 +173,7 @@ class CourseAnalyzer():
         
         return first, last
     
-    def calc_course_participants(self, dates_dataframe, mode):
+    def calc_course_participants(self, dates_dataframe):
         
         df = dates_dataframe.copy(deep=True)
     
@@ -225,15 +186,19 @@ class CourseAnalyzer():
 
         
         for i,row in tqdm(df.iterrows(), total=len(df)):
-
+            
+            if row["course_number"] != "364.000":
+                continue
+            
             if (cur_date != row["start_time"].date()) or (cur_room != row["room_id"]):
                 # we could somehow chache it to avoid recalculating
                 cur_date = row["start_time"].date()
-                df_first_last = self.filter_df_by_date(self.df_dates, cur_date)
+                df_first_last = self.filter_df_by_date(self.df_course_dates, cur_date)
+                
                 cur_room = row["room_id"]
                 df_first_last = self.filter_df_by_room(df_first_last, cur_room)
             
-            df_signal_cur = self.filter_df_by_room(self.df_signal, cur_room)                
+            df_signal_cur = self.filter_df_by_room(self.df_frequency_data, cur_room)                
             
             start_time = row["start_time"]
             end_time = row["end_time"]
@@ -242,17 +207,36 @@ class CourseAnalyzer():
             first, last = self.get_first_last(df_first_last, start_time, end_time)
             
             # sanity check df_signal must only contain data in the correct room
-            dataframes, participants, extrema, df_plot_list =  self.signal_analyzer.calc_participants(dataframe = df_signal_cur, 
-                                                                            start_time = start_time, 
-                                                                            end_time = end_time, 
-                                                                            first = first, 
-                                                                            last = last, 
-                                                                            control=False,
-                                                                            mode=mode)
+            dataframes, participants, extrema, df_list_plotting, _ =  self.signal_analyzer.calc_participants(
+                dataframe=df_signal_cur, 
+                start_time = start_time, 
+                end_time = end_time, 
+                first = first, 
+                last = last, 
+                control=True,
+                params=self.signal_params)
+            
+            if max(participants) == 0:
+                diff_ratio = 10
+            else:
+                diff_ratio = abs(np.diff(participants))/max(participants)
+                
+
+            print(i, diff_ratio, participants, row["course_number"], first, last)
+            df_help = self.signal_analyzer.merge_participant_dfs(df_list_plotting)
+            df_help.to_csv(f"data/df_help_{i}.csv", index=False)
+            
+            if diff_ratio > self.signal_params["max_mean_cutoff"]:
+                part_estimate = int(np.max(participants))
+                df.loc[i, "max_or_median"] = "max"
+            else:
+                part_estimate = int(np.median(participants))
+                df.loc[i, "max_or_median"] = "median"
             
             df.loc[i, "present_students_b"] = participants[0]
             df.loc[i, "present_students_a"] = participants[1]
-            df.loc[i, "present_students"] = (participants[0] + participants[1])//2
+            
+            df.loc[i, "present_students"] = part_estimate
             
             df.loc[i, "first"] = first
             df.loc[i, "last"] = last
@@ -280,8 +264,7 @@ class CourseAnalyzer():
             
             df.loc[i, "irregular"] = (constraint1 & constraint2) | df.loc[i, "overlength"]
             
-            
-            plot_list.append(df_plot_list)
+            plot_list.append(df_list_plotting)
             extrema_list.append(extrema)
             df_list.append(dataframes)
             
