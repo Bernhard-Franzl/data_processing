@@ -2,6 +2,8 @@
 from forcasting import DataHandler, Plotter
 
 # TODO:
+# -- Look into resampling -> fix function in forecasting notebook -> not quite there yet!
+
 # -- Deploy probabilistic model from paper
 # -- Investigate other ways to clean data
 # --
