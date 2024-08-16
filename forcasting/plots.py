@@ -96,8 +96,45 @@ class Plotter():
             
         fig.show(config=self.config)
     
-    ######## Boxplot Functions ########
-    ######## Bar chart Functions ########
+    ########### PL Count Plot ###########
+    def plot_plcount(self, raw_dataframe, plcount_dataframe, save=False):
+        
+        fig = make_subplots(rows=1, cols=3, 
+                    subplot_titles=("Raw Cumulative", "Reset At Midnight", "PLCount Estimates"))
+        
+        fig = self.apply_general_settings(fig)
+        
+        fig.add_trace(
+            go.Scatter(
+                x=raw_dataframe["datetime"],
+                y=raw_dataframe["CC"],
+                mode='lines',
+            ),
+            row=1, col=1
+        )
+        
+        fig.add_trace(
+            go.Scatter(
+                x=plcount_dataframe["datetime"],
+                y=plcount_dataframe["CC"],
+                mode='lines',
+            ),
+            row=1, col=2
+        )
+        
+        fig.add_trace(
+            go.Scatter(
+                x=plcount_dataframe["datetime"],
+                y=plcount_dataframe["CC_estimates"],
+                mode='lines',
+            ),
+            row=1, col=3
+        )
+        
+        if save:
+            fig.write_html(f"{self.save_path}.html")
+            
+        fig.show(config=self.config)
     
     ######## Advanced Plotting Functions ########
     def plot_time_series_patterns(self, data, save=False):
