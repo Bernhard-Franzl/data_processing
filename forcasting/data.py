@@ -6,21 +6,22 @@ from tqdm import tqdm
 
 class DataHandler():
     
-    def __init__(self, path_repo, file_name, dtypes=True, extension="csv", **kwargs):
+    def __init__(self, **kwargs):
+            
+        self.kwargs = kwargs
+    
+    ######## Read Data ########
+    def read_data(self, path_repo, file_name, extension="csv", dtypes=True):
         
         self.path_repo = path_repo
         self.file_name = file_name
         self.dtypes = dtypes
+        
         if extension is None:
             self.extension = "csv"
         else:
             self.extension = extension
             
-        self.kwargs = kwargs
-    
-    ######## Read Data ########
-    def read_data(self):
-        
         path = os.path.join(self.path_repo, self.file_name)
         
         data = pd.read_csv(f"{path}.{self.extension}")
@@ -28,11 +29,13 @@ class DataHandler():
         if self.dtypes:
             dtype_array = pd.read_csv(f"{path}_dtypes.{self.extension}", index_col=0)
             data = data.astype(dtype_array.to_dict()["0"])
-            
-        data["datetime"] = data["time"]
-        data.drop("time", axis=1, inplace=True)
         
         return data
+    
+    def clean_signal_data(self, dataframe):
+        dataframe["datetime"] = dataframe["time"]
+        dataframe.drop("time", axis=1, inplace=True)
+        return dataframe
 
     ######## Filter Data ########
     def filter_by_room_id(self, dataframe, room_id):
@@ -46,6 +49,9 @@ class DataHandler():
         df = dataframe[(dataframe[time_column] >= start_time) & (dataframe[time_column] <= end_time)]
         df = df.sort_values(by=time_column).reset_index(drop=True)
         return df
+    
+    def filter_by_date(self, dataframe, time_column, date):
+        return dataframe[dataframe[time_column].dt.date == date]
     
     ######## Resample Data ########
     def _resample(self, dataframe, time_column, frequency, agg_func, output_columns):
@@ -128,6 +134,7 @@ class DataHandler():
 
     def derive_weekday(self, dataframe):
         dataframe["weekday"] = dataframe["datetime"].dt.weekday
+        dataframe["weekday_name"] = dataframe["datetime"].dt.day_name()
         return dataframe
     
     
