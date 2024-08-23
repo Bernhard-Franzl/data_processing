@@ -1,0 +1,886 @@
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:17:56 raspberryreceiver1 python3[711]: person is ENTERING
+Apr 25 06:17:56 raspberryreceiver1 python3[711]:  Thu Apr 25 06:17:56 2024
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: Too many ones at receiver. Please check system in HS19 at door 1!
+Apr 25 06:30:13 raspberryreceiver1 python3[711]: person is LEAVING
+Apr 25 06:30:13 raspberryreceiver1 python3[711]:  Thu Apr 25 06:30:13 2024
+Apr 25 07:07:32 raspberryreceiver1 python3[711]: person is LEAVING
+Apr 25 07:07:32 raspberryreceiver1 python3[711]:  Thu Apr 25 07:07:32 2024
+Apr 25 07:20:48 raspberryreceiver1 python3[711]: person is ENTERING
+Apr 25 07:20:48 raspberryreceiver1 python3[711]:  Thu Apr 25 07:20:48 2024
+-- Boot c880e3625ba543b2a5a6a0a34cb9c78a --
+Apr 25 07:27:21 raspberryreceiver1 systemd[1]: Started IR Receiver.
+Apr 25 07:27:22 raspberryreceiver1 python3[712]: detect mode
+Apr 25 07:31:42 raspberryreceiver1 python3[712]: person is LEAVING
+Apr 25 07:31:42 raspberryreceiver1 python3[712]:  Thu Apr 25 07:31:42 2024
+Apr 25 08:08:41 raspberryreceiver1 systemd[1]: /etc/systemd/system/receiver.service:8: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+Apr 25 08:08:45 raspberryreceiver1 systemd[1]: /etc/systemd/system/receiver.service:8: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+Apr 25 08:08:48 raspberryreceiver1 systemd[1]: Stopping IR Receiver...
+Apr 25 08:08:48 raspberryreceiver1 systemd[1]: receiver.service: Deactivated successfully.
+Apr 25 08:08:48 raspberryreceiver1 systemd[1]: Stopped IR Receiver.
+Apr 25 08:08:48 raspberryreceiver1 systemd[1]: receiver.service: Consumed 29.818s CPU time.
+Apr 25 08:08:49 raspberryreceiver1 systemd[1]: /etc/systemd/system/receiver.service:8: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+Apr 25 08:08:51 raspberryreceiver1 systemd[1]: Started IR Receiver.
+Apr 25 08:08:52 raspberryreceiver1 python3[2380]: detect mode
+Apr 25 08:08:53 raspberryreceiver1 systemd[1]: /etc/systemd/system/receiver.service:8: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+Apr 25 08:08:57 raspberryreceiver1 systemd[1]: /etc/systemd/system/receiver.service:8: Standard output type syslog is obsolete, automatically updating to journal. Please update your unit file, and consider removing the setting altogether.
+Apr 25 08:08:59 raspberryreceiver1 systemd[1]: Stopping IR Receiver...
+Apr 25 08:08:59 raspberryreceiver1 systemd[1]: receiver.service: Deactivated successfully.
+Apr 25 08:08:59 raspberryreceiver1 systemd[1]: Stopped IR Receiver.
+Apr 25 08:08:59 raspberryreceiver1 systemd[1]: Started IR Receiver.
+Apr 25 08:09:00 raspberryreceiver1 python3[2448]: detect mode
+Apr 25 08:13:38 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:13:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:13:38 2024
+Apr 25 08:13:40 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:13:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:13:40 2024
+Apr 25 08:13:44 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 08:13:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:13:44 2024
+Apr 25 08:17:27 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:17:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:17:27 2024
+Apr 25 08:18:58 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:18:58 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:18:58 2024
+Apr 25 08:21:17 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:21:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:21:17 2024
+Apr 25 08:23:46 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:23:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:23:46 2024
+Apr 25 08:23:47 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:23:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:23:47 2024
+Apr 25 08:24:00 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:24:00 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:24:00 2024
+Apr 25 08:24:26 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:24:26 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:24:26 2024
+Apr 25 08:25:29 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:25:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:25:29 2024
+Apr 25 08:25:32 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:25:32 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:25:31 2024
+Apr 25 08:26:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:26:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:26:30 2024
+Apr 25 08:28:06 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:28:06 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:28:06 2024
+Apr 25 08:28:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:28:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:28:53 2024
+Apr 25 08:29:06 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:29:06 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:29:06 2024
+Apr 25 08:32:40 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:32:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:32:40 2024
+Apr 25 08:33:17 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:33:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:33:17 2024
+Apr 25 08:39:38 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 08:39:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 08:39:38 2024
+Apr 25 09:39:00 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 09:39:00 raspberryreceiver1 python3[2448]:  Thu Apr 25 09:39:00 2024
+Apr 25 10:01:31 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:01:31 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:01:31 2024
+Apr 25 10:01:34 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:01:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:01:34 2024
+Apr 25 10:01:41 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:01:41 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:01:41 2024
+Apr 25 10:01:47 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:01:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:01:47 2024
+Apr 25 10:01:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:01:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:01:53 2024
+Apr 25 10:02:20 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:02:20 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:02:20 2024
+Apr 25 10:02:23 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:02:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:02:23 2024
+Apr 25 10:02:30 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:02:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:02:30 2024
+Apr 25 10:03:01 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:03:01 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:03:01 2024
+Apr 25 10:03:18 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:03:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:03:18 2024
+Apr 25 10:03:36 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:03:36 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:03:36 2024
+Apr 25 10:03:46 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:03:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:03:46 2024
+Apr 25 10:06:10 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:06:10 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:06:10 2024
+Apr 25 10:06:24 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:06:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:06:24 2024
+Apr 25 10:07:17 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:07:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:07:17 2024
+Apr 25 10:08:26 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:08:26 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:08:26 2024
+Apr 25 10:09:19 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:09:19 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:09:19 2024
+Apr 25 10:09:58 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 10:09:58 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:09:58 2024
+Apr 25 10:10:43 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:10:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:10:43 2024
+Apr 25 10:11:16 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:11:16 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:11:16 2024
+Apr 25 10:11:42 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:11:42 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:11:42 2024
+Apr 25 10:12:03 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:12:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:12:03 2024
+Apr 25 10:12:13 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:12:13 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:12:13 2024
+Apr 25 10:12:22 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:12:22 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:12:22 2024
+Apr 25 10:13:26 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:13:26 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:13:26 2024
+Apr 25 10:13:55 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:13:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:13:55 2024
+Apr 25 10:15:13 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:15:13 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:15:13 2024
+Apr 25 10:15:18 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:15:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:15:18 2024
+Apr 25 10:18:44 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:18:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:18:44 2024
+Apr 25 10:21:47 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 10:21:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 10:21:47 2024
+Apr 25 11:50:59 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:50:59 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:50:59 2024
+Apr 25 11:51:01 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:01 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:01 2024
+Apr 25 11:51:11 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:11 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:11 2024
+Apr 25 11:51:28 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:28 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:28 2024
+Apr 25 11:51:29 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:29 2024
+Apr 25 11:51:45 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:45 2024
+Apr 25 11:51:50 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:50 2024
+Apr 25 11:51:53 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:51:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:51:53 2024
+Apr 25 11:52:08 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:08 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:08 2024
+Apr 25 11:52:11 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:11 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:11 2024
+Apr 25 11:52:12 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:12 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:12 2024
+Apr 25 11:52:18 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:18 2024
+Apr 25 11:52:21 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:21 2024
+Apr 25 11:52:29 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:29 2024
+Apr 25 11:52:30 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:30 2024
+Apr 25 11:52:31 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:52:31 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:52:31 2024
+Apr 25 11:55:17 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 11:55:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 11:55:17 2024
+Apr 25 12:02:46 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 12:02:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 12:02:46 2024
+Apr 25 12:39:32 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 12:39:32 raspberryreceiver1 python3[2448]:  Thu Apr 25 12:39:32 2024
+Apr 25 12:49:08 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 12:49:08 raspberryreceiver1 python3[2448]:  Thu Apr 25 12:49:08 2024
+Apr 25 12:54:45 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 12:54:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 12:54:45 2024
+Apr 25 12:54:46 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 12:54:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 12:54:46 2024
+Apr 25 13:02:11 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:02:11 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:02:11 2024
+Apr 25 13:09:29 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:09:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:09:29 2024
+Apr 25 13:10:31 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:10:31 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:10:31 2024
+Apr 25 13:12:54 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:12:54 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:12:54 2024
+Apr 25 13:15:22 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:15:22 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:15:22 2024
+Apr 25 13:15:59 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:15:59 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:15:59 2024
+Apr 25 13:18:18 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:18:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:18:18 2024
+Apr 25 13:18:23 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:18:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:18:23 2024
+Apr 25 13:18:24 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:18:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:18:24 2024
+Apr 25 13:18:25 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:18:25 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:18:25 2024
+Apr 25 13:18:59 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:18:59 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:18:59 2024
+Apr 25 13:19:03 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:19:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:19:03 2024
+Apr 25 13:21:03 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:21:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:21:03 2024
+Apr 25 13:21:03 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:21:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:21:03 2024
+Apr 25 13:21:25 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:21:25 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:21:25 2024
+Apr 25 13:21:29 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:21:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:21:29 2024
+Apr 25 13:21:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:21:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:21:30 2024
+Apr 25 13:22:15 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:22:15 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:22:15 2024
+Apr 25 13:22:16 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:22:16 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:22:16 2024
+Apr 25 13:22:18 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:22:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:22:18 2024
+Apr 25 13:24:36 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:24:36 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:24:36 2024
+Apr 25 13:27:00 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:27:00 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:27:00 2024
+Apr 25 13:27:32 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:27:32 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:27:32 2024
+Apr 25 13:28:21 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:28:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:28:21 2024
+Apr 25 13:28:55 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:28:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:28:55 2024
+Apr 25 13:28:56 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:28:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:28:56 2024
+Apr 25 13:28:58 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:28:58 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:28:58 2024
+Apr 25 13:29:00 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:29:00 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:29:00 2024
+Apr 25 13:29:16 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:29:16 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:29:16 2024
+Apr 25 13:29:19 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:29:19 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:29:19 2024
+Apr 25 13:29:29 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:29:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:29:29 2024
+Apr 25 13:29:55 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:29:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:29:55 2024
+Apr 25 13:30:11 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:30:11 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:30:11 2024
+Apr 25 13:30:40 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:30:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:30:40 2024
+Apr 25 13:30:41 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:30:41 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:30:41 2024
+Apr 25 13:30:50 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:30:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:30:50 2024
+Apr 25 13:31:04 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:31:04 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:31:04 2024
+Apr 25 13:31:14 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:31:14 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:31:14 2024
+Apr 25 13:31:22 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:31:22 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:31:22 2024
+Apr 25 13:32:49 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:32:49 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:32:49 2024
+Apr 25 13:32:55 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:32:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:32:55 2024
+Apr 25 13:33:34 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:33:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:33:34 2024
+Apr 25 13:33:56 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:33:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:33:56 2024
+Apr 25 13:35:44 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:35:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:35:44 2024
+Apr 25 13:35:45 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:35:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:35:45 2024
+Apr 25 13:35:47 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:35:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:35:47 2024
+Apr 25 13:35:48 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:35:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:35:48 2024
+Apr 25 13:36:15 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:36:15 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:36:15 2024
+Apr 25 13:36:40 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:36:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:36:40 2024
+Apr 25 13:37:39 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:37:39 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:37:39 2024
+Apr 25 13:38:51 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:38:51 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:38:51 2024
+Apr 25 13:38:52 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:38:52 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:38:52 2024
+Apr 25 13:38:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:38:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:38:53 2024
+Apr 25 13:39:52 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:39:52 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:39:52 2024
+Apr 25 13:39:54 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:39:54 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:39:54 2024
+Apr 25 13:39:55 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:39:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:39:55 2024
+Apr 25 13:39:56 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:39:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:39:56 2024
+Apr 25 13:40:47 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:40:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:40:47 2024
+Apr 25 13:42:21 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:42:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:42:21 2024
+Apr 25 13:42:21 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:42:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:42:21 2024
+Apr 25 13:42:23 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:42:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:42:23 2024
+Apr 25 13:42:27 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:42:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:42:27 2024
+Apr 25 13:42:29 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:42:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:42:29 2024
+Apr 25 13:42:38 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:42:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:42:38 2024
+Apr 25 13:43:03 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:43:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:43:03 2024
+Apr 25 13:43:18 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:43:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:43:18 2024
+Apr 25 13:43:19 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:43:19 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:43:19 2024
+Apr 25 13:43:21 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:43:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:43:21 2024
+Apr 25 13:43:22 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:43:22 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:43:22 2024
+Apr 25 13:43:42 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:43:42 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:43:42 2024
+Apr 25 13:44:27 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:44:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:44:27 2024
+Apr 25 13:44:30 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:44:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:44:30 2024
+Apr 25 13:45:05 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:45:05 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:45:05 2024
+Apr 25 13:45:07 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:45:07 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:45:07 2024
+Apr 25 13:45:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:45:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:45:30 2024
+Apr 25 13:45:36 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 13:45:36 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:45:36 2024
+Apr 25 13:46:02 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:46:02 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:46:02 2024
+Apr 25 13:46:27 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:46:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:46:27 2024
+Apr 25 13:47:36 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:47:36 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:47:36 2024
+Apr 25 13:47:38 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:47:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:47:38 2024
+Apr 25 13:48:10 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:48:10 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:48:10 2024
+Apr 25 13:48:14 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:48:14 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:48:14 2024
+Apr 25 13:49:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:49:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:49:53 2024
+Apr 25 13:52:50 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 13:52:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 13:52:50 2024
+Apr 25 14:02:09 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 14:02:09 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:02:09 2024
+Apr 25 14:31:44 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:31:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:31:44 2024
+Apr 25 14:31:53 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:31:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:31:53 2024
+Apr 25 14:31:54 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:31:54 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:31:54 2024
+Apr 25 14:31:56 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:31:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:31:56 2024
+Apr 25 14:31:58 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:31:58 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:31:58 2024
+Apr 25 14:32:05 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:05 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:05 2024
+Apr 25 14:32:07 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:07 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:07 2024
+Apr 25 14:32:09 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:09 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:09 2024
+Apr 25 14:32:10 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:10 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:10 2024
+Apr 25 14:32:12 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:12 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:12 2024
+Apr 25 14:32:13 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:13 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:13 2024
+Apr 25 14:32:17 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:17 2024
+Apr 25 14:32:19 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:19 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:19 2024
+Apr 25 14:32:20 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:20 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:20 2024
+Apr 25 14:32:23 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:23 2024
+Apr 25 14:32:24 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:24 2024
+Apr 25 14:32:25 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:25 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:25 2024
+Apr 25 14:32:27 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:27 2024
+Apr 25 14:32:28 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:28 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:28 2024
+Apr 25 14:32:29 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:29 2024
+Apr 25 14:32:30 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:30 2024
+Apr 25 14:32:31 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:31 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:31 2024
+Apr 25 14:32:32 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:32 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:32 2024
+Apr 25 14:32:33 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:33 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:33 2024
+Apr 25 14:32:35 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:35 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:35 2024
+Apr 25 14:32:36 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:36 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:36 2024
+Apr 25 14:32:37 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:37 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:37 2024
+Apr 25 14:32:39 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:39 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:39 2024
+Apr 25 14:32:40 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:40 2024
+Apr 25 14:32:42 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:42 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:42 2024
+Apr 25 14:32:44 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:44 2024
+Apr 25 14:32:57 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:32:57 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:32:57 2024
+Apr 25 14:33:02 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:33:02 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:33:02 2024
+Apr 25 14:33:27 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 14:33:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:33:27 2024
+Apr 25 14:40:53 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:40:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:40:53 2024
+Apr 25 14:43:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 14:43:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:43:30 2024
+Apr 25 14:52:10 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 14:52:10 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:52:10 2024
+Apr 25 14:56:37 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 14:56:37 raspberryreceiver1 python3[2448]:  Thu Apr 25 14:56:37 2024
+Apr 25 15:03:48 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:03:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:03:48 2024
+Apr 25 15:05:19 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:19 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:19 2024
+Apr 25 15:05:20 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:20 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:20 2024
+Apr 25 15:05:21 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:21 2024
+Apr 25 15:05:23 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:23 2024
+Apr 25 15:05:27 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:27 2024
+Apr 25 15:05:29 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:29 2024
+Apr 25 15:05:30 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:30 2024
+Apr 25 15:05:33 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:33 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:33 2024
+Apr 25 15:05:34 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:34 2024
+Apr 25 15:05:37 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:05:37 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:05:37 2024
+Apr 25 15:06:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:06:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:06:30 2024
+Apr 25 15:06:31 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:06:31 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:06:31 2024
+Apr 25 15:06:34 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:06:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:06:34 2024
+Apr 25 15:06:47 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:06:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:06:47 2024
+Apr 25 15:06:49 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:06:49 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:06:49 2024
+Apr 25 15:06:50 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:06:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:06:50 2024
+Apr 25 15:07:06 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:07:06 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:07:06 2024
+Apr 25 15:10:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:10:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:10:30 2024
+Apr 25 15:12:35 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:12:35 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:12:35 2024
+Apr 25 15:12:37 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:12:37 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:12:37 2024
+Apr 25 15:12:44 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:12:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:12:44 2024
+Apr 25 15:14:34 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:14:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:14:34 2024
+Apr 25 15:15:45 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:15:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:15:45 2024
+Apr 25 15:16:35 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:16:35 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:16:35 2024
+Apr 25 15:17:04 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:17:04 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:17:04 2024
+Apr 25 15:17:45 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:17:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:17:45 2024
+Apr 25 15:17:48 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:17:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:17:48 2024
+Apr 25 15:18:27 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:18:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:18:27 2024
+Apr 25 15:18:38 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:18:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:18:38 2024
+Apr 25 15:18:43 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:18:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:18:43 2024
+Apr 25 15:19:57 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 15:19:57 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:19:57 2024
+Apr 25 15:21:01 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:21:01 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:21:01 2024
+Apr 25 15:21:02 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:21:02 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:21:02 2024
+Apr 25 15:21:03 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:21:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:21:03 2024
+Apr 25 15:21:04 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:21:04 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:21:04 2024
+Apr 25 15:21:18 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:21:18 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:21:18 2024
+Apr 25 15:21:33 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:21:33 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:21:33 2024
+Apr 25 15:22:21 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:22:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:22:21 2024
+Apr 25 15:22:22 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:22:22 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:22:22 2024
+Apr 25 15:23:24 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:23:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:23:24 2024
+Apr 25 15:23:25 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:23:25 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:23:25 2024
+Apr 25 15:24:20 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:24:20 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:24:20 2024
+Apr 25 15:24:44 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:24:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:24:44 2024
+Apr 25 15:25:24 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:25:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:25:24 2024
+Apr 25 15:25:44 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:25:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:25:44 2024
+Apr 25 15:26:48 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:26:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:26:48 2024
+Apr 25 15:27:47 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:27:47 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:27:47 2024
+Apr 25 15:28:50 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:28:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:28:50 2024
+Apr 25 15:28:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:28:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:28:53 2024
+Apr 25 15:30:42 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:30:42 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:30:42 2024
+Apr 25 15:31:04 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:31:04 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:31:04 2024
+Apr 25 15:40:56 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:40:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:40:56 2024
+Apr 25 15:41:46 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:41:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:41:46 2024
+Apr 25 15:43:43 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 15:43:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 15:43:43 2024
+Apr 25 16:45:03 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:03 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:03 2024
+Apr 25 16:45:08 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:08 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:08 2024
+Apr 25 16:45:13 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:13 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:13 2024
+Apr 25 16:45:16 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:16 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:16 2024
+Apr 25 16:45:17 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:17 2024
+Apr 25 16:45:34 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:34 2024
+Apr 25 16:45:37 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:37 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:37 2024
+Apr 25 16:45:38 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:38 2024
+Apr 25 16:45:40 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:40 2024
+Apr 25 16:45:41 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:41 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:41 2024
+Apr 25 16:45:42 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:42 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:42 2024
+Apr 25 16:45:43 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:43 2024
+Apr 25 16:45:45 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:45 2024
+Apr 25 16:45:46 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:46 2024
+Apr 25 16:45:48 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:48 2024
+Apr 25 16:45:50 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:50 2024
+Apr 25 16:45:54 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:54 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:54 2024
+Apr 25 16:45:59 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:45:59 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:45:59 2024
+Apr 25 16:46:01 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:46:01 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:46:01 2024
+Apr 25 16:46:23 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:46:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:46:23 2024
+Apr 25 16:46:25 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:46:25 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:46:25 2024
+Apr 25 16:46:27 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:46:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:46:27 2024
+Apr 25 16:47:16 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:47:16 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:47:16 2024
+Apr 25 16:47:22 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:47:22 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:47:22 2024
+Apr 25 16:47:24 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:47:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:47:24 2024
+Apr 25 16:47:27 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:47:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:47:27 2024
+Apr 25 16:47:27 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:47:27 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:47:27 2024
+Apr 25 16:47:30 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:47:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:47:30 2024
+Apr 25 16:49:08 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:49:08 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:49:08 2024
+Apr 25 16:49:14 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:49:14 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:49:14 2024
+Apr 25 16:58:02 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 16:58:02 raspberryreceiver1 python3[2448]:  Thu Apr 25 16:58:02 2024
+Apr 25 17:03:50 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:03:50 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:03:50 2024
+Apr 25 17:03:57 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:03:57 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:03:57 2024
+Apr 25 17:06:59 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:06:59 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:06:59 2024
+Apr 25 17:07:45 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:07:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:07:45 2024
+Apr 25 17:08:00 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:08:00 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:08:00 2024
+Apr 25 17:08:21 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:08:21 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:08:21 2024
+Apr 25 17:08:56 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:08:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:08:56 2024
+Apr 25 17:08:57 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:08:57 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:08:57 2024
+Apr 25 17:09:01 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:09:01 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:09:01 2024
+Apr 25 17:09:02 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:09:02 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:09:02 2024
+Apr 25 17:09:35 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:09:35 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:09:35 2024
+Apr 25 17:09:37 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:09:37 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:09:37 2024
+Apr 25 17:09:43 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 17:09:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:09:43 2024
+Apr 25 17:11:29 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:11:29 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:11:29 2024
+Apr 25 17:13:40 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:13:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:13:40 2024
+Apr 25 17:14:10 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:14:10 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:14:10 2024
+Apr 25 17:15:13 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:15:13 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:15:13 2024
+Apr 25 17:18:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:18:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:18:53 2024
+Apr 25 17:23:16 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:23:16 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:23:16 2024
+Apr 25 17:23:20 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:23:20 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:23:20 2024
+Apr 25 17:29:53 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:29:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:29:53 2024
+Apr 25 17:30:30 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 17:30:30 raspberryreceiver1 python3[2448]:  Thu Apr 25 17:30:30 2024
+Apr 25 18:01:24 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:01:24 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:01:24 2024
+Apr 25 18:02:59 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 18:02:59 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:02:59 2024
+Apr 25 18:03:00 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 18:03:00 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:03:00 2024
+Apr 25 18:03:40 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:03:40 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:03:40 2024
+Apr 25 18:04:26 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 18:04:26 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:04:26 2024
+Apr 25 18:34:56 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:34:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:34:56 2024
+Apr 25 18:35:41 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:35:41 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:35:41 2024
+Apr 25 18:35:43 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:35:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:35:43 2024
+Apr 25 18:35:48 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 18:35:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:35:48 2024
+Apr 25 18:35:51 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:35:51 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:35:51 2024
+Apr 25 18:35:55 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:35:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:35:55 2024
+Apr 25 18:36:19 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:36:19 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:36:19 2024
+Apr 25 18:36:28 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:36:28 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:36:28 2024
+Apr 25 18:36:43 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:36:43 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:36:43 2024
+Apr 25 18:36:44 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:36:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:36:44 2024
+Apr 25 18:36:46 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:36:46 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:36:46 2024
+Apr 25 18:36:56 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 18:36:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:36:56 2024
+Apr 25 18:37:05 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:37:05 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:05 2024
+Apr 25 18:37:17 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:37:17 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:17 2024
+Apr 25 18:37:23 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:37:23 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:23 2024
+Apr 25 18:37:26 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:37:26 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:26 2024
+Apr 25 18:37:34 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 18:37:34 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:34 2024
+Apr 25 18:37:45 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:37:45 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:45 2024
+Apr 25 18:37:58 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:37:58 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:37:58 2024
+Apr 25 18:38:38 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:38:38 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:38:38 2024
+Apr 25 18:38:39 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:38:39 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:38:39 2024
+Apr 25 18:39:53 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:39:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:39:53 2024
+Apr 25 18:39:55 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:39:55 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:39:55 2024
+Apr 25 18:39:56 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:39:56 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:39:56 2024
+Apr 25 18:39:57 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:39:57 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:39:57 2024
+Apr 25 18:40:53 raspberryreceiver1 python3[2448]: person is LEAVING
+Apr 25 18:40:53 raspberryreceiver1 python3[2448]:  Thu Apr 25 18:40:53 2024
+Apr 25 19:11:44 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 19:11:44 raspberryreceiver1 python3[2448]:  Thu Apr 25 19:11:44 2024
+Apr 25 19:11:48 raspberryreceiver1 python3[2448]: person is ENTERING
+Apr 25 19:11:48 raspberryreceiver1 python3[2448]:  Thu Apr 25 19:11:48 2024
+Apr 25 21:00:05 raspberryreceiver1 systemd[1]: Stopping IR Receiver...
+Apr 25 21:00:05 raspberryreceiver1 systemd[1]: receiver.service: Deactivated successfully.
+Apr 25 21:00:05 raspberryreceiver1 systemd[1]: Stopped IR Receiver.
+Apr 25 21:00:05 raspberryreceiver1 systemd[1]: receiver.service: Consumed 8min 54.179s CPU time.
+Apr 25 21:00:05 raspberryreceiver1 systemd[1]: Started IR Receiver.
+Apr 25 21:00:05 raspberryreceiver1 python3[12023]: detect mode
