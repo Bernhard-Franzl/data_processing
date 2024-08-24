@@ -53,6 +53,9 @@ class DataHandler():
     def filter_by_date(self, dataframe, time_column, date):
         return dataframe[dataframe[time_column].dt.date == date]
     
+    def filter_by_date_range(self, dataframe, time_column, start_date, end_date):
+        return dataframe[(dataframe[time_column].dt.date >= start_date) & (dataframe[time_column].dt.date <= end_date)]
+    
     ######## Resample Data ########
     def _resample(self, dataframe, time_column, frequency, agg_func, output_columns):
         
@@ -120,21 +123,21 @@ class DataHandler():
         
         return dataframe
 
-    def derive_day(self, dataframe):
-        dataframe["day"] = dataframe["datetime"].dt.date
+    def derive_day(self, dataframe, time_column):
+        dataframe["day"] = dataframe[time_column].dt.date
         return dataframe
 
-    def derive_week(self, dataframe):
-        dataframe["week"] = dataframe["datetime"].dt.isocalendar().week
+    def derive_week(self, dataframe, time_column):
+        dataframe["week"] = dataframe[time_column].dt.isocalendar().week
         return dataframe
 
-    def derive_time(self, dataframe):
-        dataframe["time"] = dataframe["datetime"].dt.time
+    def derive_time(self, dataframe, time_column):
+        dataframe["time"] = dataframe[time_column].dt.time
         return dataframe
 
-    def derive_weekday(self, dataframe):
-        dataframe["weekday"] = dataframe["datetime"].dt.weekday
-        dataframe["weekday_name"] = dataframe["datetime"].dt.day_name()
+    def derive_weekday(self, dataframe, time_column):
+        dataframe["weekday"] = dataframe[time_column].dt.weekday
+        dataframe["weekday_name"] = dataframe[time_column].dt.day_name()
         return dataframe
     
     
