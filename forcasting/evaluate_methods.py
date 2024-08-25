@@ -1,15 +1,6 @@
-from preprocessing import Preprocessor, SignalPreprocessor
-from utils import ParameterSearch, Evaluator
-import numpy as np
-import json
-import os
-import pandas as pd
-
-
-#########  Constants #########
-room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
-door_to_id = {"door1":0, "door2":1}
-data_path = "/home/berni/data_06_06/archive"
+from preprocessing.preprocessing import SignalPreprocessor
+from preprocessing.utils import ParameterSearch, Evaluator, write_results_to_json, write_results_to_txt
+from data import DataFrameGuru as DFG
 
 #TODO:
 # Try different frequency values -> 0.5 minutes, 1 minute, 5 minutes etc. -> only relevant for calc participants
@@ -17,29 +8,88 @@ data_path = "/home/berni/data_06_06/archive"
 # in evaluator add option to save results to json
 # in evaluator add option to use stored preprocessed data
 
+#########  Constants #########
+room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
+door_to_id = {"door1":0, "door2":1}
+data_path = "/home/berni/data_29_06_merged/archive"
+dfg = DFG()
 
-def write_results_to_txt(file_name, comb_number, params, se_list, ae_list, ctd_list):
-    with open(file_name, "a") as file:
-        file.write(f"######## Combination: {comb_number} ########\n")
-        file.write(f"Parameters: {params}\n")
-        file.write(f"MSE: {np.round(np.mean(se_list), 4)} MedianSE: {np.median(se_list)}\n")
-        file.write(f"MAE: {np.round(np.mean(ae_list), 4)} MedianAE: {np.median(ae_list)}\n")
-        file.write(f"MCTD: {np.round(np.mean(ctd_list), 4)} MedianCTD: {np.median(ctd_list)}\n")
-        file.write("\n")
-        file.write("\n")
-        
-    return None
+####### Parameter Search ########
 
-def write_results_to_json(file_name, params, se_list, ae_list, ctd_list):
+path_to_json = "/home/berni/github_repos/data_processing/forcasting/preprocessing/parameters/current_parameters.json"
+
+comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
+
+preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+
+for i, params in enumerate(comb_iterator):
     
-    with open(f"results/{file_name}.json", "w") as file:
-        json.dump({"parameters":params, 
-                   "SE":se_list, 
-                   "AE":ae_list, 
-                   "CTD":ctd_list}, file)
+    if i == 0:
+        answer = input("Are you sure you want to start? Have you checked file names?")
+        if answer == "y":
+            pass
+        else:
+            raise 
     
-        
-    return None
+    cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
+    
+    corrected_data = preprocessor.correct_25_04_HS19(cleaned_data, "/home/berni/github_repos/data_processing/data/logs_25_04_HS19.txt")
+    
+    ctd_list = Evaluator("PLCount", "/home/berni/github_repos/data_processing/data/control_data/zählung.csv").evaluate_pl_count(data=corrected_data,
+                                                                                            dfguru=dfg,
+                                                                                            raw_data=raw_data, 
+                                                                                            params=params, 
+                                                                                            details=False)
+    file_name = "results_time-window_finish.txt"
+    write_results_to_txt(file_name, i, params, ctd_list)
+    file_name = f"/home/berni/github_repos/data_processing/forcasting/preprocessing/results/comb_time-window_{i}.json"
+    write_results_to_json(file_name, params, ctd_list)
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ####### Parameter Search ########

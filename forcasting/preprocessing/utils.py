@@ -7,11 +7,38 @@ from tqdm import tqdm
 
 # Imports for Evaluator
 import pandas as pd
-from signal_analysis import SignalAnalyzer
+from pandas.tseries.offsets import DateOffset
 from datetime import datetime, timedelta
+
+from preprocessing.signal_analysis import SignalAnalyzer
+from preprocessing.preprocessing import PLCount
+
 
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
+
+def write_results_to_txt(file_name, comb_number, params, ctd_list):
+    with open(file_name, "a") as file:
+        file.write(f"######## Combination: {comb_number} ########\n")
+        file.write(f"Parameters: {params}\n")
+        #file.write(f"MSE: {np.round(np.mean(se_list), 4)} MedianSE: {np.median(se_list)}\n")
+        #file.write(f"MAE: {np.round(np.mean(ae_list), 4)} MedianAE: {np.median(ae_list)}\n")
+        file.write(f"MCTD: {np.round(np.mean(ctd_list), 4)} MedianCTD: {np.median(ctd_list)}\n")
+        file.write("\n")
+        file.write("\n")
+        
+    return None
+
+def write_results_to_json(file_name, params, ctd_list):
+    
+    with open(file_name, "w") as file:
+        json.dump({"parameters":params, 
+                   #"SE":se_list, 
+                   #"AE":ae_list, 
+                   "CTD":ctd_list}, file)
+    
+        
+    return None
 
 class ParameterSearch:
     
@@ -72,7 +99,6 @@ class ParameterSearch:
     def combinations_iterator(self, tqdm_bar=True):
         return self._combinations_wrapper(params_dict=self.parameter_dict, tqdm_bar=tqdm_bar)
     
-    
 class Evaluator:
     
     # Helper class for evaluating the functions of the SignalAnalyzer class
@@ -81,11 +107,19 @@ class Evaluator:
         self.control_data = pd.read_csv(path_to_control_data)
         self.control_data["room_id"] = self.control_data["room"].map(room_to_id)
         
-        self.class_name = "SignalAnalyzer"
+        self.class_name = class_name
         if self.class_name == "SignalAnalyzer":
             self.class_to_evaluate = SignalAnalyzer()
             self.function_to_evaluate = self.class_to_evaluate.calc_participants
-    
+            
+        elif self.class_name == "PLCount":
+            self.class_to_evaluate = PLCount()
+            self.function_to_evaluate = self.class_to_evaluate.run_algorithm
+            
+        else:
+            raise ValueError("Class not recognized")
+        
+    ######################## SignalAnalyzer ########################
     def prepare_control_data_signal_analyzer(self, row):
         
         start_time_int = row["start_time"]
@@ -242,4 +276,77 @@ class Evaluator:
             ctd_list.append(ctd_term)
             
         return se_list, ae_list, ctd_list     
-                        
+    
+    ######################## PLCount ########################
+    def prepare_control_data_plcount(self, row, day_timestamp):
+        
+        time_string = row["time"].split(":")
+        control_time = datetime(2024, day_timestamp.month, day_timestamp.day, int(time_string[0]), int(time_string[1]), 0)
+        
+        control_people_in = row["people_in"]
+        
+        return control_time, control_people_in
+    
+    def process_grouping(self, grouping):
+        
+        date = grouping[0].split(".")
+        day = int(date[0])
+        month = int(date[1])
+        day_timestamp = datetime(2024, month, day, 0, 0, 0)
+        
+        room_id = grouping[1]
+        
+        return day_timestamp, room_id
+        
+    def evaluate_pl_count(self, data:pd.DataFrame, params:dict, dfguru, raw_data=None, details=False):
+        
+        plcount_params = params["plcount_params"]
+        
+        occupancy_count_list = []
+        ctd_list = []
+        for grouping, control_subdf in self.control_data.groupby(["date", "room_id"]):
+
+            day_timestamp, room_id = self.process_grouping(grouping)
+            
+            # filter by time
+            df_day = dfguru.filter_by_timestamp(data, "datetime",
+                                        day_timestamp, day_timestamp + DateOffset(days=1))
+            # filter by room_id
+            df_day_room = dfguru.filter_by_roomid(df_day, room_id)
+
+            occupancy_counts = dfguru.calc_occupancy_count(df_day_room, "datetime", "1min")
+            occupancy_counts["delta_CC"] = self.class_to_evaluate.calc_delta(occupancy_counts, "CC")
+            occupancy_counts["sigma"] = self.class_to_evaluate.calc_sigma(occupancy_counts, "delta_CC")
+        
+            cc_max = occupancy_counts.CC.max()
+            m = int(cc_max + (cc_max*plcount_params["cc_max_factor"]))
+            n = len(occupancy_counts.datetime)
+            
+            estimates = self.function_to_evaluate(n, m, occupancy_counts["delta_CC"], occupancy_counts["sigma"])
+            occupancy_counts["CC_estimates"] = estimates
+            occupancy_counts = occupancy_counts.drop(columns=["delta_CC", "sigma"])      
+                              
+            for index, row in control_subdf.iterrows():
+            
+                control_time, control_people_in = self.prepare_control_data_plcount(row, day_timestamp)
+
+                CC_row = occupancy_counts[occupancy_counts["datetime"] == control_time]
+                algo_people_in = int(CC_row["CC_estimates"].values[0])
+                ctd_term = abs(control_people_in - algo_people_in)
+                
+                ctd_list.append(ctd_term)
+                
+                if ctd_term > 1:
+                    if details:
+                        print(f"###### Resutls Index:{index} ######")
+                        print(f"Room: {room_id}, Time: {control_time}")
+                        print(f"------------------------------------")
+                        print("Control Time Real:",control_people_in)
+                        print("Control Time Algo:", algo_people_in)
+                        print("CTD:", ctd_term)
+                        print(f"------------------------------------")
+
+        return ctd_list
+
+            
+        return None

@@ -4,7 +4,7 @@ import numpy as np
 from pandas.tseries.offsets import DateOffset
 from tqdm import tqdm
 
-class DataHandler():
+class DataFrameGuru():
     
     def __init__(self, **kwargs):
             
@@ -38,10 +38,10 @@ class DataHandler():
         return dataframe
 
     ######## Filter Data ########
-    def filter_by_room_id(self, dataframe, room_id):
+    def filter_by_roomid(self, dataframe, room_id):
         return dataframe[dataframe["room_id"] == room_id]
     
-    def filter_by_event_type(self, dataframe, event_type):
+    def filter_by_eventtype(self, dataframe, event_type):
         return dataframe[dataframe["event_type"] == event_type]
 
     def filter_by_timestamp(self, dataframe, time_column, start_time, end_time):
@@ -53,7 +53,7 @@ class DataHandler():
     def filter_by_date(self, dataframe, time_column, date):
         return dataframe[dataframe[time_column].dt.date == date]
     
-    def filter_by_date_range(self, dataframe, time_column, start_date, end_date):
+    def filter_by_daterange(self, dataframe, time_column, start_date, end_date):
         return dataframe[(dataframe[time_column].dt.date >= start_date) & (dataframe[time_column].dt.date <= end_date)]
     
     ######## Resample Data ########

@@ -1,4 +1,4 @@
-from preprocessing import Preprocessor
+from forcasting.preprocessing.preprocessing import Preprocessor
 from signal_analysis import SignalAnalyzer
 from datetime import datetime as dt
 from datetime import time, timedelta

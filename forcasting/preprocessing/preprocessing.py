@@ -2,6 +2,8 @@ import os
 from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
+from tqdm import tqdm
+from pandas.tseries.offsets import DateOffset
 
 class Preprocessor:
     
@@ -284,7 +286,45 @@ class SignalPreprocessor(Preprocessor):
                 df_accumulated = pd.concat([df_accumulated, df], axis=0)
         
         return df_accumulated.reset_index(drop=True)
-      
+    
+    ####### Add missing data ########
+    def correct_25_04_HS19(self, dataframe, path_to_logs):
+    
+        with open(file=path_to_logs, mode="r") as file:
+            content = file.readlines()
+            
+        room_id = 1
+        door_id = 0
+
+        event_list = []
+        for content_line in content:
+            if "python3[2448]" in content_line:
+                if "LEAVING" in content_line:
+                    time_stamp = content_line.split("raspberryreceiver1")[0].strip() + " 2024"
+                    dt_time_stamp = datetime.strptime(time_stamp, "%b %d %H:%M:%S %Y")
+                    event_list.append((0,0,0,0, room_id, door_id, 0, dt_time_stamp))
+                    
+                elif "ENTERING" in content_line:
+                    time_stamp = content_line.split("raspberryreceiver1")[0].strip() + " 2024"
+                    dt_time_stamp = datetime.strptime(time_stamp, "%b %d %H:%M:%S %Y")
+                    event_list.append((0,0,0,0, room_id, door_id, 1, dt_time_stamp))
+                
+                else:
+                    continue
+                
+        data_appended = dataframe.copy(deep=True)
+
+        for x in event_list:
+            # check that x not already in dataframe
+            if ((dataframe["datetime"] == x[7]) & (dataframe["room_id"] == x[4])).any():
+                print("Already in dataframe: Should not happen if executed for the first time!")
+                continue
+            else:
+                data_appended = data_appended._append(pd.DataFrame(data=[x], columns=dataframe.columns), ignore_index=True)
+                
+        # sort and reset index
+        return data_appended.sort_values(by="datetime").reset_index(drop=True)
+    
     #######  Data Cleaning Methods ########    
     def discard_samples(self, dataframe, lb, ub):
         df = dataframe.copy()
@@ -601,7 +641,10 @@ class SignalPreprocessor(Preprocessor):
             df = df[df["event_type"].isin(event_types)].reset_index(drop=True)
                 
         df = df.sort_values(by="time", ascending=True).reset_index(drop=True)
-    
+        
+        df["datetime"] = df["time"]
+        df.drop("time", axis=1, inplace=True)
+        
         return df, raw_data
 
     ###### Preprocessing Application ########
@@ -610,6 +653,186 @@ class SignalPreprocessor(Preprocessor):
         return cleaned_data, raw_data       
     
     
+class PLCount():
+    
+    def __init_(self):
+        pass
+        
+    def initialize_algorithm(self, n, m):
+        M = np.zeros((n, m+1))
+        N = np.zeros((n, m+1))
+        M[0,0] = 1
+        return M, N
+         
+    def calc_delta(self, dataframe, column):
+        return dataframe[column].diff().fillna(0)
+    
+    def calc_sigma(self, dataframe, column):
+        sigma = dataframe[column].apply(lambda x : np.sqrt(np.abs(x)))
+        try:
+            sigma = sigma.replace(0, min(sigma[sigma > 0]))
+        except:
+            sigma = sigma.replace(0, 1)
+            
+        return sigma
+    
+    def probability_function(self, c_j, delta_c, sigma):
+        exponent = -(c_j - delta_c)**2 / (2 * sigma**2)
+        normalizer = 1 / (sigma * np.sqrt(2 * np.pi))
+        return normalizer * np.exp(exponent)
+    
+    def calculate_probability_matrix(self, M, N, delta_array, sigma_array):
+        
+        for i in range(1, M.shape[0]): # time
+            delta_c_i = delta_array[i]
+            sigma_i = sigma_array[i]
+                
+            for j in range(0, M.shape[1]): # count
+                
+                listy = [self.probability_function(j-k, delta_c_i, sigma_i) * M[i-1, k] for k in range(0, M.shape[1])]
+                k_max = np.argmax(listy)
+                
+                M[i, j] = listy[k_max]
+                N[i, j] = k_max
+
+            # normalize row  
+            M[i] = M[i] / sum(M[i])
+            
+        return M, N
+    
+    def backtracking_zero_init(self, M, N):
+        CC_t_n = 0
+        occupancy_estimates = np.zeros(M.shape[0])
+
+        for i in range(M.shape[0]-1, 0, -1):
+            
+            CC_t_n1 = N[i, int(CC_t_n)]
+            occupancy_estimates[i-1] = CC_t_n1
+            
+            CC_t_n = CC_t_n1
+        
+        return occupancy_estimates
+    
+    def run_algorithm(self, n, m, delta_array, sigma_array):
+        
+        M, N = self.initialize_algorithm(n, m)
+        
+        M, N = self.calculate_probability_matrix(M, N, delta_array, sigma_array)
+        print(M.round(3))
+        
+        occupancy_estimates = self.backtracking_zero_init(M, N)
+        
+        return occupancy_estimates
+    
+    ##############################
+    def probability_function(self, c_j, delta_c, sigma):
+        exponent = -(c_j - delta_c)**2 / (2 * sigma**2)
+        normalizer = 1 / (sigma * np.sqrt(2 * np.pi))
+        return normalizer * np.exp(exponent)
+    
+    def calculate_probability_matrix_vectorized(self, M, N, delta_array, sigma_array):
+        
+        M_shape = M.shape
+        
+        for i in range(1, M_shape[0]): # time
+            delta_c_i = delta_array[i]
+            sigma_i = sigma_array[i]
+                
+            for j in range(0, M_shape[1]): # count
+                
+                k_array = np.arange(0, M_shape[1])
+                vectorized = self.probability_function(j - k_array, delta_c_i, sigma_i) * M[i-1]
+
+                k_max = np.argmax(vectorized)
+                
+                M[i, j] = vectorized[k_max]
+                N[i, j] = k_max
+            
+            j_array = np.arange(0, M_shape[1]).reshape(-1,1)
+            k_array = np.arange(0, M_shape[1]).reshape(1,-1)
+            
+            j_k_matrix = j_array - k_array
+            exponent = -(j_k_matrix - delta_c_i)**2 / (2 * sigma_i**2)
+            normalizer = 1 / (sigma_i * np.sqrt(2 * np.pi))
+            vec = normalizer * np.exp(exponent)
+            vec = vec * M[i-1].reshape(1,-1)
+            
+            k_max = np.argmax(vec, axis=1)
+            
+            # continue here
+            print(k_max)
+            print(vec[k_max].round(3))
+            
+            print(M[i].round(3))
+            raise
+
+            
+            # normalize row  
+            M[i] = M[i] / sum(M[i])
+            
+        return M, N
+    def run_algorithm_vectorized(self, n, m, delta_array, sigma_array):
+        
+        M, N = self.initialize_algorithm(n, m)
+
+        M, N = self.calculate_probability_matrix_vectorized(M, N, delta_array, sigma_array)
+        
+    def run_on_whole_dataset(self, dataframe, data_handler, frequency):
+        
+        occupancy_count_list = []
+        day_list = list(pd.Series(1, dataframe['datetime']).resample("D").sum().index)
+        
+        for timestamp in tqdm(day_list):
+            
+            df_filtered = data_handler.filter_by_timestamp(dataframe, "datetime",
+                                                  timestamp, timestamp + DateOffset(days=1))
+    
+            if df_filtered.empty:  
+                idx = pd.date_range(start=timestamp, 
+                                    end=timestamp + DateOffset(days=1), 
+                                    freq=frequency, inclusive="both")
+                occupancy_counts = pd.DataFrame(data=0, 
+                                                index=idx, 
+                                                columns=["CC", "CC_estimates"]).reset_index().rename(columns={"index": "datetime"})
+                occupancy_count_list.append(occupancy_counts)    
+                
+            else:
+                occupancy_counts = data_handler.calc_occupancy_count(df_filtered, "datetime", frequency)
+                occupancy_counts["delta_CC"] = self.calc_delta(occupancy_counts, "CC")
+                occupancy_counts["sigma"] = self.calc_sigma(occupancy_counts, "delta_CC")
+
+                cc_max = occupancy_counts.CC.max()
+                m = int(cc_max + (cc_max*0.2))
+                n = len(occupancy_counts.datetime)
+                
+                estimates = self.run_algorithm(n, m, occupancy_counts["delta_CC"], occupancy_counts["sigma"])
+                
+                occupancy_counts["CC_estimates"] = estimates
+                occupancy_counts = occupancy_counts.drop(columns=["delta_CC", "sigma"])
+                
+                occupancy_count_list.append(occupancy_counts)
+                
+        return occupancy_count_list
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
     
