@@ -33,6 +33,9 @@ for i, params in enumerate(comb_iterator):
     
     if (not params["filtering_params"]["handle_5"]) and (not params["filtering_params"]["handle_6"]):
         continue
+    
+    if params["filtering_params"]["handle_5"] and params["filtering_params"]["handle_6"]:
+        continue
 
     cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
     

@@ -98,7 +98,35 @@ class ParameterSearch:
     
     def combinations_iterator(self, tqdm_bar=True):
         return self._combinations_wrapper(params_dict=self.parameter_dict, tqdm_bar=tqdm_bar)
+
+    #### Simple Grid Search ####
+    def _extract_all_combinations_simple(self, params_dict):
+        
+        values = []
+        keys = []
+        for key in params_dict.keys():
+            values.append(params_dict[key])
+            keys.append(key)
+        
+        n_combinations = np.prod([len(value) for value in values])
+
+        return keys, iter(itertools.product(*values)), n_combinations
     
+    def _grid_search_wrapper(self, params_dict, tqdm_bar):
+        
+        keys, comb_iterator, n_combs = self._extract_all_combinations_simple(params_dict=params_dict)
+        
+        if tqdm_bar:
+            tqdm_iterator = tqdm(comb_iterator, total=n_combs)
+            for x in tqdm_iterator:
+                yield dict(zip(keys, x))
+        else:
+            for x in comb_iterator:
+                yield dict(zip(keys, x))
+                
+    def grid_search_iterator(self, tqdm_bar=True):
+        return self._grid_search_wrapper(params_dict=self.parameter_dict, tqdm_bar=tqdm_bar)
+      
 class Evaluator:
     
     # Helper class for evaluating the functions of the SignalAnalyzer class
