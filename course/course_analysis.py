@@ -8,7 +8,7 @@ import numpy as np
 sys.path.insert(0, "/home/berni/github_repos/data_processing")
 #sys.path.insert(0, "/home/franzl/github_repos/data_processing")
 
-from forcasting.preprocessing.signal_analysis import SignalAnalyzer
+from forcasting._preprocessing.occ_signal_analysis import SignalAnalyzer
 
 class CourseAnalyzer():
     
