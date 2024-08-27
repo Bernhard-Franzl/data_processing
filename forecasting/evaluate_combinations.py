@@ -11,7 +11,7 @@ from _dfguru import DataFrameGuru as DFG
 ########  Constants #########
 room_to_id ={"HS18":0, "HS 18":0, "HS19":1, "HS 19": 1}
 door_to_id = {"door1":0, "door2":1}
-data_path = "/home/berni/data_29_06_merged/archive"
+data_path = "/home/franzl/Dropbox/data_29_06_merged/archive"
 dfg = DFG()
 
 ###### Parameter Search ########
@@ -36,12 +36,15 @@ for i, params in enumerate(comb_iterator):
     
     if params["filtering_params"]["handle_5"] and params["filtering_params"]["handle_6"]:
         continue
+    
+    if params["filtering_params"]["handle_5"] and (not params["filtering_params"]["handle_6"]):
+        continue
 
     cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
     
-    corrected_data = preprocessor.correct_25_04_HS19(cleaned_data, "/home/berni/github_repos/data_processing/data/logs_25_04_HS19.txt")
+    corrected_data = preprocessor.correct_25_04_HS19(cleaned_data, "/home/franzl/github_repos/data_processing/data/logs_25_04_HS19.txt")
     
-    ctd_list = Evaluator("PLCount", "/home/berni/github_repos/data_processing/data/control_data/zählung.csv").evaluate_pl_count(data=corrected_data,
+    ctd_list = Evaluator("PLCount", "/home/franzl/github_repos/data_processing/data/control_data/zählung.csv").evaluate_pl_count(data=corrected_data,
                                                                                             dfguru=dfg,
                                                                                             raw_data=raw_data, 
                                                                                             params=params, 
