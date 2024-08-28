@@ -1,0 +1,156 @@
+{
+    "filtering_params-discard_samples": [
+        [
+            false,
+            25
+        ]
+    ],
+    "filtering_params-apply_filter": [
+        [
+            true,
+            25
+        ]
+    ],
+    "filtering_params-filter_mode": [
+        [
+            "time_window",
+            25
+        ]
+    ],
+    "filtering_params-k": [
+        [
+            2,
+            25
+        ]
+    ],
+    "filtering_params-nm": [
+        [
+            4,
+            25
+        ]
+    ],
+    "filtering_params-ns": [
+        [
+            2,
+            25
+        ]
+    ],
+    "filtering_params-s": [
+        [
+            2,
+            25
+        ]
+    ],
+    "filtering_params-lb_in": [
+        [
+            2,
+            25
+        ]
+    ],
+    "filtering_params-lb_out": [
+        [
+            2,
+            25
+        ]
+    ],
+    "filtering_params-handle_5": [
+        [
+            true,
+            24
+        ],
+        [
+            false,
+            1
+        ]
+    ],
+    "filtering_params-handle_6": [
+        [
+            false,
+            24
+        ],
+        [
+            true,
+            1
+        ]
+    ],
+    "handle_56_params-k": [
+        [
+            2,
+            11
+        ],
+        [
+            5,
+            7
+        ],
+        [
+            4,
+            4
+        ],
+        [
+            3,
+            3
+        ]
+    ],
+    "handle_56_params-m": [
+        [
+            2,
+            16
+        ],
+        [
+            1,
+            5
+        ],
+        [
+            3,
+            3
+        ],
+        [
+            4,
+            1
+        ]
+    ],
+    "handle_56_params-s": [
+        [
+            2,
+            23
+        ],
+        [
+            3,
+            2
+        ]
+    ],
+    "handle_56_params-ns": [
+        [
+            3,
+            8
+        ],
+        [
+            4,
+            8
+        ],
+        [
+            2,
+            8
+        ],
+        [
+            1,
+            1
+        ]
+    ],
+    "handle_56_params-nm": [
+        [
+            2,
+            20
+        ],
+        [
+            4,
+            5
+        ]
+    ],
+    "plcount_params-cc_max_factor": [
+        [
+            0,
+            25
+        ]
+    ]
+}

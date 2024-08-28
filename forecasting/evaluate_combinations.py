@@ -2,6 +2,8 @@ from _preprocessing import SignalPreprocessor
 from _evaluating import ParameterSearch, Evaluator, write_results_to_json, write_results_to_txt
 from _dfguru import DataFrameGuru as DFG
 
+import os
+
 ##TODO:
 ## Try different frequency values -> 0.5 minutes, 1 minute, 5 minutes etc. -> only relevant for calc participants
 ## incorporate the read results methods into the Evaluator class
@@ -16,7 +18,7 @@ dfg = DFG()
 
 ###### Parameter Search ########
 
-path_to_json = "_preprocessing/parameters/parameters_with_5_6.json"
+path_to_json = "_preprocessing/parameters/parameters_discard_or_not.json"
 
 comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
 
@@ -30,15 +32,15 @@ for i, params in enumerate(comb_iterator):
             pass
         else:
             raise 
+        
+    #if (not params["filtering_params"]["handle_5"]) and (not params["filtering_params"]["handle_6"]):
+    #    continue
     
-    if (not params["filtering_params"]["handle_5"]) and (not params["filtering_params"]["handle_6"]):
-        continue
+    #if params["filtering_params"]["handle_5"] and params["filtering_params"]["handle_6"]:
+    #    continue
     
-    if params["filtering_params"]["handle_5"] and params["filtering_params"]["handle_6"]:
-        continue
-    
-    if params["filtering_params"]["handle_5"] and (not params["filtering_params"]["handle_6"]):
-        continue
+    #if params["filtering_params"]["handle_5"] and (not params["filtering_params"]["handle_6"]):
+    #    continue
 
     cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
     
@@ -79,10 +81,12 @@ for i, params in enumerate(comb_iterator):
 #import numpy as np
 
 ######### Read out Results ########
+
 #file_path = os.path.dirname(os.path.abspath(__file__))
-#parent_dir = os.path.join(file_path, "preprocessing", "results")
+#parent_dir = os.path.join(file_path, "_preprocessing", "results")
 ##parent_dir = parent_dir.split(" ")[0]
-#directories = [x for x in list(os.walk(parent_dir))[0][1] if "results" in x]
+##directories = [x for x in list(os.walk(parent_dir))[0][1] if "with_5_6" in x]
+#directories = [x for x in list(os.walk(parent_dir))[0][1] if "without_5_6" in x]
 
 #ctd_list = []
 #parameters_list = []
@@ -102,9 +106,9 @@ for i, params in enumerate(comb_iterator):
 ##for  sort_by in sort_by_list:
 #sort_by = ["mctd"]
 #dataframe_sorted = dataframe.sort_values(by=sort_by)
-
+#print(dataframe_sorted)
 #parameter_series_list = []
-#for i,row in iter(dataframe_sorted[:4].iterrows()):
+#for i,row in iter(dataframe_sorted[:25].iterrows()):
 #    parameter_series = pd.json_normalize(row["parameters"], sep="-")
 #    parameter_series_list.append(parameter_series)
 #    #print(f"######## Combination: {i} ########")
@@ -124,6 +128,8 @@ for i, params in enumerate(comb_iterator):
 #    with open(os.path.join(file_path, f"results_{file_name}.json"), "w") as file:
 #        json.dump(results_dict, file, indent=4)
 
+
+#######################################################################################
 
 
 #se_list = []

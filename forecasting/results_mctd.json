@@ -1,0 +1,114 @@
+{
+    "filtering_params-discard_samples": [
+        [
+            false,
+            25
+        ]
+    ],
+    "filtering_params-apply_filter": [
+        [
+            true,
+            25
+        ]
+    ],
+    "filtering_params-filter_mode": [
+        [
+            "time_window",
+            25
+        ]
+    ],
+    "filtering_params-k": [
+        [
+            2,
+            19
+        ],
+        [
+            1,
+            6
+        ]
+    ],
+    "filtering_params-nm": [
+        [
+            4,
+            16
+        ],
+        [
+            3,
+            7
+        ],
+        [
+            2,
+            2
+        ]
+    ],
+    "filtering_params-ns": [
+        [
+            3,
+            9
+        ],
+        [
+            1,
+            8
+        ],
+        [
+            2,
+            8
+        ]
+    ],
+    "filtering_params-s": [
+        [
+            1,
+            9
+        ],
+        [
+            3,
+            9
+        ],
+        [
+            2,
+            7
+        ]
+    ],
+    "filtering_params-lb_in": [
+        [
+            2,
+            14
+        ],
+        [
+            3,
+            11
+        ]
+    ],
+    "filtering_params-lb_out": [
+        [
+            2,
+            20
+        ],
+        [
+            4,
+            5
+        ]
+    ],
+    "filtering_params-handle_5": [
+        [
+            false,
+            25
+        ]
+    ],
+    "filtering_params-handle_6": [
+        [
+            false,
+            25
+        ]
+    ],
+    "plcount_params-cc_max_factor": [
+        [
+            0.0,
+            24
+        ],
+        [
+            0.2,
+            1
+        ]
+    ]
+}

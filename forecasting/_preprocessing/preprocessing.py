@@ -596,12 +596,12 @@ class SignalPreprocessor(Preprocessor):
         
         filtering_params = params["filtering_params"]
         
-        ## check if samples should be discarded or not
-        #if filtering_params["discard_samples"]:  # 0.8sec
-        #    # discard samples between 22:00 and 07:30
-        #    lb = time(hour=7, minute=40, second=0)
-        #    ub = time(hour=22, minute=00, second=0)
-        #    df = self.discard_samples(df, lb, ub)
+        # check if samples should be discarded or not
+        if filtering_params["discard_samples"]:  # 0.8sec
+            # discard samples between 22:00 and 07:30
+            lb = datetime(hour=7, minute=30, second=0)
+            ub = datetime(hour=22, minute=00, second=0)
+            df = self.discard_samples(df, lb, ub)
             
 
         if filtering_params["apply_filter"]:
