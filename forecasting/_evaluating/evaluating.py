@@ -326,11 +326,14 @@ class Evaluator:
         
         return day_timestamp, room_id
         
-    def evaluate_pl_count(self, data:pd.DataFrame, params:dict, dfguru, raw_data=None, details=False):
+    def evaluate_pl_count(self, data:pd.DataFrame, params:dict, dfguru, raw_data=None, print_details=False, return_details=False):
         
         plcount_params = params["plcount_params"]
         
-        occupancy_count_list = []
+        control_details = []
+        pl_count_list = []
+        raw_data_list = []
+        
         ctd_list = []
         for grouping, control_subdf in self.control_data.groupby(["date", "room_id"]):
 
@@ -363,9 +366,13 @@ class Evaluator:
                 ctd_term = abs(control_people_in - algo_people_in)
                 
                 ctd_list.append(ctd_term)
+                # details
+                pl_count_list.append(occupancy_counts)
+                raw_data_list.append(df_day_room)
+                control_details.append((control_time, control_people_in, algo_people_in, ctd_term, room_id))
                 
-                if ctd_term > 1:
-                    if details:
+                if print_details:
+                    if ctd_term > 1:
                         print(f"###### Resutls Index:{index} ######")
                         print(f"Room: {room_id}, Time: {control_time}")
                         print(f"------------------------------------")
@@ -373,6 +380,10 @@ class Evaluator:
                         print("Control Time Algo:", algo_people_in)
                         print("CTD:", ctd_term)
                         print(f"------------------------------------")
+                
+        if return_details:
+            return ctd_list, control_details, pl_count_list, raw_data_list
+                
 
         return ctd_list
 

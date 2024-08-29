@@ -33,6 +33,18 @@ class MasterTrainer:
         return info, X, y
       
     ######## Initialization ########
+    def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict):
+        train_set, val_set, test_set = self.initialize_dataset(train_dict, val_dict, test_dict)
+        train_loader, val_loader, test_loader = self.initialize_dataloader(train_set, val_set, test_set)
+        self.update_hyperparameters({
+            "input_size": train_set[0][1].shape[0], 
+            "output_size": train_set[0][2].shape[0]}
+        )
+        model = self.initialize_model()
+        optimizer = self.initialize_optimizer(model)
+        
+        return train_loader, val_loader, test_loader, model, optimizer
+    
     def initialize_model(self) -> nn.Module:
         model = self.model_class(**self.hyperparameters)
         return model.to(self.device)    
@@ -48,11 +60,11 @@ class MasterTrainer:
         
         return optimizer
     
-    def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict, frequency:str):
+    def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
         
-        train_set = OccupancyDataset(train_dict, frequency, self.hyperparameters["x_size"], self.hyperparameters["y_size"])
-        val_set = OccupancyDataset(val_dict, frequency, self.hyperparameters["x_size"], self.hyperparameters["y_size"])
-        test_set = OccupancyDataset(test_dict, frequency, self.hyperparameters["x_size"], self.hyperparameters["y_size"])
+        train_set = OccupancyDataset(train_dict, self.hyperparameters["frequency"], self.hyperparameters["x_size"], self.hyperparameters["y_size"])
+        val_set = OccupancyDataset(val_dict, self.hyperparameters["frequency"], self.hyperparameters["x_size"], self.hyperparameters["y_size"])
+        test_set = OccupancyDataset(test_dict, self.hyperparameters["frequency"], self.hyperparameters["x_size"], self.hyperparameters["y_size"])
         
         return train_set, val_set, test_set
         

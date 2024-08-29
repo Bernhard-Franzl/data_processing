@@ -792,7 +792,7 @@ class PLCount():
                 occupancy_counts["sigma"] = self.calc_sigma(occupancy_counts, "delta_CC")
 
                 cc_max = occupancy_counts.CC.max()
-                m = int(cc_max + (cc_max*0.2))
+                m = int(cc_max + (cc_max*0))
                 n = len(occupancy_counts.datetime)
                 
                 estimates = self.run_algorithm_vectorized(n, m, occupancy_counts["delta_CC"], occupancy_counts["sigma"])

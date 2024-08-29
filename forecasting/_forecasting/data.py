@@ -7,6 +7,42 @@ import numpy as np
 
 rng = np.random.default_rng(seed=42)
 
+def prepare_data(path_to_data_dir, hyperparameters, dfguru):
+    
+    course_dates_data = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name="course_dates")
+    
+    course_info_data = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name="course_info")
+    
+    data_dict = {}
+    for room_id in [0, 1]:
+        
+        ########## Load Data ##########
+        occ_time_series = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"room-{room_id}_freq-{hyperparameters["frequency"]}_cleaned_data_29_08", 
+        )
+        
+        ########## OccFeatureEngineer ##########
+        occ_time_series = OccFeatureEngineer(
+            occ_time_series, 
+            course_dates_data, 
+            course_info_data, 
+            dfguru
+        ).derive_features(
+            features=hyperparameters["features"].split("_"), 
+            room_id=room_id
+        )
+          
+    data_dict[room_id] = occ_time_series
+    
+    train_dict, val_dict, test_dict = train_val_test_split(data_dict, verbose=False)
+    
+    return train_dict, val_dict, test_dict
+    
 def train_val_test_split(data_dict, verbose=True):
     
     # randomly exclude chunks of the data
@@ -115,7 +151,7 @@ class OccFeatureEngineer():
         course_dates_in_room = self.dfg.filter_by_roomid(self.course_dates_table, room_id)
         
         # initialize all features to 0
-        time_series["course_number"] = 0
+        time_series["course_number"] = ''
         for feature in features:
             time_series[feature] = 0
             

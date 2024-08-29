@@ -10,7 +10,7 @@ class DataFrameGuru():
         self.kwargs = kwargs
     
     ######## Read Data ########
-    def read_data(self, path_repo, file_name, extension="csv", dtypes=True):
+    def load_dataframe(self, path_repo, file_name, extension="csv", dtypes=True):
         
         self.path_repo = path_repo
         self.file_name = file_name
@@ -36,6 +36,13 @@ class DataFrameGuru():
         dataframe.drop("time", axis=1, inplace=True)
         return dataframe
 
+    def save_to_csv(self, dataframe, path_to_file, file_name):
+        # store the data in the data directory
+        dataframe.to_csv(os.path.join(path_to_file, file_name) + ".csv", index=False)
+        # store the datatypes in the data directory
+        dataframe.dtypes.to_csv(os.path.join(path_to_file, file_name) + "_dtypes.csv", index=True)
+        return True
+    
     ######## Filter Data ########
     def filter_by_roomid(self, dataframe, room_id):
         return dataframe[dataframe["room_id"] == room_id]
