@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
@@ -599,8 +599,8 @@ class SignalPreprocessor(Preprocessor):
         # check if samples should be discarded or not
         if filtering_params["discard_samples"]:  # 0.8sec
             # discard samples between 22:00 and 07:30
-            lb = datetime(hour=7, minute=30, second=0)
-            ub = datetime(hour=22, minute=00, second=0)
+            lb = time(hour=7, minute=30, second=0)
+            ub = time(hour=21, minute=15, second=0)
             df = self.discard_samples(df, lb, ub)
             
 

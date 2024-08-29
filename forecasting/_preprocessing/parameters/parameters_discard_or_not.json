@@ -1,22 +1,22 @@
 {   
     "filtering_params":{
-        "discard_samples":[true, false],
-        "apply_filter":[true],
+        "discard_samples":[true],
+        "apply_filter":[false],
         "filter_mode": ["time_window"],
         "k":[2],
-        "nm":[3,4],
-        "ns":[2,3],
-        "s":[1,2,3],
-        "lb_in":[2,3],
-        "lb_out":[2,3],
-        "handle_5":[true, false],
-        "handle_6":[true, false]
+        "nm":[3],
+        "ns":[2],
+        "s":[1],
+        "lb_in":[2],
+        "lb_out":[2],
+        "handle_5":[false],
+        "handle_6":[false]
     },
     "handle_56_params":{
-        "k":[2,5],
+        "k":[2],
         "m":[2],
         "s":[2],
-        "ns":[2,3],
+        "ns":[2],
         "nm":[2]
     },
     "plcount_params":{

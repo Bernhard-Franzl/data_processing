@@ -51,9 +51,9 @@ for i, params in enumerate(comb_iterator):
                                                                                             raw_data=raw_data, 
                                                                                             params=params, 
                                                                                             details=False)
-    file_name = "_preprocessing/results/results_time-window_with_5_6.txt"
+    file_name = "_preprocessing/results/results_time-window_discard.txt"
     write_results_to_txt(file_name, i, params, ctd_list)
-    file_name = f"_preprocessing/results/with_5_6/comb_time-window_{i}.json"
+    file_name = f"_preprocessing/results/discard/comb_time-window_{i}.json"
     write_results_to_json(file_name, params, ctd_list)
 
 
