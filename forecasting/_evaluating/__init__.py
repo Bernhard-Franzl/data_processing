@@ -3,3 +3,4 @@ from _evaluating.evaluating import ParameterSearch
 from _evaluating.evaluating import Evaluator
 from _evaluating.evaluating import write_results_to_json 
 from _evaluating.evaluating import write_results_to_txt
+from _evaluating.evaluating import save_training_results

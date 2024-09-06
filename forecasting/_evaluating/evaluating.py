@@ -5,6 +5,7 @@ import json
 import numpy as np
 from tqdm import tqdm
 from datetime import datetime
+import os
 
 # Imports for Evaluator
 import pandas as pd
@@ -39,6 +40,24 @@ def write_results_to_json(file_name, params, ctd_list):
     
         
     return None
+
+################# Helper Functions: Model Training #################
+def dict_to_json(path_to_dir, dictionary, file_name):
+    with open(os.path.join(path_to_dir, f"{file_name}.json"), "w") as file:
+        json.dump(dictionary, file)
+    return None
+    
+def save_training_results(results_dir, run_id, comb_id, hyperparameters:dict, losses:dict, predictions:dict):
+    
+    # check all the directories and generate if necessary
+    final_path = os.path.join(results_dir, f"run_{run_id}", f"comb_{comb_id}")
+    if not os.path.exists(final_path):
+        os.makedirs(final_path)
+        
+    # save hyperparameters, losses and predictions
+    dict_to_json(final_path, hyperparameters, "hyperparameters")
+    dict_to_json(final_path, losses, "losses")
+    dict_to_json(final_path, predictions, "predictions")
 
 class ParameterSearch:
     
@@ -105,10 +124,14 @@ class ParameterSearch:
         values = []
         keys = []
         for key in params_dict.keys():
-            values.append(params_dict[key])
+            value = params_dict[key]
+            if type(value) == list:
+                values.append(value)
+            else:
+                values.append([value])
             keys.append(key)
         
-        n_combinations = np.prod([len(value) for value in values])
+        n_combinations = np.prod([len(value) if type(value)==list else 1 for value in values])
 
         return keys, iter(itertools.product(*values)), n_combinations
     

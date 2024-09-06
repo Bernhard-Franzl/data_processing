@@ -62,6 +62,9 @@ class DataFrameGuru():
     def filter_by_daterange(self, dataframe, time_column, start_date, end_date):
         return dataframe[(dataframe[time_column].dt.date >= start_date) & (dataframe[time_column].dt.date <= end_date)]
     
+    def filter_by_courses(self, dataframe, course_numbers):
+        return dataframe[dataframe["course_number"].isin(course_numbers)]
+    
     ######## Resample Data ########
     def _resample(self, dataframe, time_column, frequency, agg_func, output_columns):
         

@@ -1,4 +1,10 @@
 import numpy as np 
+import json
+import os
+import random
+import warnings
+import tqdm
+warnings.filterwarnings("ignore")
 
 import torch
 import torch.nn as nn
@@ -6,55 +12,154 @@ from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset
 
 from _forecasting.data import OccupancyDataset
+from _forecasting.model import SimpleOccDenseNet
+from _forecasting.model import SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1
 
+class StatsLogger:
+    
+    def __init__(self) -> None:
+        
+        self.mean_train_loss = []
+        self.train_loss = []
+        self.train_loss_buffer = []
+        
+        self.val_loss= []
+        self.val_pred = []
+        self.val_input = []
+        self.val_target= []
+        self.val_info = []
+        
+        
+    def reset_logger(self) -> None:
+        self.mean_train_loss = []
+        self.train_loss = []
+        self.train_loss_buffer = []
+        self.train_loss_mini_buffer = []
+        
+        self.val_loss= []
+        self.val_pred = []
+        self.val_input = []
+        self.val_target= []
+        self.val_info = []
+        
+    def free_memory(self) -> None:
+        self.val_pred = []
+        self.val_target= []
+        self.val_input = []
+        
+    def append_train_loss(self, loss:float) -> None:
+        self.train_loss.append(loss)
+        self.train_loss_buffer.append(loss)
+        
+    def reset_train_loss_buffer(self) -> None:
+        self.train_loss_buffer = []
+    
+    def append_mean_train_loss(self) -> None:
+        self.mean_train_loss.append(np.mean(self.train_loss_buffer))
+        self.reset_train_loss_buffer()
+        
+    def append_val_stats(self, loss:list, pred:list, target:list, input:list, info=None) -> None:
+        self.val_loss.append(loss)
+        self.val_pred.append(pred)
+        self.val_input.append(input)
+        self.val_target.append(target)
+        if info:
+            self.val_info.append(info)
+           
 class MasterTrainer:
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     n_updates = 0
-    val_interval = 250
+    test_interval = 250
+    n_test = 0
+    train_log_inteval = 50
     
-    def __init__(self, model_class:nn.Module, optimizer:Optimizer, hyperparameters:dict, criterion) -> None:
+    def __init__(self, optimizer_class:Optimizer, 
+                 hyperparameters:dict, summary_writer=None, torch_rng=None) -> None:
         
-        self.model_class = model_class
-        self.criterion = criterion
-        self.optimizer = optimizer
+        self.model_class = self.handle_model_class(hyperparameters["model_class"])
+        self.criterion = self.handle_criterion(hyperparameters["criterion"])
+        self.optimizer_class = optimizer_class
         self.hyperparameters = hyperparameters
+        self.stats_logger = StatsLogger()
         
+        if summary_writer:
+            self.summary_writer = summary_writer
+            
+        if torch_rng:
+            self.torch_rng = torch_rng
+
     def reset_n_updates(self) -> None:
         self.n_updates = 0
 
     def update_hyperparameters(self, hyperparameters:dict) -> None:
         self.hyperparameters.update(hyperparameters)
+    
+    def set_hyperparameters(self, hyperparameters:dict) -> None:
+        self.hyperparameters = hyperparameters
         
     def custom_collate(self, x):
-        info = [x[0] for x in x]
-        X = torch.stack([x[1] for x in x])
-        y = torch.stack([x[2] for x in x])
-        return info, X, y
-      
+        info = [x_i[0] for x_i in x]
+        X = torch.stack([x_i[1] for x_i in x])
+        y_features = torch.stack([x_i[2] for x_i in x])
+        y = torch.stack([x_i[3] for x_i in x])
+        return info, X, y_features, y
+    
+    def handle_criterion(self, criterion:str):
+        if criterion == "MSLE":
+            return MSLELoss()
+        elif criterion == "SSE":
+            return nn.MSELoss(reduction="sum")
+        elif criterion == "MSE":
+            return nn.MSELoss()
+        elif criterion == "MAE":
+            return nn.L1Loss()
+        elif criterion == "SAE":
+            return nn.L1Loss(reduction="sum")
+        else:
+            raise ValueError("Criterion not supported.")
+    
+    def handle_model_class(self, model_class:str):
+        if model_class == "simple_lstm":
+            return SimpleOccLSTM
+        elif model_class == "simple_densenet":
+            return SimpleOccDenseNet
+        elif model_class == "ed_lstm":
+            return EncDecOccLSTM
+        elif model_class == "ed_lstm1":
+            return EncDecOccLSTM1
+        else:
+            raise ValueError("Model not supported.")
+    
     ######## Initialization ########
     def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict):
+        
         train_set, val_set, test_set = self.initialize_dataset(train_dict, val_dict, test_dict)
+
         train_loader, val_loader, test_loader = self.initialize_dataloader(train_set, val_set, test_set)
-        self.update_hyperparameters({
-            "input_size": train_set[0][1].shape[0], 
-            "output_size": train_set[0][2].shape[0]}
-        )
+        
         model = self.initialize_model()
         optimizer = self.initialize_optimizer(model)
         
         return train_loader, val_loader, test_loader, model, optimizer
     
     def initialize_model(self) -> nn.Module:
-        model = self.model_class(**self.hyperparameters)
+        occcount = "occcount" in self.hyperparameters["features"]
+        self.update_hyperparameters(
+            {"occcount": occcount}
+            )
+        model = self.model_class(self.hyperparameters)
         return model.to(self.device)    
     
     def initialize_optimizer(self, model:nn.Module) -> Optimizer:
         
-        if self.optimizer == torch.optim.Adam:
-            optimizer = self.optimizer(model.parameters(), lr=self.hyperparameters["lr"])
-        elif self.optimizer == torch.optim.SGD:
-            optimizer = self.optimizer(model.parameters(), lr=self.hyperparameters["lr"], momentum=self.hyperparameters["momentum"])
+        if self.optimizer_class == torch.optim.Adam:
+            optimizer = self.optimizer_class(model.parameters(), lr=self.hyperparameters["lr"], 
+                                             weight_decay=self.hyperparameters["weight_decay"])
+        elif self.optimizer_class == torch.optim.SGD:
+            optimizer = self.optimizer_class(model.parameters(), lr=self.hyperparameters["lr"], 
+                                             momentum=self.hyperparameters["momentum"],
+                                             weight_decay=self.hyperparameters["weight_decay"])
         else:
             raise ValueError("Optimizer not supported.")
         
@@ -62,68 +167,186 @@ class MasterTrainer:
     
     def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
         
-        train_set = OccupancyDataset(train_dict, self.hyperparameters["frequency"], self.hyperparameters["x_size"], self.hyperparameters["y_size"])
-        val_set = OccupancyDataset(val_dict, self.hyperparameters["frequency"], self.hyperparameters["x_size"], self.hyperparameters["y_size"])
-        test_set = OccupancyDataset(test_dict, self.hyperparameters["frequency"], self.hyperparameters["x_size"], self.hyperparameters["y_size"])
+        train_set = OccupancyDataset(train_dict, self.hyperparameters)
+        val_set = OccupancyDataset(val_dict, self.hyperparameters)
+        test_set = OccupancyDataset(test_dict, self.hyperparameters)
+        
+        _, X, y_features, y = train_set[0]
+        
+        self.update_hyperparameters({
+            "x_size": int(X.shape[1]),
+            "y_features_size": int(y_features.shape[1]), 
+            "y_size": int(y.shape[1])}
+        )
         
         return train_set, val_set, test_set
         
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
-        train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, collate_fn=self.custom_collate)
-        val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, collate_fn=self.custom_collate)
-        test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, collate_fn=self.custom_collate)
+        train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
+                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
+        val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
+                                collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
+        test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
+                                 collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
         return train_loader, val_loader, test_loader
         
     ######## Training ########
-    def train(self, dataloader:DataLoader, model:nn.Module, optimizer:Optimizer, val_dataloader:DataLoader=None):
-        """
-        trains a model for one epoch
-        """
-        
-        train_loss = []
-        val_loss = []
-        
-        for info, X, y in dataloader:
+    def train_one_epoch(self, dataloader:DataLoader, model:nn.Module, optimizer:Optimizer, val_dataloader:DataLoader=None):
+            """
+            trains a model for one epoch
+            """
+            self.stats_logger.reset_train_loss_buffer()
             
-            optimizer.zero_grad()
-        
-            X = X.to(self.device)
-            y = y.to(self.device)
-            
-            model_output = model(X)
-            loss = self.criterion(model_output, y)
-            
-            loss.backward()
-            optimizer.step()
-            
-            self.n_updates += 1
-            
-            # validate every 100 updates
-            if (self.n_updates % self.val_interval == 0) and val_dataloader:
-                val_losses = self.validate(val_dataloader, model)
-                val_loss.append(np.mean(val_losses))
+            for info, X, y_features, y in dataloader:
                 
-            train_loss.append(loss.cpu().detach())
+                optimizer.zero_grad()
             
-        return train_loss, val_loss
+                X = X.to(self.device)
+                y_features = y_features.to(self.device)
+                y = y.to(self.device).view(-1, model.output_size)
+                
+                model_output = model(X, y_features)
+                loss = self.criterion(model_output, y)
     
-    def validate(self, dataloader:DataLoader, model:nn.Module):
+                loss.backward()
+                optimizer.step()
+                
+                self.n_updates += 1
+                #self.writer.add_scalar("Loss/train", loss.cpu().detach().float(), self.n_updates)
+                self.stats_logger.append_train_loss(loss.cpu().detach().float())
+                
+                if self.n_updates % 50 == 0:
+                    self.summary_writer.add_scalar("Loss/train", np.mean(self.stats_logger.train_loss[self.n_updates-self.train_log_inteval:self.n_updates]), self.n_updates-self.train_log_inteval)
+                
+                
+                # validate every 100 updates
+                if ((self.n_updates % self.test_interval) == 0) and val_dataloader:
+                    self.test_one_epoch(val_dataloader, model, log_info=True)
+                    self.n_test += 1
+                    self.summary_writer.add_scalar("Loss/val", np.mean(self.stats_logger.val_loss[self.n_test]), self.n_test*self.test_interval)
+
+                    
+                
+                if self.n_updates >= self.hyperparameters["max_n_updates"]:
+                    break
+    
+    def train_n_updates(self, train_dataloader:DataLoader, val_dataloader:DataLoader, 
+                        model:nn.Module, optimizer:Optimizer, log_predictions:bool):
+        
+
+        # Evaluate untrained model
+        self.test_one_epoch(val_dataloader, model, log_info=True)
+        self.summary_writer.add_scalar("Loss/val", np.mean(self.stats_logger.val_loss[0]), 0)
+
+        # Calculate number of epochs from max_n_updates
+        if self.hyperparameters["max_n_updates"] % len(train_dataloader) == 0:
+            n_epochs = self.hyperparameters["max_n_updates"] // len(train_dataloader)
+        else:
+            n_epochs = self.hyperparameters["max_n_updates"] // len(train_dataloader) + 1
+
+        for _ in tqdm.tqdm(range(n_epochs), leave=False):
+                
+            self.train_one_epoch(train_dataloader, model, optimizer, val_dataloader)
+            
+            if not log_predictions:
+                self.stats_logger.free_memory()
+                
+            self.stats_logger.append_mean_train_loss()      
+             
+    ######## Validation ########
+    def test_one_epoch(self, dataloader:DataLoader, model:nn.Module, log_info:bool):
         """
         validates a model for one epoch
         """
+
+        model.eval()
         
+        info_list = []
         val_loss = []
         predictions = []
+        targets = []
+        inputs = []
+        
         with torch.no_grad():
-            for info, X, y in dataloader:
+            for info, X, y_features, y in dataloader:
                 
                 X = X.to(self.device)
-                y = y.to(self.device)
+                y_features = y_features.to(self.device)
+                y = y.to(self.device).view(-1, model.output_size)
                 
-                model_output = model(X)
+                model_output = model(X, y_features)
                 loss = self.criterion(model_output, y)
                 
                 val_loss.append(loss.cpu().detach())
+                inputs.append((X.cpu().detach(), y_features.cpu().detach()))
                 predictions.append(model_output.cpu().detach())
+                targets.append(y.cpu().detach())
+                info_list.append(info)
                 
-        return val_loss
+        model.train()
+        if log_info:
+            self.stats_logger.append_val_stats(val_loss, predictions, targets, inputs, info=info_list) 
+        else:
+            self.stats_logger.append_val_stats(val_loss, predictions, targets, inputs) 
+        
+    ##### Summary Writer ######
+    def text_to_writer(self, hyperparameters:dict):
+        self.summary_writer.add_text("Hyperparameters", json.dumps(hyperparameters, indent=4))
+
+    def hyperparameters_to_writer(self, val_loss:float, train_loss:float):
+        
+        hyperparams_writer = self.hyperparameters.copy()
+        hyperparams_writer["hidden_size"] = "_".join([str(x) for x in hyperparams_writer["hidden_size"]])
+        self.summary_writer.add_hparams(
+            hparam_dict=hyperparams_writer, 
+            metric_dict={'hparam/val_loss_L1': float(val_loss),
+                         'hparam/train_loss_L1': float(train_loss)},
+            run_name=f"hparam",
+            global_step = 0
+        )
+    #### Save and Load ####
+    def save_checkpoint(self, model:nn.Module, optimizer:Optimizer, save_path:str=None):
+        
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+            
+        #torch.save(train_loader.dataset, os.path.join(self.save_path, "train_dataset.pt"))
+        #torch.save(val_loader.dataset, os.path.join(self.save_path, "val_dataset.pt"))
+        #torch.save(test_loader.dataset, os.path.join(self.save_path, "test_dataset.pt"))
+        torch.save(model.cpu().state_dict(), os.path.join(save_path, "model.pt"))
+        torch.save(optimizer.state_dict(), os.path.join(save_path, "optimizer.pt"))
+        self.dict_to_json(save_path, self.hyperparameters, "hyperparameters")
+
+    def dict_to_json(self, path_to_dir, dictionary, file_name):
+        with open(os.path.join(path_to_dir, f"{file_name}.json"), "w") as file:
+            json.dump(dictionary, file)
+        return None
+    
+    def load_checkpoint(self, checkpoint_path:str):
+        
+        # ignore warnings
+        hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
+        
+        model = self.model_class(hyperparameters)
+        model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
+        model = model.to(self.device)
+        
+        optimizer = self.optimizer_class(model.parameters(), lr=hyperparameters["lr"], weight_decay=hyperparameters["weight_decay"])
+        optimizer.load_state_dict(torch.load(os.path.join(checkpoint_path, "optimizer.pt"), weights_only=True))
+        
+        #train_set = torch.load(os.path.join(checkpoint_path, "train_dataset.pt"))
+        #val_set = torch.load(os.path.join(checkpoint_path, "val_dataset.pt"))
+        #test_set = torch.load(os.path.join(checkpoint_path, "test_dataset.pt"))
+        
+        return model, optimizer,  hyperparameters
+        
+class MSLELoss(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.mse = nn.MSELoss()
+        
+    def forward(self, pred, actual):
+        return self.mse(torch.log(pred + 1), torch.log(actual + 1))
+      
+        
+    

@@ -116,7 +116,6 @@ class CourseAnalyzer():
     
     def filter_df_by_course(self, dataframe, course_number):
         # only show courses betwen start and end time
-        df = dataframe.copy(deep=True)
         df = df[df["course_number"] == course_number]
         df = df.sort_values(by="start_time").reset_index(drop=True)
         return df
