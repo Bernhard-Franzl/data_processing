@@ -10,7 +10,7 @@ from _dfguru import DataFrameGuru as DFG
 
 # Test run 0
 # 0,7; 
-n_run, n_comb = 2,9
+n_run, n_comb = 3,103
 
 # load model, optimizer, data sets and hyperparameters
 torch_rng = torch.Generator()
@@ -24,7 +24,7 @@ writer = SummaryWriter(
     
 mt = MasterTrainer(
     optimizer_class=Adam,
-    hyperparameters={"model_class":"ed_lstm",
+    hyperparameters={"model_class":"simple_lstm",
                      "criterion":"MSE",},
     torch_rng=torch_rng,
     summary_writer=writer,
@@ -49,72 +49,105 @@ targets = mt.stats_logger.val_target
 inputs = mt.stats_logger.val_input
 infos = mt.stats_logger.val_info
 
-def elementwise_mse(pred, target):
-    return torch.mean((pred - target)**2, dim=1)
+
+import numpy as np
+import pandas as pd
 
 for i, type in enumerate(["train", "val"]):
 
     pred_i = torch.cat(predictions[i], dim=0)
     target_i = torch.cat(targets[i], dim=0)
     
-        
-    x_i = torch.cat([x for x, _ in inputs[i]], dim=0)
-    y_features_i = torch.cat([y for _, y in inputs[i]], dim=0)
-    
-    losses_i = elementwise_mse(pred_i, target_i)
-    
-    top_k = torch.topk(losses_i, 5, largest=True).indices
-    bot_k = torch.topk(losses_i, 5, largest=False).indices
-
-    mean_loss =  torch.mean(torch.Tensor(losses[i]))
-        
-    info_flat = []
+    y_times = []
     for x in infos[i]:
-        info_flat.extend(x)
+        #room_id, x_time, y_time, features, room_capa = x
+        for room_id, x_time, y_time, _, room_capa in x:
+            y_times.append(y_time.values[0])
+    
+    data = pd.DataFrame(columns=["time", "pred", "target"],
+                        data={"time":y_times, "pred":pred_i.squeeze(), "target":target_i.squeeze()})
+
+    plot_data = data.sort_values(by="time")
+
+    fig = go.Figure()
+    
+    fig.add_trace(
+        go.Scatter(
+            x=plot_data["time"],
+            y=plot_data["pred"]*1000000,
+            mode="lines+markers",
+            name="Prediction"
+        )
+    )
+    
+    fig.add_trace(
+        go.Scatter(
+            x=plot_data["time"],
+            y=plot_data["target"],
+            mode="lines+markers",
+            name="Target"
+        )
+    )
+    
+    fig.show()
+
+    #x_i = torch.cat([x for x, _ in inputs[i]], dim=0)
+    #y_features_i = torch.cat([y for _, y in inputs[i]], dim=0)
+    
+    #losses_i = elementwise_mse(pred_i, target_i)
+    
+    #top_k = torch.topk(losses_i, 5, largest=True).indices
+    #bot_k = torch.topk(losses_i, 5, largest=False).indices
+
+    #mean_loss =  torch.mean(torch.Tensor(losses[i]))
+        
+    #info_flat = []
+    #for x in infos[i]:
+    #    info_flat.extend(x)
         
     
-    # Top 5
-    fig = go.Figure()        
+    ## Top 5
+    #fig = go.Figure()        
     
-    for k in top_k:
+    #for k in top_k:
 
-        room_k, time_x_k, time_y_k, exogen_features_k, room_capa_k = info_flat[k]
-        fig.add_trace(
-            go.Scatter(
-                x=time_y_k, 
-                y=pred_i[k],
-                mode="lines+markers+text",
-                name=f"Prediction {k}"))
+    #    room_k, time_x_k, time_y_k, exogen_features_k, room_capa_k = info_flat[k]
+    #    fig.add_trace(
+    #        go.Scatter(
+    #            x=time_y_k, 
+    #            y=pred_i[k],
+    #            mode="lines+markers+text",
+    #            name=f"Prediction {k}"))
 
 
-        fig.add_trace(
-            go.Scatter(
-                x=time_y_k, 
-                y=target_i[k],
-                mode="lines+markers+text",
-                name=f"Target {k}"))
+    #    fig.add_trace(
+    #        go.Scatter(
+    #            x=time_y_k, 
+    #            y=target_i[k],
+    #            mode="lines+markers+text",
+    #            name=f"Target {k}"))
 
-        fig.add_trace(
-            go.Scatter(
-                x=time_x_k, 
-                y=x_i[k][:,0],
-                mode="lines+markers+text",
-                name=f"Input X {k}"))
+    #    fig.add_trace(
+    #        go.Scatter(
+    #            x=time_x_k, 
+    #            y=x_i[k][:,0],
+    #            mode="lines+markers+text",
+    #            name=f"Input X {k}"))
 
-        for j, exogen_feature in enumerate(exogen_features_k):
-            fig.add_trace(
-                go.Scatter(
-                    x=time_y_k, 
-                    y=y_features_i[k][:,j],
-                    mode="lines+markers+text",
-                    name=f"Y-feature:{exogen_feature} {k}"))
+    #    for j, exogen_feature in enumerate(exogen_features_k):
+    #        fig.add_trace(
+    #            go.Scatter(
+    #                x=time_y_k, 
+    #                y=y_features_i[k][:,j],
+    #                mode="lines+markers+text",
+    #                name=f"Y-feature:{exogen_feature} {k}"))
 
-    # add title
-    fig.update_layout(
-        title_text=f"Top 5: {type} losses. Mean loss: {mean_loss}"
-    )
+    ## add title
+    #fig.update_layout(
+    #    title_text=f"Top 5: {type} losses. Mean loss: {mean_loss}"
+    #)
 
-    fig.show()
+    #fig.show()
     
     ## Bot 5
     #fig = go.Figure()
