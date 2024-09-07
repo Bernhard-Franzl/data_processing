@@ -74,7 +74,7 @@ for i, type in enumerate(["train", "val"]):
     fig.add_trace(
         go.Scatter(
             x=plot_data["time"],
-            y=plot_data["pred"]*1000000,
+            y=plot_data["pred"],
             mode="lines+markers",
             name="Prediction"
         )
