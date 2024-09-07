@@ -10,7 +10,7 @@ from _dfguru import DataFrameGuru as DFG
 
 # Test run 0
 # 0,7; 
-n_run, n_comb = 3,103
+n_run, n_comb = 4,0
 
 # load model, optimizer, data sets and hyperparameters
 torch_rng = torch.Generator()

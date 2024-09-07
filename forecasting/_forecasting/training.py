@@ -206,7 +206,9 @@ class MasterTrainer:
                 y = y.to(self.device).view(-1, model.output_size)
                 
                 model_output = model(X, y_features)
-                loss = self.criterion(model_output, y)
+                room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
+
+                loss = self.criterion(model_output*room_capa, y*room_capa)
     
                 loss.backward()
                 optimizer.step()
@@ -275,7 +277,8 @@ class MasterTrainer:
                 y = y.to(self.device).view(-1, model.output_size)
                 
                 model_output = model(X, y_features)
-                loss = self.criterion(model_output, y)
+                room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
+                loss = self.criterion(model_output*room_capa, y*room_capa)
                 
                 val_loss.append(loss.cpu().detach())
                 inputs.append((X.cpu().detach(), y_features.cpu().detach()))
