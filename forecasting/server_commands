@@ -6,14 +6,16 @@ Run these commands for nicest server experience:
 
 ssh -L 16007:127.0.0.1:6006 franzl@student06.ai-lab.jku.at -p 5792
 
-source /system/apps/userenv/miniconda3/bashrc_students
+git pull
 
 -> open tmux session as wanted
+
+in every tmux window:
+source /system/apps/userenv/miniconda3/bashrc_students
 
 python3 "scriptname".py
 
 tensorboard --logdir _forecasting/training_logs/run_3 --port 6006
-
 
 
 
