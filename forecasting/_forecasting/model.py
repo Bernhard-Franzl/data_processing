@@ -56,9 +56,7 @@ class SimpleOccDenseNet(nn.Module):
             else:
                 self.model.add_module("acti_out", nn.Sigmoid())
                 #print("Sigmoid added")
-
-
-        
+   
     def forward(self, x, y_features, room_id=None):
         
         room_enc = self.room_encoding[room_id]
