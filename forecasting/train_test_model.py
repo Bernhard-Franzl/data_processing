@@ -10,7 +10,7 @@ from _dfguru import DataFrameGuru as DFG
 
 # Test run 0
 # 0,7; 
-n_run, n_comb = 4,0
+n_run, n_comb = 2,0
 
 # load model, optimizer, data sets and hyperparameters
 torch_rng = torch.Generator()
@@ -24,8 +24,8 @@ writer = SummaryWriter(
     
 mt = MasterTrainer(
     optimizer_class=Adam,
-    hyperparameters={"model_class":"simple_lstm",
-                     "criterion":"MSE",},
+    hyperparameters={"model_class":"simple_densenet",
+                     "criterion":"MAE",},
     torch_rng=torch_rng,
     summary_writer=writer,
 )
@@ -41,7 +41,6 @@ train_loader, val_loader, test_loader = mt.initialize_dataloader(train_set, val_
 
 mt.test_one_epoch(train_loader, model, log_info=True)
 mt.test_one_epoch(val_loader, model, log_info=True)
-
 
 losses = mt.stats_logger.val_loss
 predictions = mt.stats_logger.val_pred
@@ -59,15 +58,18 @@ for i, type in enumerate(["train", "val"]):
     target_i = torch.cat(targets[i], dim=0)
     
     y_times = []
+    room_ids = []   
     for x in infos[i]:
         #room_id, x_time, y_time, features, room_capa = x
         for room_id, x_time, y_time, _, room_capa in x:
             y_times.append(y_time.values[0])
+            room_ids.append(room_id)
     
-    data = pd.DataFrame(columns=["time", "pred", "target"],
-                        data={"time":y_times, "pred":pred_i.squeeze(), "target":target_i.squeeze()})
+    
+    data = pd.DataFrame(columns=["time", "pred", "target", "room_id"],
+                        data={"time":y_times, "pred":pred_i.squeeze(), "target":target_i.squeeze(), "room_id":room_ids})
 
-    plot_data = data.sort_values(by="time")
+    plot_data = data[data["room_id"]==0].sort_values(by="time")
 
     fig = go.Figure()
     

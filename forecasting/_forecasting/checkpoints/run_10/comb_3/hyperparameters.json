@@ -1,1 +1,0 @@
-{"info": "Run 10: occrate", "criterion": "MSE", "hidden_size": [], "lr": 0.0001, "weight_decay": 0.0001, "batch_size": 8, "x_horizon": 96, "y_horizon": 96, "features": "occrate_lecture_exam_hod_dow", "include_x_features": false, "frequency": "15min", "max_n_updates": 50000, "input_size": 672, "output_size": 96, "occcount": false}

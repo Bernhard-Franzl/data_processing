@@ -1,0 +1,25 @@
+connect_to_server 5, function defined in bashrc -> ssh -p 5792 franzl@student0$1.ai-lab.jku.at
+
+to_afl_repo, alias: "cd Desktop/action-field-learning/bernhard_maze"
+
+sync_server alias different location: rsync -chavzP -e "ssh -p 5792" franzl@student05.ai-lab.jku.at:experiments/3x3_recursive_encoder/  experiments/3x3_recursive_encoder/from_server
+
+scp -P 5792 copy_to_server.zip franzl@student05.ai-lab.jku.at:copy_to_server.zip
+
+source /system/apps/userenv/miniconda3/bashrc_students
+
+ssh -N -f -L localhost:18008:localhost:8008 franzl@student05.ai-lab.jku.at
+tensorboard --logdir experiments/3x3_recursive_encoder --port 8008
+http://localhost:18008/
+
+
+to_livia_repo
+
+rsync -chavzP -e "ssh -p 5792" franzl@student04.ai-lab.jku.at:github/livia-ai-scripts/experiments/runs/  experiments/runs/from_server
+
+rsync -chavzP -e "ssh -p 5792" franzl@student04.ai-lab.jku.at:github/livia-ai-scripts/models_to_retrain/  models_to_retrain/from_server
+rsync -chavzP -e "ssh -p 5792" models_to_retrain/ franzl@student04.ai-lab.jku.at:github/livia-ai-scripts/models_to_retrain
+
+ssh -p 5792 franzl@student04.ai-lab.jku.at
+
+

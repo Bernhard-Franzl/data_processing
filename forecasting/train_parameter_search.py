@@ -17,14 +17,17 @@ dfg = DFG()
 
 ############ Test with small run first ############
 # 6 is a testrun
-path_to_json = "_forecasting/parameters/run-4_params.json"
-start_comb = 0
+path_to_json = "_forecasting/parameters/run-3-16_params.json"
 
-n_run = int(path_to_json.split("/")[-1].split("_")[0].split("-")[-1])
+splitted = path_to_json.split("/")[-1].split("_")[0].split("-")
+n_run = int(splitted[-2])
+start_comb = int(splitted[-1])
 comb_iterator = ParameterSearch(path_to_json=path_to_json).grid_search_iterator(tqdm_bar=True)
 
-
 for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
+    
+    if hyperparameters["x_horizon"] < hyperparameters["y_horizon"]: 
+        continue
     
     #### Control Randomness ####
     torch_rng = torch.Generator()
@@ -45,6 +48,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     
     train_loader, val_loader, test_loader, model, optimizer = mt.initialize_all(train_dict, val_dict, test_dict)
     
+    #raise
     # train model for n_updates
     mt.train_n_updates(train_loader, val_loader, 
                         model, optimizer, log_predictions=False)

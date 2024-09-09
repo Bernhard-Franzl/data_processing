@@ -120,13 +120,16 @@ def train_val_test_split(data_dict, rng, verbose=True):
     
     return train_dict, val_dict, test_dict
         
+        
 class OccFeatureEngineer():
     
     course_features = {"exam", "lecture", "registered", "test", "tutorium", "type"}
     datetime_features = {"dow", "hod", "week"}
     general_features = {"occcount", "occrate"}
+    shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
     permissible_features = course_features.union(datetime_features)
     permissible_features = permissible_features.union(general_features)
+    permissible_features = permissible_features.union(shift_features)
         
     def __init__(self, cleaned_occ_data, course_dates_data, course_info_data, dfguru, frequency):
 
@@ -175,9 +178,46 @@ class OccFeatureEngineer():
         if datetime_features:
             occ_time_series = self.add_datetime_features(occ_time_series, datetime_features)
 
+        # add shift features
+        shift_features = self.shift_features.intersection(feature_set)
+        if shift_features:
+            occ_time_series = self.add_shift_features(occ_time_series, shift_features)
+        
         return occ_time_series
     
     ########### General Features ############
+    def add_shift_features(self, time_series, features):
+        # initialize all features to 0
+        for feature in features:
+            time_series[feature] = 0
+            
+        if "occount1week" in features:
+            
+            time_series = self.shift_n_days(time_series, "occcount", "occcount1week", 7)
+            time_series = self.shift_n_days(time_series, "occcountdiff", "occcountdiff1week", 7)  
+            
+        if "occcount1day" in features:
+            
+            time_series = self.shift_n_days(time_series, "occcount", "occcount1day", 1)
+            time_series = self.shift_n_days(time_series, "occcountdiff", "occcountdiff1day", 1)            
+        
+        if "occrate1week" in features:
+            
+            time_series = self.shift_n_days(time_series, "occrate", "occrate1week", 7)
+            time_series = self.shift_n_days(time_series, "occratediff", "occratediff1week", 7)
+            
+        if "occrate1day" in features:
+            
+            time_series = self.shift_n_days(time_series, "occrate", "occrate1day", 1)
+            time_series = self.shift_n_days(time_series, "occratediff", "occratediff1day", 1)
+        
+        return time_series
+    def shift_n_days(self, time_series, column_in, column_out, n_days):
+        factor = pd.to_timedelta("1d") / pd.to_timedelta(self.frequency)
+        time_series[column_out] = time_series[column_in].shift(int(n_days * factor))
+        time_series[column_out] = time_series[column_out].fillna(-1)
+        return time_series
+        
     def add_general_features(self, time_series, features, room_id):
         
         # check if one of the general features is requested
@@ -187,37 +227,29 @@ class OccFeatureEngineer():
         # initialize all features to 0
         for feature in features:
             time_series[feature] = 0
-        
+
+        ################################################################################################
         if "occcount" in features:
             time_series["occcount"] = time_series["CC_estimates"]
-            factor = pd.to_timedelta("1d") / pd.to_timedelta(self.frequency)
-            # shift the occcount by 1 week
-            time_series["occcount1week"] = time_series["occcount"].shift(int(7*factor))
-            time_series["occcount1week"] = time_series["occcount1week"].fillna(-2)
-            
             time_series["occcountdiff"] = time_series["occcount"].diff(1).combine_first(time_series["occcount"])
-            time_series["occcountdiff1week"] = time_series["occcountdiff"].shift(int(7*factor))
-            time_series["occcountdiff1week"] = time_series["occcountdiff1week"].fillna(-2)    
-               
+
+        ################################################################################################
+        
         if "occrate" in features:
             if room_id is None:
                 raise ValueError("For feature 'occrate' room ID must be provided.")
         
             room_capa = self.dfg.filter_by_roomid(self.course_dates_table, room_id)["room_capacity"].unique()
             time_series["occrate"] = time_series["CC_estimates"] / int(room_capa)
-            # shift by 1 week
-            factor = pd.to_timedelta("1d") / pd.to_timedelta(self.frequency)
-            time_series["occrate1week"] = time_series["occrate"].shift(int(7*factor))
-            time_series["occrate1week"] = time_series["occcount1week"].fillna(-2)
+            time_series["occratediff"] = time_series["occrate"].diff(1).combine_first(time_series["occrate"])
             del room_capa
             # differencing
-            time_series["occratediff"] = time_series["occrate"].diff(1).combine_first(time_series["occrate"])
-            time_series["occratediff1week"] = time_series["occratediff"].shift(int(7*factor))
-            time_series["occratediff1week"] = time_series["occratediff1week"].fillna(-2)      
             #time_series["undiffed_occrate"] = time_series["occrate_diff"].cumsum()
             #print(time_series[["occrate","occrate_diff", "undiffed_occrate"]])
             # raise
-        
+            
+        ################################################################################################
+            
         time_series.drop(columns=["CC_estimates", "CC"], inplace=True)
         return time_series
     
@@ -307,6 +339,7 @@ class OccFeatureEngineer():
 
         return time_series
     
+    
 class OccupancyDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
@@ -333,18 +366,7 @@ class OccupancyDataset(Dataset):
         else:
             raise ValueError("No target feature found.")
         
-        
-        self.differencing = hyperparameters["differencing"]
-        self.sample_differencing = False
-        
-        if self.differencing == "whole":
-            self.occ_feature = self.occ_feature + "diff"
-        elif self.differencing == "sample":
-            self.sample_differencing = True
-            self.occ_feature = self.occ_feature
-        else:
-            self.occ_feature = self.occ_feature
-        
+
         self.exogenous_features = self.features.difference({"occcount", "occrate"})
         if "dow" in self.exogenous_features:
             self.exogenous_features.remove("dow")
@@ -356,14 +378,44 @@ class OccupancyDataset(Dataset):
             self.exogenous_features.remove("week")
             self.exogenous_features = self.exogenous_features.union({"week1", "week2"})
         
+        #if self.differencing == "whole":
+        #    self.occ_feature = self.occ_feature + "diff"
+        #elif self.differencing == "sample":
+        #    self.sample_differencing = True
+        #    self.occ_feature = self.occ_feature
+        #else:
+        #    pass
+        
+        self.differencing = hyperparameters["differencing"]
+        self.sample_differencing = False
         
         if self.differencing == "whole":
-            self.exogenous_features = self.exogenous_features.union({self.occ_feature+"1week"})
+            
+            if self.occ_feature + "1week" in self.features:
+                self.exogenous_features = self.exogenous_features.union({self.occ_feature+ "diff" + "1week"})
+                self.exogenous_features.remove(self.occ_feature + "1week")
+            
+            if self.occ_feature + "1day" in self.features:
+                self.exogenous_features = self.exogenous_features.union({self.occ_feature+ "diff" + "1day"})
+                self.exogenous_features.remove(self.occ_feature + "1day")
+                
+            self.occ_feature = self.occ_feature + "diff"
+            
             
         elif self.differencing == "sample":
-            self.exogenous_features = self.exogenous_features.union({self.occ_feature+"samplediff" +"1week"})
+            
+            self.sample_differencing = True
+            
+            if self.occ_feature + "1week" in self.features:
+                self.exogenous_features = self.exogenous_features.union({self.occ_feature+ "samplediff" + "1week"})
+                self.exogenous_features.remove(self.occ_feature + "1week")
+            
+            if self.occ_feature + "1day" in self.features:
+                self.exogenous_features = self.exogenous_features.union({self.occ_feature+ "samplediff" + "1day"})
+                self.exogenous_features.remove(self.occ_feature + "1day")
+            
         else:
-            self.exogenous_features = self.exogenous_features.union({self.occ_feature+"1week"})
+            pass
             
         self.exogenous_features = sorted(list(self.exogenous_features))
 
@@ -402,8 +454,29 @@ class OccupancyDataset(Dataset):
                 info, X, y_features, y = self.create_samples(occ_time_series.iloc[cur_idx:], room_id)
                 self.samples.extend(list(zip(info, X, y_features, y)))
                 #print( "-----------------------------------")
-        #print()
-                    
+        
+        
+        rng = np.random.default_rng(42)
+        
+        self.corrected_samples = []
+        counter_0 = 0
+        counter_else = 0
+        for info, X, y_features, y in self.samples:
+            if (y[:, 0].sum() == 0) and (X[:, 0].sum() == 0):
+                if rng.random() < hyperparameters["zero_sample_drop_rate"]:
+                    self.corrected_samples.append((info, X, y_features, y))
+                    counter_0 += 1
+
+            else:
+                self.corrected_samples.append((info, X, y_features, y))
+                counter_else += 1
+        
+        if verbose:
+            print("Number of Samples: ", len(self.corrected_samples))        
+            print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(self.corrected_samples))
+            print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(self.corrected_samples))
+            print("-----------------")
+            
     def create_samples(self, time_series, room_id):
         
         occ_time_series = time_series.copy(deep=True)
@@ -420,6 +493,7 @@ class OccupancyDataset(Dataset):
             if self.sample_differencing:
                 window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
                 window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
+                window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
             
             X_df = window.iloc[:self.x_horizon]
             y_df = window.iloc[self.x_horizon:]
@@ -458,8 +532,8 @@ class OccupancyDataset(Dataset):
             raise ValueError("Sanity Check Failed")
         
     def __len__(self):
-        return len(self.samples)
+        return len(self.corrected_samples)
     
     def __getitem__(self, idx):
-        return self.samples[idx]
+        return self.corrected_samples[idx]
     

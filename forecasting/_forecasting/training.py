@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, Dataset
 
 from _forecasting.data import OccupancyDataset
 from _forecasting.model import SimpleOccDenseNet
-from _forecasting.model import SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1
+from _forecasting.model import SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet
 
 class StatsLogger:
     
@@ -73,6 +73,7 @@ class MasterTrainer:
     test_interval = 250
     n_test = 0
     train_log_inteval = 50
+    room_capacities = {0:164, 1:152}
     
     def __init__(self, optimizer_class:Optimizer, 
                  hyperparameters:dict, summary_writer=None, torch_rng=None) -> None:
@@ -103,7 +104,8 @@ class MasterTrainer:
         X = torch.stack([x_i[1] for x_i in x])
         y_features = torch.stack([x_i[2] for x_i in x])
         y = torch.stack([x_i[3] for x_i in x])
-        return info, X, y_features, y
+        room_id = torch.IntTensor([x_i[0][0] for x_i in x])
+        return info, X, y_features, y, room_id
     
     def handle_criterion(self, criterion:str):
         if criterion == "MSLE":
@@ -124,6 +126,8 @@ class MasterTrainer:
             return SimpleOccLSTM
         elif model_class == "simple_densenet":
             return SimpleOccDenseNet
+        elif model_class == "densenet":
+            return OccDenseNet
         elif model_class == "ed_lstm":
             return EncDecOccLSTM
         elif model_class == "ed_lstm1":
@@ -182,12 +186,16 @@ class MasterTrainer:
         return train_set, val_set, test_set
         
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
+        
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
                                   collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
+        
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
+                                collate_fn=self.custom_collate, drop_last=True)
+        
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
+                                 collate_fn=self.custom_collate, drop_last=True)
+        
         return train_loader, val_loader, test_loader
         
     ######## Training ########
@@ -197,18 +205,26 @@ class MasterTrainer:
             """
             self.stats_logger.reset_train_loss_buffer()
             
-            for info, X, y_features, y in dataloader:
+            for info, X, y_features, y, room_id in dataloader:
                 
                 optimizer.zero_grad()
-            
-                X = X.to(self.device)
-                y_features = y_features.to(self.device)
-                y = y.to(self.device).view(-1, model.output_size)
+   
                 
-                model_output = model(X, y_features)
-                room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
+                room_id = room_id.to(self.device)
+                
+                X = X.to(self.device)
+                
 
-                loss = self.criterion(model_output*room_capa, y*room_capa)
+                y_features = y_features.to(self.device)
+   
+                y = y.to(self.device).view(-1, model.output_size)
+
+ 
+                
+                model_output = model(X, y_features, room_id)
+                #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
+
+                loss = self.criterion(model_output, y)
     
                 loss.backward()
                 optimizer.step()
@@ -235,7 +251,6 @@ class MasterTrainer:
     def train_n_updates(self, train_dataloader:DataLoader, val_dataloader:DataLoader, 
                         model:nn.Module, optimizer:Optimizer, log_predictions:bool):
         
-
         # Evaluate untrained model
         self.test_one_epoch(val_dataloader, model, log_info=True)
         self.summary_writer.add_scalar("Loss/val", np.mean(self.stats_logger.val_loss[0]), 0)
@@ -252,6 +267,7 @@ class MasterTrainer:
             
             if not log_predictions:
                 self.stats_logger.free_memory()
+            
                 
             self.stats_logger.append_mean_train_loss()      
              
@@ -270,16 +286,18 @@ class MasterTrainer:
         inputs = []
         
         with torch.no_grad():
-            for info, X, y_features, y in dataloader:
-                
+            for info, X, y_features, y, room_id in dataloader:
+                   
+                room_id = room_id.to(self.device)
                 X = X.to(self.device)
                 y_features = y_features.to(self.device)
                 y = y.to(self.device).view(-1, model.output_size)
                 
-                model_output = model(X, y_features)
-                room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
-                loss = self.criterion(model_output*room_capa, y*room_capa)
-                
+                model_output = model(X, y_features, room_id)
+                #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
+
+                loss = self.criterion(model_output, y)
+
                 val_loss.append(loss.cpu().detach())
                 inputs.append((X.cpu().detach(), y_features.cpu().detach()))
                 predictions.append(model_output.cpu().detach())

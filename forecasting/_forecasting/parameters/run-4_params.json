@@ -4,14 +4,14 @@
     "differencing": ["sample"],
     "criterion": ["MAE", "MSE"],
     "lr": [0.0001, 0.00001],
-    "weight_decay": [0],
-    "batch_size": [1,2,4, 32],
-    "hidden_size": [[15],[30]],
+    "weight_decay": [0, 0.0001],
+    "batch_size": [1,2,4],
+    "hidden_size": [[80],[256]],
     "num_layers": [2,3,4],
     "x_horizon": [12],
     "y_horizon": [1],
     "features": ["occrate_lecture_registered_exam_hod_dow"],
-    "include_x_features": [true, false],
+    "include_x_features": [true],
     "frequency": "15min",
     "max_n_updates": 50000
 }

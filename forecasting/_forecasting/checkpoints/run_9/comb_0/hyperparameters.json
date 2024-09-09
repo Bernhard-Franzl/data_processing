@@ -1,1 +1,0 @@
-{"info": "Run 9: occrate vs occcount", "hidden_size": [256], "lr": 0.0001, "weight_decay": 0, "batch_size": 32, "x_horizon": 96, "y_horizon": 96, "features": "occcount_lecture_exam_hod_dow", "include_x_features": false, "frequency": "15min", "max_n_updates": 50000, "input_size": 672, "output_size": 96, "occcount": true}

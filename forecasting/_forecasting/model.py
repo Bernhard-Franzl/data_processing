@@ -6,11 +6,12 @@ class SimpleOccDenseNet(nn.Module):
     def __init__(self, hyperparameters):
         super().__init__()
         
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        
         self.hyperparameters = hyperparameters
 
         self.x_size = hyperparameters["x_size"] * hyperparameters["x_horizon"]
         self.y_features_size = hyperparameters["y_features_size"] * hyperparameters["y_horizon"]
-        self.input_size = self.x_size + self.y_features_size 
     
         self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
     
@@ -18,6 +19,11 @@ class SimpleOccDenseNet(nn.Module):
         
         self.occcount = hyperparameters["occcount"]
         self.batch_size = hyperparameters["batch_size"]
+        
+        self.room_encoding = torch.eye(2).to(self.device)
+        self.room_enc_size = self.room_encoding.shape[1]
+        
+        self.input_size = self.x_size + self.y_features_size + self.room_enc_size
         
         self.model = nn.Sequential()
         if len(self.hidden_size) > 1:
@@ -34,29 +40,95 @@ class SimpleOccDenseNet(nn.Module):
                 self.model.add_module("input_layer", nn.Linear(self.input_size, self.output_size))
             else:
                 self.model.add_module("input_layer", nn.Linear(self.input_size, self.hidden_size[0]))
+                self.model.add_module("relu_0", nn.ReLU())
+                self.model.add_module("output_layer", nn.Linear(self.hidden_size[0], self.output_size))
+            
+        if self.occcount:
+            if self.hyperparameters["differencing"] in ["sample", "whole"]:
+                pass
+            else:
+                self.model.add_module("acti_out", nn.ReLU())
+
+        else:
+            if self.hyperparameters["differencing"] in ["sample", "whole"]:
+                self.model.add_module("acti_out", nn.Tanh())
+                #print("Tanh added")
+            else:
+                self.model.add_module("acti_out", nn.Sigmoid())
+                #print("Sigmoid added")
+
+
+        
+    def forward(self, x, y_features, room_id=None):
+        
+        room_enc = self.room_encoding[room_id]
+        room_enc = room_enc.view(self.batch_size, -1)
+        
+        x = x.view(self.batch_size, -1)
+        y_features = y_features.view(self.batch_size, -1)
+        input = torch.cat((x, y_features, room_enc), 1)
+
+        out = self.model(input)
+        return out
+
+class OccDenseNet(nn.Module):
+    
+    def __init__(self, hyperparameters):
+        super().__init__()
+        
+        self.hyperparameters = hyperparameters
+
+        self.x_size = hyperparameters["x_size"] * hyperparameters["x_horizon"]
+        self.y_features_size = hyperparameters["y_features_size"] * hyperparameters["y_horizon"]
+        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
+        
+        
+        self.hidden_size = hyperparameters["hidden_size"]
+        
+        
+        self.occcount = hyperparameters["occcount"]
+        self.batch_size = hyperparameters["batch_size"]
+            
+            
+        self.model = nn.Sequential()
+        if len(self.hidden_size) > 1:
+            self.model.add_module("input_layer", nn.Linear(self.x_size, self.hidden_size[0]))
+            self.model.add_module("relu_0", nn.ReLU())
+            
+            for i in range(0, len(self.hidden_size)-1):
+                self.model.add_module(f"hidden_layer_{i}", nn.Linear(self.hidden_size[i], self.hidden_size[i+1]))
+                self.model.add_module(f"relu_{i+1}", nn.ReLU())
+            
+            self.model.add_module("output_layer", nn.Linear(self.hidden_size[-1], 15))  
+        else:
+            if len(self.hidden_size) == 0:
+                self.model.add_module("input_layer", nn.Linear(self.x_size, self.output_size))
+            else:
+                self.model.add_module("input_layer", nn.Linear(self.x_size, self.hidden_size[0]))
                 self.model.add_module("relu", nn.ReLU())
                 self.model.add_module("output_layer", nn.Linear(self.hidden_size[0], self.output_size))
             
         if self.occcount:
-            self.model.add_module("sigmoid", nn.ReLU())
+            self.model.add_module("", nn.ReLU())
         else:
             self.model.add_module("sigmoid", nn.Sigmoid())
-    
+            
     def forward(self, x, y_features):
+            
+            x = x.view(self.batch_size, -1)
+            y_features = y_features.view(self.batch_size, -1)
+            input = torch.cat((x, y_features), 1)
+    
+            x = self.model(input)
+            
+            return x  
         
-        x = x.view(self.batch_size, -1)
-        y_features = y_features.view(self.batch_size, -1)
-        input = torch.cat((x, y_features), 1)
-
-        x = self.model(input)
-        
-        return x
-
 class SimpleOccLSTM(torch.nn.Module):
     
     def __init__(self, hyperparameters, **kwargs):
         
         super().__init__()
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
         self.hyperparameters = hyperparameters
 
@@ -70,31 +142,79 @@ class SimpleOccLSTM(torch.nn.Module):
         self.occcount = hyperparameters["occcount"]
         self.batch_size = hyperparameters["batch_size"]
         
-
+        #self.room_encoding = torch.eye(2).to(self.device)
+        #self.room_enc_size = self.room_encoding.shape[1]    
+        
+        # embedding for hidden states with 0 init
+        weights = torch.randn(2, self.hidden_size[0])
+        #weights = torch.randn(2, self.hidden_size[0])
+        self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+           
+        self.linear_in = torch.nn.Linear(self.y_features_size, self.hidden_size[0])
+                
         # lstm layer
         self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
         # fc at end
-        self.linear_final = torch.nn.Linear(self.hidden_size[0] + self.y_features_size, self.output_size)
+        self.linear_final = torch.nn.Linear(self.hidden_size[0], 1)
         
         #self.linear2 = torch.nn.Linear(self.hidden_size[0], self.output_size)
+        self.linear_in = torch.nn.Linear(self.y_features_size, self.hidden_size[0])
     
         if self.occcount:
             self.last_activation = nn.ReLU()    
         else:
             self.last_activation = nn.Sigmoid()
             
-    def forward(self, x, y_features):
+        self.lstm_cell = torch.nn.LSTMCell(self.x_size, self.hidden_size[0])
         
-        out, _ = self.lstm(x)
+    def forward(self, x, y_features, room_id=None):
         
-        out = out[:, -1, :]
+        room_enc = self.room_embedding(room_id)[None, :, :]
+        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
+        out, (h_n, c_n) = self.lstm(x, (torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device), room_enc))       
         
-        y_features = y_features.view(-1, self.y_features_size*self.hyperparameters["y_horizon"])
+        y_t = self.last_activation(self.linear_final(out[:, -1, :]))  
+        y_t = y_t[:, None, :]
+        
+        pred_list = []
+        for i in range(0, self.hyperparameters["y_horizon"]):
+            
+            y_feat_t = y_features[:, i, :]
+            y_in = torch.cat((y_t, y_feat_t[:, None, :]), 2)
+            
+            h_t1, _= self.lstm(y_in, (h_n, c_n))
+            y_t = self.last_activation(self.linear_final(h_t1))
 
-        flattened = torch.cat((out, y_features), 1)
-        pred = self.last_activation(self.linear_final(flattened))
+            pred_list.append(y_t)
+        
+        pred_list = torch.cat(pred_list, dim=1).squeeze(-1)
+        
+        return pred_list
+    
+    #def forward(self, x, y_features, room_id=None):
+        
+    #    h_t = torch.zeros(self.batch_size, self.hidden_size[0]).to(self.device)
+    #    c_t = self.room_embedding(room_id)
+        
+    #    for i in range(self.hyperparameters["x_horizon"]):
+    #        x_t = x[:, i, :]
+    #        h_t, c_t = self.lstm_cell(x_t, (h_t, c_t))
+         
+    #    y_t = self.last_activation(self.linear_final(h_t)) 
+        
+    #    y_t_list = []
+    #    for i in range(0, self.hyperparameters["y_horizon"]):
+            
+    #        y_feat_t = y_features[:, i, :]
+    #        y_in = torch.cat((y_t, y_feat_t), 1)
+            
+    #        h_t, c_t = self.lstm_cell(y_in, (h_t, c_t))
+    #        y_t = self.last_activation(self.linear_final(h_t))
 
-        return pred
+    #        y_t_list.append(y_t)
+            
+    #    pred = torch.cat(y_t_list, dim=1)
+    #    return pred
 
 class EncDecOccLSTM(torch.nn.Module):
     
