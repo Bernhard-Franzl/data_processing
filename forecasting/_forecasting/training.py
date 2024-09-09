@@ -11,7 +11,7 @@ import torch.nn as nn
 from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset
 
-from _forecasting.data import OccupancyDataset
+from _forecasting.data import OccupancyDataset, OccupancyTestDataset
 from _forecasting.model import SimpleOccDenseNet
 from _forecasting.model import SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet
 
@@ -124,14 +124,17 @@ class MasterTrainer:
     def handle_model_class(self, model_class:str):
         if model_class == "simple_lstm":
             return SimpleOccLSTM
+        
         elif model_class == "simple_densenet":
             return SimpleOccDenseNet
         elif model_class == "densenet":
             return OccDenseNet
+        
         elif model_class == "ed_lstm":
             return EncDecOccLSTM
         elif model_class == "ed_lstm1":
             return EncDecOccLSTM1
+        
         else:
             raise ValueError("Model not supported.")
     
@@ -184,17 +187,33 @@ class MasterTrainer:
         )
         
         return train_set, val_set, test_set
+    
+    def intialize_testdataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
+    
+        train_set = OccupancyTestDataset(train_dict, self.hyperparameters)
+        val_set = OccupancyTestDataset(val_dict, self.hyperparameters)
+        test_set = OccupancyTestDataset(test_dict, self.hyperparameters)
         
+        _, X, y_features, y = train_set[0]
+        
+        self.update_hyperparameters({
+            "x_size": int(X.shape[1]),
+            "y_features_size": int(y_features.shape[1]), 
+            "y_size": int(y.shape[1])}
+        )
+        
+        return train_set, val_set, test_set
+    
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
         
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
+                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True, num_workers=3)
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=self.custom_collate, drop_last=True)
+                                collate_fn=self.custom_collate, drop_last=True, num_workers=3)
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=self.custom_collate, drop_last=True)
+                                 collate_fn=self.custom_collate, drop_last=True, num_workers=3)
         
         return train_loader, val_loader, test_loader
         

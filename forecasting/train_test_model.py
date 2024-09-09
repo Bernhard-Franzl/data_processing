@@ -9,89 +9,151 @@ from _dfguru import DataFrameGuru as DFG
 # specify run and combination number
 
 # Test run 0
-# 0,7; 
-n_run, n_comb = 2,0
 
-# load model, optimizer, data sets and hyperparameters
-torch_rng = torch.Generator()
-torch_rng.manual_seed(42)
-dfg = DFG()
+k=10
+model_class = "simple_densenet"
+plot = True
+losses = []
+combs = []
 
-writer = SummaryWriter(
-    log_dir=f"_forecasting/testing_logs/run_{n_run}/comb_{n_comb}",
-)
-    
-    
-mt = MasterTrainer(
-    optimizer_class=Adam,
-    hyperparameters={"model_class":"simple_densenet",
-                     "criterion":"MAE",},
-    torch_rng=torch_rng,
-    summary_writer=writer,
-)
+# solutions of run 2 are degenerate!!
 
-model, optimizer,  hyperparameters = mt.load_checkpoint(
-    f"_forecasting/checkpoints/run_{n_run}/comb_{n_comb}"
+#for n_run, n_comb in zip(torch.full(size=(48,), fill_value=1) ,torch.arange(48)):
+#for n_run, n_comb in zip(torch.full(size=(48,), fill_value=2) ,torch.arange(42)):
+for n_run, n_comb in [(1,0)]:
+
+    # load model, optimizer, data sets and hyperparameters
+    torch_rng = torch.Generator()
+    torch_rng.manual_seed(42)
+    dfg = DFG()
+
+    writer = SummaryWriter(
+        log_dir=f"_forecasting/testing_logs/run_{n_run}/comb_{n_comb}",
     )
-mt.set_hyperparameters(hyperparameters)
+        
+        
+    mt = MasterTrainer(
+        optimizer_class=Adam,
+        hyperparameters={"model_class":model_class,
+                        "criterion":"MAE",},
+        torch_rng=torch_rng,
+        summary_writer=writer,
+    )
 
-train_dict, val_dict, test_dict = load_data_dicts("data", hyperparameters["frequency"], dfguru=dfg)
-train_set, val_set, test_set = mt.initialize_dataset(train_dict, val_dict, test_dict)
-train_loader, val_loader, test_loader = mt.initialize_dataloader(train_set, val_set, test_set)
-
-mt.test_one_epoch(train_loader, model, log_info=True)
-mt.test_one_epoch(val_loader, model, log_info=True)
-
-losses = mt.stats_logger.val_loss
-predictions = mt.stats_logger.val_pred
-targets = mt.stats_logger.val_target
-inputs = mt.stats_logger.val_input
-infos = mt.stats_logger.val_info
-
-
-import numpy as np
-import pandas as pd
-
-for i, type in enumerate(["train", "val"]):
-
-    pred_i = torch.cat(predictions[i], dim=0)
-    target_i = torch.cat(targets[i], dim=0)
-    
-    y_times = []
-    room_ids = []   
-    for x in infos[i]:
-        #room_id, x_time, y_time, features, room_capa = x
-        for room_id, x_time, y_time, _, room_capa in x:
-            y_times.append(y_time.values[0])
-            room_ids.append(room_id)
-    
-    
-    data = pd.DataFrame(columns=["time", "pred", "target", "room_id"],
-                        data={"time":y_times, "pred":pred_i.squeeze(), "target":target_i.squeeze(), "room_id":room_ids})
-
-    plot_data = data[data["room_id"]==0].sort_values(by="time")
-
-    fig = go.Figure()
-    
-    fig.add_trace(
-        go.Scatter(
-            x=plot_data["time"],
-            y=plot_data["pred"],
-            mode="lines+markers",
-            name="Prediction"
+    model, optimizer,  hyperparameters = mt.load_checkpoint(
+        f"_forecasting/checkpoints/run_{n_run}/comb_{n_comb}"
         )
-    )
+    mt.set_hyperparameters(hyperparameters)
     
-    fig.add_trace(
-        go.Scatter(
-            x=plot_data["time"],
-            y=plot_data["target"],
-            mode="lines+markers",
-            name="Target"
-        )
-    )
+    model.eval()
+
+    train_dict, val_dict, test_dict = load_data_dicts("data", hyperparameters["frequency"], dfguru=dfg)
+
+    train_set, val_set, test_set = mt.intialize_testdataset(train_dict, val_dict, test_dict)
+
+    model = model.to("cpu")
+
+    loss_f = torch.nn.L1Loss(reduction="sum")
+
+    sum_loss = 0
+    for i,(info, X, y_features, y) in enumerate(train_set):
+
+        room_id = torch.IntTensor([info[0]])
+        
+        with torch.no_grad():
+            preds = model.forecast_iter(X, y_features, len(y), room_id)
+
+        len_preds = len(preds)
+        loss = loss_f(preds, y[:len_preds])
+        sum_loss += loss
+        
+        if plot:
+            fig = go.Figure()
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=torch.arange(0, len(preds), 1),
+                    y=preds.detach().numpy(),
+                    mode="lines+markers",
+                    name="Prediction"
+                )
+            )
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=torch.arange(0, len(y), 1),
+                    y=y.detach().numpy().squeeze(),
+                    mode="lines+markers",
+                    name="Target"
+                )
+            )
+            fig.update_layout(
+                title_text=f"Series {i}: Prediction vs Target"
+                )
+            fig.show()
+        
+    print(f"Sum of Loss Terms: {sum_loss} | Run: {n_run} | Comb: {n_comb}")
+    losses.append(float(sum_loss))
+    combs.append((int(n_run), int(n_comb)))
     
-    fig.show()
+
+smallest_k = torch.topk(torch.Tensor(losses), k, largest=False).indices
+print(smallest_k)
+print([combs[k] for k in smallest_k])
+print([losses[k] for k in smallest_k])
+#mt.test_one_epoch(train_loader, model, log_info=True)
+#mt.test_one_epoch(val_loader, model, log_info=True)
+
+#losses = mt.stats_logger.val_loss
+#predictions = mt.stats_logger.val_pred
+#targets = mt.stats_logger.val_target
+#inputs = mt.stats_logger.val_input
+#infos = mt.stats_logger.val_info
+
+
+#import numpy as np
+#import pandas as pd
+
+#for i, type in enumerate(["train", "val"]):
+
+#    pred_i = torch.cat(predictions[i], dim=0)
+#    target_i = torch.cat(targets[i], dim=0)
+    
+#    y_times = []
+#    room_ids = []   
+#    for x in infos[i]:
+#        #room_id, x_time, y_time, features, room_capa = x
+#        for room_id, x_time, y_time, _, room_capa in x:
+#            y_times.append(y_time.values[0])
+#            room_ids.append(room_id)
+    
+    
+#    data = pd.DataFrame(columns=["time", "pred", "target", "room_id"],
+#                        data={"time":y_times, "pred":pred_i.squeeze(), "target":target_i.squeeze(), "room_id":room_ids})
+
+#    plot_data = data[data["room_id"]==0].sort_values(by="time")
+
+#    fig = go.Figure()
+    
+#    fig.add_trace(
+#        go.Scatter(
+#            x=plot_data["time"],
+#            y=plot_data["pred"],
+#            mode="lines+markers",
+#            name="Prediction"
+#        )
+#    )
+    
+#    fig.add_trace(
+#        go.Scatter(
+#            x=plot_data["time"],
+#            y=plot_data["target"],
+#            mode="lines+markers",
+#            name="Target"
+#        )
+#    )
+    
+#    fig.show()
 
     #x_i = torch.cat([x for x, _ in inputs[i]], dim=0)
     #y_features_i = torch.cat([y for _, y in inputs[i]], dim=0)

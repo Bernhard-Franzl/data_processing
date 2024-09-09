@@ -1,0 +1,18 @@
+{   
+    "info": "Run 3: LSTM  ",
+    "model_class": ["simple_lstm", "ed_lstm"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "lr": [0.0001],
+    "weight_decay": [0],
+    "batch_size": [32],
+    "hidden_size": [[128]],
+    "num_layers": [3],
+    "x_horizon": [36],
+    "y_horizon": [144, 288],
+    "features": ["occrate_occrate1day_occrate1week_dow_hod", "occrate_occrate1day_occrate1week_dow_hod_lecture_exam_registered"],
+    "include_x_features": [true],
+    "zero_sample_drop_rate": [0.2],
+    "frequency": "5min",
+    "max_n_updates": 50000
+}

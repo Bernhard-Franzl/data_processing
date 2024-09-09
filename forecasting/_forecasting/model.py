@@ -11,6 +11,7 @@ class SimpleOccDenseNet(nn.Module):
         self.hyperparameters = hyperparameters
 
         self.x_size = hyperparameters["x_size"] * hyperparameters["x_horizon"]
+        self.y_horizon = hyperparameters["y_horizon"]
         self.y_features_size = hyperparameters["y_features_size"] * hyperparameters["y_horizon"]
     
         self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
@@ -68,6 +69,41 @@ class SimpleOccDenseNet(nn.Module):
 
         out = self.model(input)
         return out
+    
+    def forecast_iter(self, x, y_features, len_y, room_id=None):
+        
+             
+        room_enc = self.room_encoding[room_id].to("cpu")
+
+        predicitons = []
+        
+        
+        for i in range(0, len_y, self.y_horizon):
+            
+            room_enc_flattened = room_enc.view(-1)
+            x_flattened  = x.view(-1)
+            y_feat_i = y_features[i:i+self.y_horizon]
+            
+            if y_feat_i.shape[0] < self.y_horizon:
+                break
+            
+            y_feat_i_flattend = y_feat_i.reshape(-1)
+            
+            input = torch.cat((x_flattened, y_feat_i_flattend, room_enc_flattened))
+            
+            out = self.model(input)
+            
+            predicitons.append(out)
+
+            if self.hyperparameters["include_x_features"]:
+                x_new = torch.cat((out[:, None], y_feat_i), dim=1)
+            else:
+                x_new = out[:, None]
+                
+            x = torch.cat((x, x_new), dim=0)[self.y_horizon:]
+
+        return torch.cat(predicitons)
+    
 
 class OccDenseNet(nn.Module):
     
@@ -148,8 +184,7 @@ class SimpleOccLSTM(torch.nn.Module):
         #weights = torch.randn(2, self.hidden_size[0])
         self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
            
-        self.linear_in = torch.nn.Linear(self.y_features_size, self.hidden_size[0])
-                
+
         # lstm layer
         self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
         # fc at end
@@ -163,7 +198,6 @@ class SimpleOccLSTM(torch.nn.Module):
         else:
             self.last_activation = nn.Sigmoid()
             
-        self.lstm_cell = torch.nn.LSTMCell(self.x_size, self.hidden_size[0])
         
     def forward(self, x, y_features, room_id=None):
         
@@ -221,22 +255,30 @@ class EncDecOccLSTM(torch.nn.Module):
         super().__init__()
         
         self.hyperparameters = hyperparameters
-
+        
         self.x_size = hyperparameters["x_size"]
         self.y_features_size = hyperparameters["y_features_size"]
-        #self.input_size = self.x_size + self.y_features_size 
+    
+        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
     
         self.hidden_size = hyperparameters["hidden_size"]
         
         self.occcount = hyperparameters["occcount"]
         self.batch_size = hyperparameters["batch_size"]
         
-        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
+        #self.room_encoding = torch.eye(2).to(self.device)
+        #self.room_enc_size = self.room_encoding.shape[1]    
+        
+        # embedding for hidden states with 0 init
+        weights = torch.randn(2, self.hidden_size[0])
+        #weights = torch.randn(2, self.hidden_size[0])
+        self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
         
         # lstm encoder
-        self.encoder_lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True)
+        self.encoder_lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
         # lstm decoder
-        self.decoder_lstm = torch.nn.LSTM(self.y_features_size, self.hidden_size[0], batch_first=True)
+        self.proj_size = 1
+        self.decoder_lstm = torch.nn.LSTM(self.y_features_size, self.hidden_size[0], proj_size=self.proj_size, batch_first=True, num_layers=hyperparameters["num_layers"])
         # predictor
         self.linear = torch.nn.Linear(self.hidden_size[0], hyperparameters["y_size"])
         
@@ -246,16 +288,23 @@ class EncDecOccLSTM(torch.nn.Module):
             self.last_activation = nn.Sigmoid()
             
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            
-    def forward(self, x, y_features):
         
-        _, (_, c_n) = self.encoder_lstm(x)
+        # embedding for hidden states with 0 init
+        weights = torch.randn(2, self.hidden_size[0])
+        #weights = torch.zero(2, self.hidden_size[0])
+        #weights = torch.randn(2, self.hidden_size[0])
+        self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)       
+             
+    def forward(self, x, y_features, room_id=None):
         
-        out, _ = self.decoder_lstm(y_features, (torch.zeros(1, self.batch_size, self.hidden_size[0]).to(self.device), c_n))
+        room_enc = self.room_embedding(room_id)[None, :, :]
+        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
         
-        pred_list = [ self.last_activation(self.linear(out[:, i, :])) for i in range(self.hyperparameters["y_horizon"])]
+        _, (_, c_n) = self.encoder_lstm(x, (torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device), room_enc))
+        
+        out, _ = self.decoder_lstm(y_features, (torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.proj_size).to(self.device), c_n))
                 
-        return torch.stack(pred_list, 1).squeeze()
+        return out.squeeze(-1)
 
 #class EncDecOccLSTM(torch.nn.Module):
     
