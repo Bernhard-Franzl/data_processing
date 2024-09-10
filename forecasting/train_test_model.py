@@ -11,7 +11,7 @@ from test_utils import detailed_test, plot_predictions
 # Test run 0
 
 k=10
-model_class = "simple_densenet"
+model_class = "simple_lstm"
 plot = True
 
 
@@ -21,9 +21,9 @@ combs = []
 comb_losses = []
 # solutions of run 2 are degenerate!!
 
-for n_run, n_comb in zip(torch.full(size=(81,), fill_value=0) ,torch.arange(81)):
+for n_run, n_comb in zip(torch.full(size=(23,), fill_value=5) ,torch.arange(22)):
 #for n_run, n_comb in zip(torch.full(size=(48,), fill_value=3) ,torch.arange(48)):
-#for n_run, n_comb in [(0, 81)]:
+#for n_run, n_comb in [(5, 5)]:
 
     # load model, optimizer, data sets and hyperparameters
     torch_rng = torch.Generator()
@@ -63,10 +63,12 @@ for n_run, n_comb in zip(torch.full(size=(81,), fill_value=0) ,torch.arange(81))
         test_dict, 
         "dayahead")
 
+
     losses, predictions = detailed_test(model, train_set)
 
     comb_losses.append(torch.mean(torch.Tensor(losses["MAPE"])))
     combs.append((n_run, n_comb))
+    
     
     #plot_predictions(train_set, predictions, room_ids)
     
