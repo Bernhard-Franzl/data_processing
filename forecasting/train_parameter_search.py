@@ -17,7 +17,7 @@ dfg = DFG()
 
 ############ Test with small run first ############
 # 6 is a testrun
-path_to_json = "_forecasting/parameters/run-5-0_params.json"
+path_to_json = "_forecasting/parameters/run-4-0_params.json"
 #path_to_json = "_forecasting/parameters/run-1-0_params.json"
 
 splitted = path_to_json.split("/")[-1].split("_")[0].split("-")
@@ -45,7 +45,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
         torch_rng=torch_rng
     )
     
-    train_loader, val_loader, test_loader, model, optimizer = mt.initialize_all(train_dict, val_dict, test_dict)
+    train_loader, val_loader, test_loader, model, optimizer = mt.initialize_all(train_dict, val_dict, test_dict, "normal")
     
     #raise
     # train model for n_updates
