@@ -17,7 +17,7 @@ dfg = DFG()
 
 ############ Test with small run first ############
 # 6 is a testrun
-path_to_json = "_forecasting/parameters/run-4-0_params.json"
+path_to_json = "_forecasting/parameters/run-5-0_params.json"
 #path_to_json = "_forecasting/parameters/run-1-0_params.json"
 
 splitted = path_to_json.split("/")[-1].split("_")[0].split("-")
