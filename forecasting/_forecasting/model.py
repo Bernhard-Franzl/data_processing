@@ -72,7 +72,6 @@ class SimpleOccDenseNet(nn.Module):
     
     def forecast_iter(self, x, y_features, len_y, room_id=None):
         
-             
         room_enc = self.room_encoding[room_id].to("cpu")
 
         predicitons = []
@@ -197,9 +196,8 @@ class SimpleOccLSTM(torch.nn.Module):
             self.last_activation = nn.ReLU()    
         else:
             self.last_activation = nn.Sigmoid()
-            
         
-    def forward(self, x, y_features, room_id=None):
+    def forward(self, x, y_features,room_id=None):
         
         room_enc = self.room_embedding(room_id)[None, :, :]
         room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
@@ -214,7 +212,7 @@ class SimpleOccLSTM(torch.nn.Module):
             y_feat_t = y_features[:, i, :]
             y_in = torch.cat((y_t, y_feat_t[:, None, :]), 2)
             
-            h_t1, _= self.lstm(y_in, (h_n, c_n))
+            h_t1, (h_n, c_n) = self.lstm(y_in, (h_n, c_n))
             y_t = self.last_activation(self.linear_final(h_t1))
 
             pred_list.append(y_t)
@@ -223,6 +221,32 @@ class SimpleOccLSTM(torch.nn.Module):
         
         return pred_list
     
+    def forecast_iter(self, x, y_features, len_y, room_id):
+        
+        x = x[None, :]
+        y_features = y_features[None, :]
+        
+        room_enc = self.room_embedding(room_id)
+        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1).to("cpu")
+
+        
+        out, (h_n, c_n) = self.lstm(x, (torch.zeros(self.hyperparameters["num_layers"], 1, self.hidden_size[0]).to("cpu"), room_enc))       
+    
+        y_t = self.last_activation(self.linear_final(out[:, -1, :]))[:, None, :]
+        pred_list = []
+        for i in range(0, len_y):
+            
+            y_feat_i = y_features[:, i, :][None, :]
+            y_t_in = torch.cat((y_t, y_feat_i), 2)
+            
+            out, (h_n, c_n) = self.lstm(y_t_in, (h_n, c_n))
+
+            y_t = self.last_activation(self.linear_final(out))
+
+            pred_list.append(y_t)
+
+        return torch.cat(pred_list).squeeze()
+
     #def forward(self, x, y_features, room_id=None):
         
     #    h_t = torch.zeros(self.batch_size, self.hidden_size[0]).to(self.device)

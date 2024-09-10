@@ -27,7 +27,6 @@ comb_iterator = ParameterSearch(path_to_json=path_to_json).grid_search_iterator(
 
 for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     
-    
     #### Control Randomness ####
     torch_rng = torch.Generator()
     torch_rng.manual_seed(42)
