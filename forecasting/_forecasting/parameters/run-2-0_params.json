@@ -9,7 +9,7 @@
     "hidden_size": [[1024, 256]],
     "num_layers": [1],
     "x_horizon": [72, 36],
-    "y_horizon": [6, 12],
+    "y_horizon": [6, 12, 1],
     "features": ["occrate_occrate1day_occrate1week_dow_hod_lecture_exam_registered"],
     "zero_sample_drop_rate": [0.1, 0.05],
     "include_x_features": [true],
