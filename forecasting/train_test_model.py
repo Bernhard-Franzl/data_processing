@@ -63,7 +63,6 @@ for n_run, n_comb in zip(torch.full(size=(23,), fill_value=5) ,torch.arange(22))
         test_dict, 
         "dayahead")
 
-
     losses, predictions = detailed_test(model, train_set)
 
     comb_losses.append(torch.mean(torch.Tensor(losses["MAPE"])))

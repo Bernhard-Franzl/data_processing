@@ -103,7 +103,6 @@ class SimpleOccDenseNet(nn.Module):
 
         return torch.cat(predicitons)
     
-
 class OccDenseNet(nn.Module):
     
     def __init__(self, hyperparameters):
@@ -155,6 +154,11 @@ class OccDenseNet(nn.Module):
             x = self.model(input)
             
             return x  
+        
+        
+        
+        
+        
         
 class SimpleOccLSTM(torch.nn.Module):
     
@@ -330,6 +334,11 @@ class EncDecOccLSTM(torch.nn.Module):
                 
         return out.squeeze(-1)
 
+
+
+
+
+
 #class EncDecOccLSTM(torch.nn.Module):
     
 #    def __init__(self, hyperparameters, **kwargs):
@@ -373,6 +382,8 @@ class EncDecOccLSTM(torch.nn.Module):
 #        pred_list = [ self.last_activation(self.linear(out[:, i, :])) for i in range(self.hyperparameters["y_horizon"])]
                 
 #        return torch.stack(pred_list, 1).squeeze()
+    
+    
     
 ################## Run 3 #########################
 class EncDecOccLSTM1(torch.nn.Module):
