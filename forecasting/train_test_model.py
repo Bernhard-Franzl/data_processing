@@ -11,7 +11,7 @@ from test_utils import detailed_test, plot_predictions
 # Test run 0
 
 k=10
-model_class = "simple_lstm"
+model_class = "simple_densenet"
 plot = True
 
 
@@ -21,9 +21,9 @@ combs = []
 comb_losses = []
 # solutions of run 2 are degenerate!!
 
-for n_run, n_comb in zip(torch.full(size=(23,), fill_value=5) ,torch.arange(22)):
-#for n_run, n_comb in zip(torch.full(size=(48,), fill_value=3) ,torch.arange(48)):
-#for n_run, n_comb in [(5, 5)]:
+#for n_run, n_comb in zip(torch.full(size=(6,), fill_value=5) ,torch.arange(6)):
+#for n_run, n_comb in zip(torch.full(size=(97,), fill_value=3) ,torch.arange(97)):
+for n_run, n_comb in [(3,74)]:
 
     # load model, optimizer, data sets and hyperparameters
     torch_rng = torch.Generator()
@@ -65,11 +65,11 @@ for n_run, n_comb in zip(torch.full(size=(23,), fill_value=5) ,torch.arange(22))
 
     losses, predictions = detailed_test(model, train_set)
 
-    comb_losses.append(torch.mean(torch.Tensor(losses["MAPE"])))
-    combs.append((n_run, n_comb))
+    comb_losses.append(torch.mean(torch.Tensor(losses["MAE"])))
+    combs.append((int(n_run), int(n_comb)))
     
-    
-    #plot_predictions(train_set, predictions, room_ids)
+    if plot:
+        plot_predictions(train_set, predictions, room_ids, n_run, n_comb)
     
 
 smallest_k = torch.topk(torch.Tensor(comb_losses), k, largest=False).indices

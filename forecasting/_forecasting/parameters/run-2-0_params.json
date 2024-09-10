@@ -1,18 +1,18 @@
 {   
-    "info": "Run 2: LSTM sweep 2",
-    "model_class": ["simple_lstm"],
+    "info": "Run 2: Densenet sweep",
+    "model_class": ["simple_densenet"],
     "differencing": ["none"],
     "criterion": ["MAE"],
-    "lr": [0.0001],
+    "lr": [0.0001, 0.00001],
     "weight_decay": [0],
     "batch_size": [32],
-    "hidden_size": [[128],[32],[512]],
-    "num_layers": [2, 3, 4],
-    "x_horizon": [24, 36, 72],
-    "y_horizon": [1, 2, 4],
-    "features": ["occrate_occrate1day_occrate1week_dow_hod", "occrate_occrate1day_occrate1week_dow_hod_lecture_exam_registered"],
+    "hidden_size": [[1024, 256]],
+    "num_layers": [1],
+    "x_horizon": [72, 36],
+    "y_horizon": [6, 12],
+    "features": ["occrate_occrate1day_occrate1week_dow_hod_lecture_exam_registered"],
+    "zero_sample_drop_rate": [0.1, 0.05],
     "include_x_features": [true],
-    "zero_sample_drop_rate": [0.01, 0.025, 0.05],
     "frequency": "5min",
-    "max_n_updates": 50000
+    "max_n_updates": 25000
 }

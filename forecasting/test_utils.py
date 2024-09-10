@@ -11,10 +11,9 @@ def detailed_test(model, dataset:OccupancyDataset):
     
     mae_f = torch.nn.L1Loss(reduction="mean")
     mse_f = torch.nn.MSELoss(reduction="mean")
-    mape_f = torchmetrics.MeanAbsolutePercentageError()
     r2_f = torchmetrics.R2Score()      
     
-    losses = {"MAE":[], "MSE":[], "RMSE":[], "MAPE":[], "R2":[]}
+    losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
     
     predictions = []
     
@@ -29,7 +28,6 @@ def detailed_test(model, dataset:OccupancyDataset):
             losses["MAE"].append(mae_f(preds, y_adjusted))
             losses["MSE"].append(mse_f(preds, y_adjusted))
             losses["RMSE"].append(torch.sqrt(mse_f(preds, y_adjusted)))
-            losses["MAPE"].append(mape_f(preds, y_adjusted.squeeze()))
             losses["R2"].append(r2_f(preds, y_adjusted.squeeze()))
             
         predictions.append(preds)
@@ -37,7 +35,7 @@ def detailed_test(model, dataset:OccupancyDataset):
     return losses, predictions
 
 
-def plot_predictions(dataset:OccupancyDataset, predictions:list, room_ids:list):
+def plot_predictions(dataset:OccupancyDataset, predictions:list, room_ids:list, n_run:int, n_comb:int):
     
     y_times = dict([(room_id,[]) for room_id in room_ids])    
     preds = dict([(room_id,[]) for room_id in room_ids])
@@ -73,6 +71,12 @@ def plot_predictions(dataset:OccupancyDataset, predictions:list, room_ids:list):
                 mode="lines+markers",
                 name=f"Target Room {room_id}"
             )
+        )
+        
+        fig.update_layout(
+            title=f"Run {n_run} - Combination {n_comb} - Room {room_id}",
+            xaxis_title="Time",
+            yaxis_title="Occupancy"
         )
         
         fig.show()
