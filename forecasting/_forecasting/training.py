@@ -11,7 +11,7 @@ import torch.nn as nn
 from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset
 
-from _forecasting.data import OccupancyDataset, OccupancyTestDataset
+from _forecasting.data import OccupancyDataset
 from _forecasting.model import SimpleOccDenseNet
 from _forecasting.model import SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet
 
@@ -139,9 +139,9 @@ class MasterTrainer:
             raise ValueError("Model not supported.")
     
     ######## Initialization ########
-    def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict):
+    def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict, set_mode:str):
         
-        train_set, val_set, test_set = self.initialize_dataset(train_dict, val_dict, test_dict)
+        train_set, val_set, test_set = self.initialize_dataset(train_dict, val_dict, test_dict, set_mode)
 
         train_loader, val_loader, test_loader = self.initialize_dataloader(train_set, val_set, test_set)
         
@@ -172,11 +172,11 @@ class MasterTrainer:
         
         return optimizer
     
-    def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
+    def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict, mode:str):
         
-        train_set = OccupancyDataset(train_dict, self.hyperparameters)
-        val_set = OccupancyDataset(val_dict, self.hyperparameters)
-        test_set = OccupancyDataset(test_dict, self.hyperparameters)
+        train_set = OccupancyDataset(train_dict, self.hyperparameters, mode)
+        val_set = OccupancyDataset(val_dict, self.hyperparameters, mode)
+        test_set = OccupancyDataset(test_dict, self.hyperparameters, mode)
         
         _, X, y_features, y = train_set[0]
         
@@ -188,21 +188,21 @@ class MasterTrainer:
         
         return train_set, val_set, test_set
     
-    def intialize_testdataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
+    #def intialize_testdataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
     
-        train_set = OccupancyTestDataset(train_dict, self.hyperparameters)
-        val_set = OccupancyTestDataset(val_dict, self.hyperparameters)
-        test_set = OccupancyTestDataset(test_dict, self.hyperparameters)
+    #    train_set = OccupancyTestDataset(train_dict, self.hyperparameters)
+    #    val_set = OccupancyTestDataset(val_dict, self.hyperparameters)
+    #    test_set = OccupancyTestDataset(test_dict, self.hyperparameters)
         
-        _, X, y_features, y = train_set[0]
+    #    _, X, y_features, y = train_set[0]
         
-        self.update_hyperparameters({
-            "x_size": int(X.shape[1]),
-            "y_features_size": int(y_features.shape[1]), 
-            "y_size": int(y.shape[1])}
-        )
+    #    self.update_hyperparameters({
+    #        "x_size": int(X.shape[1]),
+    #        "y_features_size": int(y_features.shape[1]), 
+    #        "y_size": int(y.shape[1])}
+    #    )
         
-        return train_set, val_set, test_set
+    #    return train_set, val_set, test_set
     
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
         

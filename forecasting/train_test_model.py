@@ -2,10 +2,10 @@
 from _forecasting import MasterTrainer, load_data_dicts
 from torch.optim import Adam
 import torch
-import plotly.graph_objects as go
 from torch.utils.tensorboard import SummaryWriter
-
 from _dfguru import DataFrameGuru as DFG
+
+from test_utils import detailed_test, plot_predictions
 # specify run and combination number
 
 # Test run 0
@@ -13,14 +13,17 @@ from _dfguru import DataFrameGuru as DFG
 k=10
 model_class = "simple_densenet"
 plot = True
-losses = []
+
+
+comb_losses = []
 combs = []
 
+comb_losses = []
 # solutions of run 2 are degenerate!!
 
-#for n_run, n_comb in zip(torch.full(size=(48,), fill_value=1) ,torch.arange(48)):
-#for n_run, n_comb in zip(torch.full(size=(48,), fill_value=2) ,torch.arange(42)):
-for n_run, n_comb in [(1,0)]:
+#for n_run, n_comb in zip(torch.full(size=(57,), fill_value=0) ,torch.arange(57)):
+#for n_run, n_comb in zip(torch.full(size=(48,), fill_value=3) ,torch.arange(48)):
+for n_run, n_comb in [(3, 47)]:
 
     # load model, optimizer, data sets and hyperparameters
     torch_rng = torch.Generator()
@@ -30,8 +33,7 @@ for n_run, n_comb in [(1,0)]:
     writer = SummaryWriter(
         log_dir=f"_forecasting/testing_logs/run_{n_run}/comb_{n_comb}",
     )
-        
-        
+             
     mt = MasterTrainer(
         optimizer_class=Adam,
         hyperparameters={"model_class":model_class,
@@ -43,64 +45,38 @@ for n_run, n_comb in [(1,0)]:
     model, optimizer,  hyperparameters = mt.load_checkpoint(
         f"_forecasting/checkpoints/run_{n_run}/comb_{n_comb}"
         )
+    
     mt.set_hyperparameters(hyperparameters)
     
-    model.eval()
-
-    train_dict, val_dict, test_dict = load_data_dicts("data", hyperparameters["frequency"], dfguru=dfg)
-
-    train_set, val_set, test_set = mt.intialize_testdataset(train_dict, val_dict, test_dict)
-
     model = model.to("cpu")
 
-    loss_f = torch.nn.L1Loss(reduction="sum")
+    train_dict, val_dict, test_dict = load_data_dicts(
+        "data", 
+        hyperparameters["frequency"], 
+        dfguru=dfg)
 
-    sum_loss = 0
-    for i,(info, X, y_features, y) in enumerate(train_set):
+    room_ids = train_dict.keys()
+    
+    train_set, val_set, test_set = mt.initialize_dataset(
+        train_dict,
+        val_dict, 
+        test_dict, 
+        "dayahead")
 
-        room_id = torch.IntTensor([info[0]])
-        
-        with torch.no_grad():
-            preds = model.forecast_iter(X, y_features, len(y), room_id)
+    losses, predictions = detailed_test(model, train_set)
 
-        len_preds = len(preds)
-        loss = loss_f(preds, y[:len_preds])
-        sum_loss += loss
-        
-        if plot:
-            fig = go.Figure()
-            
-            fig.add_trace(
-                go.Scatter(
-                    x=torch.arange(0, len(preds), 1),
-                    y=preds.detach().numpy(),
-                    mode="lines+markers",
-                    name="Prediction"
-                )
-            )
-            
-            fig.add_trace(
-                go.Scatter(
-                    x=torch.arange(0, len(y), 1),
-                    y=y.detach().numpy().squeeze(),
-                    mode="lines+markers",
-                    name="Target"
-                )
-            )
-            fig.update_layout(
-                title_text=f"Series {i}: Prediction vs Target"
-                )
-            fig.show()
-        
-    print(f"Sum of Loss Terms: {sum_loss} | Run: {n_run} | Comb: {n_comb}")
-    losses.append(float(sum_loss))
-    combs.append((int(n_run), int(n_comb)))
+    comb_losses.append(torch.mean(torch.Tensor(losses["MAPE"])))
+    combs.append((n_run, n_comb))
+    
+    plot_predictions(train_set, predictions, room_ids)
     
 
-smallest_k = torch.topk(torch.Tensor(losses), k, largest=False).indices
+smallest_k = torch.topk(torch.Tensor(comb_losses), k, largest=False).indices
 print(smallest_k)
 print([combs[k] for k in smallest_k])
-print([losses[k] for k in smallest_k])
+print([comb_losses[k] for k in smallest_k])
+
+
 #mt.test_one_epoch(train_loader, model, log_info=True)
 #mt.test_one_epoch(val_loader, model, log_info=True)
 
