@@ -11,7 +11,7 @@ from test_utils import detailed_test, plot_predictions
 # Test run 0
 
 k=10
-model_class = "simple_densenet"
+model_class = "simple_lstm"
 plot = True
 
 
@@ -23,7 +23,7 @@ comb_losses = []
 
 #for n_run, n_comb in zip(torch.full(size=(6,), fill_value=5) ,torch.arange(6)):
 #for n_run, n_comb in zip(torch.full(size=(97,), fill_value=3) ,torch.arange(97)):
-for n_run, n_comb in [(3,74)]:
+for n_run, n_comb in [(3,201)]:
 
     # load model, optimizer, data sets and hyperparameters
     torch_rng = torch.Generator()
@@ -71,11 +71,11 @@ for n_run, n_comb in [(3,74)]:
     if plot:
         plot_predictions(train_set, predictions, room_ids, n_run, n_comb)
     
-
-smallest_k = torch.topk(torch.Tensor(comb_losses), k, largest=False).indices
-print(smallest_k)
-print([combs[k] for k in smallest_k])
-print([comb_losses[k] for k in smallest_k])
+print(comb_losses)
+#smallest_k = torch.topk(torch.Tensor(comb_losses), k, largest=False).indices
+#print(smallest_k)
+#print([combs[k] for k in smallest_k])
+#print([comb_losses[k] for k in smallest_k])
 
 
 #mt.test_one_epoch(train_loader, model, log_info=True)
