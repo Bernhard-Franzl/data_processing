@@ -7,7 +7,7 @@ from _dfguru import DataFrameGuru as DFG
 from _forecasting import OccFeatureEngineer
 
 dfg = DFG()
-for frequency in ["1h","1min", "5min", "15min", "30min",]:
+for frequency in [ "1h", "5min","1min", "15min", "30min",]:
     
     #### Control Randomness ####
     np_rng = np.random.default_rng(seed=42)

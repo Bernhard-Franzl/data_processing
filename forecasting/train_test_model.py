@@ -1,82 +1,152 @@
 
-from _forecasting import MasterTrainer, load_data_dicts
-from torch.optim import Adam
+from _forecasting import OccupancyDataset
 import torch
-from torch.utils.tensorboard import SummaryWriter
 from _dfguru import DataFrameGuru as DFG
 
-from test_utils import detailed_test, plot_predictions
-# specify run and combination number
+from testing import run_detailed_test, plot_predictions, prepare_model_and_data
+from tqdm import tqdm
+import os
+import numpy as np
+import time
 
-# Test run 0
-
-k=10
-model_class = "simple_lstm"
-plot = True
-
-
-comb_losses = []
-combs = []
-
-comb_losses = []
-# solutions of run 2 are degenerate!!
-
-#for n_run, n_comb in zip(torch.full(size=(6,), fill_value=5) ,torch.arange(6)):
-#for n_run, n_comb in zip(torch.full(size=(97,), fill_value=3) ,torch.arange(97)):
-for n_run, n_comb in [(3,201)]:
-
-    # load model, optimizer, data sets and hyperparameters
-    torch_rng = torch.Generator()
-    torch_rng.manual_seed(42)
+def list_checkpoints(path_to_dir, run_id):
+    
+    path_to_run = os.path.join(path_to_dir, f"run_{run_id}")
+    
+    if os.path.exists(path_to_run):
+        comb_ids = list(map(lambda x: int(x.split("_")[-1]), os.listdir(path_to_run)))
+        run_comb_tuples = list(zip([run_id]*len(comb_ids), comb_ids))
+        del comb_ids
+        return run_comb_tuples
+    
+    else:
+        raise ValueError(f"Checkpoints of run {run_id} do not exist")    
+   
+def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
+    
     dfg = DFG()
-
-    writer = SummaryWriter(
-        log_dir=f"_forecasting/testing_logs/run_{n_run}/comb_{n_comb}",
-    )
-             
-    mt = MasterTrainer(
-        optimizer_class=Adam,
-        hyperparameters={"model_class":model_class,
-                        "criterion":"MAE",},
-        torch_rng=torch_rng,
-        summary_writer=writer,
-    )
-
-    model, optimizer,  hyperparameters = mt.load_checkpoint(
-        f"_forecasting/checkpoints/run_{n_run}/comb_{n_comb}"
-        )
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     
-    mt.set_hyperparameters(hyperparameters)
+    list_combs = []
+    dict_losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
+
+    bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
+    for n_run, n_comb in tqdm(run_comb_tuples, total=len(run_comb_tuples), bar_format=bar_format, leave=False):
+
+        checkpoint_path = os.path.join(cp_log_dir, f"run_{n_run}", f"comb_{n_comb}")
+
+        model, hyperparameters, data_dicts, room_ids = prepare_model_and_data(
+            checkpoint_path=checkpoint_path, 
+            dfg=dfg, 
+            device=device)
+        
+        if data == "train":
+            data_dict = data_dicts[0]
+        elif data == "val":
+            data_dict = data_dicts[1]
+        elif data == "test":
+            data_dict = data_dicts[2]
+        else:
+            raise ValueError("Data must be 'train', 'val' or 'test'")
+        
+        # load dataset
+        dataset = OccupancyDataset(data_dict, hyperparameters, mode)
+
+        # run detailed test
+        losses, predictions = run_detailed_test(model, dataset, device)
+        
+        for key in dict_losses:
+            dict_losses[key].append(losses[key])
+        list_combs.append((n_run, n_comb))
+        
+        if plot:
+            plot_predictions(dataset, predictions, room_ids, n_run, n_comb)
+            
+    return list_combs, dict_losses
+
+def get_k_smallest_largest(k:int, losses:dict):
     
-    model = model.to("cpu")
-
-    train_dict, val_dict, test_dict = load_data_dicts(
-        "data", 
-        hyperparameters["frequency"], 
-        dfguru=dfg)
-
-    room_ids = train_dict.keys()
+    smallest_k = torch.topk(torch.Tensor(losses), k, largest=False).indices
+    largest_k = torch.topk(torch.Tensor(losses), k, largest=True).indices
     
-    train_set, val_set, test_set = mt.initialize_dataset(
-        train_dict,
-        val_dict, 
-        test_dict, 
-        "dayahead")
+    return smallest_k, largest_k
 
-    losses, predictions = detailed_test(model, train_set)
-
-    comb_losses.append(torch.mean(torch.Tensor(losses["MAE"])))
-    combs.append((int(n_run), int(n_comb)))
+def write_header_to_txt(file_name, run_id, data):
     
-    if plot:
-        plot_predictions(train_set, predictions, room_ids, n_run, n_comb)
+    with open(file_name, "a") as file:
+        file.write(f"#################\n")
+        file.write(f"Data: {data}\n")
+        file.write(f"Run: {run_id}\n")
+        file.write(f"Time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))}\n")
     
-print(comb_losses)
-#smallest_k = torch.topk(torch.Tensor(comb_losses), k, largest=False).indices
-#print(smallest_k)
-#print([combs[k] for k in smallest_k])
-#print([comb_losses[k] for k in smallest_k])
+def write_loss_to_txt(file_name, combinations, losses, loss_f):
+    with open(file_name, "a") as file:
+        file.write(f"Loss function: {loss_f}\n")
+        file.write(f"Combinations: {combinations.tolist()}\n")
+        file.write(f"Losses: {losses.tolist()}\n")
+  
+def erase_file(file_name):
+    with open(file_name, "w") as file:
+        file.write("")      
+  
+def write_new_line(file_name):
+    with open(file_name, "a") as file:
+        file.write("\n")
 
+def evaluate_results(filename, list_combs, dict_losses):
+
+
+    for key, value in dict_losses.items():
+        
+        mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
+        # sort by mean loss, descending if R2 -> we sort best to worst
+        if key == "R2":
+            indices = np.argsort(mean_losses)[::-1]
+        else:
+            indices = np.argsort(mean_losses)
+            
+        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], key)
+
+    write_new_line(filename)
+    
+    
+cp_log_dir = "_forecasting/checkpoints"
+mode = "dayahead"
+filename = "results.txt"
+
+##############################
+## Run n tests
+#for data in ["val", "train"]:
+#    for run_id in [1, 2]:
+    
+#        tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
+
+#        list_combs, dict_losses = run_n_tests(
+#            run_comb_tuples=tuples_run_comb,
+#            cp_log_dir=cp_log_dir, 
+#            mode=mode, 
+#            plot=False, 
+#            data=data)   
+                
+#        list_combs = np.array(list_combs)
+
+#        write_header_to_txt(filename, run_id, data)
+
+#        evaluate_results(filename, list_combs, dict_losses)
+
+
+##############################
+# Test chosen combinations
+for data in ["val"]:
+    
+    list_combs, dict_losses = run_n_tests(
+        run_comb_tuples=[(1,27),(1,6), (2,8), (2,9)],
+        cp_log_dir=cp_log_dir, 
+        mode=mode, 
+        plot=True, 
+        data=data
+    )   
+                
 
 #mt.test_one_epoch(train_loader, model, log_info=True)
 #mt.test_one_epoch(val_loader, model, log_info=True)

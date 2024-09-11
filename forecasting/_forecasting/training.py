@@ -108,9 +108,8 @@ class MasterTrainer:
         return info, X, y_features, y, room_id
     
     def handle_criterion(self, criterion:str):
-        if criterion == "MSLE":
-            return MSLELoss()
-        elif criterion == "SSE":
+
+        if criterion == "SSE":
             return nn.MSELoss(reduction="sum")
         elif criterion == "MSE":
             return nn.MSELoss()
@@ -187,23 +186,7 @@ class MasterTrainer:
         )
         
         return train_set, val_set, test_set
-    
-    #def intialize_testdataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
-    
-    #    train_set = OccupancyTestDataset(train_dict, self.hyperparameters)
-    #    val_set = OccupancyTestDataset(val_dict, self.hyperparameters)
-    #    test_set = OccupancyTestDataset(test_dict, self.hyperparameters)
-        
-    #    _, X, y_features, y = train_set[0]
-        
-    #    self.update_hyperparameters({
-    #        "x_size": int(X.shape[1]),
-    #        "y_features_size": int(y_features.shape[1]), 
-    #        "y_size": int(y.shape[1])}
-    #    )
-        
-    #    return train_set, val_set, test_set
-    
+
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
         
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
@@ -357,9 +340,15 @@ class MasterTrainer:
         torch.save(optimizer.state_dict(), os.path.join(save_path, "optimizer.pt"))
         self.dict_to_json(save_path, self.hyperparameters, "hyperparameters")
 
+    def save_hyperparameters(self, save_path:str):
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        self.dict_to_json(save_path, self.hyperparameters, "hyperparameters")   
+            
     def dict_to_json(self, path_to_dir, dictionary, file_name):
         with open(os.path.join(path_to_dir, f"{file_name}.json"), "w") as file:
-            json.dump(dictionary, file)
+            json.dump(dictionary, file, indent=4
+                      )
         return None
     
     def load_checkpoint(self, checkpoint_path:str):
@@ -379,14 +368,4 @@ class MasterTrainer:
         #test_set = torch.load(os.path.join(checkpoint_path, "test_dataset.pt"))
         
         return model, optimizer,  hyperparameters
-        
-class MSLELoss(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.mse = nn.MSELoss()
-        
-    def forward(self, pred, actual):
-        return self.mse(torch.log(pred + 1), torch.log(actual + 1))
-      
-        
-    
+

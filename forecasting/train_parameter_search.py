@@ -1,6 +1,6 @@
 from _dfguru import DataFrameGuru as DFG
 from _forecasting import MasterTrainer, load_data_dicts
-
+from _forecasting import avoid_name_conflicts, parse_arguments, prompt_for_missing_arguments
 from _evaluating import ParameterSearch
 
 import torch
@@ -9,23 +9,36 @@ from torch.optim import Adam
 from torch.utils.tensorboard import SummaryWriter
 
 import numpy as np
+import os
 dfg = DFG()
 
 # TODO:
-# Add more features, such as: registered students,other course features, -1 week
 # Implement early stopping
 
-############ Test with small run first ############
-# 6 is a testrun
-path_to_json = "_forecasting/parameters/run-3-201_params.json"
-#path_to_json = "_forecasting/parameters/run-1-0_params.json"
 
-splitted = path_to_json.split("/")[-1].split("_")[0].split("-")
-n_run = int(splitted[-2])
-start_comb = int(splitted[-1])
-comb_iterator = ParameterSearch(path_to_json=path_to_json).grid_search_iterator(tqdm_bar=True)
+
+############ Inputs ############
+args = parse_arguments()
+args = prompt_for_missing_arguments(args)
+n_run = args.n_run
+n_param = args.n_param
+################################
+
+
+
+
+param_dir = "_forecasting/parameters"
+tb_log_dir = "_forecasting/training_logs"
+cp_log_dir = "_forecasting/checkpoints"
+path_to_params = os.path.join(param_dir, f"run-{n_run}-{n_param}_params.json")
+
+start_comb = avoid_name_conflicts(tb_log_dir, cp_log_dir, n_run)
+comb_iterator = ParameterSearch(path_to_json=path_to_params).grid_search_iterator(tqdm_bar=True)
 
 for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
+    
+    tb_path = os.path.join(tb_log_dir, f"run_{n_run}/comb_{n_comb}")
+    cp_path = os.path.join(cp_log_dir, f"run_{n_run}/comb_{n_comb}")
     
     #### Control Randomness ####
     torch_rng = torch.Generator()
@@ -34,7 +47,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     train_dict, val_dict, test_dict = load_data_dicts("data", hyperparameters["frequency"], dfguru=dfg)
     
     writer = SummaryWriter(
-        log_dir=f"_forecasting/training_logs/run_{n_run}/comb_{n_comb}",
+        log_dir=tb_path,
     )
     
     mt = MasterTrainer(
@@ -44,9 +57,10 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
         torch_rng=torch_rng
     )
     
+    mt.save_hyperparameters(save_path=cp_path)
+    
     train_loader, val_loader, test_loader, model, optimizer = mt.initialize_all(train_dict, val_dict, test_dict, "normal")
     
-    #raise
     # train model for n_updates
     mt.train_n_updates(train_loader, val_loader, 
                         model, optimizer, log_predictions=False)
@@ -64,7 +78,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     mt.save_checkpoint(
         model=model,
         optimizer=optimizer,
-        save_path=f"_forecasting/checkpoints/run_{n_run}/comb_{n_comb}"
+        save_path=cp_path
     )
         
     writer.close()

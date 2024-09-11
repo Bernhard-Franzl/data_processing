@@ -4,6 +4,55 @@ import torch
 from torch.utils.data import Dataset
 import pandas as pd
 import numpy as np
+from datetime import datetime
+
+national_holidays_2024 = [
+    datetime.strptime('01/01/2024', '%m/%d/%Y').date(),  # Neujahr
+    datetime.strptime('01/06/2024', '%m/%d/%Y').date(),  # Heilige Drei Könige
+    datetime.strptime('04/01/2024', '%m/%d/%Y').date(),  # Ostermontag
+    datetime.strptime('05/01/2024', '%m/%d/%Y').date(),  # Staatsfeiertag
+    datetime.strptime('05/09/2024', '%m/%d/%Y').date(),  # Christi Himmelfahrt
+    datetime.strptime('05/20/2024', '%m/%d/%Y').date(),  # Pfingstmontag
+    datetime.strptime('05/30/2024', '%m/%d/%Y').date(),  # Fronleichnam
+    datetime.strptime('08/15/2024', '%m/%d/%Y').date(),  # Mariä Himmelfahrt
+    datetime.strptime('10/26/2024', '%m/%d/%Y').date(),  # Nationalfeiertag
+    datetime.strptime('11/01/2024', '%m/%d/%Y').date(),  # Allerheiligen
+    datetime.strptime('12/08/2024', '%m/%d/%Y').date(),  # Mariä Empfängnis
+    datetime.strptime('12/25/2024', '%m/%d/%Y').date(),  # Christtag
+    datetime.strptime('12/26/2024', '%m/%d/%Y').date(),  # Stefanitag
+]
+
+university_holidays_2024 = [
+    # 18.05.2024
+    datetime.strptime('05/18/2024', '%m/%d/%Y').date(),
+    # 21.05.2024
+    datetime.strptime('05/21/2024', '%m/%d/%Y').date(),
+    # 04.05.2024
+    datetime.strptime('05/04/2024', '%m/%d/%Y').date(),
+    # 31.05.2024
+    datetime.strptime('05/31/2024', '%m/%d/%Y').date(),
+]
+
+zwickeltage_2024 = [
+    # 10.05.2024
+    datetime.strptime('05/10/2024', '%m/%d/%Y').date(),
+    # 31.05.2024
+    datetime.strptime('05/31/2024', '%m/%d/%Y').date(),
+    # 16.08.2024
+    datetime.strptime('08/16/2024', '%m/%d/%Y').date(),
+]
+
+easter_break_2024 = [
+    # easter break: 25.03.2024 - 06.04.2024
+    datetime.strptime('03/25/2024', '%m/%d/%Y').date(),
+    datetime.strptime('04/06/2024', '%m/%d/%Y').date(),]
+
+summer_break_2024 = [
+    # summer break: 1.07.2024 - 30.09.2024
+    datetime.strptime('07/01/2024', '%m/%d/%Y').date(),
+    datetime.strptime('09/09/2024', '%m/%d/%Y').date(),
+]
+
 
 def load_data_dicts(path_to_data_dir, frequency, dfguru):
     
@@ -120,13 +169,11 @@ def train_val_test_split(data_dict, rng, verbose=True):
     
     return train_dict, val_dict, test_dict
         
-        
-        
-        
+    
 class OccFeatureEngineer():
     
-    course_features = {"exam", "lecture", "registered", "test", "tutorium", "type"}
-    datetime_features = {"dow", "hod", "week"}
+    course_features = {"exam", "lecture", "lectureramp", "registered", "test", "tutorium", "type"}
+    datetime_features = {"dow", "hod", "week", "holiday", "zwickltag"}
     general_features = {"occcount", "occrate"}
     shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
     permissible_features = course_features.union(datetime_features)
@@ -150,7 +197,8 @@ class OccFeatureEngineer():
 
         self.course_info_table = course_info_data  
         
-        self.course_types = self.course_info_table["type"].unique()   
+        self.course_types = self.course_info_table["type"].unique()
+        print(self.course_types)   
              
     def derive_features(self, features, room_id):
         
@@ -186,7 +234,6 @@ class OccFeatureEngineer():
             occ_time_series = self.add_shift_features(occ_time_series, shift_features)
         
         return occ_time_series
-    
     
     ########### General Features ############
     def add_shift_features(self, time_series, features):
@@ -276,7 +323,9 @@ class OccFeatureEngineer():
             time_series.drop(columns=["type"], inplace=True)
             for course_type in self.course_types:
                 time_series[course_type] = 0
-            
+        
+        ramp_duration = pd.to_timedelta("15min")
+        
         for grouping, sub_df in course_dates_in_room.groupby(["start_time", "end_time"]):
             
             # get course time_span
@@ -300,13 +349,19 @@ class OccFeatureEngineer():
                 
             if "lecture" in features:
                 time_series.loc[course_time_mask, "lecture"] = 1
-
+                
             if "test" in features:
                 time_series.loc[course_time_mask, "test"] = int(sub_df["test"].values[0])
             
             if "tutorium" in features:
                 time_series.loc[course_time_mask, "tutorium"] = int(sub_df["tutorium"].values[0])
-
+                
+            if "lectureramp" in features:
+                start_minus_15 = grouping[0] - ramp_duration
+                ramp_up_mask = (time_series["datetime"] >= start_minus_15) & (time_series["datetime"] < grouping[0])
+                ramp_up_fraction = (time_series["datetime"][ramp_up_mask] - start_minus_15) / ramp_duration
+                time_series.loc[ramp_up_mask, "lectureramp"] = ramp_up_fraction
+   
         return time_series
 
 
@@ -342,10 +397,33 @@ class OccFeatureEngineer():
             time_series = self.dfg.derive_week(time_series, "datetime")
             time_series = self.week_fourier_series(time_series, "week")
             time_series.drop(columns=["week"], inplace=True)
+            
+        if "holiday" in features:
+            time_series["holiday"] = 0
+            time_series["day"] = time_series["datetime"].dt.date
+            time_series = self.derive_holiday(time_series, national_holidays_2024 + university_holidays_2024, "day", "holiday")
+            time_series["holiday"] = time_series["holiday"].astype(int)
+            time_series.drop(columns=["day"], inplace=True)
+            
+        if "zwickltag" in features:
+            time_series["zwickltag"] = 0
+            time_series["day"] = time_series["datetime"].dt.date
+            time_series = self.derive_holiday(time_series, zwickeltage_2024, "day", "zwickltag")
+            time_series["zwickltag"] = time_series["zwickltag"].astype(int)
+            time_series.drop(columns=["day"], inplace=True)
 
-        return time_series
+        return time_series    
     
+    def derive_holiday(self, dataframe, holiday_dates, date_column, out_column):
+        dataframe[out_column] = dataframe[date_column].isin(holiday_dates)
+        return dataframe 
     
+    #def weekday_feature(self, time_series):
+    #    print(time_series)
+    #    #time_series[""] = time_series["datetime"].dt.date
+        
+    #    raise NotImplementedError("Not implemented yet.")
+    #    return time_series
     
     
     
@@ -378,6 +456,10 @@ class OccupancyDataset(Dataset):
         # derive differencing
         self.differencing = hyperparameters["differencing"]
         self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
+        if "type" in self.exogenous_features:
+            self.exogenous_features.remove("type")
+            self.exogenous_features = self.exogenous_features.union(set(['VO', 'UE', 'KS', 'VL', 'IK', 'KV', 'UV', 'RE', 'VU']))
+        
         # sort features
         self.exogenous_features = sorted(list(self.exogenous_features))
 

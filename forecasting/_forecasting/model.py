@@ -72,7 +72,7 @@ class SimpleOccDenseNet(nn.Module):
     
     def forecast_iter(self, x, y_features, len_y, room_id=None):
         
-        room_enc = self.room_encoding[room_id].to("cpu")
+        room_enc = self.room_encoding[room_id]
 
         predicitons = []
         
@@ -165,7 +165,7 @@ class SimpleOccLSTM(torch.nn.Module):
     def __init__(self, hyperparameters, **kwargs):
         
         super().__init__()
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        #self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
         self.hyperparameters = hyperparameters
 
@@ -176,36 +176,45 @@ class SimpleOccLSTM(torch.nn.Module):
     
         self.hidden_size = hyperparameters["hidden_size"]
         
-        self.occcount = hyperparameters["occcount"]
         self.batch_size = hyperparameters["batch_size"]
         
-        #self.room_encoding = torch.eye(2).to(self.device)
-        #self.room_enc_size = self.room_encoding.shape[1]    
+        ############ Model Definition ############
         
         # embedding for hidden states with 0 init
         weights = torch.randn(2, self.hidden_size[0])
         #weights = torch.randn(2, self.hidden_size[0])
         self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
            
-
+        # must be included otherwise loading model will fail
+        self.linear_in = torch.nn.Linear(self.y_features_size, self.hidden_size[0])
         # lstm layer
         self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
         # fc at end
         self.linear_final = torch.nn.Linear(self.hidden_size[0], 1)
-        
-        #self.linear2 = torch.nn.Linear(self.hidden_size[0], self.output_size)
-        self.linear_in = torch.nn.Linear(self.y_features_size, self.hidden_size[0])
-    
-        if self.occcount:
+            
+        if not hyperparameters["forget_gate"]:
+            for name, param in self.lstm.named_parameters():
+                if 'bias_ih' in name or 'bias_hh' in name:
+                    bias_size = param.size(0) // 4 
+                    param.data[bias_size:2*bias_size].fill_(25)
+                    
+        # last activation function
+        if hyperparameters["occcount"]:
             self.last_activation = nn.ReLU()    
         else:
             self.last_activation = nn.Sigmoid()
+            
+        ## freeze h_0 
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        
         
     def forward(self, x, y_features,room_id=None):
         
+        h_0 = torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device)
+        
         room_enc = self.room_embedding(room_id)[None, :, :]
         room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
-        out, (h_n, c_n) = self.lstm(x, (torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device), room_enc))       
+        out, (h_n, c_n) = self.lstm(x, (h_0, room_enc))       
         
         y_t = self.last_activation(self.linear_final(out[:, -1, :]))  
         y_t = y_t[:, None, :]
@@ -225,16 +234,18 @@ class SimpleOccLSTM(torch.nn.Module):
         
         return pred_list
     
+    
     def forecast_iter(self, x, y_features, len_y, room_id):
         
         x = x[None, :]
         y_features = y_features[None, :]
         
         room_enc = self.room_embedding(room_id)
-        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1).to("cpu")
+        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
 
+        h_0 = torch.zeros(self.hyperparameters["num_layers"], 1, self.hidden_size[0]).to(self.device)
         
-        out, (h_n, c_n) = self.lstm(x, (torch.zeros(self.hyperparameters["num_layers"], 1, self.hidden_size[0]).to("cpu"), room_enc))       
+        out, (h_n, c_n) = self.lstm(x, (h_0, room_enc))       
     
         y_t = self.last_activation(self.linear_final(out[:, -1, :]))[:, None, :]
         pred_list = []

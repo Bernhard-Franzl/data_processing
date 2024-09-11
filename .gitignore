@@ -1,5 +1,6 @@
 #all files in the archiv folder
 archiv/*
+forecasting/_forecasting/checkpoints/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -12,3 +12,9 @@ from _forecasting.model import SimpleOccLSTM
 
 ####### Importing all the functions from the train.py file #######
 from _forecasting.training import MasterTrainer
+
+####### Importing all the functions from the utilities.py file #######
+from _forecasting.utilities import check_log_dir
+from _forecasting.utilities import avoid_name_conflicts
+from _forecasting.utilities import parse_arguments
+from _forecasting.utilities import prompt_for_missing_arguments

@@ -17,10 +17,14 @@ python3 "scriptname".py
 
 tensorboard --logdir _forecasting/training_logs/run_3 --port 6006
 
+##################################################
+Sync files from server to local machine:
+
+rsync -chavzP -e "ssh -p 5792" franzl@student06.ai-lab.jku.at:data_processing/forecasting/_forecasting/training_logs  ~/github_repos/data_processing/forecasting/_forecasting/
 
 
-
-
+#################################################
+LEGACY:
 connect_to_server 5, function defined in bashrc -> ssh -p 5792 franzl@student0$1.ai-lab.jku.at
 
 to_afl_repo, alias: "cd Desktop/action-field-learning/bernhard_maze"
