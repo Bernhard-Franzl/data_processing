@@ -1,152 +1,69 @@
-
-from _forecasting import OccupancyDataset
-import torch
-from _dfguru import DataFrameGuru as DFG
-
-from testing import run_detailed_test, plot_predictions, prepare_model_and_data
-from tqdm import tqdm
-import os
 import numpy as np
-import time
+from _forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results
 
-def list_checkpoints(path_to_dir, run_id):
-    
-    path_to_run = os.path.join(path_to_dir, f"run_{run_id}")
-    
-    if os.path.exists(path_to_run):
-        comb_ids = list(map(lambda x: int(x.split("_")[-1]), os.listdir(path_to_run)))
-        run_comb_tuples = list(zip([run_id]*len(comb_ids), comb_ids))
-        del comb_ids
-        return run_comb_tuples
-    
-    else:
-        raise ValueError(f"Checkpoints of run {run_id} do not exist")    
-   
-def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
-    
-    dfg = DFG()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    
-    list_combs = []
-    dict_losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
-
-    bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
-    for n_run, n_comb in tqdm(run_comb_tuples, total=len(run_comb_tuples), bar_format=bar_format, leave=False):
-
-        checkpoint_path = os.path.join(cp_log_dir, f"run_{n_run}", f"comb_{n_comb}")
-
-        model, hyperparameters, data_dicts, room_ids = prepare_model_and_data(
-            checkpoint_path=checkpoint_path, 
-            dfg=dfg, 
-            device=device)
-        
-        if data == "train":
-            data_dict = data_dicts[0]
-        elif data == "val":
-            data_dict = data_dicts[1]
-        elif data == "test":
-            data_dict = data_dicts[2]
-        else:
-            raise ValueError("Data must be 'train', 'val' or 'test'")
-        
-        # load dataset
-        dataset = OccupancyDataset(data_dict, hyperparameters, mode)
-
-        # run detailed test
-        losses, predictions = run_detailed_test(model, dataset, device)
-        
-        for key in dict_losses:
-            dict_losses[key].append(losses[key])
-        list_combs.append((n_run, n_comb))
-        
-        if plot:
-            plot_predictions(dataset, predictions, room_ids, n_run, n_comb)
-            
-    return list_combs, dict_losses
-
-def get_k_smallest_largest(k:int, losses:dict):
-    
-    smallest_k = torch.topk(torch.Tensor(losses), k, largest=False).indices
-    largest_k = torch.topk(torch.Tensor(losses), k, largest=True).indices
-    
-    return smallest_k, largest_k
-
-def write_header_to_txt(file_name, run_id, data):
-    
-    with open(file_name, "a") as file:
-        file.write(f"#################\n")
-        file.write(f"Data: {data}\n")
-        file.write(f"Run: {run_id}\n")
-        file.write(f"Time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))}\n")
-    
-def write_loss_to_txt(file_name, combinations, losses, loss_f):
-    with open(file_name, "a") as file:
-        file.write(f"Loss function: {loss_f}\n")
-        file.write(f"Combinations: {combinations.tolist()}\n")
-        file.write(f"Losses: {losses.tolist()}\n")
   
-def erase_file(file_name):
-    with open(file_name, "w") as file:
-        file.write("")      
-  
-def write_new_line(file_name):
-    with open(file_name, "a") as file:
-        file.write("\n")
-
-def evaluate_results(filename, list_combs, dict_losses):
-
-
-    for key, value in dict_losses.items():
-        
-        mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
-        # sort by mean loss, descending if R2 -> we sort best to worst
-        if key == "R2":
-            indices = np.argsort(mean_losses)[::-1]
-        else:
-            indices = np.argsort(mean_losses)
-            
-        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], key)
-
-    write_new_line(filename)
-    
-    
 cp_log_dir = "_forecasting/checkpoints"
-mode = "dayahead"
-filename = "results.txt"
+#mode = "normal"
+#filename = f"results_{mode}.txt"
 
 ##############################
-## Run n tests
-#for data in ["val", "train"]:
-#    for run_id in [1, 2]:
-    
-#        tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
+# Run n tests
 
-#        list_combs, dict_losses = run_n_tests(
-#            run_comb_tuples=tuples_run_comb,
-#            cp_log_dir=cp_log_dir, 
-#            mode=mode, 
-#            plot=False, 
-#            data=data)   
-                
-#        list_combs = np.array(list_combs)
+for data in ["val", "train"]:
+    for mode in ["dayahead", "unlimited"]:
+        filename = f"results_{mode}.txt"
+        for run_id in [5,6]:
+            
+            tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
 
-#        write_header_to_txt(filename, run_id, data)
+            list_combs, dict_losses, list_hyperparameters = run_n_tests(
+                run_comb_tuples=tuples_run_comb,
+                cp_log_dir=cp_log_dir, 
+                mode=mode, 
+                plot=False, 
+                data=data)   
+                    
+            list_combs = np.array(list_combs)
 
-#        evaluate_results(filename, list_combs, dict_losses)
+            write_header_to_txt(filename, run_id, data)
+
+            evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, top_k_params=5)
 
 
 ##############################
 # Test chosen combinations
-for data in ["val"]:
-    
-    list_combs, dict_losses = run_n_tests(
-        run_comb_tuples=[(1,27),(1,6), (2,8), (2,9)],
-        cp_log_dir=cp_log_dir, 
-        mode=mode, 
-        plot=True, 
-        data=data
-    )   
-                
+"""import torch
+for mode in ["dayahead"]:
+    filename = f"results_{mode}.txt"
+    for data in ["train", "val"]:
+        
+        list_combs, dict_losses, list_hyperparameters = run_n_tests(
+            run_comb_tuples=[(6,0)],
+            cp_log_dir=cp_log_dir, 
+            mode=mode, 
+            plot=True,  
+            data=data
+        )   
+        
+        # claculate mean losses
+        print(f"---------- {data} --------------")
+        for  i in range(len(list_combs)):
+            print(f"Combination: {list_combs[i]}")
+            for key in dict_losses:
+                mean_loss = torch.mean(torch.Tensor(dict_losses[key][i]))
+                print(f"Mean {key} loss: {mean_loss}")
+            print(f"------------------------")
+                """
+
+
+
+
+
+
+
+
+
+
 
 #mt.test_one_epoch(train_loader, model, log_info=True)
 #mt.test_one_epoch(val_loader, model, log_info=True)

@@ -18,3 +18,9 @@ from _forecasting.utilities import check_log_dir
 from _forecasting.utilities import avoid_name_conflicts
 from _forecasting.utilities import parse_arguments
 from _forecasting.utilities import prompt_for_missing_arguments
+
+####### Importing all the functions from the testing.py file #######
+from _forecasting.testing import list_checkpoints
+from _forecasting.testing import run_n_tests
+from _forecasting.testing import write_header_to_txt
+from _forecasting.testing import evaluate_results

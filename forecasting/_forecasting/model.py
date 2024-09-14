@@ -76,7 +76,6 @@ class SimpleOccDenseNet(nn.Module):
 
         predicitons = []
         
-        
         for i in range(0, len_y, self.y_horizon):
             
             room_enc_flattened = room_enc.view(-1)
@@ -91,8 +90,8 @@ class SimpleOccDenseNet(nn.Module):
             input = torch.cat((x_flattened, y_feat_i_flattend, room_enc_flattened))
             
             out = self.model(input)
-            
-            predicitons.append(out)
+
+            predicitons.append(out[:, None])
 
             if self.hyperparameters["include_x_features"]:
                 x_new = torch.cat((out[:, None], y_feat_i), dim=1)
@@ -100,8 +99,11 @@ class SimpleOccDenseNet(nn.Module):
                 x_new = out[:, None]
                 
             x = torch.cat((x, x_new), dim=0)[self.y_horizon:]
-
-        return torch.cat(predicitons)
+        
+        if len(predicitons) == 0:
+            return torch.tensor([])
+        else:
+            return torch.cat(predicitons)
     
 class OccDenseNet(nn.Module):
     
@@ -155,11 +157,6 @@ class OccDenseNet(nn.Module):
             
             return x  
         
-        
-        
-        
-        
-        
 class SimpleOccLSTM(torch.nn.Module):
     
     def __init__(self, hyperparameters, **kwargs):
@@ -179,7 +176,6 @@ class SimpleOccLSTM(torch.nn.Module):
         self.batch_size = hyperparameters["batch_size"]
         
         ############ Model Definition ############
-        
         # embedding for hidden states with 0 init
         weights = torch.randn(2, self.hidden_size[0])
         #weights = torch.randn(2, self.hidden_size[0])
@@ -192,11 +188,12 @@ class SimpleOccLSTM(torch.nn.Module):
         # fc at end
         self.linear_final = torch.nn.Linear(self.hidden_size[0], 1)
             
-        if not hyperparameters["forget_gate"]:
-            for name, param in self.lstm.named_parameters():
-                if 'bias_ih' in name or 'bias_hh' in name:
-                    bias_size = param.size(0) // 4 
-                    param.data[bias_size:2*bias_size].fill_(25)
+        if "forget_gate" in hyperparameters:
+            if not hyperparameters["forget_gate"]:
+                for name, param in self.lstm.named_parameters():
+                    if 'bias_ih' in name or 'bias_hh' in name:
+                        bias_size = param.size(0) // 4 
+                        param.data[bias_size:2*bias_size].fill_(25)
                     
         # last activation function
         if hyperparameters["occcount"]:
@@ -206,7 +203,6 @@ class SimpleOccLSTM(torch.nn.Module):
             
         ## freeze h_0 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        
         
     def forward(self, x, y_features,room_id=None):
         
@@ -234,7 +230,6 @@ class SimpleOccLSTM(torch.nn.Module):
         
         return pred_list
     
-    
     def forecast_iter(self, x, y_features, len_y, room_id):
         
         x = x[None, :]
@@ -257,35 +252,11 @@ class SimpleOccLSTM(torch.nn.Module):
             out, (h_n, c_n) = self.lstm(y_t_in, (h_n, c_n))
 
             y_t = self.last_activation(self.linear_final(out))
+            #print("lstm:", y_t.shape)
 
-            pred_list.append(y_t)
-
-        return torch.cat(pred_list).squeeze()
-
-    #def forward(self, x, y_features, room_id=None):
+            pred_list.append(y_t.squeeze(-1))
         
-    #    h_t = torch.zeros(self.batch_size, self.hidden_size[0]).to(self.device)
-    #    c_t = self.room_embedding(room_id)
-        
-    #    for i in range(self.hyperparameters["x_horizon"]):
-    #        x_t = x[:, i, :]
-    #        h_t, c_t = self.lstm_cell(x_t, (h_t, c_t))
-         
-    #    y_t = self.last_activation(self.linear_final(h_t)) 
-        
-    #    y_t_list = []
-    #    for i in range(0, self.hyperparameters["y_horizon"]):
-            
-    #        y_feat_t = y_features[:, i, :]
-    #        y_in = torch.cat((y_t, y_feat_t), 1)
-            
-    #        h_t, c_t = self.lstm_cell(y_in, (h_t, c_t))
-    #        y_t = self.last_activation(self.linear_final(h_t))
-
-    #        y_t_list.append(y_t)
-            
-    #    pred = torch.cat(y_t_list, dim=1)
-    #    return pred
+        return torch.cat(pred_list)
 
 class EncDecOccLSTM(torch.nn.Module):
     

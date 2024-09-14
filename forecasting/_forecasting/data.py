@@ -425,8 +425,6 @@ class OccFeatureEngineer():
     #    raise NotImplementedError("Not implemented yet.")
     #    return time_series
     
-    
-    
 class OccupancyDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
@@ -687,41 +685,44 @@ class OccupancyDataset(Dataset):
         # we want to predict the nex day based on the previous T steps
         occ_time_series["day"] = occ_time_series["datetime"].dt.date
         
-        df_prev_day = pd.DataFrame()
-        
+        i = 0
         for grouping, sub_df in occ_time_series.groupby("day"):
             
-            if not df_prev_day.empty:
+            if i == 0:
+                i += 1
+                continue
                 
-                X_df = df_prev_day.iloc[-self.x_horizon:]
-                if len(X_df) < self.x_horizon:
-                    continue
+            X_df = occ_time_series[occ_time_series["day"] == (grouping - pd.Timedelta("1d"))]
+            X_df = X_df.iloc[-self.x_horizon:]
+
+            if len(X_df) < self.x_horizon:
+                continue
+            
+            y_df = sub_df
+            
+            # we want to predict the next N steps based on the previous T steps
+            if self.sample_differencing:
+                raise NotImplementedError("Differencing not implemented for dayahead mode.")
+                time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
+                time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
+                time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
+                y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+                X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
                 
-                y_df = sub_df
-                
-                # we want to predict the next N steps based on the previous T steps
-                if self.sample_differencing:
-                    raise NotImplementedError("Differencing not implemented for dayahead mode.")
-                    time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
-                    time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
-                    time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
-                    y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-                    X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
-                    
-                y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-                X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
-                y_features = torch.Tensor(y_df[self.exogenous_features].values)
-                
-                if self.include_x_features:
-                    X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-                
-                X_list.append(X)
-                y_features_list.append(y_features)
-                y_list.append(y) 
-                sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))                    
-                                
-            df_prev_day = sub_df.copy()
-        
+            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+            X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
+            y_features = torch.Tensor(y_df[self.exogenous_features].values)
+            
+            if self.include_x_features:
+                X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+            
+            X_list.append(X)
+            y_features_list.append(y_features)
+            y_list.append(y) 
+            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+                                         
+
+            
         return sample_info, X_list, y_features_list, y_list  
     
     def correct_samples(self, samples, verbose=True):
@@ -756,4 +757,338 @@ class OccupancyDataset(Dataset):
     
     def __getitem__(self, idx):
         return self.samples[idx]
+    
+class LectureDataset(Dataset):
+    
+    room_capacities = {0:164, 1:152}
+    
+    def __init__(self, time_series_dict: dict, hyperparameters:dict, mode:str, verbose:bool=True):
+        """ Constructor for the occupancy dataset
+        Task: Convert the cleaned data into a list of samples
+        """
+        super().__init__()
+        
+        self.rng = np.random.default_rng(42)
+        
+        # the time series must be structured as a dictionary with the room_id as the key
+        self.time_series_dict = time_series_dict
+        self.room_ids = list(time_series_dict.keys())
+        
+        self.hyperparameters = hyperparameters
+
+        ############ Handle Features ############
+        self.features = set(hyperparameters["features"].split("_"))
+        # derive main feature
+        self.occ_feature = self.handle_occ_feature(self.features)
+        # derive exogenous features
+        self.exogenous_features = self.features.difference({"occcount", "occrate"})
+        # derive exogenous time features
+        self.exogenous_features = self.handle_time_features(self.exogenous_features)
+        # derive differencing
+        self.differencing = hyperparameters["differencing"]
+        self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
+        if "type" in self.exogenous_features:
+            self.exogenous_features.remove("type")
+            self.exogenous_features = self.exogenous_features.union(set(['VO', 'UE', 'KS', 'VL', 'IK', 'KV', 'UV', 'RE', 'VU']))
+        
+        # sort features
+        self.exogenous_features = sorted(list(self.exogenous_features))
+
+        ############ Derive some helper variables ############
+        self.include_x_features = hyperparameters["include_x_features"]
+        self.x_horizon = hyperparameters["x_horizon"]
+        self.y_horizon = hyperparameters["y_horizon"]
+        self.verbose = verbose       
+         
+        ############ Process Data ############
+        # convert frequency to timedelta
+        self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
+        # process data
+        self.samples = self.process_data_dictionaries(mode)
+        # correct samples
+        if mode == "normal":
+            self.samples = self.correct_samples(self.samples, verbose=self.verbose)
+
+
+    ############ Feature Functions ############ 
+    def handle_occ_feature(self, features):
+            if "occcount" in features:
+                return "occcount"
+            elif "occrate" in features:
+                return "occrate"
+            else:
+                raise ValueError("No target feature found.")
+
+    def handle_time_features(self, exo_features):
+        
+        copied_exo_features = exo_features.copy()
+        
+        if "dow" in copied_exo_features:
+            copied_exo_features.remove("dow")
+            copied_exo_features = copied_exo_features.union({"dow1", "dow2"})
+            
+        if "hod" in copied_exo_features:
+            copied_exo_features.remove("hod")
+            copied_exo_features = copied_exo_features.union({"hod1", "hod2"})
+            
+        if "week" in copied_exo_features:
+            copied_exo_features.remove("week")
+            copied_exo_features = copied_exo_features.union({"week1", "week2"})
+            
+        return copied_exo_features
+    
+    def handle_differencing_features(self, differencing, features, occ_feature, exo_features):
+            
+        copied_exo_features = exo_features.copy()
+        
+        sample_differencing = False
+        
+        if differencing == "whole":
+        
+            if occ_feature + "1week" in features:
+                copied_exo_features = copied_exo_features.union({occ_feature + "diff" + "1week"})
+                copied_exo_features.remove(occ_feature + "1week")
+            
+            if occ_feature + "1day" in features:
+                copied_exo_features = copied_exo_features.union({occ_feature + "diff" + "1day"})
+                copied_exo_features.remove(occ_feature + "1day")
+                
+            occ_feature = occ_feature + "diff"
+            
+        elif differencing == "sample":
+            
+            sample_differencing = True
+            
+            if occ_feature + "1week" in features:
+                copied_exo_features = copied_exo_features.union({occ_feature + "samplediff" + "1week"})
+                copied_exo_features.remove(occ_feature + "1week")
+            
+            if occ_feature + "1day" in features:
+                copied_exo_features = copied_exo_features.union({occ_feature + "samplediff" + "1day"})
+                copied_exo_features.remove(occ_feature + "1day")
+            
+        else:
+            pass
+        
+        return occ_feature, copied_exo_features, sample_differencing
+
+
+    ############ Process Data Functions ############
+    def process_data_dictionaries(self, mode):
+        
+        if mode=="unlimited":
+            sampling_function = self.create_samples_unlimited
+        elif mode=="dayahead":
+            sampling_function = self.create_samples_dayahead
+        elif mode=="normal":
+            sampling_function = self.create_samples_normal
+        else:
+            raise ValueError("Unknown mode.")
+        
+        samples = []
+        for room_id in self.room_ids:
+            
+            occ_time_series = self.time_series_dict[room_id]
+            
+            ts_diff = occ_time_series["datetime"].diff()
+            holes = occ_time_series[ts_diff > self.td_freq]
+            
+            if holes.empty:
+
+                info, X, y_features, y = sampling_function(occ_time_series, room_id)
+                samples.extend(list(zip(info, X, y_features, y)))
+
+            else:
+                
+                cur_idx = 0
+                for hole_idx in holes.index:
+                    info, X, y_features, y = sampling_function(occ_time_series.iloc[cur_idx:hole_idx], room_id)
+                    samples.extend(list(zip(info, X, y_features, y)))
+                    cur_idx = hole_idx
+                
+                # add the last part of the time series
+                info, X, y_features, y = sampling_function(occ_time_series.iloc[cur_idx:], room_id)
+                samples.extend(list(zip(info, X, y_features, y)))
+                
+        return samples
+          
+    def create_samples_normal(self, time_series, room_id):
+        
+        occ_time_series = time_series.copy(deep=True)
+        
+        X_list = []
+        y_list = []
+        y_features_list = []
+        sample_info = []
+    
+        # we want to predict the next N steps based on the previous T steps
+        window_size = self.x_horizon + self.y_horizon
+        for window in occ_time_series.rolling(window=window_size):
+            
+            if self.sample_differencing:
+                window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(window[self.occ_feature])
+                window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(window[self.occ_feature + "1week"])
+                window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(window[self.occ_feature + "1day"])
+            
+            X_df = window.iloc[:self.x_horizon]
+            y_df = window.iloc[self.x_horizon:]
+
+            if self.sample_differencing:
+                y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+                X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+                
+            else:
+                y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+                X = torch.Tensor(X_df[self.occ_feature].values[:, None])
+            
+            if y.numel() != self.y_horizon:
+                continue
+            else:
+
+                y_features = torch.Tensor(y_df[self.exogenous_features].values)
+
+                if self.include_x_features:
+                    X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+            
+            X_list.append(X)
+            y_features_list.append(y_features)
+            y_list.append(y) 
+        
+            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+
+        sanity_check_1 = [len(x)==self.x_horizon for x in X_list]
+        sanity_check_2 = [len(y)==self.y_horizon for y in y_list]
+        
+        if (all(sanity_check_1) & all(sanity_check_2)):
+            #print("Check 2: All the samples have the correct size.")
+            return sample_info, X_list, y_features_list, y_list
+        
+        else:
+            raise ValueError("Sanity Check Failed")
+
+    def create_samples_unlimited(self, time_series, room_id):
+        
+        time_series = time_series.copy(deep=True)
+        
+        X_list = []
+        y_list = []
+        y_features_list = []
+        sample_info = []
+        
+        # we want to predict the next N steps based on the previous T steps
+        
+        if self.sample_differencing:
+            time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
+            time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
+            time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
+            
+        X_df = time_series.iloc[:self.x_horizon]
+        y_df = time_series.iloc[self.x_horizon:]
+        
+        if self.sample_differencing:
+            y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+            X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+            
+        else:
+            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+            X = torch.Tensor(X_df[self.occ_feature].values[:, None])
+            
+
+        y_features = torch.Tensor(y_df[self.exogenous_features].values)
+
+        if self.include_x_features:
+            X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+        
+        X_list.append(X)
+        y_features_list.append(y_features)
+        y_list.append(y) 
+        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+
+        return sample_info, X_list, y_features_list, y_list
+
+    def create_samples_dayahead(self, time_series, room_id):
+        
+        occ_time_series = time_series.copy(deep=True)
+        
+        X_list = []
+        y_list = []
+        y_features_list = []
+        sample_info = []
+
+        # we want to predict the nex day based on the previous T steps
+        occ_time_series["day"] = occ_time_series["datetime"].dt.date
+        
+        i = 0
+        for grouping, sub_df in occ_time_series.groupby("day"):
+            
+            if i == 0:
+                i += 1
+                continue
+                
+            X_df = occ_time_series[occ_time_series["day"] == (grouping - pd.Timedelta("1d"))]
+            X_df = X_df.iloc[-self.x_horizon:]
+
+            if len(X_df) < self.x_horizon:
+                continue
+            
+            y_df = sub_df
+            
+            # we want to predict the next N steps based on the previous T steps
+            if self.sample_differencing:
+                raise NotImplementedError("Differencing not implemented for dayahead mode.")
+                time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
+                time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
+                time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
+                y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+                X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+                
+            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+            X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
+            y_features = torch.Tensor(y_df[self.exogenous_features].values)
+            
+            if self.include_x_features:
+                X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+            
+            X_list.append(X)
+            y_features_list.append(y_features)
+            y_list.append(y) 
+            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+                                         
+
+            
+        return sample_info, X_list, y_features_list, y_list  
+    
+    def correct_samples(self, samples, verbose=True):
+        
+        one_hour = int(pd.Timedelta("1h")/self.td_freq)
+        
+        corrected_samples = []
+        counter_0 = 0
+        counter_else = 0
+        for info, X, y_features, y in samples:
+            if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
+                if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
+                    corrected_samples.append((info, X, y_features, y))
+                    counter_0 += 1
+
+            else:
+                corrected_samples.append((info, X, y_features, y))
+                counter_else += 1
+        
+        if verbose:
+            print("Number of Samples: ", len(corrected_samples))        
+            print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
+            print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
+            print("-----------------")
+            
+        return corrected_samples
+     
+     
+    ############ Dataset Functions ############
+    def __len__(self):
+        return len(self.samples)
+    
+    def __getitem__(self, idx):
+        return self.samples[idx]
+       
     

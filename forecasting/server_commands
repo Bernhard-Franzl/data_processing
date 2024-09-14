@@ -17,11 +17,15 @@ python3 "scriptname".py
 
 tensorboard --logdir _forecasting/training_logs/run_3 --port 6006
 
+tensorboard --logdir=/home/berni/github_repos/data_processing/forecasting/_forecasting/training_logs/run_3
+
+
 ##################################################
 Sync files from server to local machine:
 
 rsync -chavzP -e "ssh -p 5792" franzl@student06.ai-lab.jku.at:data_processing/forecasting/_forecasting/training_logs  ~/github_repos/data_processing/forecasting/_forecasting/
 
+rsync -chavzP -e "ssh -p 5792" franzl@student06.ai-lab.jku.at:data_processing/forecasting/_forecasting/checkpoints  ~/github_repos/data_processing/forecasting/_forecasting
 
 #################################################
 LEGACY:
