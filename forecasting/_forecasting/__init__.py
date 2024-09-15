@@ -1,9 +1,9 @@
 
 ####### Importing all the functions from the data.py file #######
-from _forecasting.data import prepare_data
-from _forecasting.data import OccFeatureEngineer
+from _forecasting.data import prepare_data, prepare_data_lecture
+from _forecasting.data import OccFeatureEngineer, LectureFeatureEngineer
 from _forecasting.data import train_val_test_split
-from _forecasting.data import OccupancyDataset
+from _forecasting.data import OccupancyDataset, LectureDataset
 from _forecasting.data import load_data_dicts
 
 ####### Importing all the functions from the model.py file #######

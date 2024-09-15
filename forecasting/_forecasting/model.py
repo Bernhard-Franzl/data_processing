@@ -55,8 +55,10 @@ class SimpleOccDenseNet(nn.Module):
                 self.model.add_module("acti_out", nn.Tanh())
                 #print("Tanh added")
             else:
-                self.model.add_module("acti_out", nn.Sigmoid())
-                #print("Sigmoid added")
+                if self.hyperparameters["criterion"] == "CE":
+                    print("nothing added")
+                else:   
+                    self.model.add_module("acti_out", nn.Sigmoid())
    
     def forward(self, x, y_features, room_id=None):
         
@@ -91,6 +93,7 @@ class SimpleOccDenseNet(nn.Module):
             
             out = self.model(input)
 
+                
             predicitons.append(out[:, None])
 
             if self.hyperparameters["include_x_features"]:

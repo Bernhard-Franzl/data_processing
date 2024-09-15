@@ -18,18 +18,21 @@ dfg = DFG()
 
 
 ############ Inputs ############
-args = parse_arguments()
-args = prompt_for_missing_arguments(args)
-n_run = args.n_run
-n_param = args.n_param
+#args = parse_arguments()
+#args = prompt_for_missing_arguments(args)
+#n_run = args.n_run
+#n_param = args.n_param
+
+n_run = 0
+n_param = 0
 ################################
 
 
 
 
 param_dir = "_forecasting/parameters"
-tb_log_dir = "_forecasting/training_logs"
-cp_log_dir = "_forecasting/checkpoints"
+tb_log_dir = "_forecasting/training_logs/presence"
+cp_log_dir = "_forecasting/checkpoints/presence"
 path_to_params = os.path.join(param_dir, f"run-{n_run}-{n_param}_params.json")
 
 start_comb = avoid_name_conflicts(tb_log_dir, cp_log_dir, n_run)

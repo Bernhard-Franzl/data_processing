@@ -117,6 +117,10 @@ class MasterTrainer:
             return nn.L1Loss()
         elif criterion == "SAE":
             return nn.L1Loss(reduction="sum")
+        elif criterion == "CE":
+            return nn.CrossEntropyLoss()
+        elif criterion == "BCE":
+            return nn.BCELoss()
         else:
             raise ValueError("Criterion not supported.")
     

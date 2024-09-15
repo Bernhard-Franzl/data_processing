@@ -2,17 +2,17 @@ import numpy as np
 from _forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results
 
   
-cp_log_dir = "_forecasting/checkpoints"
+cp_log_dir = "_forecasting/checkpoints/presence"
 #mode = "normal"
 #filename = f"results_{mode}.txt"
 
 ##############################
 # Run n tests
 
-for data in ["val", "train"]:
+for data in ["train", "val"]:
     for mode in ["dayahead", "unlimited"]:
-        filename = f"results_{mode}.txt"
-        for run_id in [5,6]:
+        filename = f"results_{mode}_presence.txt"
+        for run_id in [0]:
             
             tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
 
@@ -32,13 +32,13 @@ for data in ["val", "train"]:
 
 ##############################
 # Test chosen combinations
-"""import torch
-for mode in ["dayahead"]:
+import torch
+for mode in ["dayahead", "unlimited"]:
     filename = f"results_{mode}.txt"
     for data in ["train", "val"]:
         
         list_combs, dict_losses, list_hyperparameters = run_n_tests(
-            run_comb_tuples=[(6,0)],
+            run_comb_tuples=[(0,3)],
             cp_log_dir=cp_log_dir, 
             mode=mode, 
             plot=True,  
@@ -53,8 +53,6 @@ for mode in ["dayahead"]:
                 mean_loss = torch.mean(torch.Tensor(dict_losses[key][i]))
                 print(f"Mean {key} loss: {mean_loss}")
             print(f"------------------------")
-                """
-
 
 
 
