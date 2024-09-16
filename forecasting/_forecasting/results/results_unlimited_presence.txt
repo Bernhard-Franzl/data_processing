@@ -1,0 +1,42 @@
+#################
+Data: train
+Run: 0
+Time: 2024-09-16 08:30:29
+Loss function: MAE
+Combinations: [[0, 4], [0, 3], [0, 1], [0, 2], [0, 0]]
+Losses: [8.948607410630416e-10, 1.0332291688897044e-09, 0.0002378523349761963, 0.0017322704661637545, 5.675795555114746]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+Loss function: MSE
+Combinations: [[0, 4], [0, 3], [0, 1], [0, 2], [0, 0]]
+Losses: [2.786628216009056e-17, 5.2018020444005595e-17, 3.7734412217105273e-06, 0.0014936050865799189, 57.57255935668945]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+Loss function: RMSE
+Combinations: [[0, 4], [0, 3], [0, 1], [0, 2], [0, 0]]
+Losses: [4.830613242745585e-09, 7.060681816994929e-09, 0.0018846684833988547, 0.03815849870443344, 7.503485202789307]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+Loss function: R2
+Combinations: [[0, 3], [0, 4], [0, 1], [0, 2], [0, 0]]
+Losses: [1.0, 1.0, 0.9999706149101257, 0.9882057309150696, -441.00469970703125]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+
+#################
+Data: val
+Run: 0
+Time: 2024-09-16 08:30:38
+Loss function: MAE
+Combinations: [[0, 4], [0, 3], [0, 1], [0, 2], [0, 0]]
+Losses: [9.400428213623968e-10, 1.0115406290367446e-09, 0.0004704736638814211, 0.0022312276996672153, 5.635493278503418]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+Loss function: MSE
+Combinations: [[0, 4], [0, 3], [0, 1], [0, 2], [0, 0]]
+Losses: [4.634787270724445e-17, 5.068922096438816e-17, 0.00010640468826750293, 0.0018977851141244173, 55.82564163208008]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+Loss function: RMSE
+Combinations: [[0, 4], [0, 3], [0, 1], [0, 2], [0, 0]]
+Losses: [5.838347139075495e-09, 7.032020299391206e-09, 0.008792124688625336, 0.03942594677209854, 7.461276531219482]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+Loss function: R2
+Combinations: [[0, 3], [0, 4], [0, 1], [0, 2], [0, 0]]
+Losses: [1.0, 1.0, 0.9995028376579285, 0.9898625016212463, -339.4278259277344]
+Hyperparameters: [('batch_size', [(32, 5)]), ('criterion', [('BCE', 2), ('CE', 1), ('MAE', 2)]), ('differencing', [('none', 5)]), ('features', [('occpresence_lecture_lectureramp', 5)]), ('frequency', [('5min', 5)]), ('hidden_size', [(array([32]), 2), (array([128]), 3)]), ('include_x_features', [(True, 5)]), ('info', [('Run 0: Densenet Presensce', 5)]), ('lr', [(0.0001, 5)]), ('max_n_updates', [(50000, 5)]), ('model_class', [('simple_densenet', 3), ('simple_lstm', 2)]), ('num_layers', [(1, 5)]), ('occcount', [(False, 5)]), ('weight_decay', [(0, 5)]), ('x_horizon', [(96, 5)]), ('x_size', [(4, 5)]), ('y_features_size', [(3, 5)]), ('y_horizon', [(24, 5)]), ('y_size', [(1, 5)]), ('zero_sample_drop_rate', [(0.1, 5)])]
+

@@ -36,7 +36,7 @@ dfg = DFG()
 
 
 
-#### Control Randomness ####
+################## Lecture Data ##################
 np_rng = np.random.default_rng(seed=42)
 torch_rng = torch.Generator()
 torch_rng.manual_seed(42)
@@ -49,7 +49,12 @@ train_set, val_set, test_set = prepare_data_lecture(
     rng = np_rng
 )
 
-## save data_dict
+print(train_set.columns)
+dfg.save_to_csv(train_set, "data", f"lecture_train_set")
+dfg.save_to_csv(val_set, "data", f"lecture_val_set")
+dfg.save_to_csv(test_set, "data", f"lecture_test_set")
+
+# save data_dict
 #for room_id, df in train_dict.items():
 #    dfg.save_to_csv(df, "data", f"lecture_train_dict")
 

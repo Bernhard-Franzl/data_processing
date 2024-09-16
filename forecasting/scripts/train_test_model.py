@@ -32,27 +32,27 @@ for data in ["train", "val"]:
 
 ##############################
 # Test chosen combinations
-import torch
-for mode in ["dayahead", "unlimited"]:
-    filename = f"results_{mode}.txt"
-    for data in ["train", "val"]:
+#import torch
+#for mode in ["dayahead", "unlimited"]:
+#    filename = f"results_{mode}.txt"
+#    for data in ["train", "val", "test"]:
         
-        list_combs, dict_losses, list_hyperparameters = run_n_tests(
-            run_comb_tuples=[(0,3)],
-            cp_log_dir=cp_log_dir, 
-            mode=mode, 
-            plot=True,  
-            data=data
-        )   
+#        list_combs, dict_losses, list_hyperparameters = run_n_tests(
+#            run_comb_tuples=[(0,4)],
+#            cp_log_dir=cp_log_dir, 
+#            mode=mode, 
+#            plot=True,  
+#            data=data
+#        )   
         
-        # claculate mean losses
-        print(f"---------- {data} --------------")
-        for  i in range(len(list_combs)):
-            print(f"Combination: {list_combs[i]}")
-            for key in dict_losses:
-                mean_loss = torch.mean(torch.Tensor(dict_losses[key][i]))
-                print(f"Mean {key} loss: {mean_loss}")
-            print(f"------------------------")
+#        # claculate mean losses
+#        print(f"---------- {data} --------------")
+#        for  i in range(len(list_combs)):
+#            print(f"Combination: {list_combs[i]}")
+#            for key in dict_losses:
+#                mean_loss = torch.mean(torch.Tensor(dict_losses[key][i]))
+#                print(f"Mean {key} loss: {mean_loss}")
+#            print(f"------------------------")
 
 
 

@@ -295,7 +295,20 @@ class LectureFeatureEngineer():
         # check if features are already present
         feature_set_diff = feature_set.difference(self.course_dates_table.columns)
 
-        def derive_features(course_dates, features):
+        
+        
+        course_dates, feature_set_diff = self.add_features(self.course_dates_table, feature_set_diff)
+        
+        feature_set = feature_set.union(feature_set_diff)
+        
+        # remove feature type from feature set
+        if "type" in feature_set:
+            feature_set.remove("type")
+            feature_set = feature_set.union(self.course_types)
+                    
+        return course_dates[sorted(list(feature_set))]
+
+    def add_features(self, course_dates, features):
             
             # initialize all features to 0
             for feature in features:
@@ -319,10 +332,12 @@ class LectureFeatureEngineer():
                 course_dates_entry = course_dates[course_dates_mask]
                 
                 # occrate last lecture
-                course_dates_entry["occount"] = int(time_series[time_series_mask].max()["CC_estimates"])
+                if "occcount" in features:
+                    course_dates_entry["occount"] = int(time_series[time_series_mask].max()["CC_estimates"])
                 # occrate last lecture
-                room_capacity = int(course_dates_entry["room_capacity"].values[0])
-                course_dates_entry["occrate"] = course_dates_entry["occount"] /room_capacity
+                if "occrate" in features:
+                    room_capacity = int(course_dates_entry["room_capacity"].values[0])
+                    course_dates_entry["occrate"] = course_dates_entry["occount"] /room_capacity
                 
                 # occount last lecture
                 #all_course_dates = course_dates[course_dates["course_number"] == course_number].sort_values(by="start_time").reset_index(drop=True)
@@ -337,38 +352,66 @@ class LectureFeatureEngineer():
                 #registered, type, starttime, "calendarweek", "weekday", "coursenumber", "roomid"
                 course_info = self.dfg.filter_by_courses(self.course_info_table, [course_number])
                 # registered
-                course_dates_entry["registered"] = course_info["registered_students"].values.sum()
+                if "registered" in features:
+                    course_dates_entry["registered"] = course_info["registered_students"].values.sum()
                 # starttime
-                course_dates_entry["starttime"] = start_time
+                if "starttime" in features:
+                    course_dates_entry["starttime"] = start_time           
                 # calendarweek
-                course_dates_entry["calendarweek"] = course_dates_entry["calendar_week"].values[0]
+                if "calendarweek" in features:
+                    course_dates_entry["calendarweek"] = course_dates_entry["calendar_week"].values[0]
                 # weekday
-                course_dates_entry["weekday"] = course_dates_entry["weekday"].values[0]
+                if "weekday" in features:
+                    course_dates_entry["weekday"] = course_dates_entry["weekday"].values[0]
                 # coursenumber
-                course_dates_entry["coursenumber"] = course_number
+                if "coursenumber" in features:
+                    course_dates_entry["coursenumber"] = course_number
                 # roomid
-                course_dates_entry["roomid"] = room_id
-                # time
-                for course_type in course_info["type"].values:
-                    course_dates_entry[course_type] = 1 
-                
+                if "roomid" in features:
+                    course_dates_entry["roomid"] = room_id
+                # type
+                if "type" in features:
+                    for course_type in course_info["type"].values:
+                        course_dates_entry[course_type] = 1 
                 
                 course_dates[course_dates_mask] = course_dates_entry
+                
             
-            return course_dates
-        
-        course_dates = derive_features(self.course_dates_table, feature_set_diff)
-        
-        # remove feature type from feature set
-        if "type" in feature_set:
-            feature_set.remove("type")
-            feature_set = feature_set.union(self.course_types)
+            course_dates["starttime"] = pd.to_datetime(course_dates["starttime"])
+            if ("starttime" in features) or ("starttime" in course_dates.columns):
+                course_dates["time"] = course_dates["starttime"].dt.hour + (course_dates["starttime"].dt.minute / 60)
+                course_dates = self.starttime_fourier_series(course_dates, "time")
+                course_dates.drop(columns=["time"], inplace=True)
+                features = features.union({"starttime1", "starttime2"})
+                
+            if ("weekday" in features) or ("starttime" in course_dates.columns):
+                course_dates["dow"] = course_dates["starttime"].dt.dayofweek
+                course_dates = self.weekday_fourier_series(course_dates, "dow")
+                course_dates.drop(columns=["dow"], inplace=True)
+                features = features.union({"weekday1", "weekday2"})
+                
+            if ("calendarweek" in features) or ("starttime" in course_dates.columns):
+                course_dates = self.dfg.derive_week(course_dates, "starttime")
+                course_dates = self.week_fourier_series(course_dates, "week")
+                course_dates.drop(columns=["week"], inplace=True)
+                features = features.union({"calendarweek1", "calendarweek2"})
                     
-        return course_dates[sorted(list(feature_set))]
-    
-    def add_features(self, time_series, features, room_id): 
-        print(self.course_dates_table)
+            return course_dates, features
         
+    def starttime_fourier_series(self, time_series, hourfloat_column):
+        time_series["starttime1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24))
+        time_series["starttime2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24))
+        return time_series
+        
+    def weekday_fourier_series(self, time_series, day_column):
+        time_series["weekday1"] = np.sin(2 * np.pi *  (time_series[day_column]/7))
+        time_series["weekday2"] = np.cos(2 * np.pi *  (time_series[day_column]/7))
+        return time_series
+    
+    def week_fourier_series(self, time_series, week_column):
+        time_series["calendarweek1"] = np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64)
+        time_series["calendarweek2"] = np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64)
+        return time_series    
         
 class OccFeatureEngineer():
     
