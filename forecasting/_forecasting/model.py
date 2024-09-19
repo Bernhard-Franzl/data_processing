@@ -158,6 +158,7 @@ class SimpleLectureLSTM(torch.nn.Module):
         self.hidden_size = hyperparameters["hidden_size"]
         
         self.batch_size = hyperparameters["batch_size"]
+        self.immutable_size = hyperparameters["immutable_size"]
         
         ############ Model Definition ############
         # embedding for hidden states with 0 init
@@ -166,16 +167,15 @@ class SimpleLectureLSTM(torch.nn.Module):
            
         # must be included otherwise loading model will fail
         #self.relu = torch.nn.ReLU()
-        #self.linear_in = torch.nn.Linear(9, self.hidden_size[0])
+        self.linear_in = torch.nn.Linear(self.immutable_size, self.hidden_size[0])
         # lstm layer
         self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
         # fc at end
-        self.linear_final = torch.nn.Linear(self.hidden_size[0], self.output_size)
-        
+        #self.linear_final = torch.nn.Linear(self.hidden_size[0], self.output_size)
         
         # prediction head
         self.linear_1 = torch.nn.Linear(self.hidden_size[0], self.hidden_size[1])
-        self.relu = torch.nn.LeakyReLU()
+        self.relu = torch.nn.ReLU()
         self.linear_2 = torch.nn.Linear(self.hidden_size[1] + self.y_features_size, self.output_size)
         
         
@@ -216,17 +216,40 @@ class SimpleLectureLSTM(torch.nn.Module):
         #h_0 = torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device)
         #c_0 = self.linear_in(room_id).repeat(self.hyperparameters["num_layers"], 1, 1)
         
-        out_lstm, (h_n, c_n) = self.lstm(x)
         
+        #  New sequential model
+        #print(x.shape, y_features.shape, room_id.shape)
+        #x = x.view(-1, self.x_size)
+        #y_features = y_features.view(-1, self.y_features_size)
+        #immutable_features = room_id.view(-1, self.immutable_size)
         
+        h_0 = torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device)
+        c_0 = self.linear_in(room_id).repeat(self.hyperparameters["num_layers"], 1, 1)
+        #print(c_0.shape)
+        
+        out_lstm, (h_n, c_n) = self.lstm(x, (h_0, c_0))
+        
+        #print(out_lstm.shape)
+        #out_lstm[:, -1, :]
         out_lin_1 = self.relu(self.linear_1(c_n[-1, :]))
         
+        #print(out_lin_1.shape)
         y_in = torch.cat((out_lin_1[:, :], y_features[:, -1, :]), 1)
-        
+        #print(y_in.shape)
         pred =  self.last_activation(self.linear_2(y_in))
-        
-        return pred
 
+        return pred
+        
+        #manual model generation
+        out_1 = self.relu(self.lin_1(x))
+        out_2 = self.relu(self.lin_2(y_features))
+        out_3 = self.relu(self.lin_3(immutable_features))
+        
+        in_mid= torch.cat((out_1, out_2, out_3), 1)
+        out_mid = self.relu(self.lin_mid(in_mid))
+        
+        pred = self.lin_out(out_mid)
+        
         #y_t = y_t[:, None, :]
         
         #y_feat_t = y_features[:, 0, :]

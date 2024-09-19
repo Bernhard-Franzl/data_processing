@@ -1,15 +1,15 @@
 {   
     "info": "Run 0: Densenet Lecture",
-    "model_class": ["simple_lecture_densenet"],
+    "model_class": ["simple_lecture_lstm"],
     "differencing": ["none"],
     "discretization": [true],
     "criterion": ["CE"],
     "lr": [0.00001],
     "weight_decay": [0],
-    "batch_size": [32],
-    "hidden_size": [[1024]],
-    "num_layers": [1],
+    "batch_size": [1],
+    "hidden_size": [[256, 32]],
+    "num_layers": [3],
     "features": ["occrate_registered_exam_test_tutorium_starttime_endtime_calendarweek_weekday_type_studyarea_ects_level"],
     "include_x_features": [true],
-    "max_n_updates": 250000
+    "max_n_updates": 100000
 }

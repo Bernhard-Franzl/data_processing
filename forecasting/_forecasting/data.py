@@ -1418,38 +1418,62 @@ class LectureDataset(Dataset):
         
         samples = []
         
-        # normalize registered if necessary
-        if (self.occ_feature == "occrate"):
-            self.lec_df["registered"] = self.lec_df["registered"] / self.lec_df["roomcapacity"]  
-        
         # unique -> type, coursenumber, registered
-        unique_features = self.unique_types
+        #unique_features = self.unique_types
         
         for lecture_id, sub_df in self.lec_df.groupby("coursenumber"):
             
-            dropped = sub_df[sorted(list(unique_features))].drop_duplicates()
-            if len(dropped) != 1:
-                raise ValueError("Unique features are not unique!!")
+            lecture_immutable_features = torch.Tensor(sub_df[sorted(list(self.immutable_features))].astype(float).iloc[0].values)
             
-            unique_part = torch.Tensor(dropped.astype(float).values)
+            # dropped = sub_df[sorted(list(unique_features))].drop_duplicates()
+            # if len(dropped) != 1:
+            #     raise ValueError("Unique features are not unique!!")
             
+            # unique_part = torch.Tensor(dropped.astype(float).values)
+          
             for i in range(1, len(sub_df)):
-            
+                
                 X_df = sub_df.iloc[:i]
                 y_df = sub_df.iloc[i]
-                
-            
-                X_occ = X_df[self.occ_feature]
 
-                X = torch.Tensor(X_occ.values)
-                y = torch.Tensor([y_df[self.occ_feature]])[:, None]
+                X = torch.Tensor(X_df[self.occ_feature].values)
+                y = torch.Tensor([y_df[self.occ_feature]])
                 
+                if self.discretization:
+                    
+                    X = torch.bucketize(X, self.occrate_boundaries)
+                    y = torch.bucketize(y, self.occrate_boundaries)
+                    
+                    X = self.onehot[X]#.squeeze()
+                    y = self.onehot[y]#.squeeze()
+            
+                # X_occ = X_df[self.occ_feature]
+
+                # X = torch.Tensor(X_occ.values)
+                # y = torch.Tensor([y_df[self.occ_feature]])[:, None]
                 if self.include_x_features:
-                        X = torch.cat([X[:, None], torch.Tensor(X_df[self.exogenous_features].astype(float).values)], dim=1)
+                    X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].astype(float).values)], dim=1)
                 
+                #y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)
                 y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)[None, :]
 
-                info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], unique_part)
+                info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], lecture_immutable_features)
+                
+                if X_df.loc[X_df.index[-1], "starttime"] == y_df["starttime"]:
+                    print()
+                    print("Warning: Same Starttime")
+                    #print(X_df.loc[X_df.index[-1], "starttime"] , y_df["starttime"])
+                    if X_df.loc[X_df.index[-1], "roomid"]  == y_df["roomid"]:
+                        print("room_id matches -> nothing to do")
+                        continue
+                    else:
+                        info_old, X_old, _, _ = samples[-1]
+                        (_, X_df_st_old, _, _, X_df_ri_old, _, _) = info_old
+                        X = X_old
+                        info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
+                        print("-> handled!")
+                        print()
+                
                 samples.append((info, X, y_features, y))
 
         
