@@ -11,9 +11,9 @@ import torch.nn as nn
 from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset
 
-from _forecasting.data import OccupancyDataset
-from _forecasting.model import SimpleOccDenseNet
-from _forecasting.model import SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet
+from _forecasting.data import OccupancyDataset, LectureDataset
+from _forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
+from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet
 
 class StatsLogger:
     
@@ -84,6 +84,7 @@ class MasterTrainer:
         self.hyperparameters = hyperparameters
         self.stats_logger = StatsLogger()
         
+        
         if summary_writer:
             self.summary_writer = summary_writer
             
@@ -106,6 +107,28 @@ class MasterTrainer:
         y = torch.stack([x_i[3] for x_i in x])
         room_id = torch.IntTensor([x_i[0][0] for x_i in x])
         return info, X, y_features, y, room_id
+    
+    
+    def dateahead_collate(self, x):
+        
+        info = [x_i[0] for x_i in x]
+        X = torch.stack([x_i[1] for x_i in x])
+        y_features = torch.stack([x_i[2] for x_i in x])
+        y = torch.stack([x_i[3] for x_i in x])
+        immutable_features = torch.stack([x_i[0][6] for x_i in x])
+                          
+        return info, X, y_features, y, immutable_features
+    
+    
+    def sequential_collate(self, x):
+        
+        info = [x_i[0] for x_i in x]
+        X = torch.stack([x_i[1] for x_i in x])
+        y_features = torch.stack([x_i[2] for x_i in x])
+        y = torch.stack([x_i[3] for x_i in x])
+        unique_features = torch.stack([x_i[0][6] for x_i in x])
+
+        return info, X, y_features, y, unique_features
     
     def handle_criterion(self, criterion:str):
 
@@ -138,10 +161,74 @@ class MasterTrainer:
         elif model_class == "ed_lstm1":
             return EncDecOccLSTM1
         
+        elif model_class == "simple_lecture_lstm":
+            return SimpleLectureLSTM
+        elif model_class == "simple_lecture_densenet":
+            return SimpleLectureDenseNet
+        
         else:
             raise ValueError("Model not supported.")
     
     ######## Initialization ########
+    def intialize_all_lecture(self, train_dict:dict, val_dict:dict, test_dict:dict, dataset_mode:str):
+    
+        train_set, val_set, test_set = self.initialize_lecture_dataset(train_dict, val_dict, test_dict, dataset_mode)
+
+        train_loader, val_loader, test_loader = self.initialize_lecture_dataloader(train_set, val_set, test_set, dataset_mode)
+        
+        model = self.initialize_model()
+        optimizer = self.initialize_optimizer(model)
+        
+        return train_loader, val_loader, test_loader, model, optimizer
+
+    def initialize_lecture_dataset(self, train_df:dict, val_df:dict, test_df:dict, dataset_mode:str):
+        
+        train_set = LectureDataset(train_df, self.hyperparameters, dataset_mode)
+        val_set = LectureDataset(val_df, self.hyperparameters, dataset_mode)
+        test_set = LectureDataset(test_df, self.hyperparameters, dataset_mode)
+        
+        info, X, y_features, y = train_set[1]
+        if len(X.shape) != 1:
+            self.update_hyperparameters({
+                "x_size": int(X.shape[1]),
+                "y_features_size": int(y_features.shape[1]), 
+                "y_size": int(y.shape[1]),
+                "immutable_size": int(info[6].shape[0])
+                }
+            )
+
+        else:
+            self.update_hyperparameters({
+                "x_size": int(X.shape[0]),
+                "y_features_size": int(y_features.shape[0]), 
+                "y_size": int(y.shape[0]),
+                "immutable_size": int(info[6].shape[0])
+                }
+            )
+        
+        return train_set, val_set, test_set
+
+    def initialize_lecture_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset, dataset_mode:str):
+        
+        if dataset_mode == "onedateahead":
+            collate_f = self.dateahead_collate
+        elif dataset_mode == "sequential":
+            collate_f = self.sequential_collate
+        else:
+            raise ValueError("Dataset mode not supported.")
+        
+        train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
+                                  collate_fn=collate_f, generator=self.torch_rng, num_workers=3, drop_last=True)
+        
+        val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
+                                collate_fn=collate_f, num_workers=3, drop_last=True)
+        
+        test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
+                                 collate_fn=collate_f, num_workers=3, drop_last=True)
+        
+        return train_loader, val_loader, test_loader
+ 
+    # initialize forecasting model
     def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict, set_mode:str):
         
         train_set, val_set, test_set = self.initialize_dataset(train_dict, val_dict, test_dict, set_mode)
@@ -211,32 +298,42 @@ class MasterTrainer:
             """
             self.stats_logger.reset_train_loss_buffer()
             
+            
+            
+            #optimizer.zero_grad()
+            #losses = []
             for info, X, y_features, y, room_id in dataloader:
-                
+                    
                 optimizer.zero_grad()
-   
                 
                 room_id = room_id.to(self.device)
-                
                 X = X.to(self.device)
-                
-
                 y_features = y_features.to(self.device)
-   
                 y = y.to(self.device).view(-1, model.output_size)
 
- 
-                
+
                 model_output = model(X, y_features, room_id)
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
 
                 loss = self.criterion(model_output, y)
-    
-                loss.backward()
-                optimizer.step()
+                #loss_i = self.criterion(model_output, y)
                 
+                #losses.append(loss_i)
+                    
+                #if len(losses) == 8:
+                #    loss = torch.mean(torch.stack(losses))
+                #    loss.backward()
+                #    optimizer.step()
+                #    losses = []
+                #    optimizer.zero_grad()
+                #    #self.writer.add_scalar("Loss/train", loss.cpu().detach().float(), self.n_updates)
+                #    self.n_updates += 1
+                #    self.stats_logger.append_train_loss(loss.cpu().detach().float())
+                    
+                loss.backward()
+                optimizer.step()                   
+                    
                 self.n_updates += 1
-                #self.writer.add_scalar("Loss/train", loss.cpu().detach().float(), self.n_updates)
                 self.stats_logger.append_train_loss(loss.cpu().detach().float())
                 
                 if self.n_updates % 50 == 0:
@@ -267,6 +364,7 @@ class MasterTrainer:
         else:
             n_epochs = self.hyperparameters["max_n_updates"] // len(train_dataloader) + 1
 
+        n_epochs = int(n_epochs)
         for _ in tqdm.tqdm(range(n_epochs), leave=False):
                 
             self.train_one_epoch(train_dataloader, model, optimizer, val_dataloader)
@@ -300,8 +398,8 @@ class MasterTrainer:
                 y = y.to(self.device).view(-1, model.output_size)
                 
                 model_output = model(X, y_features, room_id)
-                #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
-
+                #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device
+                
                 loss = self.criterion(model_output, y)
 
                 val_loss.append(loss.cpu().detach())

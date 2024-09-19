@@ -10,9 +10,9 @@ import plotly.graph_objects as go
 import numpy as np
 from tqdm import tqdm
 
-from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM
-from _forecasting.data import OccupancyDataset
-from _forecasting.data import load_data_dicts
+from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, SimpleLectureDenseNet, SimpleLectureLSTM
+from _forecasting.data import OccupancyDataset, LectureDataset
+from _forecasting.data import load_data_dicts, load_data_lecture
 
 from _dfguru import DataFrameGuru as DFG
 
@@ -39,13 +39,18 @@ def handle_model_class(model_name:str):
         elif model_name == "simple_lstm":
             return SimpleOccLSTM
         
+        elif model_name == "simple_lecture_lstm":
+            return SimpleLectureLSTM
+        
+        elif model_name == "simple_lecture_densenet":
+            return SimpleLectureDenseNet
+        
         else:
             raise ValueError(f"Model {model_name} not recognized")
         
 def load_checkpoint(checkpoint_path:str, load_optimizer:bool, hyperparameters:dict):
     
-    # ignore warnings
-    
+    # ignore warnings    
     model_class = handle_model_class(hyperparameters["model_class"])
     model = model_class(hyperparameters)
     model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
@@ -60,23 +65,50 @@ def load_checkpoint(checkpoint_path:str, load_optimizer:bool, hyperparameters:di
 def prepare_model_and_data(checkpoint_path:str, dfg, device, mode:str, data:str):
     
     hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
-
-    train_dict, val_dict, test_dict = load_data_dicts(
-        "data", 
-        hyperparameters["frequency"], 
-        dfguru=dfg)
-    
-    if data == "train":
-        data_dict = train_dict
-    elif data == "val":
-        data_dict = val_dict
-    elif data == "test":
-        data_dict = test_dict
-    else:
-        raise ValueError(f"Data {data} not recognized")
+     
+    if mode in ["normal", "dayahead", "unlimited"]:
+        
+        train_dict, val_dict, test_dict = load_data_dicts(
+            "data", 
+            hyperparameters["frequency"], 
+            dfguru=dfg)
+        
+        if data == "train":
+            data_dict = train_dict
+        elif data == "val":
+            data_dict = val_dict
+        elif data == "test":
+            data_dict = test_dict
+        else:
+            raise ValueError(f"Data {data} not recognized")
+        
+        dataset = OccupancyDataset(data_dict, hyperparameters, mode)
+        room_ids = data_dict.keys()
+        
+    elif mode in ["sequential", "onedateahead"]:
+        
+        train_df, val_df, test_df = load_data_lecture("data", dfguru=dfg)
+        
+        if data == "train":
+            data_dict = train_df
+        elif data == "val":
+            data_dict = val_df
+        elif data == "test":
+            data_dict = test_df
+        else:
+            raise ValueError(f"Data {data} not recognized")
+        
+        
+        dataset = LectureDataset(data_dict, hyperparameters, mode)
+        room_ids = None
+        
+        y_samples = []
+        for i in range(len(dataset)):
+            y_samples.append(dataset[i][3])
             
-    dataset = OccupancyDataset(data_dict, hyperparameters, mode)
-    room_ids = data_dict.keys()
+    else:
+        raise ValueError(f"Mode {mode} not recognized")
+    
     
     model = load_checkpoint(
         checkpoint_path = checkpoint_path,
@@ -144,6 +176,66 @@ def run_detailed_test(model, dataset:OccupancyDataset, device):
         
     return losses, predictions, infos, targets, inputs, target_features
 
+def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
+    
+    model.eval()
+    model = model.to(device)
+    
+    mae_f = torch.nn.L1Loss(reduction="mean")
+    mse_f = torch.nn.MSELoss(reduction="mean")
+    r2_f = torchmetrics.R2Score()      
+    
+    losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
+    
+    predictions = []
+    infos = []
+    inputs = []
+    targets = []
+    target_features = []
+    
+    bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
+    for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
+
+        X = X.to(device)
+        room_id = info[6].to(device)
+        y_features = y_features.to(device)
+        
+        with torch.no_grad():
+            
+            preds = model(X, y_features, room_id)
+            
+            #if len(preds) == 0:
+            #    continue
+            
+            preds = preds.to("cpu")
+            #y_adjusted = y[:len(preds)]
+            
+            if model.discretization:
+                preds = torch.argmax(preds, dim=-1).to(dtype=torch.float32)
+                y = torch.argmax(y, dim=-1).to(dtype=torch.float32)
+            
+            info = (info[0], info[1], info[2], info[3], info[4], info[5], info[6])
+            
+            #print(len(y_adjusted), info[2].shape, "pred:", len(preds))
+            #if preds.shape != y_adjusted.shape:
+            #    y_adjusted = y_adjusted.unsqueeze(-1)
+                
+            losses["MAE"].append(mae_f(preds, y))
+            losses["MSE"].append(mse_f(preds, y))
+            losses["RMSE"].append(torch.sqrt(mse_f(preds, y)))
+            if len(preds) == 1:
+                losses["R2"].append(None)
+            else:
+                losses["R2"].append(r2_f(preds, y))
+            
+        predictions.append(preds)
+        infos.append(info)
+        inputs.append(X)
+        targets.append(y)
+        target_features.append(y_features)
+        
+    return losses, predictions, infos, targets, inputs, target_features
+
 def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
     
     dfg = DFG()
@@ -175,14 +267,20 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
         list_hyperparameters.append(hyperparameters)
 
         # run detailed test
-        losses, predictions, infos, targets, _, _ = run_detailed_test(model, dataset, device)
+        if mode in ["normal", "dayahead", "unlimited"]:
+            losses, predictions, infos, targets, _, _ = run_detailed_test(model, dataset, device)
+        else:
+            losses, predictions, infos, targets, _, _ = run_detailed_test_forward(model, dataset, device)
         
         for key in dict_losses:
             dict_losses[key].append(losses[key])
         list_combs.append((n_run, n_comb))
         
         if plot:
-            plot_predictions(infos, predictions, targets, room_ids, n_run, n_comb)
+            if mode in ["normal", "dayahead", "unlimited"]:
+                plot_predictions(infos, predictions, targets, room_ids, n_run, n_comb)
+            else:
+             plot_predictions_lecture(infos, predictions, targets, room_ids, n_run, n_comb)
             
     return list_combs, dict_losses, list_hyperparameters
 
@@ -236,7 +334,44 @@ def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, 
         
         fig.show()
         
+def plot_predictions_lecture(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int):
+    
+    #dict_y_times = dict([(room_id,[]) for room_id in room_ids])    
+    #dict_preds = dict([(room_id,[]) for room_id in room_ids])
+    #dict_targets = dict([(room_id,[]) for room_id in room_ids])
+    
+    
+    predictions = [x.squeeze().numpy() for x in predictions]
+    targets = [x.squeeze().numpy() for x in targets]
+    x_axis = np.arange(len(predictions))
         
+    fig = go.Figure()
+    
+    fig.add_trace(
+        go.Scatter(
+            x=x_axis,
+            y=predictions,
+            mode="lines+markers",
+            name=f"Predictions"
+        )
+    )
+    fig.add_trace(
+        go.Scatter(
+            x=x_axis,
+            y=targets,
+            mode="lines+markers",
+            name=f"Targets"
+        )
+    )
+    
+    fig.update_layout(
+        title=f"Run {n_run} - Combination {n_comb}",
+        xaxis_title="Time",
+        yaxis_title="Occupancy"
+    )
+    
+    fig.show()
+              
         
 ############## Write to txt file ####################
 def write_header_to_txt(file_name, run_id, data):
@@ -298,6 +433,37 @@ def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, to
         
     write_new_line(filename)
   
+  
+def evaluate_results_lecture(filename, list_combs, dict_losses, list_hyperparameters, top_k_params):
+
+    for key, value in dict_losses.items():
+        
+    
+        # sort by mean loss, descending if R2 -> we sort best to worst
+        if key == "R2":
+            continue
+            mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
+            indices = np.argsort(mean_losses)[::-1]
+        else:
+            mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
+            indices = np.argsort(mean_losses)
+
+            
+        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], key)
+        
+        #list_hyperparameters_k = [list_hyperparameters[i] for i in indices[:top_k_params]]
+        #all_keys = all_keys = set().union(*list_hyperparameters_k)
+        #param_results = {}
+        #for key in all_keys:
+        #    vc = np.unique([params_dict[key] for params_dict in list_hyperparameters_k], return_counts=True, axis=0)
+        #    # make vc readable
+        #    vc = list(zip(vc[0], vc[1]))
+        #    param_results[key] = vc
+          
+        #write_hyperparameters_to_txt(filename, param_results)  
+        
+    write_new_line(filename)
+    
 def get_k_smallest_largest(k:int, losses:dict):
     
     smallest_k = torch.topk(torch.Tensor(losses), k, largest=False).indices

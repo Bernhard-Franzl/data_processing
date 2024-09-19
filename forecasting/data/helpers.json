@@ -1,0 +1,36 @@
+{
+    "study_areas": [
+        "Informatik",
+        "None_sa",
+        "Volkswirtschaftslehre",
+        "Chemie",
+        "Wirtschaftsinformatik",
+        "Maschinenbau",
+        "Betriebswirtschaftslehre",
+        "Rechtswissenschaften",
+        "Mathematik",
+        "Mechatronik",
+        "Biologische Chemie",
+        "Sozialwissenschaften",
+        "Artificial Intelligence",
+        "Kunststofftechnik",
+        "Informationselektronik",
+        "Statistik",
+        "P\u00e4dagogik",
+        "Medical Engineering"
+    ],
+    "levels": [
+        "B1 - Bachelor 1. Jahr",
+        "None_level",
+        "B2 - Bachelor 2. Jahr",
+        "M1 - Master 1. Jahr",
+        "B3 - Bachelor 3. Jahr",
+        "D - Diplom",
+        "M2 - Master 2. Jahr"
+    ],
+    "course_types": [
+        "VL",
+        "UE",
+        "KS"
+    ]
+}

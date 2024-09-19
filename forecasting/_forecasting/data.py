@@ -5,6 +5,7 @@ from torch.utils.data import Dataset
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import json
 
 national_holidays_2024 = [
     datetime.strptime('01/01/2024', '%m/%d/%Y').date(),  # Neujahr
@@ -54,6 +55,22 @@ summer_break_2024 = [
 ]
 
 
+def load_data_lecture(path_to_data_dir, dfguru):
+
+    traindf = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name=f"lecture_train_set")
+    
+    valdf = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name=f"lecture_val_set")
+    
+    testdf = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name=f"lecture_test_set")
+    
+    return traindf, valdf, testdf
+    
 def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng):
     course_dates_data = dfguru.load_dataframe(
         path_repo=path_to_data_dir, 
@@ -104,8 +121,6 @@ def train_val_test_split_lecture(course_dates, rng, verbose=True):
     
     course_numbers = course_dates["coursenumber"].unique()
     
-    print(course_numbers)
-
     #occ_time_series = data_dict[room_id]
     #total_size += len(occ_time_series)
     
@@ -117,7 +132,7 @@ def train_val_test_split_lecture(course_dates, rng, verbose=True):
 
     rng.shuffle(indices)
     
-    test_slice = int(len(indices) * 0.1)
+    test_slice = int(len(indices) * 0.3)
 
     val_indices = indices[:test_slice]
     test_indices = indices[test_slice : 2*test_slice]
@@ -253,9 +268,10 @@ def train_val_test_split(data_dict, rng, verbose=True):
     return train_dict, val_dict, test_dict
         
 class LectureFeatureEngineer():
-    course_features = {"occount", "occrate", "exam", "registered", 
-                       "test", "tutorium", "type", "starttime", 
-                       "calendarweek", "weekday", "coursenumber", "roomid"}
+    course_features = {"occcount", "occrate", "registered", "exam", "test", "tutorium", 
+                       "starttime", "endtime", "calendarweek", "weekday",
+                       "roomid","roomcapacity", "type",
+                       "studyarea", "ects", "level", "coursenumber"}
     permissible_features = course_features
     
     def __init__(self, data_dict, course_dates_data, course_info_data, dfguru):
@@ -281,8 +297,43 @@ class LectureFeatureEngineer():
         )
 
         self.course_info_table = course_info_data  
-        self.course_types = self.course_info_table["type"].unique() 
+        self.course_info_table["level"].fillna("None_level", inplace=True)
+        self.course_info_table["study_area"].fillna("None_sa", inplace=True)
+        #self.course_types = ["VL", "UE", "KS", "SE"]
+        self.course_types = ["VL", "UE", "KS"]
+        #self.course_types = self.course_info_table["type"].unique()
+        # VL: VL, VO, KO
+        # UE: UE, AG, IK, PR, PS
+        # KS: KS, VU, KV, RE, UV
+        # SE: SE
+        self.type_mapping = {
+            "VL": "VL",
+            "VO": "VL",
+            "KO": "VL",
+            "UE": "UE",
+            "AG": "UE",
+            "IK": "UE",
+            "PR": "UE",
+            "PS": "UE",
+            "KS": "KS",
+            "VU": "KS",
+            "KV": "KS",
+            "RE": "KS",
+            "UV": "KS",}
+        
+        self.study_areas = self.course_info_table["study_area"].unique()
 
+        self.levels = self.course_info_table["level"].unique()
+
+        dictionary = {
+            "study_areas": self.study_areas.tolist(),
+            "levels": self.levels.tolist(),
+            "course_types": self.course_types,
+        }
+        # save auxillary data
+        with open(file="data/helpers.json", mode="w") as file:
+            json.dump(dictionary, file, indent=4)
+                      
     def derive_features(self, features):
         
         # get the course number
@@ -295,7 +346,8 @@ class LectureFeatureEngineer():
         # check if features are already present
         feature_set_diff = feature_set.difference(self.course_dates_table.columns)
 
-        
+        # include featuers that should always be present
+        feature_set_diff = feature_set_diff.union({"coursenumber", "roomid", "starttime", "endtime", "roomcapacity"})
         
         course_dates, feature_set_diff = self.add_features(self.course_dates_table, feature_set_diff)
         
@@ -305,7 +357,17 @@ class LectureFeatureEngineer():
         if "type" in feature_set:
             feature_set.remove("type")
             feature_set = feature_set.union(self.course_types)
-                    
+            
+        # remove feature studyarea from feature set
+        if "studyarea" in feature_set:
+            feature_set.remove("studyarea")
+            feature_set = feature_set.union(self.study_areas)
+            
+        # remove feature level from feature set
+        if "level" in feature_set:
+            feature_set.remove("level")
+            feature_set = feature_set.union(self.levels)
+
         return course_dates[sorted(list(feature_set))]
 
     def add_features(self, course_dates, features):
@@ -318,45 +380,62 @@ class LectureFeatureEngineer():
                 course_dates.drop(columns=["type"], inplace=True)
                 for course_type in self.course_types:
                     course_dates[course_type] = 0   
-                
+                    
+            if "studyarea" in features:
+                course_dates.drop(columns=["studyarea"], inplace=True)
+                for study_area in self.study_areas:
+                    course_dates[study_area] = 0
+            
+            if "level" in features:
+                course_dates.drop(columns=["level"], inplace=True)
+                for level in self.levels:
+                    course_dates[level] = 0
+               
+            
             for grouping, subdf in course_dates.groupby(["start_time", "end_time", "course_number", "room_id"]):
                 
                 start_time, end_time, course_number, room_id = grouping
                 time_series = self.ts_data_dict[room_id]
                 
-                #"occount", "occrate", "occcountlast", "occratelast",                
+                #"occcount", "occrate", "occcountlast", "occratelast",                
                 time_series_mask = (time_series["datetime"] >= grouping[0]) & (time_series["datetime"] <= grouping[1])
                 # extract course entry course dates table
-                course_dates_mask = (course_dates["start_time"] == grouping[0]) & (course_dates["end_time"] == grouping[1]) & (course_dates["course_number"] == grouping[2])
+                course_dates_mask = (course_dates["start_time"] == grouping[0]) & (course_dates["end_time"] == grouping[1]) & (course_dates["course_number"] == grouping[2]) & (course_dates["room_id"] == grouping[3])
                 
                 course_dates_entry = course_dates[course_dates_mask]
+                course_info = self.dfg.filter_by_courses(self.course_info_table, [course_number])
                 
                 # occrate last lecture
                 if "occcount" in features:
-                    course_dates_entry["occount"] = int(time_series[time_series_mask].max()["CC_estimates"])
+                    course_dates_entry["occcount"] = int(time_series[time_series_mask].max()["CC_estimates"])
+                    
+                if "roomcapacity" in features:
+                    course_dates_entry["roomcapacity"] = course_dates_entry["room_capacity"].values[0]
+
                 # occrate last lecture
                 if "occrate" in features:
-                    room_capacity = int(course_dates_entry["room_capacity"].values[0])
-                    course_dates_entry["occrate"] = course_dates_entry["occount"] /room_capacity
-                
-                # occount last lecture
+                    course_dates_entry["occrate"] = course_dates_entry["occcount"]/(course_info["registered_students"].values[0])
+                    
+                # occcount last lecture
                 #all_course_dates = course_dates[course_dates["course_number"] == course_number].sort_values(by="start_time").reset_index(drop=True)
                 #all_course_dates = all_course_dates[(all_course_dates["start_time"] < start_time)]
                 #if all_course_dates.empty:
-                #    course_dates_entry["occountlast"] = -1
+                #    course_dates_entry["occcountlast"] = -1
                 #    course_dates_entry["occratelast"] = -1
                 #else:
-                #    course_dates_entry["occountlast"] = int(all_course_dates.iloc[-1]["occount"])
-                #    course_dates_entry["occratelast"] = course_dates_entry["occountlast"] / room_capacity
-                    
-                #registered, type, starttime, "calendarweek", "weekday", "coursenumber", "roomid"
-                course_info = self.dfg.filter_by_courses(self.course_info_table, [course_number])
+                #    course_dates_entry["occcountlast"] = int(all_course_dates.iloc[-1]["occcount"])
+                #    course_dates_entry["occratelast"] = course_dates_entry["occcountlast"] / room_capacity
+
                 # registered
                 if "registered" in features:
-                    course_dates_entry["registered"] = course_info["registered_students"].values.sum()
+                    course_dates_entry["registered"] = course_info["registered_students"].values[0]
+                    
                 # starttime
                 if "starttime" in features:
                     course_dates_entry["starttime"] = start_time           
+                # endtime
+                if "endtime" in features:
+                    course_dates_entry["endtime"] = end_time
                 # calendarweek
                 if "calendarweek" in features:
                     course_dates_entry["calendarweek"] = course_dates_entry["calendar_week"].values[0]
@@ -371,18 +450,40 @@ class LectureFeatureEngineer():
                     course_dates_entry["roomid"] = room_id
                 # type
                 if "type" in features:
-                    for course_type in course_info["type"].values:
-                        course_dates_entry[course_type] = 1 
+                    if len(course_info["type"].unique())  > 1:
+                        raise
+                    
+                    type = self.type_mapping[course_info["type"].unique()[0]]
+                    course_dates_entry[type] = 1
+                
+                if "ects" in features:
+                    ects_str = course_info["ects"].values[0]
+                    ects = float(".".join(ects_str.split(",")))
+                    course_dates_entry["ects"] = ects
+                    
+                if "studyarea" in features:
+                    course_dates_entry[course_info["study_area"].values[0]] = 1
+
+                if "level" in features:
+                    course_dates_entry[course_info["level"].values[0]] = 1
                 
                 course_dates[course_dates_mask] = course_dates_entry
                 
-            
+                
             course_dates["starttime"] = pd.to_datetime(course_dates["starttime"])
+            course_dates["endtime"] = pd.to_datetime(course_dates["endtime"])
+            
             if ("starttime" in features) or ("starttime" in course_dates.columns):
                 course_dates["time"] = course_dates["starttime"].dt.hour + (course_dates["starttime"].dt.minute / 60)
                 course_dates = self.starttime_fourier_series(course_dates, "time")
                 course_dates.drop(columns=["time"], inplace=True)
                 features = features.union({"starttime1", "starttime2"})
+                
+            if ("endtime" in features) or ("endtime" in course_dates.columns):
+                course_dates["time"] = course_dates["endtime"].dt.hour + (course_dates["endtime"].dt.minute / 60)
+                course_dates = self.endtime_fourier_series(course_dates, "time")
+                course_dates.drop(columns=["time"], inplace=True)
+                features = features.union({"endtime1", "endtime2"})
                 
             if ("weekday" in features) or ("starttime" in course_dates.columns):
                 course_dates["dow"] = course_dates["starttime"].dt.dayofweek
@@ -395,24 +496,29 @@ class LectureFeatureEngineer():
                 course_dates = self.week_fourier_series(course_dates, "week")
                 course_dates.drop(columns=["week"], inplace=True)
                 features = features.union({"calendarweek1", "calendarweek2"})
-                    
+            
             return course_dates, features
         
     def starttime_fourier_series(self, time_series, hourfloat_column):
-        time_series["starttime1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24))
-        time_series["starttime2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24))
+        time_series["starttime1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
+        time_series["starttime2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
+        return time_series
+    
+    def endtime_fourier_series(self, time_series, hourfloat_column):
+        time_series["endtime1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
+        time_series["endtime2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
         return time_series
         
     def weekday_fourier_series(self, time_series, day_column):
-        time_series["weekday1"] = np.sin(2 * np.pi *  (time_series[day_column]/7))
-        time_series["weekday2"] = np.cos(2 * np.pi *  (time_series[day_column]/7))
+        time_series["weekday1"] = np.sin(2 * np.pi *  (time_series[day_column]/7)).round(2)
+        time_series["weekday2"] = np.cos(2 * np.pi *  (time_series[day_column]/7)).round(2)
         return time_series
     
     def week_fourier_series(self, time_series, week_column):
-        time_series["calendarweek1"] = np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64)
-        time_series["calendarweek2"] = np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64)
+        time_series["calendarweek1"] = np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4)
+        time_series["calendarweek2"] = np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4)
         return time_series    
-        
+     
 class OccFeatureEngineer():
     
     course_features = {"exam", "lecture", "lectureramp", "registered", "test", "tutorium", "type"}
@@ -484,7 +590,7 @@ class OccFeatureEngineer():
         for feature in features:
             time_series[feature] = 0
             
-        if "occount1week" in features:
+        if "occcount1week" in features:
             
             time_series = self.shift_n_days(time_series, "occcount", "occcount1week", 7)
             time_series = self.shift_n_days(time_series, "occcountdiff", "occcountdiff1week", 7)  
@@ -1024,53 +1130,77 @@ class LectureDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
     
-    def __init__(self, time_series_dict: dict, hyperparameters:dict, mode:str, verbose:bool=True):
+    def __init__(self, lecture_df: dict, hyperparameters:dict, mode:str, verbose:bool=True):
         """ Constructor for the occupancy dataset
         Task: Convert the cleaned data into a list of samples
         """
         super().__init__()
         
-        self.rng = np.random.default_rng(42)
+        #self.rng = np.random.default_rng(42)
         
-        # the time series must be structured as a dictionary with the room_id as the key
-        self.time_series_dict = time_series_dict
-        self.room_ids = list(time_series_dict.keys())
         
+        self.lec_df = lecture_df
         self.hyperparameters = hyperparameters
 
         ############ Handle Features ############
-        self.features = set(hyperparameters["features"].split("_"))
+        self.features_list = hyperparameters["features"].split("_")
+        self.features = set(self.features_list)
+        
+        self.immutable_features = {"type", "studyarea", "ects", "level" }
+        self.immutable_features = self.immutable_features.intersection(self.features)
+        
         # derive main feature
         self.occ_feature = self.handle_occ_feature(self.features)
+        
         # derive exogenous features
         self.exogenous_features = self.features.difference({"occcount", "occrate"})
+        self.exogenous_features = self.exogenous_features.difference(self.immutable_features)
+        
+        
         # derive exogenous time features
         self.exogenous_features = self.handle_time_features(self.exogenous_features)
-        # derive differencing
-        self.differencing = hyperparameters["differencing"]
-        self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
-        if "type" in self.exogenous_features:
-            self.exogenous_features.remove("type")
-            self.exogenous_features = self.exogenous_features.union(set(['VO', 'UE', 'KS', 'VL', 'IK', 'KV', 'UV', 'RE', 'VU']))
-        
+          
         # sort features
         self.exogenous_features = sorted(list(self.exogenous_features))
 
+
+        # derive differencing
+        #self.differencing = hyperparameters["differencing"]
+        #self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
+        
+        with open("data/helpers.json", "r") as f:
+            self.helper = json.load(f)
+        
+        if "type" in self.immutable_features:
+            self.immutable_features.remove("type")
+            self.immutable_features = self.immutable_features.union(self.helper["course_types"])
+        
+        if "level" in self.immutable_features:
+            self.immutable_features.remove("level")
+            self.immutable_features = self.immutable_features.union(self.helper["levels"])
+            
+        if "studyarea" in self.immutable_features:
+            self.immutable_features.remove("studyarea")
+            self.immutable_features = self.immutable_features.union(self.helper["study_areas"])
+        
+        
         ############ Derive some helper variables ############
         self.include_x_features = hyperparameters["include_x_features"]
-        self.x_horizon = hyperparameters["x_horizon"]
-        self.y_horizon = hyperparameters["y_horizon"]
-        self.verbose = verbose       
+        self.verbose = verbose      
          
+        self.discretization = hyperparameters["discretization"] 
+        self.occrate_boundaries = torch.arange(0.1, 1.0, 0.1)
+        self.onehot = torch.eye(len(self.occrate_boundaries)+1)
         ############ Process Data ############
         # convert frequency to timedelta
-        self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
+        #self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
         # process data
-        self.samples = self.process_data_dictionaries(mode)
-        # correct samples
-        if mode == "normal":
-            self.samples = self.correct_samples(self.samples, verbose=self.verbose)
-
+        self.samples = self.process_data_df(mode)
+        ## correct samples
+        #if mode == "normal":
+        #    self.samples = self.correct_samples(self.samples, verbose=self.verbose)
+        
+        print(f"Len Dataset: {len(self.samples)}")
 
     ############ Feature Functions ############ 
     def handle_occ_feature(self, features):
@@ -1085,17 +1215,21 @@ class LectureDataset(Dataset):
         
         copied_exo_features = exo_features.copy()
         
-        if "dow" in copied_exo_features:
-            copied_exo_features.remove("dow")
-            copied_exo_features = copied_exo_features.union({"dow1", "dow2"})
+        if "starttime" in copied_exo_features:
+            copied_exo_features.remove("starttime")
+            copied_exo_features = copied_exo_features.union({"starttime1", "starttime2"})
             
-        if "hod" in copied_exo_features:
-            copied_exo_features.remove("hod")
-            copied_exo_features = copied_exo_features.union({"hod1", "hod2"})
+        if "calendarweek" in copied_exo_features:
+            copied_exo_features.remove("calendarweek")
+            copied_exo_features = copied_exo_features.union({"calendarweek1", "calendarweek2"})
             
-        if "week" in copied_exo_features:
-            copied_exo_features.remove("week")
-            copied_exo_features = copied_exo_features.union({"week1", "week2"})
+        if "weekday" in copied_exo_features:
+            copied_exo_features.remove("weekday")
+            copied_exo_features = copied_exo_features.union({"weekday1", "weekday2"})
+            
+        if "endtime" in copied_exo_features:
+            copied_exo_features.remove("endtime")
+            copied_exo_features = copied_exo_features.union({"endtime1", "endtime2"})
             
         return copied_exo_features
     
@@ -1136,214 +1270,361 @@ class LectureDataset(Dataset):
 
 
     ############ Process Data Functions ############
-    def process_data_dictionaries(self, mode):
+    def process_data_df(self, mode):
         
-        if mode=="unlimited":
-            sampling_function = self.create_samples_unlimited
-        elif mode=="dayahead":
-            sampling_function = self.create_samples_dayahead
-        elif mode=="normal":
-            sampling_function = self.create_samples_normal
+        if mode=="onedateahead":
+            sampling_function = self.create_samples_onedateahead
+        elif mode=="sequential":
+            sampling_function = self.create_samples_sequential
         else:
             raise ValueError("Unknown mode.")
         
-        samples = []
-        for room_id in self.room_ids:
+        # handle combined courses
+        for _, sub_df in self.lec_df.groupby(["starttime","roomid"]):
             
-            occ_time_series = self.time_series_dict[room_id]
-            
-            ts_diff = occ_time_series["datetime"].diff()
-            holes = occ_time_series[ts_diff > self.td_freq]
-            
-            if holes.empty:
-
-                info, X, y_features, y = sampling_function(occ_time_series, room_id)
-                samples.extend(list(zip(info, X, y_features, y)))
-
+            if len(sub_df) == 1:
+                continue
             else:
+                # adapt: occcount, occcrate
+                # majority vote: exam, test, tutorium
+                sum_registered = sub_df["registered"].sum()
+                sub_df["occcount"] = (sub_df["occcount"] * sub_df["registered"]/sum_registered).round(0).astype(int)
+                sub_df["occrate"] = sub_df["occcount"] / sub_df["registered"]
+                sub_df[["exam", "test", "tutorium"]] = sub_df[["exam", "test", "tutorium"]].mode().iloc[0]
                 
-                cur_idx = 0
-                for hole_idx in holes.index:
-                    info, X, y_features, y = sampling_function(occ_time_series.iloc[cur_idx:hole_idx], room_id)
-                    samples.extend(list(zip(info, X, y_features, y)))
-                    cur_idx = hole_idx
+                self.lec_df.loc[sub_df.index, ["occcount", "occrate", "exam", "test", "tutorium"]] = sub_df[["occcount", "occrate", "exam", "test", "tutorium"]]
+        
+        # handle splitted courses
+        for _, sub_df in self.lec_df.groupby(["starttime", "coursenumber"]):
+            
+            if len(sub_df) > 1:
+                # adapt -> registered, occrate
+                sub_df["registered"] = (sub_df["registered"] / len(sub_df)).astype(int)
+                sub_df["occrate"] = (sub_df["occcount"] / sub_df["registered"])
                 
-                # add the last part of the time series
-                info, X, y_features, y = sampling_function(occ_time_series.iloc[cur_idx:], room_id)
-                samples.extend(list(zip(info, X, y_features, y)))
+                self.lec_df.loc[sub_df.index, ["registered", "occrate"]] = sub_df[["registered", "occrate"]]
+
+        samples = sampling_function()
+        
+        return samples
+    
+    def create_samples_onedateahead(self):    
+        
+        samples = []
+        
+        # group df by lecture
+        for lecture_id, sub_df in self.lec_df.groupby("coursenumber"):
+            
+            lecture_immutable_features = torch.Tensor(sub_df[sorted(list(self.immutable_features))].astype(float).iloc[0].values)
+
+            for window in sub_df.rolling(window=2):
+                
+                if len(window) == 2:
+
+                    X_df = window.iloc[0]
+                    y_df = window.iloc[1]
+                    X = torch.Tensor([X_df[self.occ_feature]])
+                    y = torch.Tensor([y_df[self.occ_feature]])
+                    
+                    if self.discretization:
+                        
+                        X = torch.bucketize(X, self.occrate_boundaries)
+                        y = torch.bucketize(y, self.occrate_boundaries)
+                        
+                        X = self.onehot[X].squeeze()
+                        y = self.onehot[y].squeeze()
+
+                    info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], lecture_immutable_features)
+                    
+                    y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)
+                                        
+                    if self.include_x_features:
+
+                        X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].astype(float).values)])
+                    
+                    
+                    if X_df["starttime"] == y_df["starttime"]:
+                        print()
+                        print("Warning: Same Starttime")
+                        if X_df["roomid"] == y_df["roomid"]:
+                            print("room_id matches -> nothing to do")
+                            continue
+                        else:
+                            info_old, X_old, _, _ = samples[-1]
+                            (_, X_df_st_old, _, _, X_df_ri_old, _, _) = info_old
+                            X = X_old
+                            info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
+                            print("-> handled!")
+                            print()
+                    
+                    samples.append((info, X, y_features, y))
+   
+        return samples
+    
+    def create_samples_sequential_new(self):
+        
+        samples = []
+        
+        # normalize registered if necessary
+        if (self.occ_feature == "occrate"):
+            self.lec_df["registered"] = self.lec_df["registered"] / self.lec_df["roomcapacity"]
+        
+        # unique -> type, coursenumber, registered
+        if "type" in self.exogenous_features:
+            unique_features = self.unique_types
+        
+        for lecture_id, sub_df in self.lec_df.groupby("coursenumber"):
+            
+            dropped = sub_df[sorted(list(unique_features))].drop_duplicates()
+            if len(dropped) != 1:
+                raise ValueError("Unique features are not unique!!")
+            
+            unique_part = torch.Tensor(dropped.astype(float).values)
+            
+            for i in range(1, len(sub_df)):
+            
+                X_df = sub_df.iloc[:i]
+                y_df = sub_df.iloc[i]
+                
+            
+                X_occ = X_df[self.occ_feature]
+                
+                if X_occ.size == 0:
+                    X = torch.Tensor([-1])
+                else:
+                    X = torch.Tensor(X_df[self.occ_feature].values)
+                    X = torch.cat([torch.Tensor([-1]), X])
+                    
+                y = torch.Tensor([y_df[self.occ_feature]])[None, :]
+
+                #print(X, y)
+                if self.include_x_features:
+                        x_features = torch.Tensor(X_df[self.exogenous_features].astype(float).values)
+                        y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)[None, :]
+                        exo_features = torch.cat([x_features, y_features])
+                        #print(torch.cat([x_features, y_features]).shape)
+                        
+                        #X = torch.cat([X[:, None], torch.Tensor(X_df[self.exogenous_features].astype(float).values)], dim=1)
+
+                X = torch.cat([X[:, None], exo_features], dim=1)
+                
+                info = (lecture_id, X_df["starttime"], y_df["starttime"], 
+                        self.exogenous_features, X_df["roomid"], y_df["roomid"], unique_part)
+                samples.append((info, X, y_features, y))
                 
         return samples
-          
-    def create_samples_normal(self, time_series, room_id):
-        
-        occ_time_series = time_series.copy(deep=True)
-        
-        X_list = []
-        y_list = []
-        y_features_list = []
-        sample_info = []
-    
-        # we want to predict the next N steps based on the previous T steps
-        window_size = self.x_horizon + self.y_horizon
-        for window in occ_time_series.rolling(window=window_size):
-            
-            if self.sample_differencing:
-                window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(window[self.occ_feature])
-                window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(window[self.occ_feature + "1week"])
-                window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(window[self.occ_feature + "1day"])
-            
-            X_df = window.iloc[:self.x_horizon]
-            y_df = window.iloc[self.x_horizon:]
 
-            if self.sample_differencing:
-                y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-                X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+    def create_samples_sequential(self):
+        
+        samples = []
+        
+        # normalize registered if necessary
+        if (self.occ_feature == "occrate"):
+            self.lec_df["registered"] = self.lec_df["registered"] / self.lec_df["roomcapacity"]  
+        
+        # unique -> type, coursenumber, registered
+        unique_features = self.unique_types
+        
+        for lecture_id, sub_df in self.lec_df.groupby("coursenumber"):
+            
+            dropped = sub_df[sorted(list(unique_features))].drop_duplicates()
+            if len(dropped) != 1:
+                raise ValueError("Unique features are not unique!!")
+            
+            unique_part = torch.Tensor(dropped.astype(float).values)
+            
+            for i in range(1, len(sub_df)):
+            
+                X_df = sub_df.iloc[:i]
+                y_df = sub_df.iloc[i]
                 
-            else:
-                y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-                X = torch.Tensor(X_df[self.occ_feature].values[:, None])
             
-            if y.numel() != self.y_horizon:
-                continue
-            else:
+                X_occ = X_df[self.occ_feature]
 
-                y_features = torch.Tensor(y_df[self.exogenous_features].values)
-
+                X = torch.Tensor(X_occ.values)
+                y = torch.Tensor([y_df[self.occ_feature]])[:, None]
+                
                 if self.include_x_features:
-                    X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-            
-            X_list.append(X)
-            y_features_list.append(y_features)
-            y_list.append(y) 
-        
-            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
-
-        sanity_check_1 = [len(x)==self.x_horizon for x in X_list]
-        sanity_check_2 = [len(y)==self.y_horizon for y in y_list]
-        
-        if (all(sanity_check_1) & all(sanity_check_2)):
-            #print("Check 2: All the samples have the correct size.")
-            return sample_info, X_list, y_features_list, y_list
-        
-        else:
-            raise ValueError("Sanity Check Failed")
-
-    def create_samples_unlimited(self, time_series, room_id):
-        
-        time_series = time_series.copy(deep=True)
-        
-        X_list = []
-        y_list = []
-        y_features_list = []
-        sample_info = []
-        
-        # we want to predict the next N steps based on the previous T steps
-        
-        if self.sample_differencing:
-            time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
-            time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
-            time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
-            
-        X_df = time_series.iloc[:self.x_horizon]
-        y_df = time_series.iloc[self.x_horizon:]
-        
-        if self.sample_differencing:
-            y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-            X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
-            
-        else:
-            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-            X = torch.Tensor(X_df[self.occ_feature].values[:, None])
-            
-
-        y_features = torch.Tensor(y_df[self.exogenous_features].values)
-
-        if self.include_x_features:
-            X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-        
-        X_list.append(X)
-        y_features_list.append(y_features)
-        y_list.append(y) 
-        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
-
-        return sample_info, X_list, y_features_list, y_list
-
-    def create_samples_dayahead(self, time_series, room_id):
-        
-        occ_time_series = time_series.copy(deep=True)
-        
-        X_list = []
-        y_list = []
-        y_features_list = []
-        sample_info = []
-
-        # we want to predict the nex day based on the previous T steps
-        occ_time_series["day"] = occ_time_series["datetime"].dt.date
-        
-        i = 0
-        for grouping, sub_df in occ_time_series.groupby("day"):
-            
-            if i == 0:
-                i += 1
-                continue
+                        X = torch.cat([X[:, None], torch.Tensor(X_df[self.exogenous_features].astype(float).values)], dim=1)
                 
-            X_df = occ_time_series[occ_time_series["day"] == (grouping - pd.Timedelta("1d"))]
-            X_df = X_df.iloc[-self.x_horizon:]
+                y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)[None, :]
 
-            if len(X_df) < self.x_horizon:
-                continue
+                info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], unique_part)
+                samples.append((info, X, y_features, y))
+
+        
+        return samples
+       
+    #def create_samples_normal(self, time_series, room_id):
+        
+    #    occ_time_series = time_series.copy(deep=True)
+        
+    #    X_list = []
+    #    y_list = []
+    #    y_features_list = []
+    #    sample_info = []
+    
+    #    # we want to predict the next N steps based on the previous T steps
+    #    window_size = self.x_horizon + self.y_horizon
+    #    for window in occ_time_series.rolling(window=window_size):
             
-            y_df = sub_df
+    #        if self.sample_differencing:
+    #            window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(window[self.occ_feature])
+    #            window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(window[self.occ_feature + "1week"])
+    #            window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(window[self.occ_feature + "1day"])
             
-            # we want to predict the next N steps based on the previous T steps
-            if self.sample_differencing:
-                raise NotImplementedError("Differencing not implemented for dayahead mode.")
-                time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
-                time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
-                time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
-                y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-                X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+    #        X_df = window.iloc[:self.x_horizon]
+    #        y_df = window.iloc[self.x_horizon:]
+
+    #        if self.sample_differencing:
+    #            y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+    #            X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
                 
-            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-            X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
-            y_features = torch.Tensor(y_df[self.exogenous_features].values)
+    #        else:
+    #            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+    #            X = torch.Tensor(X_df[self.occ_feature].values[:, None])
             
-            if self.include_x_features:
-                X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+    #        if y.numel() != self.y_horizon:
+    #            continue
+    #        else:
+
+    #            y_features = torch.Tensor(y_df[self.exogenous_features].values)
+
+    #            if self.include_x_features:
+    #                X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
             
-            X_list.append(X)
-            y_features_list.append(y_features)
-            y_list.append(y) 
-            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+    #        X_list.append(X)
+    #        y_features_list.append(y_features)
+    #        y_list.append(y) 
+        
+    #        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+
+    #    sanity_check_1 = [len(x)==self.x_horizon for x in X_list]
+    #    sanity_check_2 = [len(y)==self.y_horizon for y in y_list]
+        
+    #    if (all(sanity_check_1) & all(sanity_check_2)):
+    #        #print("Check 2: All the samples have the correct size.")
+    #        return sample_info, X_list, y_features_list, y_list
+        
+    #    else:
+    #        raise ValueError("Sanity Check Failed")
+
+    #def create_samples_unlimited(self, time_series, room_id):
+        
+    #    time_series = time_series.copy(deep=True)
+        
+    #    X_list = []
+    #    y_list = []
+    #    y_features_list = []
+    #    sample_info = []
+        
+    #    # we want to predict the next N steps based on the previous T steps
+        
+    #    if self.sample_differencing:
+    #        time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
+    #        time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
+    #        time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
+            
+    #    X_df = time_series.iloc[:self.x_horizon]
+    #    y_df = time_series.iloc[self.x_horizon:]
+        
+    #    if self.sample_differencing:
+    #        y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+    #        X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+            
+    #    else:
+    #        y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+    #        X = torch.Tensor(X_df[self.occ_feature].values[:, None])
+            
+
+    #    y_features = torch.Tensor(y_df[self.exogenous_features].values)
+
+    #    if self.include_x_features:
+    #        X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+        
+    #    X_list.append(X)
+    #    y_features_list.append(y_features)
+    #    y_list.append(y) 
+    #    sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+
+    #    return sample_info, X_list, y_features_list, y_list
+
+    #def create_samples_dayahead(self, time_series, room_id):
+        
+    #    occ_time_series = time_series.copy(deep=True)
+        
+    #    X_list = []
+    #    y_list = []
+    #    y_features_list = []
+    #    sample_info = []
+
+    #    # we want to predict the nex day based on the previous T steps
+    #    occ_time_series["day"] = occ_time_series["datetime"].dt.date
+        
+    #    i = 0
+    #    for grouping, sub_df in occ_time_series.groupby("day"):
+            
+    #        if i == 0:
+    #            i += 1
+    #            continue
+                
+    #        X_df = occ_time_series[occ_time_series["day"] == (grouping - pd.Timedelta("1d"))]
+    #        X_df = X_df.iloc[-self.x_horizon:]
+
+    #        if len(X_df) < self.x_horizon:
+    #            continue
+            
+    #        y_df = sub_df
+            
+    #        # we want to predict the next N steps based on the previous T steps
+    #        if self.sample_differencing:
+    #            raise NotImplementedError("Differencing not implemented for dayahead mode.")
+    #            time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
+    #            time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
+    #            time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
+    #            y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+    #            X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+                
+    #        y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+    #        X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
+    #        y_features = torch.Tensor(y_df[self.exogenous_features].values)
+            
+    #        if self.include_x_features:
+    #            X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+            
+    #        X_list.append(X)
+    #        y_features_list.append(y_features)
+    #        y_list.append(y) 
+    #        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
                                          
 
             
-        return sample_info, X_list, y_features_list, y_list  
+    #    return sample_info, X_list, y_features_list, y_list  
     
-    def correct_samples(self, samples, verbose=True):
+    #def correct_samples(self, samples, verbose=True):
         
-        one_hour = int(pd.Timedelta("1h")/self.td_freq)
+    #    one_hour = int(pd.Timedelta("1h")/self.td_freq)
         
-        corrected_samples = []
-        counter_0 = 0
-        counter_else = 0
-        for info, X, y_features, y in samples:
-            if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
-                if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
-                    corrected_samples.append((info, X, y_features, y))
-                    counter_0 += 1
+    #    corrected_samples = []
+    #    counter_0 = 0
+    #    counter_else = 0
+    #    for info, X, y_features, y in samples:
+    #        if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
+    #            if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
+    #                corrected_samples.append((info, X, y_features, y))
+    #                counter_0 += 1
 
-            else:
-                corrected_samples.append((info, X, y_features, y))
-                counter_else += 1
+    #        else:
+    #            corrected_samples.append((info, X, y_features, y))
+    #            counter_else += 1
         
-        if verbose:
-            print("Number of Samples: ", len(corrected_samples))        
-            print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
-            print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
-            print("-----------------")
+    #    if verbose:
+    #        print("Number of Samples: ", len(corrected_samples))        
+    #        print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
+    #        print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
+    #        print("-----------------")
             
-        return corrected_samples
+    #    return corrected_samples
      
      
     ############ Dataset Functions ############

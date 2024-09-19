@@ -4,11 +4,11 @@ from _forecasting.data import prepare_data, prepare_data_lecture
 from _forecasting.data import OccFeatureEngineer, LectureFeatureEngineer
 from _forecasting.data import train_val_test_split
 from _forecasting.data import OccupancyDataset, LectureDataset
-from _forecasting.data import load_data_dicts
+from _forecasting.data import load_data_dicts, load_data_lecture
 
 ####### Importing all the functions from the model.py file #######
-from _forecasting.model import SimpleOccDenseNet, OccDenseNet
-from _forecasting.model import SimpleOccLSTM
+from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, OccDenseNet
+from _forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
 
 ####### Importing all the functions from the train.py file #######
 from _forecasting.training import MasterTrainer
@@ -23,4 +23,4 @@ from _forecasting.utilities import prompt_for_missing_arguments
 from _forecasting.testing import list_checkpoints
 from _forecasting.testing import run_n_tests
 from _forecasting.testing import write_header_to_txt
-from _forecasting.testing import evaluate_results
+from _forecasting.testing import evaluate_results, evaluate_results_lecture

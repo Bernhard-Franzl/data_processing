@@ -1,21 +1,45 @@
 ,0
-IK,int64
+Artificial Intelligence,int64
+B1 - Bachelor 1. Jahr,int64
+B2 - Bachelor 2. Jahr,int64
+B3 - Bachelor 3. Jahr,int64
+Betriebswirtschaftslehre,int64
+Biologische Chemie,int64
+Chemie,int64
+D - Diplom,int64
+Informatik,int64
+Informationselektronik,int64
 KS,int64
-KV,int64
-RE,int64
+Kunststofftechnik,int64
+M1 - Master 1. Jahr,int64
+M2 - Master 2. Jahr,int64
+Maschinenbau,int64
+Mathematik,int64
+Mechatronik,int64
+Medical Engineering,int64
+None_level,int64
+None_sa,int64
+Pädagogik,int64
+Rechtswissenschaften,int64
+Sozialwissenschaften,int64
+Statistik,int64
 UE,int64
-UV,int64
 VL,int64
-VO,int64
-VU,int64
+Volkswirtschaftslehre,int64
+Wirtschaftsinformatik,int64
 calendarweek,int64
 calendarweek1,float64
 calendarweek2,float64
 coursenumber,object
+ects,float64
+endtime,datetime64[ns]
+endtime1,float64
+endtime2,float64
 exam,bool
-occount,int64
-occrate,int64
+occcount,int64
+occrate,float64
 registered,int64
+roomcapacity,int64
 roomid,int64
 starttime,datetime64[ns]
 starttime1,float64
