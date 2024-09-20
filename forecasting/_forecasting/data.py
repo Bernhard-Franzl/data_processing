@@ -132,7 +132,7 @@ def train_val_test_split_lecture(course_dates, rng, verbose=True):
 
     rng.shuffle(indices)
     
-    test_slice = int(len(indices) * 0.3)
+    test_slice = int(len(indices) * 0.15)
 
     val_indices = indices[:test_slice]
     test_indices = indices[test_slice : 2*test_slice]
