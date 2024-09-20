@@ -24,8 +24,9 @@ dfg = DFG()
 #n_run = args.n_run
 #n_param = args.n_param
 
-n_run = 2
+n_run = 4
 n_param = 0
+mode = "sequential"
 ################################
 
 param_dir = "_forecasting/parameters/lecture"
@@ -61,7 +62,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     mt.save_hyperparameters(save_path=cp_path)
     
     train_loader, val_loader, test_loader, model, optimizer = mt.intialize_all_lecture(
-        train_df, val_df, test_df, "onedateahead")
+        train_df, val_df, test_df, mode)
     print(model)
     # train model for n_updates
     mt.train_n_updates(train_loader, val_loader, 

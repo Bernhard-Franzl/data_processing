@@ -84,10 +84,10 @@ import torch
 cp_log_dir = "_forecasting/checkpoints/lecture"
 for mode in ["onedateahead"]:
     filename = f"results_lecture_{mode}.txt"
-    for data in ["train"]:
+    for data in ["train", "val"]:
         
         list_combs, dict_losses, list_hyperparameters = run_n_tests(
-            run_comb_tuples=[(2,60)],
+            run_comb_tuples=[(4,0)],
             cp_log_dir=cp_log_dir, 
             mode=mode, 
             plot=True,  

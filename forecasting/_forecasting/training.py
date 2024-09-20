@@ -126,9 +126,9 @@ class MasterTrainer:
         X = torch.stack([x_i[1] for x_i in x])
         y_features = torch.stack([x_i[2] for x_i in x])
         y = torch.stack([x_i[3] for x_i in x])
-        unique_features = torch.stack([x_i[0][6] for x_i in x])
+        immutable_features = torch.stack([x_i[0][6] for x_i in x])
 
-        return info, X, y_features, y, unique_features
+        return info, X, y_features, y, immutable_features
     
     def handle_criterion(self, criterion:str):
 
