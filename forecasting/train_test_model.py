@@ -87,7 +87,7 @@ for mode in ["onedateahead"]:
     for data in ["train"]:
         
         list_combs, dict_losses, list_hyperparameters = run_n_tests(
-            run_comb_tuples=[(2,58)],
+            run_comb_tuples=[(2,60)],
             cp_log_dir=cp_log_dir, 
             mode=mode, 
             plot=True,  
