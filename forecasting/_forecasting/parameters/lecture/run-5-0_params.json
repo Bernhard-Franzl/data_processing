@@ -11,5 +11,5 @@
     "num_layers": [1],
     "features": ["occrate_registered_exam_test_tutorium_starttime_endtime_calendarweek_weekday_type_studyarea_ects_level"],
     "include_x_features": [true],
-    "max_n_updates": 200000
+    "max_n_updates": 250000
 }
