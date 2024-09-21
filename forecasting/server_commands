@@ -2,6 +2,11 @@ For GPU Sheet:
 franzl
 k11808880@students.jku.at
 
+For Server:
+User: franzl
+PWD: DNz83LUc
+
+
 Run these commands for nicest server experience:
 
 ssh -L 16007:127.0.0.1:6006 franzl@student06.ai-lab.jku.at -p 5792

@@ -3,6 +3,7 @@
     "model_class": ["simple_lecture_densenet"],
     "differencing": ["none"],
     "discretization": [true],
+    "binsize": [0.01],
     "criterion": ["CE"],
     "lr": [1e-5],
     "weight_decay": [0],

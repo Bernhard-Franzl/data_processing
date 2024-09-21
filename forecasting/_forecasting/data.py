@@ -1189,7 +1189,7 @@ class LectureDataset(Dataset):
         self.verbose = verbose      
          
         self.discretization = hyperparameters["discretization"] 
-        self.occrate_boundaries = torch.arange(0.1, 1.0, 0.1)
+        self.occrate_boundaries = torch.arange(hyperparameters["binsize"], 1.0, hyperparameters["binsize"])
         self.onehot = torch.eye(len(self.occrate_boundaries)+1)
         ############ Process Data ############
         # convert frequency to timedelta

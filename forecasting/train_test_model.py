@@ -2,7 +2,7 @@ import numpy as np
 from _forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
 
   
-cp_log_dir = "_forecasting/checkpoints/presence"
+cp_log_dir = "_forecasting/checkpoints/lecture"
 #mode = "normal"
 #filename = f"results_{mode}.txt"
 
@@ -87,7 +87,7 @@ for mode in ["onedateahead"]:
     for data in ["train", "val"]:
         
         list_combs, dict_losses, list_hyperparameters = run_n_tests(
-            run_comb_tuples=[(4,0)],
+            run_comb_tuples=[(5,5)],
             cp_log_dir=cp_log_dir, 
             mode=mode, 
             plot=True,  
