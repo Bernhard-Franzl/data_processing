@@ -233,7 +233,7 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
         inputs.append(X)
         targets.append(y)
         target_features.append(y_features)
-        
+    
     return losses, predictions, infos, targets, inputs, target_features
 
 def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
@@ -268,13 +268,20 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
 
         # run detailed test
         if mode in ["normal", "dayahead", "unlimited"]:
-            losses, predictions, infos, targets, _, _ = run_detailed_test(model, dataset, device)
+            losses, predictions, infos, targets, inputs, target_features = run_detailed_test(model, dataset, device)
         else:
-            losses, predictions, infos, targets, _, _ = run_detailed_test_forward(model, dataset, device)
+            losses, predictions, infos, targets, inputs, target_features = run_detailed_test_forward(model, dataset, device)
         
         for key in dict_losses:
             dict_losses[key].append(losses[key])
         list_combs.append((n_run, n_comb))
+        
+        losses_mae = np.array(losses["MAE"])
+        argsort_losses = np.argsort(losses_mae)[::-1]
+        greater_0 = argsort_losses[losses_mae[argsort_losses] > 0]
+        print(argsort_losses)
+        
+        print(argsort_losses, argsort_losses[losses_mae[argsort_losses] > 0])
         
         if plot:
             if mode in ["normal", "dayahead", "unlimited"]:
