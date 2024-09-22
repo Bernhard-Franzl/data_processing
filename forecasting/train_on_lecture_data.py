@@ -12,6 +12,9 @@ import numpy as np
 import os
 dfg = DFG()
 
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
+
 # TODO:
 # handle courses with same starting time
 # Implement early+ stopping
