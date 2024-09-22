@@ -91,7 +91,8 @@ for mode in ["onedateahead"]:
             cp_log_dir=cp_log_dir, 
             mode=mode, 
             plot=True,  
-            data=data
+            data=data,
+            naive_baseline=True,
         )   
         
         # claculate mean losses

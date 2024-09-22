@@ -236,7 +236,71 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
     
     return losses, predictions, infos, targets, inputs, target_features
 
-def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
+def run_naive_baseline_lecture(dataset:OccupancyDataset, device):
+    # simply predicts the last observed value
+    
+    
+    mae_f = torch.nn.L1Loss(reduction="mean")
+    mse_f = torch.nn.MSELoss(reduction="mean")
+    r2_f = torchmetrics.R2Score()      
+    
+    losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
+    
+    predictions = []
+    infos = []
+    inputs = []
+    targets = []
+    target_features = []
+    
+    bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
+    for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
+        
+        
+        print(info, X, y_features, y)
+        raise ValueError("Stop")
+        #X = X.to(device)
+        #room_id = info[6].to(device)
+        #y_features = y_features.to(device)
+        
+        #with torch.no_grad():
+            
+        #    preds = model(X, y_features, room_id)
+            
+            #if len(preds) == 0:
+            #    continue
+            
+            # preds = preds.to("cpu")
+            # #y_adjusted = y[:len(preds)]
+            
+            # if model.discretization:
+            #     preds = torch.argmax(preds, dim=-1).to(dtype=torch.float32)
+            #     y = torch.argmax(y, dim=-1).to(dtype=torch.float32)
+            
+            # info = (info[0], info[1], info[2], info[3], info[4], info[5], info[6])
+            
+            # #print(len(y_adjusted), info[2].shape, "pred:", len(preds))
+            # #if preds.shape != y_adjusted.shape:
+            # #    y_adjusted = y_adjusted.unsqueeze(-1)
+                
+            # losses["MAE"].append(mae_f(preds, y))
+            # losses["MSE"].append(mse_f(preds, y))
+            # losses["RMSE"].append(torch.sqrt(mse_f(preds, y)))
+            # if len(preds) == 1:
+            #     losses["R2"].append(None)
+            # else:
+            #     losses["R2"].append(r2_f(preds, y))
+            
+        predictions.append(preds)
+        infos.append(info)
+        inputs.append(X)
+        targets.append(y)
+        target_features.append(y_features)
+    
+    return losses, predictions, infos, targets, inputs, target_features
+    
+    
+
+def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
     
     dfg = DFG()
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -249,13 +313,15 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
     for n_run, n_comb in tqdm(run_comb_tuples, total=len(run_comb_tuples), bar_format=bar_format, leave=False):
 
         checkpoint_path = os.path.join(cp_log_dir, f"run_{n_run}", f"comb_{n_comb}")
-
+        
         model, hyperparameters, dataset, room_ids = prepare_model_and_data(
             checkpoint_path=checkpoint_path, 
             dfg=dfg, 
             device=device,
             mode=mode,
             data=data)
+        
+        
         
         # print size of model
         
@@ -270,6 +336,8 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data):
         if mode in ["normal", "dayahead", "unlimited"]:
             losses, predictions, infos, targets, inputs, target_features = run_detailed_test(model, dataset, device)
         else:
+            if naive_baseline:
+                naive_losses, naive_preds, naive_infos, naive_targets, naive_inputs, naive_target_features = run_naive_baseline_lecture(dataset, device)
             losses, predictions, infos, targets, inputs, target_features = run_detailed_test_forward(model, dataset, device)
         
         for key in dict_losses:
