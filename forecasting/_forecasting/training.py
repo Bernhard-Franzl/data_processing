@@ -218,13 +218,13 @@ class MasterTrainer:
             raise ValueError("Dataset mode not supported.")
         
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=collate_f, generator=self.torch_rng, num_workers=3, drop_last=True)
+                                  collate_fn=collate_f, generator=self.torch_rng, num_workers=3, drop_last=False)
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=collate_f, num_workers=3, drop_last=True)
+                                collate_fn=collate_f, num_workers=3, drop_last=False)
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=collate_f, num_workers=3, drop_last=True)
+                                 collate_fn=collate_f, num_workers=3, drop_last=False)
         
         return train_loader, val_loader, test_loader
  

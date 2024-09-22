@@ -46,7 +46,8 @@ train_set, val_set, test_set = prepare_data_lecture(
     path_to_data_dir="data",
     feature_list=sorted(list(LectureFeatureEngineer.permissible_features)),
     dfguru = dfg,
-    rng = np_rng
+    rng = np_rng,
+    split_by="time"
 )
 
 dfg.save_to_csv(train_set, "data", f"lecture_train_set")

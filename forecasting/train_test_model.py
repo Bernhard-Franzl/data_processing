@@ -86,7 +86,7 @@ for mode in ["onedateahead"]:
     filename = f"results_lecture_{mode}.txt"
     for data in ["train", "val"]:
         
-        list_combs, dict_losses, list_hyperparameters = run_n_tests(
+        list_combs, dict_losses, list_hyperparameters, baseline_losses = run_n_tests(
             run_comb_tuples=[(5,5)],
             cp_log_dir=cp_log_dir, 
             mode=mode, 
@@ -103,7 +103,8 @@ for mode in ["onedateahead"]:
                 if key == "R2":
                     continue
                 mean_loss = torch.mean(torch.Tensor(dict_losses[key][i]))
-                print(f"Mean {key} loss: {mean_loss}")
+                baseline_mean_loss = torch.mean(torch.Tensor(baseline_losses[key][i]))
+                print(f"Mean {key} loss: {mean_loss} | Baseline: {baseline_mean_loss}")
             print(f"------------------------")
 
 

@@ -236,7 +236,7 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
     
     return losses, predictions, infos, targets, inputs, target_features
 
-def run_naive_baseline_lecture(dataset:OccupancyDataset, device):
+def run_naive_baseline_lecture(model, dataset:OccupancyDataset, device):
     # simply predicts the last observed value
     
     
@@ -255,9 +255,8 @@ def run_naive_baseline_lecture(dataset:OccupancyDataset, device):
     bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
     for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
         
-        
-        print(info, X, y_features, y)
-        raise ValueError("Stop")
+        preds = X[:-12]
+
         #X = X.to(device)
         #room_id = info[6].to(device)
         #y_features = y_features.to(device)
@@ -272,9 +271,8 @@ def run_naive_baseline_lecture(dataset:OccupancyDataset, device):
             # preds = preds.to("cpu")
             # #y_adjusted = y[:len(preds)]
             
-            # if model.discretization:
-            #     preds = torch.argmax(preds, dim=-1).to(dtype=torch.float32)
-            #     y = torch.argmax(y, dim=-1).to(dtype=torch.float32)
+        if model.discretization:
+            preds = torch.argmax(preds, dim=-1).to(dtype=torch.float32)
             
             # info = (info[0], info[1], info[2], info[3], info[4], info[5], info[6])
             
@@ -282,13 +280,9 @@ def run_naive_baseline_lecture(dataset:OccupancyDataset, device):
             # #if preds.shape != y_adjusted.shape:
             # #    y_adjusted = y_adjusted.unsqueeze(-1)
                 
-            # losses["MAE"].append(mae_f(preds, y))
-            # losses["MSE"].append(mse_f(preds, y))
-            # losses["RMSE"].append(torch.sqrt(mse_f(preds, y)))
-            # if len(preds) == 1:
-            #     losses["R2"].append(None)
-            # else:
-            #     losses["R2"].append(r2_f(preds, y))
+        losses["MAE"].append(mae_f(preds, y))
+        losses["MSE"].append(mse_f(preds, y))
+        losses["RMSE"].append(torch.sqrt(mse_f(preds, y)))
             
         predictions.append(preds)
         infos.append(info)
@@ -298,8 +292,6 @@ def run_naive_baseline_lecture(dataset:OccupancyDataset, device):
     
     return losses, predictions, infos, targets, inputs, target_features
     
-    
-
 def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
     
     dfg = DFG()
@@ -307,6 +299,7 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
     
     list_combs = []
     dict_losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
+    baseline_losses = {"MAE":[], "MSE":[], "RMSE":[], "R2":[]}
     list_hyperparameters = []
 
     bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
@@ -332,34 +325,38 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
 
         list_hyperparameters.append(hyperparameters)
 
+        naive_preds = None
         # run detailed test
         if mode in ["normal", "dayahead", "unlimited"]:
             losses, predictions, infos, targets, inputs, target_features = run_detailed_test(model, dataset, device)
         else:
             if naive_baseline:
-                naive_losses, naive_preds, naive_infos, naive_targets, naive_inputs, naive_target_features = run_naive_baseline_lecture(dataset, device)
+                naive_losses, naive_preds, _, _, _, _ = run_naive_baseline_lecture(model, dataset, device)
+                
+                for key in baseline_losses:
+                    baseline_losses[key].append(naive_losses[key])
+                    
             losses, predictions, infos, targets, inputs, target_features = run_detailed_test_forward(model, dataset, device)
         
         for key in dict_losses:
             dict_losses[key].append(losses[key])
-        list_combs.append((n_run, n_comb))
         
+        list_combs.append((n_run, n_comb))
+
         losses_mae = np.array(losses["MAE"])
         argsort_losses = np.argsort(losses_mae)[::-1]
         greater_0 = argsort_losses[losses_mae[argsort_losses] > 0]
-        print(argsort_losses)
-        
-        print(argsort_losses, argsort_losses[losses_mae[argsort_losses] > 0])
+        #print(argsort_losses)
         
         if plot:
             if mode in ["normal", "dayahead", "unlimited"]:
                 plot_predictions(infos, predictions, targets, room_ids, n_run, n_comb)
             else:
-             plot_predictions_lecture(infos, predictions, targets, room_ids, n_run, n_comb)
+                plot_predictions_lecture(infos, predictions, targets, room_ids, n_run, n_comb, naive_preds)
             
-    return list_combs, dict_losses, list_hyperparameters
+    return list_combs, dict_losses, list_hyperparameters, baseline_losses
 
-def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int):
+def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int, naive_predictions=None):
     
     dict_y_times = dict([(room_id,[]) for room_id in room_ids])    
     dict_preds = dict([(room_id,[]) for room_id in room_ids])
@@ -409,7 +406,7 @@ def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, 
         
         fig.show()
         
-def plot_predictions_lecture(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int):
+def plot_predictions_lecture(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int, naive_predictions:list=None):
     
     #dict_y_times = dict([(room_id,[]) for room_id in room_ids])    
     #dict_preds = dict([(room_id,[]) for room_id in room_ids])
@@ -438,6 +435,16 @@ def plot_predictions_lecture(infos:list, predictions:list, targets:list, room_id
             name=f"Targets"
         )
     )
+    if naive_predictions:
+        naive_predictions = [x.squeeze().numpy() for x in naive_predictions]
+        fig.add_trace(
+            go.Scatter(
+                x=x_axis,
+                y=naive_predictions,
+                mode="lines+markers",
+                name=f"Naive Baseline"
+            )
+        )
     
     fig.update_layout(
         title=f"Run {n_run} - Combination {n_comb}",

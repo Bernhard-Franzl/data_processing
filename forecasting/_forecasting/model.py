@@ -20,11 +20,14 @@ class SimpleLectureDenseNet(nn.Module):
         self.batch_size = hyperparameters["batch_size"]
         
         self.immutable_size = hyperparameters["immutable_size"]
+        self.dropout_p = hyperparameters["dropout"]
         
         
         self.lin_1 = nn.Linear(self.x_size, 32)
         self.lin_2 = nn.Linear(self.y_features_size, 32)
         self.lin_3 = nn.Linear(self.immutable_size, 32)
+        
+        self.dropout = nn.Dropout(p=self.dropout_p)
         self.lin_mid = nn.Linear(32*3, self.hidden_size[0])
         
         self.lin_out = nn.Linear(self.hidden_size[0], self.output_size)
@@ -93,8 +96,11 @@ class SimpleLectureDenseNet(nn.Module):
         out_2 = self.relu(self.lin_2(y_features))
         out_3 = self.relu(self.lin_3(immutable_features))
         
-        in_mid= torch.cat((out_1, out_2, out_3), 1)
+        in_mid = torch.cat((out_1, out_2, out_3), 1)
+        in_mid = self.dropout(in_mid)
+        
         out_mid = self.relu(self.lin_mid(in_mid))
+        out_mid = self.dropout(out_mid)
         
         pred = self.lin_out(out_mid)
         #pred = self.last_activation(out)

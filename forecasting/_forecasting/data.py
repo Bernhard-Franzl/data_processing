@@ -71,7 +71,7 @@ def load_data_lecture(path_to_data_dir, dfguru):
     
     return traindf, valdf, testdf
     
-def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng):
+def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng, split_by):
     course_dates_data = dfguru.load_dataframe(
         path_repo=path_to_data_dir, 
         file_name="course_dates")
@@ -103,11 +103,11 @@ def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng):
         features=feature_list, 
     )
         
-    train_set, val_set, test_set = train_val_test_split_lecture(course_dates_df, rng, verbose=True)
+    train_set, val_set, test_set = train_val_test_split_lecture(course_dates_df, rng, split_by, verbose=True)
     
     return train_set, val_set, test_set
 
-def train_val_test_split_lecture(course_dates, rng, verbose=True):
+def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
     
     # randomly exclude chunks of the data
     #train_dict = {}
@@ -119,7 +119,42 @@ def train_val_test_split_lecture(course_dates, rng, verbose=True):
     #test_size = 0
     #train_size = 0
     
-    course_numbers = course_dates["coursenumber"].unique()
+    if split_by == "course_number":
+        course_numbers = course_dates["coursenumber"].unique()
+        indices = np.arange(0, len(course_numbers))
+        slice_size = int(len(indices) * 0.15)
+        
+        rng.shuffle(indices)
+
+        val_indices = indices[:slice_size]
+        test_indices = indices[slice_size : 2*slice_size]
+        train_indices = indices[2*slice_size:]
+        
+        train_set = course_dates[course_dates["coursenumber"].isin(course_numbers[train_indices])].reset_index(drop=True)
+        val_set = course_dates[course_dates["coursenumber"].isin(course_numbers[val_indices])].reset_index(drop=True)
+        test_set = course_dates[course_dates["coursenumber"].isin(course_numbers[test_indices])].reset_index(drop=True)
+        
+    elif split_by == "time":
+        weeks = course_dates["calendarweek"].unique()
+        k= 5
+        train_indices = weeks[:k]
+        print(train_indices)
+        val_indices = weeks[k-1:k+1]
+        print(val_indices)
+        test_indices = weeks[k:]
+        print(test_indices)
+        
+        train_set = course_dates[course_dates["calendarweek"].isin(train_indices)].reset_index(drop=True)
+        val_set = course_dates[course_dates["calendarweek"].isin(val_indices)].reset_index(drop=True)
+        test_set = course_dates[course_dates["calendarweek"].isin(test_indices)].reset_index(drop=True)
+        
+    
+    elif split_by == "random":
+        split_criteria = "random"
+        #indices = np.arange(0, len(course_dates))
+        
+    else:
+        raise ValueError("Unknown split criteria.")
     
     #occ_time_series = data_dict[room_id]
     #total_size += len(occ_time_series)
@@ -127,20 +162,6 @@ def train_val_test_split_lecture(course_dates, rng, verbose=True):
     # generate chunks with size 0.05 of the data
     # index_shift = int(len(course_numbers) * 0.05)
     # print(index_shift)
-    
-    indices = np.arange(0, len(course_numbers))
-
-    rng.shuffle(indices)
-    
-    test_slice = int(len(indices) * 0.15)
-
-    val_indices = indices[:test_slice]
-    test_indices = indices[test_slice : 2*test_slice]
-    train_indices = indices[2*test_slice:]
-    
-    train_set = course_dates[course_dates["coursenumber"].isin(course_numbers[train_indices])].reset_index(drop=True)
-    val_set = course_dates[course_dates["coursenumber"].isin(course_numbers[val_indices])].reset_index(drop=True)
-    test_set = course_dates[course_dates["coursenumber"].isin(course_numbers[test_indices])].reset_index(drop=True)
 
 
     if verbose:
