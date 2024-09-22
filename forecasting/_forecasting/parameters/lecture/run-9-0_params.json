@@ -3,7 +3,7 @@
     "model_class": ["simple_lecture_densenet"],
     "differencing": ["none"],
     "discretization": [true],
-    "hidden_size": [[32]],
+    "hidden_size": [[64]],
     "dropout": [0.0, 0.2, 0.5],
     "binsize": [0.01, 0.05],
     "criterion": ["CE"],
