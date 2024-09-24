@@ -136,12 +136,12 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
         
     elif split_by == "time":
         weeks = course_dates["calendarweek"].unique()
-        k= 5
+        k=9
         train_indices = weeks[:k]
         print(train_indices)
         val_indices = weeks[:k+1]
         print(val_indices)
-        test_indices = weeks[:]
+        test_indices = weeks[:k+2]
         print(test_indices)
         
         train_set = course_dates[course_dates["calendarweek"].isin(train_indices)].reset_index(drop=True)
