@@ -136,19 +136,18 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
         
     elif split_by == "time":
         weeks = course_dates["calendarweek"].unique()
-        k= 10
+        k= 5
         train_indices = weeks[:k]
         print(train_indices)
-        val_indices = weeks[k-1:k+1]
+        val_indices = weeks[:k+1]
         print(val_indices)
-        test_indices = weeks[k:]
+        test_indices = weeks[:]
         print(test_indices)
         
         train_set = course_dates[course_dates["calendarweek"].isin(train_indices)].reset_index(drop=True)
         val_set = course_dates[course_dates["calendarweek"].isin(val_indices)].reset_index(drop=True)
         test_set = course_dates[course_dates["calendarweek"].isin(test_indices)].reset_index(drop=True)
-        
-    
+          
     elif split_by == "random":
         split_criteria = "random"
         #indices = np.arange(0, len(course_dates))
@@ -172,8 +171,7 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
         print()
     
     return train_set, val_set, test_set
-        
-        
+              
 def load_data_dicts(path_to_data_dir, frequency, dfguru):
     
     train_dict = {}
@@ -345,11 +343,14 @@ class LectureFeatureEngineer():
         self.study_areas = self.course_info_table["study_area"].unique()
 
         self.levels = self.course_info_table["level"].unique()
+        
+        self.course_numbers = self.course_dates_table["course_number"].unique()
 
         dictionary = {
             "study_areas": self.study_areas.tolist(),
             "levels": self.levels.tolist(),
             "course_types": self.course_types,
+            "course_numbers": self.course_numbers.tolist(),
         }
         # save auxillary data
         with open(file="data/helpers.json", mode="w") as file:
@@ -389,6 +390,12 @@ class LectureFeatureEngineer():
             feature_set.remove("level")
             feature_set = feature_set.union(self.levels)
 
+        with open(file="data/helpers.json", mode="r") as file:
+            dictionary = json.load(file)
+        dictionary["min_max_registered"] = [str(course_dates["registered"].min()), str(course_dates["registered"].max())]
+        with open(file="data/helpers.json", mode="w") as file:
+            json.dump(dictionary, file, indent=4)  
+        
         return course_dates[sorted(list(feature_set))]
 
     def add_features(self, course_dates, features):
@@ -1151,23 +1158,22 @@ class LectureDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
     
-    def __init__(self, lecture_df: dict, hyperparameters:dict, mode:str, verbose:bool=True):
+    def __init__(self, lecture_df: dict, hyperparameters:dict, dataset_mode:str, validation: bool, verbose:bool=True):
         """ Constructor for the occupancy dataset
         Task: Convert the cleaned data into a list of samples
         """
         super().__init__()
         
-        #self.rng = np.random.default_rng(42)
-        
-        
+
         self.lec_df = lecture_df
         self.hyperparameters = hyperparameters
+        self.validation = validation
 
         ############ Handle Features ############
         self.features_list = hyperparameters["features"].split("_")
         self.features = set(self.features_list)
         
-        self.immutable_features = {"type", "studyarea", "ects", "level" }
+        self.immutable_features = {"type", "studyarea", "ects", "level", "coursenumber"}
         self.immutable_features = self.immutable_features.intersection(self.features)
         
         # derive main feature
@@ -1192,6 +1198,12 @@ class LectureDataset(Dataset):
         with open("data/helpers.json", "r") as f:
             self.helper = json.load(f)
         
+        self.min_registered = int(self.helper["min_max_registered"][0])
+        self.max_registered = int(self.helper["min_max_registered"][1])
+        
+        self.course_numbers = self.helper["course_numbers"]
+        self.coursenr_lookup = dict([(x,i) for i,x in enumerate(self.course_numbers)])
+        
         if "type" in self.immutable_features:
             self.immutable_features.remove("type")
             self.immutable_features = self.immutable_features.union(self.helper["course_types"])
@@ -1212,16 +1224,21 @@ class LectureDataset(Dataset):
         self.discretization = hyperparameters["discretization"] 
         self.occrate_boundaries = torch.arange(hyperparameters["binsize"], 1.0, hyperparameters["binsize"])
         self.onehot = torch.eye(len(self.occrate_boundaries)+1)
+        
         ############ Process Data ############
         # convert frequency to timedelta
         #self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
         # process data
-        self.samples = self.process_data_df(mode)
+        self.samples = self.process_data_df(dataset_mode)
+        
+        #len_list = [x[1].shape[0] for x in self.samples]
+        #print(np.unique(len_list, return_counts=True))
+        
         ## correct samples
         #if mode == "normal":
         #    self.samples = self.correct_samples(self.samples, verbose=self.verbose)
         
-        print(f"Len Dataset: {len(self.samples)}")
+        #print(f"Len Dataset: {len(self.samples)}")
 
     ############ Feature Functions ############ 
     def handle_occ_feature(self, features):
@@ -1293,10 +1310,12 @@ class LectureDataset(Dataset):
     ############ Process Data Functions ############
     def process_data_df(self, mode):
         
-        if mode=="onedateahead":
-            sampling_function = self.create_samples_onedateahead
-        elif mode=="sequential":
-            sampling_function = self.create_samples_sequential
+        if mode=="time_onedateahead":
+            sampling_function = self.create_samples_time_onedateahead
+        elif mode=="time_sequential":
+            sampling_function = self.create_samples_sequential_time
+        elif mode == "course_sequential":
+            sampling_function = self.create_samples_sequential_course
         else:
             raise ValueError("Unknown mode.")
         
@@ -1314,6 +1333,7 @@ class LectureDataset(Dataset):
                 sub_df[["exam", "test", "tutorium"]] = sub_df[["exam", "test", "tutorium"]].mode().iloc[0]
                 
                 self.lec_df.loc[sub_df.index, ["occcount", "occrate", "exam", "test", "tutorium"]] = sub_df[["occcount", "occrate", "exam", "test", "tutorium"]]
+ 
         
         # handle splitted courses
         for _, sub_df in self.lec_df.groupby(["starttime", "coursenumber"]):
@@ -1325,18 +1345,46 @@ class LectureDataset(Dataset):
                 
                 self.lec_df.loc[sub_df.index, ["registered", "occrate"]] = sub_df[["registered", "occrate"]]
 
+        
+
+        self.lec_df["registered"]  = (self.lec_df["registered"] - self.min_registered) / (self.max_registered - self.min_registered)
+        
+
+        self.min_occrate = self.lec_df["occrate"].min()
+        self.max_occrate = self.lec_df["occrate"].max()
+        self.lec_df["occrate"] = (self.lec_df["occrate"] - self.min_occrate) / (self.max_occrate - self.min_occrate)
+        
         samples = sampling_function()
         
         return samples
     
-    def create_samples_onedateahead(self):    
+    def create_samples_time_onedateahead(self):    
         
         samples = []
-        
+
+        if self.validation:
+            max_week = self.lec_df["calendarweek"].max()
+            
         # group df by lecture
         for lecture_id, sub_df in self.lec_df.groupby("coursenumber"):
             
-            lecture_immutable_features = torch.Tensor(sub_df[sorted(list(self.immutable_features))].astype(float).iloc[0].values)
+            sorted_immu_features = sorted(list(self.immutable_features))
+            
+            if "coursenumber" in sorted_immu_features:
+                sorted_immu_features.remove("coursenumber")
+                
+            lecture_immutable_features = torch.Tensor(sub_df[sorted_immu_features].iloc[0].values)
+
+            if "coursenumber" in self.immutable_features:
+            
+                course_nr = sub_df["coursenumber"].iloc[0]
+                if type(course_nr) == str:
+                    course_nr_string = course_nr
+                else:
+                    course_nr_string = "{:.3f}".format(sub_df["coursenumber"].iloc[0])
+                
+                lecture_immutable_features = torch.cat([lecture_immutable_features, torch.Tensor([self.coursenr_lookup[course_nr_string]])])                          
+
 
             for window in sub_df.rolling(window=2):
                 
@@ -1344,6 +1392,11 @@ class LectureDataset(Dataset):
 
                     X_df = window.iloc[0]
                     y_df = window.iloc[1]
+                    
+                    if self.validation:
+                        if y_df["calendarweek"] != max_week:
+                            continue
+                        
                     X = torch.Tensor([X_df[self.occ_feature]])
                     y = torch.Tensor([y_df[self.occ_feature]])
                     
@@ -1435,7 +1488,7 @@ class LectureDataset(Dataset):
                 
         return samples
 
-    def create_samples_sequential(self):
+    def create_samples_sequential_course(self):
         
         samples = []
         
@@ -1499,179 +1552,94 @@ class LectureDataset(Dataset):
 
         
         return samples
-       
-    #def create_samples_normal(self, time_series, room_id):
-        
-    #    occ_time_series = time_series.copy(deep=True)
-        
-    #    X_list = []
-    #    y_list = []
-    #    y_features_list = []
-    #    sample_info = []
-    
-    #    # we want to predict the next N steps based on the previous T steps
-    #    window_size = self.x_horizon + self.y_horizon
-    #    for window in occ_time_series.rolling(window=window_size):
-            
-    #        if self.sample_differencing:
-    #            window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(window[self.occ_feature])
-    #            window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(window[self.occ_feature + "1week"])
-    #            window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(window[self.occ_feature + "1day"])
-            
-    #        X_df = window.iloc[:self.x_horizon]
-    #        y_df = window.iloc[self.x_horizon:]
 
-    #        if self.sample_differencing:
-    #            y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-    #            X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+    def create_samples_sequential_time(self):
+        
+        samples = []
+        
+        # unique -> type, coursenumber, registered
+        #unique_features = self.unique_types
+        
+        if self.validation:
+            max_week = self.lec_df["calendarweek"].max()
+        
+        for lecture_id, sub_df in self.lec_df.groupby("coursenumber"):
+            
+            
+            sorted_immu_features = sorted(list(self.immutable_features))
+            
+            if "coursenumber" in sorted_immu_features:
+                sorted_immu_features.remove("coursenumber")
                 
-    #        else:
-    #            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-    #            X = torch.Tensor(X_df[self.occ_feature].values[:, None])
-            
-    #        if y.numel() != self.y_horizon:
-    #            continue
-    #        else:
+            lecture_immutable_features = torch.Tensor(sub_df[sorted_immu_features].iloc[0].values)
 
-    #            y_features = torch.Tensor(y_df[self.exogenous_features].values)
-
-    #            if self.include_x_features:
-    #                X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-            
-    #        X_list.append(X)
-    #        y_features_list.append(y_features)
-    #        y_list.append(y) 
-        
-    #        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
-
-    #    sanity_check_1 = [len(x)==self.x_horizon for x in X_list]
-    #    sanity_check_2 = [len(y)==self.y_horizon for y in y_list]
-        
-    #    if (all(sanity_check_1) & all(sanity_check_2)):
-    #        #print("Check 2: All the samples have the correct size.")
-    #        return sample_info, X_list, y_features_list, y_list
-        
-    #    else:
-    #        raise ValueError("Sanity Check Failed")
-
-    #def create_samples_unlimited(self, time_series, room_id):
-        
-    #    time_series = time_series.copy(deep=True)
-        
-    #    X_list = []
-    #    y_list = []
-    #    y_features_list = []
-    #    sample_info = []
-        
-    #    # we want to predict the next N steps based on the previous T steps
-        
-    #    if self.sample_differencing:
-    #        time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
-    #        time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
-    #        time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
-            
-    #    X_df = time_series.iloc[:self.x_horizon]
-    #    y_df = time_series.iloc[self.x_horizon:]
-        
-    #    if self.sample_differencing:
-    #        y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-    #        X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
-            
-    #    else:
-    #        y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-    #        X = torch.Tensor(X_df[self.occ_feature].values[:, None])
-            
-
-    #    y_features = torch.Tensor(y_df[self.exogenous_features].values)
-
-    #    if self.include_x_features:
-    #        X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-        
-    #    X_list.append(X)
-    #    y_features_list.append(y_features)
-    #    y_list.append(y) 
-    #    sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
-
-    #    return sample_info, X_list, y_features_list, y_list
-
-    #def create_samples_dayahead(self, time_series, room_id):
-        
-    #    occ_time_series = time_series.copy(deep=True)
-        
-    #    X_list = []
-    #    y_list = []
-    #    y_features_list = []
-    #    sample_info = []
-
-    #    # we want to predict the nex day based on the previous T steps
-    #    occ_time_series["day"] = occ_time_series["datetime"].dt.date
-        
-    #    i = 0
-    #    for grouping, sub_df in occ_time_series.groupby("day"):
-            
-    #        if i == 0:
-    #            i += 1
-    #            continue
+            if "coursenumber" in self.immutable_features:
                 
-    #        X_df = occ_time_series[occ_time_series["day"] == (grouping - pd.Timedelta("1d"))]
-    #        X_df = X_df.iloc[-self.x_horizon:]
-
-    #        if len(X_df) < self.x_horizon:
-    #            continue
-            
-    #        y_df = sub_df
-            
-    #        # we want to predict the next N steps based on the previous T steps
-    #        if self.sample_differencing:
-    #            raise NotImplementedError("Differencing not implemented for dayahead mode.")
-    #            time_series[self.occ_feature+"samplediff"] = time_series[self.occ_feature].diff(1).combine_first(time_series[self.occ_feature])
-    #            time_series[self.occ_feature+"samplediff"+"1week"] = time_series[self.occ_feature + "1week"].diff(1).combine_first(time_series[self.occ_feature + "1week"])
-    #            time_series[self.occ_feature+"samplediff"+"1day"] = time_series[self.occ_feature + "1day"].diff(1).combine_first(time_series[self.occ_feature + "1day"])
-    #            y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-    #            X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+                course_nr = sub_df["coursenumber"].iloc[0]
+                if type(course_nr) == str:
+                    course_nr_string = course_nr
+                else:
+                    course_nr_string = "{:.3f}".format(sub_df["coursenumber"].iloc[0])
                 
-    #        y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-    #        X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
-    #        y_features = torch.Tensor(y_df[self.exogenous_features].values)
-            
-    #        if self.include_x_features:
-    #            X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-            
-    #        X_list.append(X)
-    #        y_features_list.append(y_features)
-    #        y_list.append(y) 
-    #        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
-                                         
+                lecture_immutable_features = torch.cat([lecture_immutable_features, torch.Tensor([self.coursenr_lookup[course_nr_string]])])                          
 
-            
-    #    return sample_info, X_list, y_features_list, y_list  
-    
-    #def correct_samples(self, samples, verbose=True):
-        
-    #    one_hour = int(pd.Timedelta("1h")/self.td_freq)
-        
-    #    corrected_samples = []
-    #    counter_0 = 0
-    #    counter_else = 0
-    #    for info, X, y_features, y in samples:
-    #        if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
-    #            if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
-    #                corrected_samples.append((info, X, y_features, y))
-    #                counter_0 += 1
+            for i in range(1, len(sub_df)):
+                
+                X_df = sub_df.iloc[:i]
+                y_df = sub_df.iloc[i]
+                
+                if self.validation:
+                    if y_df["calendarweek"] != max_week:
+                        continue
+                    #else:
+                    #    print(sorted(list(self.immutable_features)))
+                    #    print(lecture_immutable_features)
 
-    #        else:
-    #            corrected_samples.append((info, X, y_features, y))
-    #            counter_else += 1
-        
-    #    if verbose:
-    #        print("Number of Samples: ", len(corrected_samples))        
-    #        print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
-    #        print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
-    #        print("-----------------")
+                X = torch.Tensor(X_df[self.occ_feature].values)
+                y = torch.Tensor([y_df[self.occ_feature]])
+                
+                if len(y.shape) == 1:
+                    y = y[:, None]
             
-    #    return corrected_samples
+                if self.discretization:
+                    
+                    X = torch.bucketize(X, self.occrate_boundaries)
+                    y = torch.bucketize(y, self.occrate_boundaries)
+                    
+                    X = self.onehot[X]#.squeeze()
+                    y = self.onehot[y]#.squeeze()
+            
+                if self.include_x_features:
+                    if len(X.shape) == 1:
+                        X = X[:, None]
+  
+                    X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].astype(float).values)], dim=-1)
+                
+                #y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)
+                y_features = torch.Tensor(y_df[self.exogenous_features].astype(float).values)[None, :]
+
+                info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], lecture_immutable_features)
+                
+                if X_df.loc[X_df.index[-1], "starttime"] == y_df["starttime"]:
+                    print()
+                    print("Warning: Same Starttime")
+                    #print(X_df.loc[X_df.index[-1], "starttime"] , y_df["starttime"])
+                    if X_df.loc[X_df.index[-1], "roomid"]  == y_df["roomid"]:
+                        print("room_id matches -> nothing to do")
+                        continue
+                    else:
+                        info_old, X_old, _, _ = samples[-1]
+                        (_, X_df_st_old, _, _, X_df_ri_old, _, _) = info_old
+                        X = X_old
+                        info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
+                        print("-> handled!")
+                        print()
+                
+                samples.append((info, X, y_features, y))
+
+        return samples     
      
-     
+
     ############ Dataset Functions ############
     def __len__(self):
         return len(self.samples)
@@ -1679,4 +1647,5 @@ class LectureDataset(Dataset):
     def __getitem__(self, idx):
         return self.samples[idx]
        
-    
+    def set_samples(self, samples):
+        self.samples = samples

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-
+import json
 class SimpleLectureDenseNet(nn.Module):
 
     def __init__(self, hyperparameters):
@@ -23,22 +23,39 @@ class SimpleLectureDenseNet(nn.Module):
         self.dropout_p = hyperparameters["dropout"]
         
         
-        self.lin_1 = nn.Linear(self.x_size, 32)
-        self.lin_2 = nn.Linear(self.y_features_size, 32)
-        self.lin_3 = nn.Linear(self.immutable_size, 32)
+        if "coursenumber" in hyperparameters["features"]:
+            with open("data/helpers.json", "r") as f:
+                self.helper = json.load(f)
+                
+            
+            self.course_numbers = self.helper["course_numbers"]
+            
+            weights = torch.zeros(len(self.course_numbers), 10)
+            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+            
+        
+        #self.lin_1 = nn.Linear(self.x_size, self.hidden_size[0])
+        #self.lin_2 = nn.Linear(self.y_features_size, self.hidden_size[0])
+       # self.lin_3 = nn.Linear(self.immutable_size-1+10, self.hidden_size[0])
         
         self.dropout = nn.Dropout(p=self.dropout_p)
-        self.lin_mid = nn.Linear(32*3, self.hidden_size[0])
+        self.lin_mid = nn.Linear(self.x_size + self.y_features_size + self.immutable_size-1+10, self.hidden_size[1])
         
-        self.lin_out = nn.Linear(self.hidden_size[0], self.output_size)
+        self.batch_norm = nn.BatchNorm1d(self.hidden_size[1])
+        
+        self.lin_out = nn.Linear(self.hidden_size[1], self.output_size)
         
         self.relu = nn.ReLU()
+        self.leakyrelu = nn.LeakyReLU()
         self.discretization = hyperparameters["discretization"]
         
+        
         if self.discretization:
-            self.last_activation = nn.Softmax()
+            self.last_activation = nn.Identity()
+        elif self.occcount:
+            self.last_activation = nn.ReLU()
         else:
-            self.last_activation = nn.Sigmoid()
+            self.last_activation = nn.Identity()
             
         #self.room_encoding = torch.eye(2).to(self.device)
         #self.room_enc_size = self.room_encoding.shape[1]
@@ -86,21 +103,32 @@ class SimpleLectureDenseNet(nn.Module):
 
         # room_id is actually immutable features array
         
-
+        
+        if "coursenumber" in self.hyperparameters["features"]:
+            course_id = room_id[:, -1].to(torch.int64)
+            course_emb = self.course_embedding(course_id)
+            immutable_features = torch.cat((room_id[:, :-1], course_emb), 1)
+            
+        else:
+            immutable_features = room_id.view(-1, self.immutable_size)
+        
         x = x.view(-1, self.x_size)
         y_features = y_features.view(-1, self.y_features_size)
-        immutable_features = room_id.view(-1, self.immutable_size)
         
         #manual model generation
-        out_1 = self.relu(self.lin_1(x))
-        out_2 = self.relu(self.lin_2(y_features))
-        out_3 = self.relu(self.lin_3(immutable_features))
+        input_cat = torch.cat((x, y_features, immutable_features), 1)
         
-        in_mid = torch.cat((out_1, out_2, out_3), 1)
-        in_mid = self.dropout(in_mid)
+        #out_1 = self.leakyrelu(self.lin_1(x))
+        #out_2 = self.leakyrelu(self.lin_2(y_features))
+        #out_3 = self.leakyrelu(self.lin_3(immutable_features))
+        #in_mid = torch.cat((out_1, out_2, out_3), 1)
         
-        out_mid = self.relu(self.lin_mid(in_mid))
-        out_mid = self.dropout(out_mid)
+        #in_mid = self.dropout(in_mid)
+        out_mid = self.lin_mid(input_cat)
+        
+        #out_mid = self.batch_norm(out_mid)
+        out_mid = self.relu(out_mid)
+        #out_mid = self.dropout(out_mid)
         
         pred = self.lin_out(out_mid)
         #pred = self.last_activation(out)
@@ -165,24 +193,52 @@ class SimpleLectureLSTM(torch.nn.Module):
         
         self.batch_size = hyperparameters["batch_size"]
         self.immutable_size = hyperparameters["immutable_size"]
+        self.discretization = hyperparameters["discretization"]
         
         ############ Model Definition ############
         # embedding for hidden states with 0 init
         #weights = torch.randn(2, self.hidden_size[0])
         #self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+        #self.lecture_embedding = nn.Embedding(2, self.hidden_size[0])
            
+        
+        if "coursenumber" in hyperparameters["features"]:
+            with open("data/helpers.json", "r") as f:
+                self.helper = json.load(f)
+                
+            
+            self.course_numbers = self.helper["course_numbers"]
+            
+            weights = torch.zeros(len(self.course_numbers), self.hyperparameters["num_layers"]*self.hidden_size[0])
+            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+
+
         # must be included otherwise loading model will fail
         #self.relu = torch.nn.ReLU()
-        self.linear_in = torch.nn.Linear(self.immutable_size, self.hidden_size[0])
+        #self.linear_in = torch.nn.Linear(self.immutable_size, self.hidden_size[0])
+        
+        # run 4:
+        #self.linear_preprocessing = torch.nn.Linear(self.x_size, self.hidden_size[0])
+        
+        
+        #self.lin_lstm_in = torch.nn.Linear(self.x_size, self.hidden_size[0])
+        
         # lstm layer
         self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
         # fc at end
         #self.linear_final = torch.nn.Linear(self.hidden_size[0], self.output_size)
         
         # prediction head
-        self.linear_1 = torch.nn.Linear(self.hidden_size[0], self.hidden_size[1])
+        # run 10:
+        #self.lstm = torch.nn.LSTM(self.x_size + self.y_features_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
+        #self.linear_1 = torch.nn.Linear(self.hidden_size[0], self.output_size)
+        
+        # run 11:
+        self.linear_1 = torch.nn.Linear(self.hidden_size[0] + self.y_features_size + self.immutable_size, self.hidden_size[1])
+        self.leakyrelu = torch.nn.LeakyReLU()
+        self.layer_norm = torch.nn.LayerNorm(self.hidden_size[1])
         self.relu = torch.nn.ReLU()
-        self.linear_2 = torch.nn.Linear(self.hidden_size[1] + self.y_features_size, self.output_size)
+        self.linear_2 = torch.nn.Linear(self.hidden_size[1], self.output_size)
         
         
         if "forget_gate" in hyperparameters:
@@ -195,13 +251,57 @@ class SimpleLectureLSTM(torch.nn.Module):
         # last activation function
         if hyperparameters["occcount"]:
             self.last_activation = nn.ReLU()    
+        elif self.discretization:
+            self.last_activation = nn.Identity()
         else:
-            self.last_activation = nn.Sigmoid()
+            self.last_activation = nn.Identity()
             
         ## freeze h_0 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
     def forward(self, x, y_features, room_id=None):
+        
+        x_shape_0, x_shape_1 = x.shape[0], x.shape[1]
+        
+        input_tensor = x
+        
+        if "coursenumber" in self.hyperparameters["features"]:
+            course_id = room_id[:, -1].to(torch.int64)
+            course_emb = self.course_embedding(course_id)
+            c_0 = course_emb.view(-1, x_shape_0, self.hidden_size[0])
+        else:
+            c_0 = torch.zeros(self.hyperparameters["num_layers"], x_shape_0, self.hidden_size[0]).to(self.device)
+        
+        #y_features = y_features.repeat(1, x_shape_1, 1)
+        #print(x.shape, y_features.shape)
+        
+        #input_tensor = self.relu(self.lin_lstm_in(input_tensor))
+        
+        h_0 = torch.zeros(self.hyperparameters["num_layers"], x_shape_0, self.hidden_size[0]).to(self.device)
+        
+        
+    
+        #print(c_0.shape)
+        #if self.hyperparameters["num_layers"] > 1:
+        #    c_0 = torch.cat([c_0, torch.zeros(self.hyperparameters["num_layers"]-1, x_shape_0, self.hidden_size[0]).to(self.device)], 0)
+            
+        out_lstm, (_, _) = self.lstm(input_tensor, (h_0, c_0))
+        
+        in_lin = torch.cat((out_lstm[:, -1, :], y_features[:, -1, :], room_id), 1)
+
+        out_lin = self.linear_1(in_lin)
+
+        out_lin = self.layer_norm(out_lin)
+        out_lin = self.relu(out_lin)
+        out_lin = self.linear_2(out_lin)
+        
+        pred = self.last_activation(out_lin)
+
+            
+        #pred = self.last_activation(self.linear_2(out_lin_1))
+        
+        return pred
+        
         
         # with -1
         #h_0 = torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device)
@@ -228,23 +328,6 @@ class SimpleLectureLSTM(torch.nn.Module):
         #x = x.view(-1, self.x_size)
         #y_features = y_features.view(-1, self.y_features_size)
         #immutable_features = room_id.view(-1, self.immutable_size)
-        
-        h_0 = torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device)
-        c_0 = self.linear_in(room_id).repeat(self.hyperparameters["num_layers"], 1, 1)
-        #print(c_0.shape)
-        
-        out_lstm, (h_n, c_n) = self.lstm(x, (h_0, c_0))
-        
-        #print(out_lstm.shape)
-        #out_lstm[:, -1, :]
-        out_lin_1 = self.relu(self.linear_1(c_n[-1, :]))
-        
-        #print(out_lin_1.shape)
-        y_in = torch.cat((out_lin_1[:, :], y_features[:, -1, :]), 1)
-        #print(y_in.shape)
-        pred =  self.last_activation(self.linear_2(y_in))
-
-        return pred
         
         #manual model generation
         out_1 = self.relu(self.lin_1(x))

@@ -74,15 +74,17 @@ class MasterTrainer:
     n_test = 0
     train_log_inteval = 50
     room_capacities = {0:164, 1:152}
+    best_model = None
+    best_loss = 1000
     
-    def __init__(self, optimizer_class:Optimizer, 
-                 hyperparameters:dict, summary_writer=None, torch_rng=None) -> None:
+    def __init__(self,  hyperparameters:dict, cp_path:str, summary_writer=None, torch_rng=None) -> None:
         
+        self.hyperparameters = hyperparameters
         self.model_class = self.handle_model_class(hyperparameters["model_class"])
         self.criterion = self.handle_criterion(hyperparameters["criterion"])
-        self.optimizer_class = optimizer_class
-        self.hyperparameters = hyperparameters
+        self.optimizer_class = self.handle_optimizer(hyperparameters["optimizer_class"])
         self.stats_logger = StatsLogger()
+        self.cp_path = cp_path
         
         
         if summary_writer:
@@ -108,7 +110,6 @@ class MasterTrainer:
         room_id = torch.IntTensor([x_i[0][0] for x_i in x])
         return info, X, y_features, y, room_id
     
-    
     def dateahead_collate(self, x):
         
         info = [x_i[0] for x_i in x]
@@ -118,7 +119,6 @@ class MasterTrainer:
         immutable_features = torch.stack([x_i[0][6] for x_i in x])
                           
         return info, X, y_features, y, immutable_features
-    
     
     def sequential_collate(self, x):
         
@@ -147,6 +147,14 @@ class MasterTrainer:
         else:
             raise ValueError("Criterion not supported.")
     
+    def handle_optimizer(self, optimizer_class:str):
+        if optimizer_class == "Adam":
+            return torch.optim.Adam
+        elif optimizer_class == "SGD":
+            return torch.optim.SGD
+        else:
+            raise ValueError("Optimizer not supported.")
+        
     def handle_model_class(self, model_class:str):
         if model_class == "simple_lstm":
             return SimpleOccLSTM
@@ -183,9 +191,9 @@ class MasterTrainer:
 
     def initialize_lecture_dataset(self, train_df:dict, val_df:dict, test_df:dict, dataset_mode:str):
         
-        train_set = LectureDataset(train_df, self.hyperparameters, dataset_mode)
-        val_set = LectureDataset(val_df, self.hyperparameters, dataset_mode)
-        test_set = LectureDataset(test_df, self.hyperparameters, dataset_mode)
+        train_set = LectureDataset(train_df, self.hyperparameters, dataset_mode, validation=False)
+        val_set = LectureDataset(val_df, self.hyperparameters, dataset_mode, validation=True)
+        test_set = LectureDataset(test_df, self.hyperparameters, dataset_mode, validation=True)
         
         info, X, y_features, y = train_set[1]
         if len(X.shape) != 1:
@@ -210,9 +218,9 @@ class MasterTrainer:
 
     def initialize_lecture_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset, dataset_mode:str):
         
-        if dataset_mode == "onedateahead":
+        if dataset_mode == "time_onedateahead":
             collate_f = self.dateahead_collate
-        elif dataset_mode == "sequential":
+        elif dataset_mode == "time_sequential":
             collate_f = self.sequential_collate
         else:
             raise ValueError("Dataset mode not supported.")
@@ -345,8 +353,15 @@ class MasterTrainer:
                     self.test_one_epoch(val_dataloader, model, log_info=True)
                     self.n_test += 1
                     self.summary_writer.add_scalar("Loss/val", np.mean(self.stats_logger.val_loss[self.n_test]), self.n_test*self.test_interval)
-
-                    
+                    if np.mean(self.stats_logger.val_loss[self.n_test]) < self.best_loss:
+                        self.best_loss = np.mean(self.stats_logger.val_loss[self.n_test])
+                        model = model.to("cpu")
+                        self.save_checkpoint(
+                            model=model,
+                            optimizer=optimizer,
+                            save_path=self.cp_path
+                        )
+                        model = model.to(self.device)
                 
                 if self.n_updates >= self.hyperparameters["max_n_updates"]:
                     break

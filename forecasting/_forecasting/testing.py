@@ -85,21 +85,24 @@ def prepare_model_and_data(checkpoint_path:str, dfg, device, mode:str, data:str)
         dataset = OccupancyDataset(data_dict, hyperparameters, mode)
         room_ids = data_dict.keys()
         
-    elif mode in ["sequential", "onedateahead"]:
+    elif mode in ["time_sequential", "time_onedateahead"]:
         
         train_df, val_df, test_df = load_data_lecture("data", dfguru=dfg)
         
         if data == "train":
             data_dict = train_df
+            validation = False
         elif data == "val":
             data_dict = val_df
+            validation = True
         elif data == "test":
             data_dict = test_df
+            validation = True
         else:
             raise ValueError(f"Data {data} not recognized")
         
         
-        dataset = LectureDataset(data_dict, hyperparameters, mode)
+        dataset = LectureDataset(data_dict, hyperparameters, mode, validation)
         room_ids = None
         
         y_samples = []
@@ -196,12 +199,13 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
     bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
     for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
 
-        X = X.to(device)
-        room_id = info[6].to(device)
-        y_features = y_features.to(device)
+        X = X.to(device)[None, :]
+        room_id = info[6].to(device)[None, :]
+        y_features = y_features.to(device)[None, :]
         
         with torch.no_grad():
             
+            #print(X.shape, y_features.shape, room_id.shape)
             preds = model(X, y_features, room_id)
             
             #if len(preds) == 0:
@@ -255,31 +259,19 @@ def run_naive_baseline_lecture(model, dataset:OccupancyDataset, device):
     bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
     for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
         
-        preds = X[:-12]
-
-        #X = X.to(device)
-        #room_id = info[6].to(device)
-        #y_features = y_features.to(device)
+        #print("output_size:", model.output_size)
         
-        #with torch.no_grad():
-            
-        #    preds = model(X, y_features, room_id)
-            
-            #if len(preds) == 0:
-            #    continue
-            
-            # preds = preds.to("cpu")
-            # #y_adjusted = y[:len(preds)]
-            
+        if len(X.shape)== 1:
+            preds = X[:model.output_size]
+        elif len(X.shape) == 2:
+            preds = X[-1:, :model.output_size]
+        else:
+            raise ValueError("X has unknown shape")
+
         if model.discretization:
-            preds = torch.argmax(preds, dim=-1).to(dtype=torch.float32)
-            
-            # info = (info[0], info[1], info[2], info[3], info[4], info[5], info[6])
-            
-            # #print(len(y_adjusted), info[2].shape, "pred:", len(preds))
-            # #if preds.shape != y_adjusted.shape:
-            # #    y_adjusted = y_adjusted.unsqueeze(-1)
-                
+            preds = torch.argmax(torch.nn.functional.softmax(preds), dim=-1).to(dtype=torch.float32)
+            y = torch.argmax(y, dim=-1).to(dtype=torch.float32)
+        
         losses["MAE"].append(mae_f(preds, y))
         losses["MSE"].append(mse_f(preds, y))
         losses["RMSE"].append(torch.sqrt(mse_f(preds, y)))
@@ -289,7 +281,7 @@ def run_naive_baseline_lecture(model, dataset:OccupancyDataset, device):
         inputs.append(X)
         targets.append(y)
         target_features.append(y_features)
-    
+
     return losses, predictions, infos, targets, inputs, target_features
     
 def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
@@ -464,12 +456,13 @@ def write_header_to_txt(file_name, run_id, data):
         file.write(f"Run: {run_id}\n")
         file.write(f"Time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))}\n")
     
-def write_loss_to_txt(file_name, combinations, losses, loss_f):
+def write_loss_to_txt(file_name, combinations, losses, baseline_losses, loss_f):
     
     with open(file_name, "a") as file:
         file.write(f"Loss function: {loss_f}\n")
         file.write(f"Combinations: {combinations.tolist()}\n")
         file.write(f"Losses: {losses.tolist()}\n")
+        file.write(f"Baseline losses: {baseline_losses.tolist()}\n")
   
 def write_new_line(file_name):
     with open(file_name, "a") as file:
@@ -488,19 +481,21 @@ def erase_file(file_name):
 
 
 ############## Evaluate results ####################
-def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, top_k_params):
-
+def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, baseline_losses, top_k_params):
+    
     for key, value in dict_losses.items():
         
         mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
+        mean_baseline_losses = np.array([torch.mean(torch.Tensor(x)) for x in baseline_losses[key]])
+        
         # sort by mean loss, descending if R2 -> we sort best to worst
         if key == "R2":
             indices = np.argsort(mean_losses)[::-1]
         else:
             indices = np.argsort(mean_losses)
 
-            
-        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], key)
+        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], mean_baseline_losses[indices], key)
+        
         
         list_hyperparameters_k = [list_hyperparameters[i] for i in indices[:top_k_params]]
         all_keys = all_keys = set().union(*list_hyperparameters_k)
@@ -514,9 +509,8 @@ def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, to
         write_hyperparameters_to_txt(filename, param_results)  
         
     write_new_line(filename)
-  
-  
-def evaluate_results_lecture(filename, list_combs, dict_losses, list_hyperparameters, top_k_params):
+   
+def evaluate_results_lecture(filename, list_combs, dict_losses, list_hyperparameters, baseline_losses, top_k_params):
 
     for key, value in dict_losses.items():
         
@@ -528,10 +522,11 @@ def evaluate_results_lecture(filename, list_combs, dict_losses, list_hyperparame
             indices = np.argsort(mean_losses)[::-1]
         else:
             mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
+            mean_baseline_losses = np.array([torch.mean(torch.Tensor(x)) for x in baseline_losses[key]])
             indices = np.argsort(mean_losses)
 
             
-        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], key)
+        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], mean_baseline_losses[indices], key)
         
         #list_hyperparameters_k = [list_hyperparameters[i] for i in indices[:top_k_params]]
         #all_keys = all_keys = set().union(*list_hyperparameters_k)
