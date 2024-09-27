@@ -203,15 +203,19 @@ class SimpleLectureLSTM(torch.nn.Module):
            
         
         if "coursenumber" in hyperparameters["features"]:
-            with open("data/helpers.json", "r") as f:
-                self.helper = json.load(f)
+            
+            raise "I messed it up fix later"
+            
+            self.enc_size = 5
+            embedding_dict = dict()
+            for room_id in range(0, 2):
+                with open(f"data/helpers_occpred_room-{room_id}.json", "r") as f:
+                    self.helper = json.load(f)
+                    
+                course_numbers = self.helper["course_numbers"]
+                weights = torch.zeros(len(course_numbers), self.enc_size)
                 
-            
-            self.course_numbers = self.helper["course_numbers"]
-            
-            weights = torch.zeros(len(self.course_numbers), self.hyperparameters["num_layers"]*self.hidden_size[0])
-            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
-
+                embedding_dict[room_id] = nn.Embedding.from_pretrained(weights, freeze=False)
 
         # must be included otherwise loading model will fail
         #self.relu = torch.nn.ReLU()
@@ -391,12 +395,6 @@ class SimpleLectureLSTM(torch.nn.Module):
         return torch.cat(pred_list)    
     
     
-    
-    
-    
-    
-    
-    
 class SimpleOccDenseNet(nn.Module):
     
     def __init__(self, hyperparameters):
@@ -406,9 +404,10 @@ class SimpleOccDenseNet(nn.Module):
         
         self.hyperparameters = hyperparameters
 
-        self.x_size = hyperparameters["x_size"] * hyperparameters["x_horizon"]
+        self.x_horizon = hyperparameters["x_horizon"]
+        self.x_size = hyperparameters["x_size"] * self.x_horizon
         self.y_horizon = hyperparameters["y_horizon"]
-        self.y_features_size = hyperparameters["y_features_size"] * hyperparameters["y_horizon"]
+        self.y_features_size = hyperparameters["y_features_size"] * self.y_horizon 
     
         self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
     
@@ -417,10 +416,23 @@ class SimpleOccDenseNet(nn.Module):
         self.occcount = hyperparameters["occcount"]
         self.batch_size = hyperparameters["batch_size"]
         
-        self.room_encoding = torch.eye(2).to(self.device)
-        self.room_enc_size = self.room_encoding.shape[1]
+        #self.room_encoding = torch.eye(2).to(self.device)
+        #self.room_enc_size = self.room_encoding.shape[1]
+        self.enc_size = 0
         
-        self.input_size = self.x_size + self.y_features_size + self.room_enc_size
+        if "coursenumber" in hyperparameters["features"]:
+            
+            with open("data/helpers_occpred.json", "r") as f:
+                self.helper = json.load(f)       
+        
+            self.enc_dim= 5
+            course_numbers = self.helper["course_numbers"]
+            weights = torch.zeros(len(course_numbers), self.enc_dim)
+            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+            
+            self.enc_size = self.enc_dim*self.x_horizon + self.enc_dim*self.y_horizon
+          
+        self.input_size = self.x_size + self.y_features_size + self.enc_size
         
         self.model = nn.Sequential()
         if len(self.hidden_size) > 1:
@@ -454,18 +466,29 @@ class SimpleOccDenseNet(nn.Module):
                 if self.hyperparameters["criterion"] == "CE":
                     print("nothing added")
                 else:   
-                    self.model.add_module("acti_out", nn.Sigmoid())
+                    self.model.add_module("acti_out", nn.Identity())
    
     def forward(self, x, y_features, room_id=None):
         
-        room_enc = self.room_encoding[room_id]
-        room_enc = room_enc.view(self.batch_size, -1)
+        if "coursenumber" in self.hyperparameters["features"]:
+            X_course_emb = self.course_embedding(room_id[:, :self.x_horizon])
+            y_course_emb = self.course_embedding(room_id[:, self.x_horizon:])
+            
+            course_emb = torch.cat((X_course_emb, y_course_emb), 1)
+
+            course_emb = course_emb.view(self.batch_size, -1)
+            x = x.view(self.batch_size, -1)
+            y_features = y_features.view(self.batch_size, -1)
+            
+            input = torch.cat((x, y_features, course_emb), 1)
         
-        x = x.view(self.batch_size, -1)
-        y_features = y_features.view(self.batch_size, -1)
-        input = torch.cat((x, y_features, room_enc), 1)
+        else:
+            x = x.view(self.batch_size, -1)
+            y_features = y_features.view(self.batch_size, -1)
+            input = torch.cat((x, y_features), 1)
 
         out = self.model(input)
+
         return out
     
     def forecast_iter(self, x, y_features, len_y, room_id=None):
@@ -598,12 +621,12 @@ class SimpleOccLSTM(torch.nn.Module):
         if hyperparameters["occcount"]:
             self.last_activation = nn.ReLU()    
         else:
-            self.last_activation = nn.Sigmoid()
+            self.last_activation = nn.Identity()
             
         ## freeze h_0 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
-    def forward(self, x, y_features,room_id=None):
+    def forward(self, x, y_features, room_id=None):
         
         h_0 = torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device)
         

@@ -346,7 +346,10 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
             else:
                 plot_predictions_lecture(infos, predictions, targets, room_ids, n_run, n_comb, naive_preds)
             
-    return list_combs, dict_losses, list_hyperparameters, baseline_losses
+    if naive_baseline:
+        return list_combs, dict_losses, list_hyperparameters, baseline_losses
+    else:
+        return list_combs, dict_losses, list_hyperparameters
 
 def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int, naive_predictions=None):
     
@@ -464,6 +467,13 @@ def write_loss_to_txt(file_name, combinations, losses, baseline_losses, loss_f):
         file.write(f"Losses: {losses.tolist()}\n")
         file.write(f"Baseline losses: {baseline_losses.tolist()}\n")
   
+def write_loss_to_txt_without_baseline(file_name, combinations, losses, loss_f):
+        
+        with open(file_name, "a") as file:
+            file.write(f"Loss function: {loss_f}\n")
+            file.write(f"Combinations: {combinations.tolist()}\n")
+            file.write(f"Losses: {losses.tolist()}\n")
+            
 def write_new_line(file_name):
     with open(file_name, "a") as file:
         file.write("\n")
@@ -486,7 +496,8 @@ def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, ba
     for key, value in dict_losses.items():
         
         mean_losses = np.array([torch.mean(torch.Tensor(x)) for x in value])
-        mean_baseline_losses = np.array([torch.mean(torch.Tensor(x)) for x in baseline_losses[key]])
+        if not (baseline_losses == None):
+            mean_baseline_losses = np.array([torch.mean(torch.Tensor(x)) for x in baseline_losses[key]])
         
         # sort by mean loss, descending if R2 -> we sort best to worst
         if key == "R2":
@@ -494,7 +505,11 @@ def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, ba
         else:
             indices = np.argsort(mean_losses)
 
-        write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], mean_baseline_losses[indices], key)
+        if (baseline_losses == None):
+            write_loss_to_txt_without_baseline(filename, list_combs[indices], mean_losses[indices], key)
+        else:
+            write_loss_to_txt(filename, list_combs[indices], mean_losses[indices], mean_baseline_losses[indices], key)
+
         
         
         list_hyperparameters_k = [list_hyperparameters[i] for i in indices[:top_k_params]]

@@ -30,7 +30,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 n_run = 3
 n_param = 0
 mode = "time_sequential"
-overwrite = False
+overwrite = True
 
 "occrate_registered_exam_test_tutorium_starttime_endtime_calendarweek_weekday_type_studyarea_ects_level"
 

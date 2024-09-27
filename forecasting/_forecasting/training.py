@@ -107,8 +107,18 @@ class MasterTrainer:
         X = torch.stack([x_i[1] for x_i in x])
         y_features = torch.stack([x_i[2] for x_i in x])
         y = torch.stack([x_i[3] for x_i in x])
-        room_id = torch.IntTensor([x_i[0][0] for x_i in x])
-        return info, X, y_features, y, room_id
+        
+        if not (x[0][0][5][0] == None):
+            X_course = torch.stack([x_i[0][5][0].to(torch.int32) for x_i in x])
+            y_course = torch.stack([x_i[0][5][1].to(torch.int32)  for x_i in x])
+            courses = torch.cat([X_course, y_course], dim=1)
+            
+            del X_course
+            del y_course
+        
+            return info, X, y_features, y, courses
+        else:
+            return info, X,  y_features, y, torch.Tensor([0])
     
     def dateahead_collate(self, x):
         
@@ -226,13 +236,13 @@ class MasterTrainer:
             raise ValueError("Dataset mode not supported.")
         
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=collate_f, generator=self.torch_rng, num_workers=3, drop_last=False)
+                                  collate_fn=collate_f, generator=self.torch_rng, drop_last=False)
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=collate_f, num_workers=3, drop_last=False)
+                                collate_fn=collate_f, drop_last=False)
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=collate_f, num_workers=3, drop_last=False)
+                                 collate_fn=collate_f, drop_last=False)
         
         return train_loader, val_loader, test_loader
  
@@ -289,13 +299,13 @@ class MasterTrainer:
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
         
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True, num_workers=3)
+                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=self.custom_collate, drop_last=True, num_workers=3)
+                                collate_fn=self.custom_collate, drop_last=True)
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=self.custom_collate, drop_last=True, num_workers=3)
+                                 collate_fn=self.custom_collate, drop_last=True)
         
         return train_loader, val_loader, test_loader
         

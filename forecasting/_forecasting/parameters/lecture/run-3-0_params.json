@@ -14,11 +14,11 @@
     "batch_size": [1],
     "num_layers": [1, 2],
     "features": [
+        "occrate_tutorium_exam_test_coursenumber_type_weekday_starttime_studyarea",
         "occrate_tutorium_exam_test",
         "occrate_tutorium_exam_test_coursenumber",
         "occrate_tutorium_exam_test_coursenumber_type",
         "occrate_tutorium_exam_test_coursenumber_type_studyarea",
-        "occrate_tutorium_exam_test_coursenumber_type_weekday_starttime_studyarea",
         "occrate_coursenumber_type",
         "occrate_coursenumber",
         "occrate_coursenumber_weekday_starttime",

@@ -171,6 +171,8 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
         print()
     
     return train_set, val_set, test_set
+           
+           
               
 def load_data_dicts(path_to_data_dir, frequency, dfguru):
     
@@ -195,7 +197,7 @@ def load_data_dicts(path_to_data_dir, frequency, dfguru):
                 raise ValueError("Unknown type.")
             
     return train_dict, val_dict, test_dict
-    
+      
 def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
     
     course_dates_data = dfguru.load_dataframe(
@@ -229,6 +231,21 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
           
         data_dict[room_id] = occ_time_series
         
+    course_types = ["VL", "UE", "KS"]
+    course_numbers = set()
+    for room_id in data_dict:
+        occ_time_series = data_dict[room_id]
+        if "coursenumber" in feature_list:
+            course_numbers = course_numbers.union(set(occ_time_series["coursenumber"].unique()))
+
+    dictionary = {
+        "course_types": course_types,
+        "course_numbers": sorted(list(course_numbers)),
+    }
+    # save auxillary data
+    with open(file=f"data/helpers_occpred.json", mode="w") as file:
+        json.dump(dictionary, file, indent=4)
+
     train_dict, val_dict, test_dict = train_val_test_split(data_dict, rng, verbose=True)
     
     return train_dict, val_dict, test_dict
@@ -285,6 +302,8 @@ def train_val_test_split(data_dict, rng, verbose=True):
         print()
     
     return train_dict, val_dict, test_dict
+        
+        
         
 class LectureFeatureEngineer():
     course_features = {"occcount", "occrate", "registered", "exam", "test", "tutorium", 
@@ -549,7 +568,7 @@ class LectureFeatureEngineer():
      
 class OccFeatureEngineer():
     
-    course_features = {"exam", "lecture", "lectureramp", "registered", "test", "tutorium", "type"}
+    course_features = {"maxocccount","coursenumber", "maxoccrate" ,"exam", "lecture", "lecturerampbefore", "lecturerampafter" "registered", "test", "tutorium", "type"}
     datetime_features = {"dow", "hod", "week", "holiday", "zwickltag"}
     general_features = {"occcount", "occrate"}
     shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
@@ -574,8 +593,26 @@ class OccFeatureEngineer():
 
         self.course_info_table = course_info_data  
         
-        self.course_types = self.course_info_table["type"].unique()
-        print(self.course_types)   
+        self.course_types = ["VL", "UE", "KS"]
+        #self.course_types = self.course_info_table["type"].unique()
+        # VL: VL, VO, KO
+        # UE: UE, AG, IK, PR, PS
+        # KS: KS, VU, KV, RE, UV
+        # SE: SE
+        self.type_mapping = {
+            "VL": "VL",
+            "VO": "VL",
+            "KO": "VL",
+            "UE": "UE",
+            "AG": "UE",
+            "IK": "UE",
+            "PR": "UE",
+            "PS": "UE",
+            "KS": "KS",
+            "VU": "KS",
+            "KV": "KS",
+            "RE": "KS",
+            "UV": "KS",}
              
     def derive_features(self, features, room_id):
         
@@ -692,7 +729,6 @@ class OccFeatureEngineer():
         course_dates_in_room = self.dfg.filter_by_roomid(self.course_dates_table, room_id)
         
         # initialize all features to 0
-        time_series["course_number"] = ''
         for feature in features:
             time_series[feature] = 0
             
@@ -700,6 +736,8 @@ class OccFeatureEngineer():
             time_series.drop(columns=["type"], inplace=True)
             for course_type in self.course_types:
                 time_series[course_type] = 0
+        
+        time_series["coursenumber"] = ''
         
         ramp_duration = pd.to_timedelta("15min")
         
@@ -710,17 +748,24 @@ class OccFeatureEngineer():
             
             # get course_number
             course_number_list = sub_df["course_number"].values
-            time_series.loc[course_time_mask, "course_number"] = ",".join(course_number_list)
+            time_series.loc[course_time_mask, "coursenumber"] = ",".join(sorted(course_number_list))
             course_info = self.dfg.filter_by_courses(self.course_info_table, course_number_list)
-              
+            
+            if "maxocccount" in features:
+                time_series.loc[course_time_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
+            
+            if "maxoccrate" in features:
+                time_series.loc[course_time_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
+                
             # get course features  
             if "registered" in features:
                 time_series.loc[course_time_mask, "registered"] = course_info["registered_students"].values.sum()
                 
             if "type" in features:
                 for course_type in course_info["type"].values:
-                    time_series.loc[course_time_mask, course_type] = 1
-                
+                    
+                    time_series.loc[course_time_mask, self.type_mapping[course_type]] = 1
+
             if "exam" in features:
                 time_series.loc[course_time_mask, "exam"] = int(sub_df["exam"].values[0])
                 
@@ -733,11 +778,23 @@ class OccFeatureEngineer():
             if "tutorium" in features:
                 time_series.loc[course_time_mask, "tutorium"] = int(sub_df["tutorium"].values[0])
                 
-            if "lectureramp" in features:
+            if "lecturerampbefore" in features:
                 start_minus_15 = grouping[0] - ramp_duration
                 ramp_up_mask = (time_series["datetime"] >= start_minus_15) & (time_series["datetime"] < grouping[0])
                 ramp_up_fraction = (time_series["datetime"][ramp_up_mask] - start_minus_15) / ramp_duration
-                time_series.loc[ramp_up_mask, "lectureramp"] = ramp_up_fraction
+                time_series.loc[ramp_up_mask, "lecturerampbefore"] = ramp_up_fraction
+                
+                if "maxoccrate" in features:
+                    time_series.loc[ramp_up_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
+                    
+                if "maxocccount" in features:
+                    time_series.loc[ramp_up_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
+                         
+            if "lecturerampafter" in features:
+                end_plus_15 = grouping[1] + ramp_duration
+                ramp_down_mask = (time_series["datetime"] > grouping[1]) & (time_series["datetime"] <= end_plus_15)
+                ramp_down_fraction = (end_plus_15 - time_series["datetime"][ramp_down_mask]) / ramp_duration
+                time_series.loc[ramp_down_mask, "lecturerampafter"] = ramp_down_fraction
    
         return time_series
 
@@ -831,10 +888,23 @@ class OccupancyDataset(Dataset):
         # derive differencing
         self.differencing = hyperparameters["differencing"]
         self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
+
+            
+        with open("data/helpers_occpred.json", "r") as f:
+            self.helper = json.load(f)       
+    
         if "type" in self.exogenous_features:
             self.exogenous_features.remove("type")
-            self.exogenous_features = self.exogenous_features.union(set(['VO', 'UE', 'KS', 'VL', 'IK', 'KV', 'UV', 'RE', 'VU']))
+            self.exogenous_features = self.exogenous_features.union(self.helper["course_types"])
         
+        self.extract_coursenumber = False
+        if "coursenumber" in self.exogenous_features:
+            self.exogenous_features.remove("coursenumber")
+            self.extract_coursenumber = True
+            self.course_numbers = self.helper["course_numbers"]
+            self.coursenr_lookup = dict([(x,i) for i,x in enumerate(self.course_numbers)])
+       
+
         # sort features
         self.exogenous_features = sorted(list(self.exogenous_features))
 
@@ -933,7 +1003,7 @@ class OccupancyDataset(Dataset):
         
         samples = []
         for room_id in self.room_ids:
-            
+
             occ_time_series = self.time_series_dict[room_id]
             
             ts_diff = occ_time_series["datetime"].diff()
@@ -1001,12 +1071,30 @@ class OccupancyDataset(Dataset):
 
                 if self.include_x_features:
                     X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
+                    
+                    
+                if self.extract_coursenumber:
+                    
+                    X_course = X_df["coursenumber"].fillna("")
+                    X_course = X_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
+                    X_course = X_course.apply(lambda x: self.coursenr_lookup[x])
+                    X_course = torch.Tensor(X_course.values)
+                    
+                    y_course = y_df["coursenumber"].fillna("")
+                    y_course = y_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
+                    y_course = y_course.apply(lambda x: self.coursenr_lookup[x])
+                    y_course = torch.Tensor(y_course.values)    
+                    
+                else:
+                    X_course = None
+                    y_course = None    
+
             
             X_list.append(X)
             y_features_list.append(y_features)
             y_list.append(y) 
         
-            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course)))
 
         sanity_check_1 = [len(x)==self.x_horizon for x in X_list]
         sanity_check_2 = [len(y)==self.y_horizon for y in y_list]
@@ -1017,7 +1105,7 @@ class OccupancyDataset(Dataset):
         
         else:
             raise ValueError("Sanity Check Failed")
-
+        
     def create_samples_unlimited(self, time_series, room_id):
         
         time_series = time_series.copy(deep=True)

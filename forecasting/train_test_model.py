@@ -2,32 +2,35 @@ import numpy as np
 from _forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
 
   
-cp_log_dir = "_forecasting/checkpoints/lecture"
+cp_log_dir = "_forecasting/checkpoints/occrate"
 #mode = "normal"
 #filename = f"results_{mode}.txt"
 
 ##############################
 # Run n tests
 
-#for data in ["train", "val"]:
-#    for mode in ["dayahead", "unlimited"]:
-#        filename = f"results_{mode}_presence.txt"
-#        for run_id in [0]:
+for data in ["train", "val"]:
+    for mode in ["dayahead", "unlimited"]:
+        filename = f"results_{mode}_occrate.txt"
+        for run_id in [0]:
             
-#            tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
+            raise NotImplementedError("Update forecast_iter in model.py")
+            tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
 
-#            list_combs, dict_losses, list_hyperparameters = run_n_tests(
-#                run_comb_tuples=tuples_run_comb,
-#                cp_log_dir=cp_log_dir, 
-#                mode=mode, 
-#                plot=False, 
-#                data=data)   
+            list_combs, dict_losses, list_hyperparameters = run_n_tests(
+                run_comb_tuples=tuples_run_comb,
+                cp_log_dir=cp_log_dir, 
+                mode=mode, 
+                plot=False, 
+                data=data,
+                naive_baseline=False)   
                     
-#            list_combs = np.array(list_combs)
+            list_combs = np.array(list_combs)
 
-#            write_header_to_txt(filename, run_id, data)
+            write_header_to_txt(filename, run_id, data)
 
-#            evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, top_k_params=5)
+            evaluate_results(filename, 
+                             list_combs, dict_losses, list_hyperparameters, top_k_params=5, baseline_losses=None)
 
 
 ##############################
@@ -35,14 +38,15 @@ cp_log_dir = "_forecasting/checkpoints/lecture"
 #import torch
 #for mode in ["dayahead", "unlimited"]:
 #    filename = f"results_{mode}.txt"
-#    for data in ["train", "val", "test"]:
+#    for data in ["val"]:
         
 #        list_combs, dict_losses, list_hyperparameters = run_n_tests(
-#            run_comb_tuples=[(0,4)],
+#            run_comb_tuples=[(0,0)],
 #            cp_log_dir=cp_log_dir, 
 #            mode=mode, 
 #            plot=True,  
-#            data=data
+#            data=data,
+#            naive_baseline=False,
 #        )   
         
 #        # claculate mean losses
@@ -57,31 +61,32 @@ cp_log_dir = "_forecasting/checkpoints/lecture"
 ###############################  Lecture Dataset ########################################
 
 cp_log_dir = "_forecasting/checkpoints/lecture"
-for data in ["train", "val"]:
-    for mode in ["time_sequential"]:
-        filename = f"results_lecture_{mode}.txt"
-        for run_id in [3]:
+#cp_log_dir = "_forecasting/checkpoints/lecture"
+#for data in ["train", "val"]:
+#    for mode in ["time_sequential"]:
+#        filename = f"_forecasting/results/results_lecture_{mode}.txt"
+#        for run_id in [3]:
             
-            tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
+#            tuples_run_comb = list_checkpoints(cp_log_dir, run_id)
 
-            list_combs, dict_losses, list_hyperparameters, baseline_losses = run_n_tests(
-                run_comb_tuples=tuples_run_comb,
-                cp_log_dir=cp_log_dir, 
-                mode=mode, 
-                plot=False, 
-                data=data, 
-                naive_baseline=True)   
+#            list_combs, dict_losses, list_hyperparameters, baseline_losses = run_n_tests(
+#                run_comb_tuples=tuples_run_comb,
+#                cp_log_dir=cp_log_dir, 
+#                mode=mode, 
+#                plot=False, 
+#                data=data, 
+#                naive_baseline=True)   
                     
-            list_combs = np.array(list_combs)
+#            list_combs = np.array(list_combs)
 
-            write_header_to_txt(filename, run_id, data)
-            evaluate_results_lecture(
-                filename=filename,
-                list_combs=list_combs, 
-                dict_losses=dict_losses, 
-                list_hyperparameters=list_hyperparameters, 
-                baseline_losses=baseline_losses, 
-                top_k_params=5)
+#            write_header_to_txt(filename, run_id, data)
+#            evaluate_results_lecture(
+#                filename=filename,
+#                list_combs=list_combs, 
+#                dict_losses=dict_losses, 
+#                list_hyperparameters=list_hyperparameters, 
+#                baseline_losses=baseline_losses, 
+#                top_k_params=5)
 
 
 
