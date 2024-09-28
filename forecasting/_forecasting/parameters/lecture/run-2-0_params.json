@@ -4,7 +4,8 @@
     "differencing": ["none"],
     "optimizer_class": ["Adam"],
     "discretization": [false],
-    "hidden_size": [[25, 10]],
+    "embedding_dim": [10], 
+    "hidden_size": [[25, 10], [100, 50]],
     "dropout": [0.0],
     "binsize": [0.01],
     "criterion": ["MAE"],
@@ -13,8 +14,16 @@
     "batch_size": [4, 32],
     "num_layers": [1],
     "features": [
-        "occrate_tutorium_exam_test_coursenumber_type_weekday_starttime",
-        "occrate_tutorium_exam_test_coursenumber_type_weekday_starttime_registered"],
+        "occrate_tutorium_exam_test",
+        "occrate_coursenumber",
+        "occrate_tutorium_exam_test_coursenumber_type_weekday_starttime_studyarea",
+        "occrate_tutorium_exam_test_coursenumber",
+        "occrate_tutorium_exam_test_coursenumber_type",
+        "occrate_tutorium_exam_test_coursenumber_type_studyarea",
+        "occrate_coursenumber_type",
+        "occrate_coursenumber_weekday_starttime",
+        "occrate_coursenumber_type_weekday_starttime",
+        "occrate_coursenumber_type_weekday_starttime_studyarea"],
     "include_x_features": [true],
-    "max_n_updates": 50000
+    "max_n_updates": 30000
 }

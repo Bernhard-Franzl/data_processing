@@ -143,7 +143,14 @@ def run_detailed_test(model, dataset:OccupancyDataset, device):
     for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
 
         X = X.to(device)
-        room_id = torch.IntTensor([info[0]]).to(device)
+        if not(info[5][0] == None):
+            X_course = info[5][0].to(torch.int32)
+            y_course = info[5][1].to(torch.int32)
+            room_id = torch.cat([X_course, y_course]).to(device)
+            
+        else:
+            room_id = None
+            
         y_features = y_features.to(device)
         
         with torch.no_grad():
@@ -198,9 +205,10 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
     
     bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
     for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=bar_format, leave=False):
-
+        
         X = X.to(device)[None, :]
-        room_id = info[6].to(device)[None, :]
+        if dataset.dataset_mode == "time_sequential":
+            room_id = info[6].to(device)[None, :]
         y_features = y_features.to(device)[None, :]
         
         with torch.no_grad():
@@ -489,7 +497,6 @@ def erase_file(file_name):
         file.write("")      
 
 
-
 ############## Evaluate results ####################
 def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, baseline_losses, top_k_params):
     
@@ -516,7 +523,7 @@ def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, ba
         all_keys = all_keys = set().union(*list_hyperparameters_k)
         param_results = {}
         for key in all_keys:
-            vc = np.unique([params_dict[key] for params_dict in list_hyperparameters_k], return_counts=True, axis=0)
+            vc = np.unique([str(params_dict[key]) for params_dict in list_hyperparameters_k], return_counts=True, axis=0)
             # make vc readable
             vc = list(zip(vc[0], vc[1]))
             param_results[key] = vc

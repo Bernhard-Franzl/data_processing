@@ -26,14 +26,12 @@ torch.cuda.empty_cache()
 #n_run = args.n_run
 #n_param = args.n_param
 
-n_run = 0
-n_param = 0
+n_run = 1
+n_param = 1
 
 mode = "normal"
 overwrite = False
 ################################
-
-
 
 
 param_dir = "_forecasting/parameters/occrate"

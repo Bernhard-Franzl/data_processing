@@ -226,6 +226,32 @@ class MasterTrainer:
         
         return train_set, val_set, test_set
 
+    def initialize_lecture_dataset_deployment(self, data_df, dataset_mode:str):
+        
+        dataset = LectureDataset(data_df, self.hyperparameters, dataset_mode, validation=False)
+        
+        info, X, y_features, y = dataset[1]
+        if len(X.shape) != 1:
+            self.update_hyperparameters({
+                "x_size": int(X.shape[1]),
+                "y_features_size": int(y_features.shape[1]), 
+                "y_size": int(y.shape[1]),
+                "immutable_size": int(info[6].shape[0])
+                }
+            )
+
+        else:
+            self.update_hyperparameters({
+                "x_size": int(X.shape[0]),
+                "y_features_size": int(y_features.shape[0]), 
+                "y_size": int(y.shape[0]),
+                "immutable_size": int(info[6].shape[0])
+                }
+            ) 
+            
+        return dataset
+        
+        
     def initialize_lecture_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset, dataset_mode:str):
         
         if dataset_mode == "time_onedateahead":
@@ -236,13 +262,13 @@ class MasterTrainer:
             raise ValueError("Dataset mode not supported.")
         
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=collate_f, generator=self.torch_rng, drop_last=False)
+                                  collate_fn=collate_f, generator=self.torch_rng, drop_last=True)
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=collate_f, drop_last=False)
+                                collate_fn=collate_f, drop_last=True)
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=collate_f, drop_last=False)
+                                 collate_fn=collate_f, drop_last=True)
         
         return train_loader, val_loader, test_loader
  

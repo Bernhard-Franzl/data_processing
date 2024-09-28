@@ -55,6 +55,7 @@ summer_break_2024 = [
 ]
 
 
+
 def load_data_lecture(path_to_data_dir, dfguru):
 
     traindf = dfguru.load_dataframe(
@@ -71,7 +72,7 @@ def load_data_lecture(path_to_data_dir, dfguru):
     
     return traindf, valdf, testdf
     
-def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng, split_by):
+def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng, split_by, test):
     course_dates_data = dfguru.load_dataframe(
         path_repo=path_to_data_dir, 
         file_name="course_dates")
@@ -93,21 +94,23 @@ def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng, split_by):
     
     ########## OccFeatureEngineer ##########
 
+    
     lfe = LectureFeatureEngineer(
         data_dict, 
         course_dates_data, 
         course_info_data, 
         dfguru,
+        helpers_path=f"data/helpers_lecture_{split_by}.json"
     )
     course_dates_df = lfe.derive_features(
         features=feature_list, 
     )
         
-    train_set, val_set, test_set = train_val_test_split_lecture(course_dates_df, rng, split_by, verbose=True)
+    datasets, indices = train_val_test_split_lecture(course_dates_df, rng, split_by, test, verbose=True)
     
-    return train_set, val_set, test_set
+    return datasets, indices
 
-def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
+def train_val_test_split_lecture(course_dates, rng, split_by, test, verbose=True):
     
     # randomly exclude chunks of the data
     #train_dict = {}
@@ -119,9 +122,21 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
     #test_size = 0
     #train_size = 0
     
-    if split_by == "course_number":
+    if "_" in split_by:
+        split_by, n_weeks = split_by.split("_")
+        n_weeks = int(n_weeks)
+        
+    val_size = 0.10
+    if test:
+        test_size = 0.10
+    else:
+        test_size = 0.0
+    
+    if split_by == "coursenumber":
         course_numbers = course_dates["coursenumber"].unique()
         indices = np.arange(0, len(course_numbers))
+        
+        raise ValueError("Implement val and testsize")
         slice_size = int(len(indices) * 0.15)
         
         rng.shuffle(indices)
@@ -136,21 +151,34 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
         
     elif split_by == "time":
         weeks = course_dates["calendarweek"].unique()
-        k=9
-        train_indices = weeks[:k]
-        print(train_indices)
-        val_indices = weeks[:k+1]
-        print(val_indices)
-        test_indices = weeks[:k+2]
-        print(test_indices)
+        train_indices = weeks[:n_weeks]
+        val_indices = weeks[:n_weeks+1]
+        test_indices = weeks[:n_weeks+2]
         
         train_set = course_dates[course_dates["calendarweek"].isin(train_indices)].reset_index(drop=True)
         val_set = course_dates[course_dates["calendarweek"].isin(val_indices)].reset_index(drop=True)
         test_set = course_dates[course_dates["calendarweek"].isin(test_indices)].reset_index(drop=True)
           
     elif split_by == "random":
-        split_criteria = "random"
-        #indices = np.arange(0, len(course_dates))
+        
+        all_weeks = sorted(course_dates["calendarweek"].unique())
+        weeks = all_weeks[:n_weeks]
+        
+        dataset = course_dates[course_dates["calendarweek"].isin(weeks)].reset_index(drop=True)
+        
+        indices = np.arange(0, len(dataset))
+        rng.shuffle(indices)
+        
+        val_size_indices = int(len(indices) * val_size)
+        val_indices = indices[ :val_size_indices]
+        
+        test_size_indices = int(len(indices) * test_size)
+        test_indices = indices[val_size_indices : val_size_indices + test_size_indices]
+        
+        train_indices = indices[val_size_indices + test_size_indices:]
+        
+        datasets = dataset
+        indices = (train_indices, val_indices, test_indices)
         
     else:
         raise ValueError("Unknown split criteria.")
@@ -163,14 +191,14 @@ def train_val_test_split_lecture(course_dates, rng, split_by, verbose=True):
     # print(index_shift)
 
 
-    if verbose:
-        print("############## Split Summary ##############")
-        print("Size of Validationset:", len(val_set)/len(course_dates))
-        print("Size of Testset:", len(test_set)/len(course_dates))
-        print("Size of Trainset:", len(train_set)/len(course_dates))
-        print()
+    #if verbose:
+    #    print("############## Split Summary ##############")
+    #    print("Size of Validationset:", len(val_set)/len(course_dates))
+    #    print("Size of Testset:", len(test_set)/len(course_dates))
+    #    print("Size of Trainset:", len(train_set)/len(course_dates))
+    #    print()
     
-    return train_set, val_set, test_set
+    return datasets, indices
            
            
               
@@ -242,6 +270,7 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
         "course_types": course_types,
         "course_numbers": sorted(list(course_numbers)),
     }
+    
     # save auxillary data
     with open(file=f"data/helpers_occpred.json", mode="w") as file:
         json.dump(dictionary, file, indent=4)
@@ -303,8 +332,7 @@ def train_val_test_split(data_dict, rng, verbose=True):
     
     return train_dict, val_dict, test_dict
         
-        
-        
+          
 class LectureFeatureEngineer():
     course_features = {"occcount", "occrate", "registered", "exam", "test", "tutorium", 
                        "starttime", "endtime", "calendarweek", "weekday",
@@ -312,9 +340,10 @@ class LectureFeatureEngineer():
                        "studyarea", "ects", "level", "coursenumber"}
     permissible_features = course_features
     
-    def __init__(self, data_dict, course_dates_data, course_info_data, dfguru):
+    def __init__(self, data_dict, course_dates_data, course_info_data, dfguru, helpers_path):
         
         self.ts_data_dict = data_dict
+        self.helpers_path = helpers_path
         
         min_list = []
         max_list = []
@@ -372,7 +401,7 @@ class LectureFeatureEngineer():
             "course_numbers": self.course_numbers.tolist(),
         }
         # save auxillary data
-        with open(file="data/helpers.json", mode="w") as file:
+        with open(file=self.helpers_path, mode="w") as file:
             json.dump(dictionary, file, indent=4)
                       
     def derive_features(self, features):
@@ -409,10 +438,10 @@ class LectureFeatureEngineer():
             feature_set.remove("level")
             feature_set = feature_set.union(self.levels)
 
-        with open(file="data/helpers.json", mode="r") as file:
+        with open(file=self.helpers_path, mode="r") as file:
             dictionary = json.load(file)
         dictionary["min_max_registered"] = [str(course_dates["registered"].min()), str(course_dates["registered"].max())]
-        with open(file="data/helpers.json", mode="w") as file:
+        with open(file=self.helpers_path, mode="w") as file:
             json.dump(dictionary, file, indent=4)  
         
         return course_dates[sorted(list(feature_set))]
@@ -463,6 +492,9 @@ class LectureFeatureEngineer():
                 if "occrate" in features:
                     course_dates_entry["occrate"] = course_dates_entry["occcount"]/(course_info["registered_students"].values[0])
                     
+                    if course_dates_entry["occrate"].values[0] > 10:
+                        course_dates_entry["occrate"] = course_dates["occrate"].max()
+
                 # occcount last lecture
                 #all_course_dates = course_dates[course_dates["course_number"] == course_number].sort_values(by="start_time").reset_index(drop=True)
                 #all_course_dates = all_course_dates[(all_course_dates["start_time"] < start_time)]
@@ -568,7 +600,7 @@ class LectureFeatureEngineer():
      
 class OccFeatureEngineer():
     
-    course_features = {"maxocccount","coursenumber", "maxoccrate" ,"exam", "lecture", "lecturerampbefore", "lecturerampafter" "registered", "test", "tutorium", "type"}
+    course_features = {"maxocccount","coursenumber", "maxoccrate" ,"maxoccrateestimate", "exam", "lecture", "lecturerampbefore", "lecturerampafter", "registered", "test", "tutorium", "type"}
     datetime_features = {"dow", "hod", "week", "holiday", "zwickltag"}
     general_features = {"occcount", "occrate"}
     shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
@@ -599,6 +631,7 @@ class OccFeatureEngineer():
         # UE: UE, AG, IK, PR, PS
         # KS: KS, VU, KV, RE, UV
         # SE: SE
+        
         self.type_mapping = {
             "VL": "VL",
             "VO": "VL",
@@ -612,8 +645,8 @@ class OccFeatureEngineer():
             "VU": "KS",
             "KV": "KS",
             "RE": "KS",
-            "UV": "KS",}
-             
+            "UV": "KS",}       
+        
     def derive_features(self, features, room_id):
         
         # get the course number
@@ -728,6 +761,12 @@ class OccFeatureEngineer():
         
         course_dates_in_room = self.dfg.filter_by_roomid(self.course_dates_table, room_id)
         
+        room_capa = course_dates_in_room["room_capacity"].unique()
+        
+        max_occrate_estimates = np.load("data/lecture_maxoccrate_estimates.npy", allow_pickle=True)
+        pd_maxoccrate = pd.DataFrame(max_occrate_estimates, columns=["course_number", "starttime", "roomid", "maxoccrateestimate", "maxoccrate"])
+        
+
         # initialize all features to 0
         for feature in features:
             time_series[feature] = 0
@@ -753,10 +792,28 @@ class OccFeatureEngineer():
             
             if "maxocccount" in features:
                 time_series.loc[course_time_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
+                print()
+                print("maxocccount: ", max(time_series.loc[course_time_mask, "occcount"]))
             
             if "maxoccrate" in features:
                 time_series.loc[course_time_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
                 
+            if "maxoccrateestimate" in features:
+                
+                masked_df = pd_maxoccrate[(pd_maxoccrate["starttime"] == grouping[0]) & (pd_maxoccrate["roomid"] == room_id)]
+                
+                if masked_df.empty:
+                    time_series.loc[course_time_mask, "maxoccrateestimate"] = -1
+                
+                else:
+                    print(course_info["registered_students"].values)
+                    print(masked_df["maxoccrate"].values * room_capa, masked_df["maxoccrate"].values*course_info["registered_students"].values.sum())
+                    # normalize based on room capacity
+                    print(room_capa)
+                    time_series.loc[course_time_mask, "maxoccrateestimate"] = masked_df.values
+                    raise
+                
+            
             # get course features  
             if "registered" in features:
                 time_series.loc[course_time_mask, "registered"] = course_info["registered_students"].values.sum()
@@ -795,7 +852,7 @@ class OccFeatureEngineer():
                 ramp_down_mask = (time_series["datetime"] > grouping[1]) & (time_series["datetime"] <= end_plus_15)
                 ramp_down_fraction = (end_plus_15 - time_series["datetime"][ramp_down_mask]) / ramp_duration
                 time_series.loc[ramp_down_mask, "lecturerampafter"] = ramp_down_fraction
-   
+
         return time_series
 
 
@@ -1143,11 +1200,27 @@ class OccupancyDataset(Dataset):
 
         if self.include_x_features:
             X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-        
+
+        if self.extract_coursenumber:
+            
+            X_course = X_df["coursenumber"].fillna("")
+            X_course = X_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
+            X_course = X_course.apply(lambda x: self.coursenr_lookup[x])
+            X_course = torch.Tensor(X_course.values)
+            
+            y_course = y_df["coursenumber"].fillna("")
+            y_course = y_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
+            y_course = y_course.apply(lambda x: self.coursenr_lookup[x])
+            y_course = torch.Tensor(y_course.values)    
+            
+        else:
+            X_course = None
+            y_course = None    
+
         X_list.append(X)
         y_features_list.append(y_features)
         y_list.append(y) 
-        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+        sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course)))
 
         return sample_info, X_list, y_features_list, y_list
 
@@ -1200,10 +1273,27 @@ class OccupancyDataset(Dataset):
             if self.include_x_features:
                 X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
             
+            if self.extract_coursenumber:
+                
+                X_course = X_df["coursenumber"].fillna("")
+                X_course = X_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
+                X_course = X_course.apply(lambda x: self.coursenr_lookup[x])
+                X_course = torch.Tensor(X_course.values)
+                
+                y_course = y_df["coursenumber"].fillna("")
+                y_course = y_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
+                y_course = y_course.apply(lambda x: self.coursenr_lookup[x])
+                y_course = torch.Tensor(y_course.values)    
+                
+            else:
+                X_course = None
+                y_course = None    
+                
+
             X_list.append(X)
             y_features_list.append(y_features)
             y_list.append(y) 
-            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id]))
+            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course)))
                                          
 
             
@@ -1246,12 +1336,13 @@ class LectureDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
     
-    def __init__(self, lecture_df: dict, hyperparameters:dict, dataset_mode:str, validation: bool, verbose:bool=True):
+    def __init__(self, lecture_df: dict, hyperparameters:dict, dataset_mode:str, validation: bool, path_to_helpers, verbose:bool=True):
         """ Constructor for the occupancy dataset
         Task: Convert the cleaned data into a list of samples
         """
         super().__init__()
         
+        self.dataset_mode = dataset_mode
 
         self.lec_df = lecture_df
         self.hyperparameters = hyperparameters
@@ -1283,7 +1374,8 @@ class LectureDataset(Dataset):
         #self.differencing = hyperparameters["differencing"]
         #self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
         
-        with open("data/helpers.json", "r") as f:
+        self.path_to_helpers = path_to_helpers
+        with open(self.path_to_helpers, "r") as f:
             self.helper = json.load(f)
         
         self.min_registered = int(self.helper["min_max_registered"][0])
@@ -1397,7 +1489,8 @@ class LectureDataset(Dataset):
 
     ############ Process Data Functions ############
     def process_data_df(self, mode):
-        
+
+          
         if mode=="time_onedateahead":
             sampling_function = self.create_samples_time_onedateahead
         elif mode=="time_sequential":
@@ -1421,23 +1514,22 @@ class LectureDataset(Dataset):
                 sub_df[["exam", "test", "tutorium"]] = sub_df[["exam", "test", "tutorium"]].mode().iloc[0]
                 
                 self.lec_df.loc[sub_df.index, ["occcount", "occrate", "exam", "test", "tutorium"]] = sub_df[["occcount", "occrate", "exam", "test", "tutorium"]]
- 
-        
+            
         # handle splitted courses
         for _, sub_df in self.lec_df.groupby(["starttime", "coursenumber"]):
             
             if len(sub_df) > 1:
                 # adapt -> registered, occrate
+                
                 sub_df["registered"] = (sub_df["registered"] / len(sub_df)).astype(int)
                 sub_df["occrate"] = (sub_df["occcount"] / sub_df["registered"])
-                
+
                 self.lec_df.loc[sub_df.index, ["registered", "occrate"]] = sub_df[["registered", "occrate"]]
 
-        
 
         self.lec_df["registered"]  = (self.lec_df["registered"] - self.min_registered) / (self.max_registered - self.min_registered)
         
-
+        
         self.min_occrate = self.lec_df["occrate"].min()
         self.max_occrate = self.lec_df["occrate"].max()
         self.lec_df["occrate"] = (self.lec_df["occrate"] - self.min_occrate) / (self.max_occrate - self.min_occrate)

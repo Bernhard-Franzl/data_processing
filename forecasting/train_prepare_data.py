@@ -5,8 +5,10 @@ import torch
 from _forecasting import prepare_data, load_data_dicts, prepare_data_lecture, load_data_lecture
 from _dfguru import DataFrameGuru as DFG
 from _forecasting import OccFeatureEngineer, LectureFeatureEngineer
-
 dfg = DFG()
+
+
+
 for frequency in ["5min","1min", "15min", "30min", "1h"]:
     
     #### Control Randomness ####
@@ -42,17 +44,31 @@ for frequency in ["5min","1min", "15min", "30min", "1h"]:
 #torch_rng.manual_seed(42)
 #random.seed(42)
 
-#train_set, val_set, test_set = prepare_data_lecture(
-#    path_to_data_dir="data",
-#    feature_list=sorted(list(LectureFeatureEngineer.permissible_features)),
-#    dfguru = dfg,
-#    rng = np_rng,
-#    split_by="time"
-#)
+#test = False
+#for n_weeks in range(2, 13):
+    
+#    split_by = f"random_{n_weeks}"
+#    datasets, indices = prepare_data_lecture(
+#        path_to_data_dir="data",
+#        feature_list=sorted(list(LectureFeatureEngineer.permissible_features)),
+#        dfguru = dfg,
+#        rng = np_rng,
+#        split_by=split_by,
+#        test = test,
+#    )
 
-#dfg.save_to_csv(train_set, "data", f"lecture_train_set")
-#dfg.save_to_csv(val_set, "data", f"lecture_val_set")
-#dfg.save_to_csv(test_set, "data", f"lecture_test_set")
+#    if "random" in split_by:
+#        print(f"Saving data for {split_by}")
+#        dfg.save_to_csv(datasets, "data", f"lecture_data_{split_by}")
+#        np.save(f"data/lecture_train_idx_{split_by}.npy", indices[0])
+#        np.save(f"data/lecture_val_idx_{split_by}.npy", indices[1])
+#        np.save(f"data/lecture_test_idx_{split_by}.npy", indices[2])
+        
+#    else:
+#        dfg.save_to_csv(datasets[0], "data", f"lecture_train_{split_by}")
+#        dfg.save_to_csv(datasets[1], "data", f"lecture_val_{split_by}")
+#        if test:
+#            dfg.save_to_csv(datasets[2], "data", f"lecture_test_{split_by}")
 
 #train_df, val_df, test_df = load_data_lecture("data", dfguru=dfg)
 
