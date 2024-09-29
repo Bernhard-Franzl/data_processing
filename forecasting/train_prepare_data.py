@@ -9,7 +9,7 @@ dfg = DFG()
 
 
 
-for frequency in ["5min","1min", "15min", "30min", "1h"]:
+for frequency in ["1min", "5min","1min", "15min", "30min", "1h"]:
     
     #### Control Randomness ####
     np_rng = np.random.default_rng(seed=42)

@@ -226,9 +226,9 @@ class MasterTrainer:
         
         return train_set, val_set, test_set
 
-    def initialize_lecture_dataset_deployment(self, data_df, dataset_mode:str):
+    def initialize_lecture_dataset_deployment(self, data_df, dataset_mode:str, path_to_helpers:str):
         
-        dataset = LectureDataset(data_df, self.hyperparameters, dataset_mode, validation=False)
+        dataset = LectureDataset(data_df, self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers,validation=False)
         
         info, X, y_features, y = dataset[1]
         if len(X.shape) != 1:
@@ -250,7 +250,6 @@ class MasterTrainer:
             ) 
             
         return dataset
-        
         
     def initialize_lecture_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset, dataset_mode:str):
         

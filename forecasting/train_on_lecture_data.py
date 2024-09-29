@@ -32,7 +32,6 @@ n_param = 0
 mode = "time_sequential"
 overwrite = False
 
-raise Exception("Fix error in Lecture LSTM Forward!!" )
 "occrate_registered_exam_test_tutorium_starttime_endtime_calendarweek_weekday_type_studyarea_ects_level"
 
 # train best hyperparameter set on every week -> store results for training of other model

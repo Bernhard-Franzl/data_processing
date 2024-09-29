@@ -27,7 +27,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 #n_run = args.n_run
 #n_param = args.n_param
 
-n_run = 4
+n_run = 5
 n_param = 0
 mode = "time_sequential"
 overwrite = False
@@ -85,10 +85,10 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
         
         mt.save_hyperparameters(save_path=cp_path)
         
-        
-        train_set = mt.initialize_lecture_dataset_deployment(datadf, mode)
-        test_set = mt.initialize_lecture_dataset_deployment(datadf, mode)
-        val_set = mt.initialize_lecture_dataset_deployment(datadf, mode)
+        path_to_helpers = f"data/helpers_lecture_random_{i}.json"
+        train_set = mt.initialize_lecture_dataset_deployment(datadf, mode, path_to_helpers)
+        test_set = mt.initialize_lecture_dataset_deployment(datadf, mode, path_to_helpers)
+        val_set = mt.initialize_lecture_dataset_deployment(datadf, mode, path_to_helpers)
         
         df_train = datadf.iloc[train_indices]
         df_val = datadf.iloc[val_indices]

@@ -600,7 +600,7 @@ class LectureFeatureEngineer():
      
 class OccFeatureEngineer():
     
-    course_features = {"maxocccount","coursenumber", "maxoccrate" ,"maxoccrateestimate", "exam", "lecture", "lecturerampbefore", "lecturerampafter", "registered", "test", "tutorium", "type"}
+    course_features = {"maxocccount","coursenumber", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate", "exam", "lecture", "lecturerampbefore", "lecturerampafter", "registered", "test", "tutorium", "type"}
     datetime_features = {"dow", "hod", "week", "holiday", "zwickltag"}
     general_features = {"occcount", "occrate"}
     shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
@@ -789,14 +789,24 @@ class OccFeatureEngineer():
             course_number_list = sub_df["course_number"].values
             time_series.loc[course_time_mask, "coursenumber"] = ",".join(sorted(course_number_list))
             course_info = self.dfg.filter_by_courses(self.course_info_table, course_number_list)
-            
+            course_info = self.dfg.filter_by_roomid(course_info, room_id)
+
             if "maxocccount" in features:
                 time_series.loc[course_time_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
-                print()
-                print("maxocccount: ", max(time_series.loc[course_time_mask, "occcount"]))
             
             if "maxoccrate" in features:
                 time_series.loc[course_time_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
+                
+            if "maxocccountestimate" in features:
+                
+                masked_df = pd_maxoccrate[(pd_maxoccrate["starttime"] == grouping[0]) & (pd_maxoccrate["roomid"] == room_id)]
+                
+                if masked_df.empty:
+                    time_series.loc[course_time_mask, "maxoccrateestimate"] = -1
+                else:
+                    registered_students = course_info["registered_students"].values           
+                    max_occount_estimate = int((masked_df["maxoccrateestimate"].values * registered_students).sum())
+                    time_series.loc[course_time_mask, "maxoccrateestimate"] = max_occount_estimate
                 
             if "maxoccrateestimate" in features:
                 
@@ -804,14 +814,11 @@ class OccFeatureEngineer():
                 
                 if masked_df.empty:
                     time_series.loc[course_time_mask, "maxoccrateestimate"] = -1
-                
                 else:
-                    print(course_info["registered_students"].values)
-                    print(masked_df["maxoccrate"].values * room_capa, masked_df["maxoccrate"].values*course_info["registered_students"].values.sum())
-                    # normalize based on room capacity
-                    print(room_capa)
-                    time_series.loc[course_time_mask, "maxoccrateestimate"] = masked_df.values
-                    raise
+                    registered_students = course_info["registered_students"].values
+                    max_occount_estimate = (masked_df["maxoccrateestimate"].values * registered_students).sum()
+                    max_occrate_estimate = max_occount_estimate / room_capa
+                    time_series.loc[course_time_mask, "maxoccrateestimate"] = float(max_occrate_estimate)
                 
             
             # get course features  
@@ -844,8 +851,14 @@ class OccFeatureEngineer():
                 if "maxoccrate" in features:
                     time_series.loc[ramp_up_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
                     
+                if "maxoccrateestimate" in features:
+                    time_series.loc[ramp_up_mask, "maxoccrateestimate"] = time_series.loc[course_time_mask, "maxoccrateestimate"].max()
+                    
                 if "maxocccount" in features:
                     time_series.loc[ramp_up_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
+                
+                if "maxocccountestimate" in features:
+                    time_series.loc[ramp_up_mask, "maxocccountestimate"] = time_series.loc[course_time_mask, "maxocccountestimate"].max()
                          
             if "lecturerampafter" in features:
                 end_plus_15 = grouping[1] + ramp_duration

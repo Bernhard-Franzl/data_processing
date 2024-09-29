@@ -1,21 +1,24 @@
 {   
-    "info": "Run 0: maxoccrate - identity last acti",
+    "info": "Run 0: maxoccrate - true vs estimate",
     "model_class": ["simple_lstm"],
     "optimizer_class": ["Adam"],
     "differencing": ["none"],
     "criterion": ["MAE"],
+    "layer_norm": [false],
     "lr": [0.0001],
     "weight_decay": [0],
-    "batch_size": [64],
-    "hidden_size": [[256], [128], [64], [32]],
-    "num_layers": [3],
-    "x_horizon": [36,72],
-    "y_horizon": [6,12],
+    "batch_size": [8, 64],
+    "hidden_size": [[256], [64]],
+    "num_layers": [1, 3],
+    "x_horizon": [36],
+    "y_horizon": [12],
     "features": [
-        "occrate_lecture_lecturerampbefore_coursenumber_maxoccrate"],
+        "occrate_lecture_lecturerampbefore_coursenumber",
+        "occrate_lecture_lecturerampbefore_coursenumber_maxoccrate",
+        "occrate_lecture_lecturerampbefore_coursenumber_maxoccrateestimate"],
     "zero_sample_drop_rate": [0.1],
     "forget_gate": [true],
     "include_x_features": [true],
     "frequency": "5min",
-    "max_n_updates": 20000
+    "max_n_updates": 50000
 }

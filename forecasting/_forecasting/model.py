@@ -574,13 +574,12 @@ class SimpleOccLSTM(torch.nn.Module):
         self.y_horizon = hyperparameters["y_horizon"]
         self.y_features_size = hyperparameters["y_features_size"]
         self.y_size = hyperparameters["y_size"]
-    
-        self.output_size = self.y_size * self.y_horizon
+        
+        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
     
         self.hidden_size = hyperparameters["hidden_size"]
         
         self.batch_size = hyperparameters["batch_size"]
-        
         ############ Model Definition ############
         
         self.enc_size = 0
@@ -597,13 +596,25 @@ class SimpleOccLSTM(torch.nn.Module):
             
             self.enc_size = self.enc_dim
           
-          
         self.input_size = self.x_size + self.enc_size
         
         # lstm layer
         self.lstm = torch.nn.LSTM(self.input_size,  self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
+          
         # fc at end
-        self.linear_final = torch.nn.Linear(self.hidden_size[0], 1)
+        self.fc_end = nn.Sequential()
+        if len(self.hidden_size) == 2:
+            
+            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0], self.hidden_size[1]))
+            
+            if hyperparameters["layer_norm"]:
+                self.fc_end.add_module("layer_norm", nn.LayerNorm(self.hidden_size[1]))
+                
+            self.fc_end.add_module("relu_0", nn.ReLU())
+            self.fc_end.add_module("output_layer", nn.Linear(self.hidden_size[1], self.y_size))
+        
+        else:
+            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0], self.y_size))
             
         if "forget_gate" in hyperparameters:
             if not hyperparameters["forget_gate"]:
@@ -633,7 +644,7 @@ class SimpleOccLSTM(torch.nn.Module):
 
         out, (h_n, c_n) = self.lstm(x)       
         
-        y_t = self.last_activation(self.linear_final(out[:, -1, :]))  
+        y_t = self.last_activation(self.fc_end(out[:, -1, :]))  
         y_t = y_t[:, None, :]
         
         pred_list = []
@@ -643,7 +654,7 @@ class SimpleOccLSTM(torch.nn.Module):
             y_in = torch.cat((y_t, y_feat_t[:, None, :]), 2)
             
             h_t1, (h_n, c_n) = self.lstm(y_in, (h_n, c_n))
-            y_t = self.last_activation(self.linear_final(h_t1))
+            y_t = self.last_activation(self.fc_end(h_t1))
 
             pred_list.append(y_t)
         
