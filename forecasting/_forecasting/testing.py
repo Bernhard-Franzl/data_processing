@@ -10,7 +10,8 @@ import plotly.graph_objects as go
 import numpy as np
 from tqdm import tqdm
 
-from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, SimpleLectureDenseNet, SimpleLectureLSTM
+from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM
+from _forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
 from _forecasting.data import OccupancyDataset, LectureDataset
 from _forecasting.data import load_data_dicts, load_data_lecture
 
@@ -44,6 +45,9 @@ def handle_model_class(model_name:str):
         
         elif model_name == "simple_lecture_densenet":
             return SimpleLectureDenseNet
+        
+        elif model_name == "ed_lstm":
+            return EncDecOccLSTM
         
         else:
             raise ValueError(f"Model {model_name} not recognized")
@@ -213,7 +217,6 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
         
         with torch.no_grad():
             
-            #print(X.shape, y_features.shape, room_id.shape)
             preds = model(X, y_features, room_id)
             
             #if len(preds) == 0:
@@ -227,10 +230,6 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
                 y = torch.argmax(y, dim=-1).to(dtype=torch.float32)
             
             info = (info[0], info[1], info[2], info[3], info[4], info[5], info[6])
-            
-            #print(len(y_adjusted), info[2].shape, "pred:", len(preds))
-            #if preds.shape != y_adjusted.shape:
-            #    y_adjusted = y_adjusted.unsqueeze(-1)
                 
             losses["MAE"].append(mae_f(preds, y))
             losses["MSE"].append(mse_f(preds, y))
@@ -313,8 +312,6 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
             device=device,
             mode=mode,
             data=data)
-        
-        
         
         # print size of model
         
@@ -511,6 +508,7 @@ def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, ba
             indices = np.argsort(mean_losses)[::-1]
         else:
             indices = np.argsort(mean_losses)
+            
 
         if (baseline_losses == None):
             write_loss_to_txt_without_baseline(filename, list_combs[indices], mean_losses[indices], key)

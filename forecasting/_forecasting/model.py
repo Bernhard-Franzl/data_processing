@@ -337,7 +337,7 @@ class SimpleLectureLSTM(torch.nn.Module):
         
         out, (h_n, c_n) = self.lstm(x, (h_0, room_enc))       
     
-        y_t = self.last_activation(self.linear_final(out[:, -1, :]))[:, None, :]
+        y_t = self.last_activation(self.fc_end(out[:, -1, :]))[:, None, :]
         pred_list = []
         for i in range(0, len_y):
             
@@ -346,13 +346,14 @@ class SimpleLectureLSTM(torch.nn.Module):
             
             out, (h_n, c_n) = self.lstm(y_t_in, (h_n, c_n))
 
-            y_t = self.last_activation(self.linear_final(out))
+            y_t = self.last_activation(self.fc_end(out))
             #print("lstm:", y_t.shape)
 
             pred_list.append(y_t.squeeze(-1))
         
         return torch.cat(pred_list)    
     
+   
     
 class SimpleOccDenseNet(nn.Module):
     
@@ -558,6 +559,8 @@ class OccDenseNet(nn.Module):
             x = self.model(input)
             
             return x  
+     
+     
         
 class SimpleOccLSTM(torch.nn.Module):
     
@@ -677,7 +680,7 @@ class SimpleOccLSTM(torch.nn.Module):
 
 
         out, (h_n, c_n) = self.lstm(x)       
-        y_t = self.last_activation(self.linear_final(out[:, -1, :]))[:, None, :]
+        y_t = self.last_activation(self.fc_end(out[:, -1, :]))[:, None, :]
         
         
         pred_list = []
@@ -688,7 +691,7 @@ class SimpleOccLSTM(torch.nn.Module):
             
             out, (h_n, c_n) = self.lstm(y_t_in, (h_n, c_n))
 
-            y_t = self.last_activation(self.linear_final(out))
+            y_t = self.last_activation(self.fc_end(out))
 
             pred_list.append(y_t.squeeze(-1))
         
@@ -703,55 +706,136 @@ class EncDecOccLSTM(torch.nn.Module):
         self.hyperparameters = hyperparameters
         
         self.x_size = hyperparameters["x_size"]
+        self.x_horizon = hyperparameters["x_horizon"]
+        
         self.y_features_size = hyperparameters["y_features_size"]
-    
-        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
+        self.y_horizon = hyperparameters["y_horizon"]
+        self.y_size = hyperparameters["y_size"]
     
         self.hidden_size = hyperparameters["hidden_size"]
         
         self.occcount = hyperparameters["occcount"]
         self.batch_size = hyperparameters["batch_size"]
         
-        #self.room_encoding = torch.eye(2).to(self.device)
-        #self.room_enc_size = self.room_encoding.shape[1]    
+        self.enc_size = 0
         
-        # embedding for hidden states with 0 init
-        weights = torch.randn(2, self.hidden_size[0])
-        #weights = torch.randn(2, self.hidden_size[0])
-        self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+        if "coursenumber" in hyperparameters["features"]:
+            
+            with open("data/helpers_occpred.json", "r") as f:
+                self.helper = json.load(f)       
+        
+            self.enc_dim= 5
+            course_numbers = self.helper["course_numbers"]
+            weights = torch.zeros(len(course_numbers), self.enc_dim)
+            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+            
+            self.enc_size = self.enc_dim
+          
+          
+        self.input_size_1 = self.x_size + self.enc_size
+        self.input_size_2 = self.y_features_size + self.enc_size
+        self.output_size = self.y_size * self.y_horizon
+        
         
         # lstm encoder
-        self.encoder_lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
+        self.encoder_lstm = torch.nn.LSTM(self.input_size_1, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
+        
         # lstm decoder
-        self.proj_size = 1
-        self.decoder_lstm = torch.nn.LSTM(self.y_features_size, self.hidden_size[0], proj_size=self.proj_size, batch_first=True, num_layers=hyperparameters["num_layers"])
+        
+        self.decoder_lstm = torch.nn.LSTM(self.input_size_2, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
+        
         # predictor
-        self.linear = torch.nn.Linear(self.hidden_size[0], hyperparameters["y_size"])
+        self.fc_end = nn.Sequential()
+        if len(self.hidden_size) == 2:
+            
+            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0], self.hidden_size[1]))
+            
+            if hyperparameters["layer_norm"]:
+                self.fc_end.add_module("layer_norm", nn.LayerNorm(self.hidden_size[1]))
+                
+            self.fc_end.add_module("relu_0", nn.ReLU())
+            self.fc_end.add_module("output_layer", nn.Linear(self.hidden_size[1], self.output_size ))
+        
+        else:
+            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0], self.output_size ))
         
         if self.occcount:
             self.last_activation = nn.ReLU()    
         else:
-            self.last_activation = nn.Sigmoid()
+            self.last_activation = nn.Identity()
             
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        
-        # embedding for hidden states with 0 init
-        weights = torch.randn(2, self.hidden_size[0])
-        #weights = torch.zero(2, self.hidden_size[0])
-        #weights = torch.randn(2, self.hidden_size[0])
-        self.room_embedding = nn.Embedding.from_pretrained(weights, freeze=False)       
              
     def forward(self, x, y_features, room_id=None):
+    
+        if "coursenumber" in self.hyperparameters["features"]:
+            
+            X_course_emb = self.course_embedding(room_id[:, :self.x_horizon])
+            y_course_emb = self.course_embedding(room_id[:, self.x_horizon:])
+            
+            x = torch.cat((x, X_course_emb), -1)
+            y_features = torch.cat((y_features, y_course_emb), -1)
         
-        room_enc = self.room_embedding(room_id)[None, :, :]
-        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
-        
-        _, (_, c_n) = self.encoder_lstm(x, (torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.hidden_size[0]).to(self.device), room_enc))
-        
-        out, _ = self.decoder_lstm(y_features, (torch.zeros(self.hyperparameters["num_layers"], self.batch_size, self.proj_size).to(self.device), c_n))
-                
-        return out.squeeze(-1)
+        _, (h_n, c_n) = self.encoder_lstm(x)
 
+        out, _ = self.decoder_lstm(y_features, (h_n, c_n))
+
+        pred = self.last_activation(self.fc_end(out[:, -1, :]))
+
+        return pred
+    
+    def forecast_iter(self, x, y_features, len_y, room_id):
+        
+        x = x[None, :]
+        y_features = y_features[None, :]
+        
+        if "coursenumber" in self.hyperparameters["features"]:
+            X_course_emb = self.course_embedding(room_id[:self.x_horizon])[None, :]
+            y_course_emb = self.course_embedding(room_id[self.x_horizon:])[None, :]
+    
+        predicitons = []
+        for i in range(0, len_y, self.y_horizon):
+
+            y_feat_i = y_features[:, i:i+self.y_horizon]    
+            
+            if y_feat_i.shape[1] < self.y_horizon:
+                break
+            
+            if "coursenumber" in self.hyperparameters["features"]:
+                
+                y_emb_i = y_course_emb[:, i:i+self.y_horizon]
+                x_emb_i = X_course_emb
+            
+                in_1 = torch.cat((x, x_emb_i), -1)
+                in_2 = torch.cat((y_feat_i, y_emb_i), -1)
+            
+            else:
+
+                in_1 = torch.cat((x, x_emb_i), -1)
+                in_2 = torch.cat((y_feat_i, y_emb_i), -1)
+            
+            _, (h_n, c_n) = self.encoder_lstm(in_1)
+
+            out_dec, _ = self.decoder_lstm(in_2, (h_n, c_n))
+
+            out = self.last_activation(self.fc_end(out_dec[:, -1, :]))
+            
+            predicitons.append(out[:, :, None])
+
+            if self.hyperparameters["include_x_features"]:
+                x_new = torch.cat((out[:, :, None], y_feat_i), dim=-1)
+            else:
+                x_new = out[:, None]
+            
+            x = torch.cat((x, x_new), dim=1)[:, self.y_horizon:]
+              
+            if "coursenumber" in self.hyperparameters["features"]:
+                X_course_emb = torch.cat((X_course_emb, y_emb_i), dim=1)[:,self.y_horizon:]
+
+        if len(predicitons) == 0:
+            return torch.tensor([])
+        else:
+            return torch.cat(predicitons, dim=1).squeeze(0)
 
 
 

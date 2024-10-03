@@ -8,10 +8,10 @@
     "lr": [0.0001],
     "weight_decay": [0],
     "batch_size": [8, 64],
-    "hidden_size": [[256], [64]],
+    "hidden_size": [[256, 32], [64, 32]],
     "num_layers": [1, 3],
     "x_horizon": [36],
-    "y_horizon": [12],
+    "y_horizon": [72],
     "features": [
         "occrate_lecture_lecturerampbefore_coursenumber",
         "occrate_lecture_lecturerampbefore_coursenumber_maxoccrate",
