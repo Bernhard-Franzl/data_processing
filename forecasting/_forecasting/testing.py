@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 import numpy as np
 from tqdm import tqdm
 
-from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM
+from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, SimpleOccGRU, MassConservingOccLSTM
 from _forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
 from _forecasting.data import OccupancyDataset, LectureDataset
 from _forecasting.data import load_data_dicts, load_data_lecture
@@ -49,6 +49,12 @@ def handle_model_class(model_name:str):
         elif model_name == "ed_lstm":
             return EncDecOccLSTM
         
+        elif model_name == "mc_lstm":
+            return MassConservingOccLSTM
+        
+        elif model_name == "simple_gru":  
+            return SimpleOccGRU
+        
         else:
             raise ValueError(f"Model {model_name} not recognized")
         
@@ -85,7 +91,7 @@ def prepare_model_and_data(checkpoint_path:str, dfg, device, mode:str, data:str)
             data_dict = test_dict
         else:
             raise ValueError(f"Data {data} not recognized")
-        
+
         dataset = OccupancyDataset(data_dict, hyperparameters, mode)
         room_ids = data_dict.keys()
         
@@ -109,9 +115,9 @@ def prepare_model_and_data(checkpoint_path:str, dfg, device, mode:str, data:str)
         dataset = LectureDataset(data_dict, hyperparameters, mode, validation)
         room_ids = None
         
-        y_samples = []
-        for i in range(len(dataset)):
-            y_samples.append(dataset[i][3])
+        #y_samples = []
+        #for i in range(len(dataset)):
+        #    y_samples.append(dataset[i][3])
             
     else:
         raise ValueError(f"Mode {mode} not recognized")
@@ -160,7 +166,7 @@ def run_detailed_test(model, dataset:OccupancyDataset, device):
         with torch.no_grad():
             
             preds = model.forecast_iter(X, y_features, len(y), room_id)
-            
+                    
             if len(preds) == 0:
                 continue
             

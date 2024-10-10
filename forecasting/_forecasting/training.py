@@ -9,11 +9,11 @@ warnings.filterwarnings("ignore")
 import torch
 import torch.nn as nn
 from torch.optim.optimizer import Optimizer
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 
 from _forecasting.data import OccupancyDataset, LectureDataset
 from _forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
-from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet
+from _forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet, SimpleOccGRU, MassConservingOccLSTM
 
 class StatsLogger:
     
@@ -169,6 +169,12 @@ class MasterTrainer:
         if model_class == "simple_lstm":
             return SimpleOccLSTM
         
+        elif model_class == "simple_transformer":
+            return SimpleOccTransformer
+        
+        elif model_class == "simple_gru":
+            return SimpleOccGRU
+        
         elif model_class == "simple_densenet":
             return SimpleOccDenseNet
         elif model_class == "densenet":
@@ -178,6 +184,9 @@ class MasterTrainer:
             return EncDecOccLSTM
         elif model_class == "ed_lstm1":
             return EncDecOccLSTM1
+        
+        elif model_class == "mc_lstm":
+            return MassConservingOccLSTM
         
         elif model_class == "simple_lecture_lstm":
             return SimpleLectureLSTM
@@ -260,8 +269,12 @@ class MasterTrainer:
         else:
             raise ValueError("Dataset mode not supported.")
         
+        sampler = WeightedRandomSampler(train_set.sample_weight, len(train_set.samples))
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=collate_f, generator=self.torch_rng, drop_last=True)
+                                  collate_fn=collate_f, generator=self.torch_rng, drop_last=True, sampler=sampler)
+        
+        
+        raise
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
                                 collate_fn=collate_f, drop_last=True)
@@ -309,7 +322,8 @@ class MasterTrainer:
         
         train_set = OccupancyDataset(train_dict, self.hyperparameters, mode)
         val_set = OccupancyDataset(val_dict, self.hyperparameters, mode)
-        test_set = OccupancyDataset(test_dict, self.hyperparameters, mode)
+        test_set = OccupancyDataset(test_dict, self.hyperparameters, mode)    
+        
         
         _, X, y_features, y = train_set[0]
         
@@ -323,11 +337,14 @@ class MasterTrainer:
 
     def initialize_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset):
         
-        train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True)
         
+        train_sampler = WeightedRandomSampler(train_set.sample_weights, len(train_set.samples), generator=self.torch_rng)       
+        train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], 
+                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True, sampler=train_sampler)
+        
+        val_sampler = WeightedRandomSampler(val_set.sample_weights, len(val_set.samples)) 
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=self.custom_collate, drop_last=True)
+                                collate_fn=self.custom_collate, drop_last=True, sampler=val_sampler)
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
                                  collate_fn=self.custom_collate, drop_last=True)

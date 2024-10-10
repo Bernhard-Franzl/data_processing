@@ -356,7 +356,8 @@ class SignalPreprocessor(Preprocessor):
             idx = abs_diff.nsmallest(n).index
         else:
             idx = abs_diff.nsmallest(n + 1).index[1:n + 1]
-        
+            
+
         # Filter the dataframe based on these indices
         filtered = df.loc[idx]
         
@@ -444,7 +445,10 @@ class SignalPreprocessor(Preprocessor):
         dict_df_room_door = self.df_room_door_dict(df)
         df_return = pd.DataFrame(columns=list(df.columns))
         df_return = df_return.astype(df.dtypes)
-       
+        
+        one_count = 0
+        else_count = 0
+        minusone_count = 0
         
         for room, room_dict in dict_df_room_door.items():
             for door, df_room_door in room_dict.items():  
@@ -470,18 +474,44 @@ class SignalPreprocessor(Preprocessor):
                     x_time_ub = x_time + timedelta(seconds=s)
                     rows_time_filtered = rows[(rows["time"] >= x_time_lb) & (rows["time"] <= x_time_ub)]
             
-                    # if only one sample in time window
+                    # if only one sample in time window                    
                     if len(rows_time_filtered) == 1:
-                        # select make majority vote with the n closeste neighbors
-                        common_event_type = self.event_type_majority_vote_closest(rows, x_time, nm, target_removed=False)
+                        
+                        # brutal mode -> normal mode but with no majority vote in the whole neighborhood -> make s larger if needed
+                        
+                        # clever brutal mode
+                        # if event dir_count is 0 and 0 -> discard
+                        if (rows_time_filtered["in_support_count"].values[0] == 0) and (rows_time_filtered["out_support_count"].values[0] == 0):
+                            common_event_type = -1
+                            minusone_count += 1
+                            
+                        else:
+                            common_event_type = rows_time_filtered["event_type"].values[0]
+
+
+                        # normal mode
+                        #nclos_time_lb = x_time - timedelta(seconds=3)
+                        #nclos_time_ub = x_time + timedelta(seconds=3)
+                        #nclos_time_filtered = rows[(rows["time"] >= nclos_time_lb) & (rows["time"] <= nclos_time_ub)]
+                        #if len(nclos_time_filtered) == 1:
+                            
+                        #    # brutal mode
+                        #    # mark as invalid and discard later
+                        #    common_event_type = -1
+                        #    minusone_count += 1
+
                     # if more than one sample in time window     
                     else:
                         # make majority vote with the samples in the time window
                         common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, ns, target_removed=False)
+                        else_count += 1
                 
                     df_room_door.loc[x, "event_type"] = common_event_type
-                    
+                   
+                # discard invalid samples 
                 df_return = pd.concat([df_return, df_room_door], axis=0)
+        
+        df_return = df_return[df_return["event_type"] != -1].reset_index(drop=True)   
 
         return df_return
 
@@ -518,7 +548,6 @@ class SignalPreprocessor(Preprocessor):
                     # mark as invalid and discard later
                     df.loc[x, "event_type"] = -1
                 else:
-                    
                     common_event_type = self.event_type_majority_vote_closest(rows_time_filtered, x_time, nm, target_removed=True)
                     df.loc[x, "event_type"] = common_event_type
                     
@@ -598,11 +627,12 @@ class SignalPreprocessor(Preprocessor):
         
         # check if samples should be discarded or not
         if filtering_params["discard_samples"]:  # 0.8sec
-            # discard samples between 22:00 and 07:30
-            lb = time(hour=7, minute=30, second=0)
-            ub = time(hour=21, minute=15, second=0)
+            # discard samples between 21:15 and 07:30
+            lb = filtering_params["discard_times"][0].split(":")
+            ub = filtering_params["discard_times"][1].split(":")
+            lb = time(hour=int(lb[0]), minute=int(lb[1]), second=int(lb[2]))
+            ub = time(hour=int(ub[0]), minute=int(ub[1]), second=int(ub[2]))
             df = self.discard_samples(df, lb, ub)
-            
 
         if filtering_params["apply_filter"]:
             filter_mode = filtering_params["filter_mode"]
@@ -645,7 +675,13 @@ class SignalPreprocessor(Preprocessor):
         df["datetime"] = df["time"]
         df.drop("time", axis=1, inplace=True)
         
-        return df, raw_data
+        event_types = [0,1]
+        plot_data = raw_data[raw_data["event_type"].isin(event_types)].reset_index(drop=True)
+        plot_data = plot_data.sort_values(by="time", ascending=True).reset_index(drop=True)
+        plot_data["datetime"] = plot_data["time"]
+        plot_data.drop("time", axis=1, inplace=True)
+        
+        return df, plot_data
 
     ###### Preprocessing Application ########
     def apply_preprocessing(self, params:dict):
@@ -767,7 +803,7 @@ class PLCount():
         
         return occupancy_estimates
     
-    def run_on_whole_dataset(self, dataframe, data_handler, frequency):
+    def run_on_whole_dataset(self, dataframe, data_handler, frequency, params):
         
         occupancy_count_list = []
         day_list = list(pd.Series(1, dataframe['datetime']).resample("D").sum().index)
@@ -787,21 +823,38 @@ class PLCount():
                 occupancy_count_list.append(occupancy_counts)    
                 
             else:
-                occupancy_counts = data_handler.calc_occupancy_count(df_filtered, "datetime", frequency)
-                occupancy_counts["delta_CC"] = self.calc_delta(occupancy_counts, "CC")
-                occupancy_counts["sigma"] = self.calc_sigma(occupancy_counts, "delta_CC")
+                occ_counts_raw = data_handler.calc_occupancy_count(df_filtered, "datetime", frequency)
+                
+                occ_res = occ_counts_raw.copy()
+                occ_res["CC_estimates"] = 0
+                
+                if params["filtering_params"]["discard_samples"]:
+                    
+                    lb = params["filtering_params"]["discard_times"][0].split(":")
+                    ub = params["filtering_params"]["discard_times"][1].split(":")
+                    lb = time(hour=int(lb[0]), minute=int(lb[1]), second=int(lb[2]))
+                    ub = time(hour=int(ub[0]), minute=int(ub[1]), second=int(ub[2]))
+                    # filter lb and ub
+                    filter_mask = (occ_counts_raw["datetime"].dt.time >= lb) & (occ_counts_raw["datetime"].dt.time <= ub)
+                
+                else:        
+                    filter_mask = (occ_counts_raw["datetime"].dt.time >= time(0,0,0))        
+                
+                occ_counts_pl = occ_counts_raw[filter_mask].reset_index(drop=True)
 
-                cc_max = occupancy_counts.CC.max()
-                m = int(cc_max + (cc_max*0))
-                n = len(occupancy_counts.datetime)
+                occ_counts_pl["delta_CC"] = self.calc_delta(occ_counts_pl, "CC")
+                occ_counts_pl["sigma"] = self.calc_sigma(occ_counts_pl, "delta_CC")
                 
-                estimates = self.run_algorithm_vectorized(n, m, occupancy_counts["delta_CC"], occupancy_counts["sigma"])
+            
+                cc_max = occ_counts_pl.CC.max()
+                m = int(cc_max + (cc_max*params["plcount_params"]["cc_max_factor"]))
+                n = len(occ_counts_pl.datetime)
                 
-                occupancy_counts["CC_estimates"] = estimates
-                occupancy_counts = occupancy_counts.drop(columns=["delta_CC", "sigma"])
-                
-                occupancy_count_list.append(occupancy_counts)
-                
+                estimates = self.run_algorithm_vectorized(n, m, occ_counts_pl["delta_CC"], occ_counts_pl["sigma"])
+                occ_res.loc[filter_mask, "CC_estimates"] = estimates       
+
+                occupancy_count_list.append(occ_res)
+    
         return occupancy_count_list
 
 

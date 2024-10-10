@@ -55,7 +55,6 @@ summer_break_2024 = [
 ]
 
 
-
 def load_data_lecture(path_to_data_dir, dfguru):
 
     traindf = dfguru.load_dataframe(
@@ -198,8 +197,7 @@ def train_val_test_split_lecture(course_dates, rng, split_by, test, verbose=True
     #    print("Size of Trainset:", len(train_set)/len(course_dates))
     #    print()
     
-    return datasets, indices
-           
+    return datasets, indices          
            
               
 def load_data_dicts(path_to_data_dir, frequency, dfguru):
@@ -579,23 +577,23 @@ class LectureFeatureEngineer():
             return course_dates, features
         
     def starttime_fourier_series(self, time_series, hourfloat_column):
-        time_series["starttime1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
-        time_series["starttime2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
+        time_series["starttime1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
+        time_series["starttime2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
         return time_series
     
     def endtime_fourier_series(self, time_series, hourfloat_column):
-        time_series["endtime1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
-        time_series["endtime2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4)
+        time_series["endtime1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
+        time_series["endtime2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
         return time_series
         
     def weekday_fourier_series(self, time_series, day_column):
-        time_series["weekday1"] = np.sin(2 * np.pi *  (time_series[day_column]/7)).round(2)
-        time_series["weekday2"] = np.cos(2 * np.pi *  (time_series[day_column]/7)).round(2)
+        time_series["weekday1"] = 0.5 * np.sin(2 * np.pi *  (time_series[day_column]/7)).round(2) + 0.5
+        time_series["weekday2"] = 0.5 * np.cos(2 * np.pi *  (time_series[day_column]/7)).round(2) + 0.5
         return time_series
     
     def week_fourier_series(self, time_series, week_column):
-        time_series["calendarweek1"] = np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4)
-        time_series["calendarweek2"] = np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4)
+        time_series["calendarweek1"] = 0.5 * np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4) + 0.5
+        time_series["calendarweek2"] = 0.5 * np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4) + 0.5
         return time_series    
      
 class OccFeatureEngineer():
@@ -871,18 +869,18 @@ class OccFeatureEngineer():
 
     ########### Datetime Features ############
     def hod_fourier_series(self, time_series, hourfloat_column):
-        time_series["hod1"] = np.sin(2 * np.pi *  (time_series[hourfloat_column]/24))
-        time_series["hod2"] = np.cos(2 * np.pi *  (time_series[hourfloat_column]/24))
+        time_series["hod1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)) + 0.5
+        time_series["hod2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)) + 0.5
         return time_series
         
     def dow_fourier_series(self, time_series, day_column):
-        time_series["dow1"] = np.sin(2 * np.pi *  (time_series[day_column]/7))
-        time_series["dow2"] = np.cos(2 * np.pi *  (time_series[day_column]/7))
+        time_series["dow1"] = 0.5 * np.sin(2 * np.pi *  (time_series[day_column]/7)) + 0.5
+        time_series["dow2"] = 0.5 * np.cos(2 * np.pi *  (time_series[day_column]/7)) + 0.5
         return time_series
     
     def week_fourier_series(self, time_series, week_column):
-        time_series["week1"] = np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64)
-        time_series["week2"] = np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64)
+        time_series["week1"] = 0.5 * np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64) + 0.5
+        time_series["week2"] = 0.5 * np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64) + 0.5
         return time_series
     
     def add_datetime_features(self, time_series, features):
@@ -991,8 +989,7 @@ class OccupancyDataset(Dataset):
         self.samples = self.process_data_dictionaries(mode)
         # correct samples
         if mode == "normal":
-            self.samples = self.correct_samples(self.samples, verbose=self.verbose)
-
+            self.corrected_samples = self.correct_samples(self.samples, verbose=self.verbose)
 
     ############ Feature Functions ############ 
     def handle_occ_feature(self, features):
@@ -1058,7 +1055,6 @@ class OccupancyDataset(Dataset):
         
         return occ_feature, copied_exo_features, sample_differencing
 
-
     ############ Process Data Functions ############
     def process_data_dictionaries(self, mode):
         
@@ -1112,7 +1108,10 @@ class OccupancyDataset(Dataset):
             occ_time_series["occpresence"] = occ_time_series["occrate"].apply(lambda x: 1 if x > 0 else 0)
             occ_time_series["occpresence1week"] = occ_time_series["occrate1week"].apply(lambda x: 1 if x > 0 else 0)
             occ_time_series["occpresence1day"] = occ_time_series["occrate1day"].apply(lambda x: 1 if x > 0 else 0)
-    
+
+        if ("maxoccrate" in self.exogenous_features) & (self.hyperparameters["differencing"] == "whole"):
+            occ_time_series["maxoccrate"] = occ_time_series["maxoccrate"].diff(1).combine_first(occ_time_series["maxoccrate"])
+            
         # we want to predict the next N steps based on the previous T steps
         window_size = self.x_horizon + self.y_horizon
         for window in occ_time_series.rolling(window=window_size):
@@ -1137,11 +1136,10 @@ class OccupancyDataset(Dataset):
                 continue
             else:
 
-                y_features = torch.Tensor(y_df[self.exogenous_features].values)
+                y_features = torch.Tensor(y_df[self.exogenous_features].values)                    
 
                 if self.include_x_features:
                     X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-                    
                     
                 if self.extract_coursenumber:
                     
@@ -1251,18 +1249,24 @@ class OccupancyDataset(Dataset):
             occ_time_series["occpresence"] = occ_time_series["occrate"].apply(lambda x: 1 if x > 0 else 0)
             occ_time_series["occpresence1week"] = occ_time_series["occrate1week"].apply(lambda x: 1 if x > 0 else 0)
             occ_time_series["occpresence1day"] = occ_time_series["occrate1day"].apply(lambda x: 1 if x > 0 else 0)
+
+
+        if ("maxoccrate" in self.exogenous_features) & (self.hyperparameters["differencing"] == "whole"):
+            occ_time_series["maxoccrate"] = occ_time_series["maxoccrate"].diff(1).combine_first(occ_time_series["maxoccrate"])
             
+
         # we want to predict the nex day based on the previous T steps
         occ_time_series["day"] = occ_time_series["datetime"].dt.date
         
         i = 0
+        
         for grouping, sub_df in occ_time_series.groupby("day"):
-            
             if i == 0:
                 i += 1
                 continue
-                
+
             X_df = occ_time_series[occ_time_series["day"] == (grouping - pd.Timedelta("1d"))]
+
             X_df = X_df.iloc[-self.x_horizon:]
 
             if len(X_df) < self.x_horizon:
@@ -1301,43 +1305,93 @@ class OccupancyDataset(Dataset):
             else:
                 X_course = None
                 y_course = None    
-                
 
             X_list.append(X)
             y_features_list.append(y_features)
             y_list.append(y) 
             sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course)))
                                          
-
-            
         return sample_info, X_list, y_features_list, y_list  
     
     def correct_samples(self, samples, verbose=True):
+        
+        
+        # derive weights for samples 
         
         one_hour = int(pd.Timedelta("1h")/self.td_freq)
         
         corrected_samples = []
         counter_0 = 0
         counter_else = 0
-        for info, X, y_features, y in samples:
-            if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
-                if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
-                    corrected_samples.append((info, X, y_features, y))
-                    counter_0 += 1
-
-            else:
-                corrected_samples.append((info, X, y_features, y))
-                counter_else += 1
         
-        if verbose:
-            print("Number of Samples: ", len(corrected_samples))        
-            print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
-            print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
-            print("-----------------")
+        #exam_idx = self.exogenous_features.index("exam")
+        #test_idx = self.exogenous_features.index("test")
+        #tutorium_idx = self.exogenous_features.index("tutorium")
+        
+        #exam_dict = dict([(i,0) for i in range(self.y_horizon+1)])
+        #tutorium_dict = dict([(i,0) for i in range(self.y_horizon+1)])
+        #test_dict = dict([(i,0) for i in range(self.y_horizon+1)])
+        
+        class_dict = dict([(i,"") for i in range(len(samples))])
+        
+        class_counts = {"zero":0, "else":0, "negative":0, "positive":0}
+        for i,(info, X, y_features, y) in enumerate(samples):
+            
+            #exam = y_features[:, exam_idx]
+            #test = y_features[:, test_idx]
+            #tuturium = y_features[:, tutorium_idx]
+            if all((y[:, 0] == 0)) and all((X[-one_hour:, 0] == 0)):
+                class_dict[i] = "zero"
+                
+            else:
+                if self.differencing == "whole":
+                    if all(y[:, 0] <= 0):
+                        class_dict[i] = "negative"
+                    elif all(y[:, 0] >= 0):
+                        class_dict[i] = "positive"
+                    else:
+                        class_dict[i] = "else"
+                        
+                else:
+                    class_dict[i] = "else"
+                
+            class_counts[class_dict[i]] += 1
+            
+            #exam_dict[int(exam.sum())] += 1
+            #tutorium_dict[int(tuturium.sum())] += 1
+            #test_dict[int(test.sum())] += 1
+            
+            
+            # old version
+            #if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
+            #    if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
+            #        corrected_samples.append((info, X, y_features, y))
+            #        counter_0 += 1
+
+            #else:
+            #    corrected_samples.append((info, X, y_features, y))
+            #    counter_else += 1
+            
+
+        class_counts["zero"] = class_counts["zero"]*0.05
+        total = sum(class_counts.values())
+        
+        class_weights = dict([(i, v/total) for i,v in class_counts.items()])
+        
+        sample_weights = np.zeros(len(samples))
+        for i, class_label in class_dict.items():
+            sample_weights[i] = class_weights[class_label]
+        
+        self.sample_weights = sample_weights / sample_weights.sum()
+        
+        #if verbose:
+        #    print("Number of Samples: ", len(corrected_samples))        
+        #    print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
+        #    print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
+        #    print("-----------------")
             
         return corrected_samples
-     
-     
+       
     ############ Dataset Functions ############
     def __len__(self):
         return len(self.samples)

@@ -4,7 +4,7 @@ from collections import defaultdict
 import json
 import numpy as np
 from tqdm import tqdm
-from datetime import datetime
+from datetime import datetime, time
 import os
 
 # Imports for Evaluator
@@ -349,7 +349,7 @@ class Evaluator:
         
         return day_timestamp, room_id
         
-    def evaluate_pl_count(self, data:pd.DataFrame, params:dict, dfguru, raw_data=None, print_details=False, return_details=False):
+    def evaluate_pl_count(self, data:pd.DataFrame, params:dict, dfguru, print_details=False, return_details=False):
         
         plcount_params = params["plcount_params"]
         
@@ -368,17 +368,42 @@ class Evaluator:
             # filter by room_id
             df_day_room = dfguru.filter_by_roomid(df_day, room_id)
 
-            occupancy_counts = dfguru.calc_occupancy_count(df_day_room, "datetime", "1min")
-            occupancy_counts["delta_CC"] = self.class_to_evaluate.calc_delta(occupancy_counts, "CC")
-            occupancy_counts["sigma"] = self.class_to_evaluate.calc_sigma(occupancy_counts, "delta_CC")
-        
-            cc_max = occupancy_counts.CC.max()
-            m = int(cc_max + (cc_max*plcount_params["cc_max_factor"]))
-            n = len(occupancy_counts.datetime)
+            occ_counts_raw = dfguru.calc_occupancy_count(df_day_room, "datetime", "1min")
             
-            estimates = self.function_to_evaluate(n, m, occupancy_counts["delta_CC"], occupancy_counts["sigma"])
-            occupancy_counts["CC_estimates"] = estimates
-            occupancy_counts = occupancy_counts.drop(columns=["delta_CC", "sigma"])      
+            occ_res = occ_counts_raw.copy()
+            occ_res["CC_estimates"] = 0
+            
+            if params["filtering_params"]["discard_samples"]:
+                
+                lb = params["filtering_params"]["discard_times"][0].split(":")
+                ub = params["filtering_params"]["discard_times"][1].split(":")
+                lb = time(hour=int(lb[0]), minute=int(lb[1]), second=int(lb[2]))
+                ub = time(hour=int(ub[0]), minute=int(ub[1]), second=int(ub[2]))
+                # filter lb and ub
+                filter_mask = (occ_counts_raw["datetime"].dt.time >= lb) & (occ_counts_raw["datetime"].dt.time <= ub)
+            
+            else:
+                
+                # whole array
+                filter_mask = (occ_counts_raw["datetime"].dt.time >= time(0,0,0))
+
+            occ_counts_pl = occ_counts_raw[filter_mask].reset_index(drop=True)
+        
+            # resampling -> label=right, closed=right
+            # means label 7:30:00 = from 7:29:01 to 7:30:00
+                
+            occ_counts_pl["delta_CC"] = self.class_to_evaluate.calc_delta(occ_counts_pl, "CC")
+            occ_counts_pl["sigma"] = self.class_to_evaluate.calc_sigma(occ_counts_pl, "delta_CC")
+            
+        
+            cc_max = occ_counts_pl.CC.max()
+            m = int(cc_max + (cc_max*plcount_params["cc_max_factor"]))
+            n = len(occ_counts_pl.datetime)
+            
+            estimates = self.function_to_evaluate(n, m, occ_counts_pl["delta_CC"], occ_counts_pl["sigma"])
+            occ_res.loc[filter_mask, "CC_estimates"] = estimates
+            
+            occupancy_counts = occ_res     
                               
             for index, row in control_subdf.iterrows():
             

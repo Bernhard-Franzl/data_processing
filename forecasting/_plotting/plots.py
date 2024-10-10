@@ -96,8 +96,21 @@ class Plotter():
             
         fig.show(config=self.config)
     
+    ####### Plot Preprocessing Results ######
+    
+    def plot_preprocessing(self, raw_data, processed_data, save, show):
+    
+        fig = make_subplots(rows=1, cols=3, 
+                subplot_titles=("Raw Cumulative", "Reset At Midnight", "PLCount Estimates"))
+
+    
     ########### PL Count Plot ###########
-    def plot_plcount(self, raw_dataframe, plcount_dataframe, save=False):
+    def plot_plcount(self, raw_dataframe, plcount_dataframe, save, show):
+        
+        # check either save or show must be True
+        
+        if (not save) & (not show):
+            raise ValueError
         
         fig = make_subplots(rows=1, cols=3, 
                     subplot_titles=("Raw Cumulative", "Reset At Midnight", "PLCount Estimates"))
@@ -133,8 +146,9 @@ class Plotter():
         
         if save:
             fig.write_html(f"{self.save_path}.html")
-            
-        fig.show(config=self.config)
+          
+        if show:  
+            fig.show(config=self.config)
     
     ######## Advanced Plotting Functions ########
     def plot_time_series_patterns(self, data, save=False):
