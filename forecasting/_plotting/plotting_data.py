@@ -1,14 +1,13 @@
-from data import DataHandler
-
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import plotly.io as pio
 
-class Plotter():
+class DataPlotter():
     
-    def __init__(self, save_path, *args, **kwargs):
+    def __init__(self, save_path, dataframe_guru, *args, **kwargs):
         
-        self.data_handler = DataHandler(path_repo="", file_name="", *args, **kwargs)
+        self.df_guru = dataframe_guru
         
         self.save_path = save_path
         
@@ -98,19 +97,141 @@ class Plotter():
     
     ####### Plot Preprocessing Results ######
     
-    def plot_preprocessing(self, raw_data, processed_data, save, show):
-    
-        fig = make_subplots(rows=1, cols=3, 
-                subplot_titles=("Raw Cumulative", "Reset At Midnight", "PLCount Estimates"))
+    def plot_preprocessing(self, raw_data, processed_data, plcount_data, save_bool, show_bool, combined):
+        
+        if combined:
+            
+            self.plot_width = 1000
+            fig = make_subplots(
+                rows=1, 
+                cols=1, 
+                subplot_titles=("Raw Data", "Simple Preprocessing Applied", "PLCount Estimates")
+                )
 
-    
+            fig.add_trace(
+                go.Scatter(
+                    x=raw_data["datetime"],
+                    y=raw_data["CC"],
+                    mode='lines',
+                    name="Raw"
+                ),
+                row=1, col=1
+            )
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=processed_data["datetime"],
+                    y=processed_data["CC"],
+                    mode='lines',
+                    name="Simple Preprocessing"
+                ),
+                row=1, col=1
+            )
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=plcount_data["datetime"],
+                    y=plcount_data["CC_estimates"],
+                    mode='lines',
+                    name="PLCount"
+                ),
+                row=1, col=1
+            )
+            
+            fig = self.apply_general_settings(fig)
+            
+            if save_bool:
+                fig.write_html(f"{self.save_path}.html")
+            
+            if show_bool:  
+                fig.show(config=self.config)
+                              
+        else:
+            n_col = 2
+            n_row = 2
+            self.plot_height = 750
+            self.plot_width = 1250
+            
+
+            fig = make_subplots(
+                rows=n_row, 
+                cols=n_col,
+                shared_yaxes=True,
+                vertical_spacing=0.125,
+                horizontal_spacing=0.025,
+                specs=[[{}, {}],
+                        [{"colspan": 2}, None]],
+                subplot_titles=("Raw Occupancy per Minute", "Error Correction Applied", "PLCount Applied"))
+            fig.update_annotations(font_size=20)
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=raw_data["datetime"][:-1],
+                    y=raw_data["CC"][:-1],
+                    mode='lines',
+                    name="Raw"
+                ),
+                row=1, col=1
+            )
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=processed_data["datetime"][:-1],
+                    y=processed_data["CC"][:-1],
+                    mode='lines',
+                    name="Simple Preprocessing"
+                ),
+                row=1, col=2
+            )
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=plcount_data["datetime"],
+                    y=plcount_data["CC_estimates"],
+                    mode='lines',
+                    name="PLCount"
+                ),
+                row=2, col=1
+            )
+            
+            for x in range(n_row+1):
+                fig.update_yaxes(title_text="Occupancy Count",
+                                title_font=dict(size=18),
+                                showgrid=True, 
+                                row=x, col=1)
+                        
+            for x in range(n_col+1):
+                fig.update_xaxes(title_text="Time",
+                                 title_font=dict(size=18), 
+                                 showgrid=True,
+                                 row=1, 
+                                 tickformat="%H:%M",
+                                 col=x)
+                
+            fig.update_xaxes(title_text="Time",
+                                title_font=dict(size=18), 
+                                showgrid=True,
+                                row=2, 
+                                tickformat="%H:%M",
+                                col=1)
+                    
+            fig = self.apply_general_settings(fig)
+            fig.update_layout(showlegend=False)
+            
+            if save_bool:
+                fig.write_image(f"{self.save_path}.png", scale=5)
+                fig.write_html(f"{self.save_path}.html")
+            
+            if show_bool:  
+                fig.show(config=self.config)
+                   
     ########### PL Count Plot ###########
-    def plot_plcount(self, raw_dataframe, plcount_dataframe, save, show):
+    def plot_plcount(self, raw_dataframe, plcount_dataframe, save_bool, show_bool):
         
         # check either save or show must be True
         
-        if (not save) & (not show):
-            raise ValueError
+        if (not save_bool) & (not show_bool):
+            raise ValueError("Either save or show must be True")
         
         fig = make_subplots(rows=1, cols=3, 
                     subplot_titles=("Raw Cumulative", "Reset At Midnight", "PLCount Estimates"))
@@ -144,10 +265,10 @@ class Plotter():
             row=1, col=3
         )
         
-        if save:
+        if save_bool:
             fig.write_html(f"{self.save_path}.html")
           
-        if show:  
+        if show_bool:  
             fig.show(config=self.config)
     
     ######## Advanced Plotting Functions ########
