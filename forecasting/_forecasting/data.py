@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import json
+import os
 
 national_holidays_2024 = [
     datetime.strptime('01/01/2024', '%m/%d/%Y').date(),  # Neujahr
@@ -55,151 +56,7 @@ summer_break_2024 = [
 ]
 
 
-def load_data_lecture(path_to_data_dir, dfguru):
-
-    traindf = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name=f"lecture_train_set")
-    
-    valdf = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name=f"lecture_val_set")
-    
-    testdf = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name=f"lecture_test_set")
-    
-    return traindf, valdf, testdf
-    
-def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng, split_by, test):
-    course_dates_data = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name="course_dates")
-    
-    course_info_data = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name="course_info")
-    
-    data_dict = {}
-    for room_id in [0, 1]:
-        
-        ########## Load Data ##########
-        occ_time_series = dfguru.load_dataframe(
-            path_repo=path_to_data_dir, 
-            file_name=f"room-{room_id}_freq-1min_cleaned_data_29_08", 
-        )
-        data_dict[room_id] = occ_time_series
-        
-    
-    ########## OccFeatureEngineer ##########
-
-    
-    lfe = LectureFeatureEngineer(
-        data_dict, 
-        course_dates_data, 
-        course_info_data, 
-        dfguru,
-        helpers_path=f"data/helpers_lecture_{split_by}.json"
-    )
-    course_dates_df = lfe.derive_features(
-        features=feature_list, 
-    )
-        
-    datasets, indices = train_val_test_split_lecture(course_dates_df, rng, split_by, test, verbose=True)
-    
-    return datasets, indices
-
-def train_val_test_split_lecture(course_dates, rng, split_by, test, verbose=True):
-    
-    # randomly exclude chunks of the data
-    #train_dict = {}
-    #val_dict = {}
-    #test_dict = {}
-    
-    #total_size = 0
-    #val_size = 0
-    #test_size = 0
-    #train_size = 0
-    
-    if "_" in split_by:
-        split_by, n_weeks = split_by.split("_")
-        n_weeks = int(n_weeks)
-        
-    val_size = 0.10
-    if test:
-        test_size = 0.10
-    else:
-        test_size = 0.0
-    
-    if split_by == "coursenumber":
-        course_numbers = course_dates["coursenumber"].unique()
-        indices = np.arange(0, len(course_numbers))
-        
-        raise ValueError("Implement val and testsize")
-        slice_size = int(len(indices) * 0.15)
-        
-        rng.shuffle(indices)
-
-        val_indices = indices[:slice_size]
-        test_indices = indices[slice_size : 2*slice_size]
-        train_indices = indices[2*slice_size:]
-        
-        train_set = course_dates[course_dates["coursenumber"].isin(course_numbers[train_indices])].reset_index(drop=True)
-        val_set = course_dates[course_dates["coursenumber"].isin(course_numbers[val_indices])].reset_index(drop=True)
-        test_set = course_dates[course_dates["coursenumber"].isin(course_numbers[test_indices])].reset_index(drop=True)
-        
-    elif split_by == "time":
-        weeks = course_dates["calendarweek"].unique()
-        train_indices = weeks[:n_weeks]
-        val_indices = weeks[:n_weeks+1]
-        test_indices = weeks[:n_weeks+2]
-        
-        train_set = course_dates[course_dates["calendarweek"].isin(train_indices)].reset_index(drop=True)
-        val_set = course_dates[course_dates["calendarweek"].isin(val_indices)].reset_index(drop=True)
-        test_set = course_dates[course_dates["calendarweek"].isin(test_indices)].reset_index(drop=True)
-          
-    elif split_by == "random":
-        
-        all_weeks = sorted(course_dates["calendarweek"].unique())
-        weeks = all_weeks[:n_weeks]
-        
-        dataset = course_dates[course_dates["calendarweek"].isin(weeks)].reset_index(drop=True)
-        
-        indices = np.arange(0, len(dataset))
-        rng.shuffle(indices)
-        
-        val_size_indices = int(len(indices) * val_size)
-        val_indices = indices[ :val_size_indices]
-        
-        test_size_indices = int(len(indices) * test_size)
-        test_indices = indices[val_size_indices : val_size_indices + test_size_indices]
-        
-        train_indices = indices[val_size_indices + test_size_indices:]
-        
-        datasets = dataset
-        indices = (train_indices, val_indices, test_indices)
-        
-    else:
-        raise ValueError("Unknown split criteria.")
-    
-    #occ_time_series = data_dict[room_id]
-    #total_size += len(occ_time_series)
-    
-    # generate chunks with size 0.05 of the data
-    # index_shift = int(len(course_numbers) * 0.05)
-    # print(index_shift)
-
-
-    #if verbose:
-    #    print("############## Split Summary ##############")
-    #    print("Size of Validationset:", len(val_set)/len(course_dates))
-    #    print("Size of Testset:", len(test_set)/len(course_dates))
-    #    print("Size of Trainset:", len(train_set)/len(course_dates))
-    #    print()
-    
-    return datasets, indices          
-           
-              
+########### Occupancy Dataset ###########
 def load_data_dicts(path_to_data_dir, frequency, dfguru):
     
     train_dict = {}
@@ -234,15 +91,19 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
         path_repo=path_to_data_dir, 
         file_name="course_info")
     
+    course_info_data.drop(columns=["room_id"], inplace=True)
+    course_info_data.drop_duplicates(inplace=True)
+        
     data_dict = {}
+    path_to_occ_data = os.path.join(path_to_data_dir, f"freq_{frequency}")
     for room_id in [0, 1]:
         
         ########## Load Data ##########
         occ_time_series = dfguru.load_dataframe(
-            path_repo=path_to_data_dir, 
-            file_name=f"room-{room_id}_freq-{frequency}_cleaned_data_29_08", 
-        )
-        
+            path_repo=path_to_occ_data, 
+            file_name=f"room-{room_id}_cleaned_data_29_08", 
+        )[:-1]
+          
         ########## OccFeatureEngineer ##########
         occ_time_series = OccFeatureEngineer(
             occ_time_series, 
@@ -330,272 +191,6 @@ def train_val_test_split(data_dict, rng, verbose=True):
     
     return train_dict, val_dict, test_dict
         
-          
-class LectureFeatureEngineer():
-    course_features = {"occcount", "occrate", "registered", "exam", "test", "tutorium", 
-                       "starttime", "endtime", "calendarweek", "weekday",
-                       "roomid","roomcapacity", "type",
-                       "studyarea", "ects", "level", "coursenumber"}
-    permissible_features = course_features
-    
-    def __init__(self, data_dict, course_dates_data, course_info_data, dfguru, helpers_path):
-        
-        self.ts_data_dict = data_dict
-        self.helpers_path = helpers_path
-        
-        min_list = []
-        max_list = []
-        for room_id in self.ts_data_dict:
-            min_timestamp = self.ts_data_dict[room_id]["datetime"].min().replace(hour=0, minute=0, second=0, microsecond=0)
-            max_timestamp = self.ts_data_dict[room_id]["datetime"].max().replace(hour=0, minute=0, second=0, microsecond=0) + DateOffset(days=1)
-            min_list.append(min_timestamp)
-            max_list.append(max_timestamp)
-        min_timestamp = min(min_list)
-        max_timestamp = max(max_list)
-        
-        self.dfg = dfguru
-        self.course_dates_table = dfguru.filter_by_timestamp(
-            dataframe = course_dates_data,
-            start_time = min_timestamp,
-            end_time = max_timestamp,
-            time_column = "start_time"
-        )
-
-        self.course_info_table = course_info_data  
-        self.course_info_table["level"].fillna("None_level", inplace=True)
-        self.course_info_table["study_area"].fillna("None_sa", inplace=True)
-        #self.course_types = ["VL", "UE", "KS", "SE"]
-        self.course_types = ["VL", "UE", "KS"]
-        #self.course_types = self.course_info_table["type"].unique()
-        # VL: VL, VO, KO
-        # UE: UE, AG, IK, PR, PS
-        # KS: KS, VU, KV, RE, UV
-        # SE: SE
-        self.type_mapping = {
-            "VL": "VL",
-            "VO": "VL",
-            "KO": "VL",
-            "UE": "UE",
-            "AG": "UE",
-            "IK": "UE",
-            "PR": "UE",
-            "PS": "UE",
-            "KS": "KS",
-            "VU": "KS",
-            "KV": "KS",
-            "RE": "KS",
-            "UV": "KS",}
-        
-        self.study_areas = self.course_info_table["study_area"].unique()
-
-        self.levels = self.course_info_table["level"].unique()
-        
-        self.course_numbers = self.course_dates_table["course_number"].unique()
-
-        dictionary = {
-            "study_areas": self.study_areas.tolist(),
-            "levels": self.levels.tolist(),
-            "course_types": self.course_types,
-            "course_numbers": self.course_numbers.tolist(),
-        }
-        # save auxillary data
-        with open(file=self.helpers_path, mode="w") as file:
-            json.dump(dictionary, file, indent=4)
-                      
-    def derive_features(self, features):
-        
-        # get the course number
-        # check if features are permissible
-        feature_set = set(features)
-        set_diff = feature_set.difference(self.permissible_features)
-        if set_diff:
-            raise ValueError(f"Features {set_diff} are not permissible.")
-        
-        # check if features are already present
-        feature_set_diff = feature_set.difference(self.course_dates_table.columns)
-
-        # include featuers that should always be present
-        feature_set_diff = feature_set_diff.union({"coursenumber", "roomid", "starttime", "endtime", "roomcapacity"})
-        
-        course_dates, feature_set_diff = self.add_features(self.course_dates_table, feature_set_diff)
-        
-        feature_set = feature_set.union(feature_set_diff)
-        
-        # remove feature type from feature set
-        if "type" in feature_set:
-            feature_set.remove("type")
-            feature_set = feature_set.union(self.course_types)
-            
-        # remove feature studyarea from feature set
-        if "studyarea" in feature_set:
-            feature_set.remove("studyarea")
-            feature_set = feature_set.union(self.study_areas)
-            
-        # remove feature level from feature set
-        if "level" in feature_set:
-            feature_set.remove("level")
-            feature_set = feature_set.union(self.levels)
-
-        with open(file=self.helpers_path, mode="r") as file:
-            dictionary = json.load(file)
-        dictionary["min_max_registered"] = [str(course_dates["registered"].min()), str(course_dates["registered"].max())]
-        with open(file=self.helpers_path, mode="w") as file:
-            json.dump(dictionary, file, indent=4)  
-        
-        return course_dates[sorted(list(feature_set))]
-
-    def add_features(self, course_dates, features):
-            
-            # initialize all features to 0
-            for feature in features:
-                course_dates[feature] = 0
-                
-            if "type" in features:
-                course_dates.drop(columns=["type"], inplace=True)
-                for course_type in self.course_types:
-                    course_dates[course_type] = 0   
-                    
-            if "studyarea" in features:
-                course_dates.drop(columns=["studyarea"], inplace=True)
-                for study_area in self.study_areas:
-                    course_dates[study_area] = 0
-            
-            if "level" in features:
-                course_dates.drop(columns=["level"], inplace=True)
-                for level in self.levels:
-                    course_dates[level] = 0
-               
-            
-            for grouping, subdf in course_dates.groupby(["start_time", "end_time", "course_number", "room_id"]):
-                
-                start_time, end_time, course_number, room_id = grouping
-                time_series = self.ts_data_dict[room_id]
-                
-                #"occcount", "occrate", "occcountlast", "occratelast",                
-                time_series_mask = (time_series["datetime"] >= grouping[0]) & (time_series["datetime"] <= grouping[1])
-                # extract course entry course dates table
-                course_dates_mask = (course_dates["start_time"] == grouping[0]) & (course_dates["end_time"] == grouping[1]) & (course_dates["course_number"] == grouping[2]) & (course_dates["room_id"] == grouping[3])
-                
-                course_dates_entry = course_dates[course_dates_mask]
-                course_info = self.dfg.filter_by_courses(self.course_info_table, [course_number])
-                
-                # occrate last lecture
-                if "occcount" in features:
-                    course_dates_entry["occcount"] = int(time_series[time_series_mask].max()["CC_estimates"])
-                    
-                if "roomcapacity" in features:
-                    course_dates_entry["roomcapacity"] = course_dates_entry["room_capacity"].values[0]
-
-                # occrate last lecture
-                if "occrate" in features:
-                    course_dates_entry["occrate"] = course_dates_entry["occcount"]/(course_info["registered_students"].values[0])
-                    
-                    if course_dates_entry["occrate"].values[0] > 10:
-                        course_dates_entry["occrate"] = course_dates["occrate"].max()
-
-                # occcount last lecture
-                #all_course_dates = course_dates[course_dates["course_number"] == course_number].sort_values(by="start_time").reset_index(drop=True)
-                #all_course_dates = all_course_dates[(all_course_dates["start_time"] < start_time)]
-                #if all_course_dates.empty:
-                #    course_dates_entry["occcountlast"] = -1
-                #    course_dates_entry["occratelast"] = -1
-                #else:
-                #    course_dates_entry["occcountlast"] = int(all_course_dates.iloc[-1]["occcount"])
-                #    course_dates_entry["occratelast"] = course_dates_entry["occcountlast"] / room_capacity
-
-                # registered
-                if "registered" in features:
-                    course_dates_entry["registered"] = course_info["registered_students"].values[0]
-                    
-                # starttime
-                if "starttime" in features:
-                    course_dates_entry["starttime"] = start_time           
-                # endtime
-                if "endtime" in features:
-                    course_dates_entry["endtime"] = end_time
-                # calendarweek
-                if "calendarweek" in features:
-                    course_dates_entry["calendarweek"] = course_dates_entry["calendar_week"].values[0]
-                # weekday
-                if "weekday" in features:
-                    course_dates_entry["weekday"] = course_dates_entry["weekday"].values[0]
-                # coursenumber
-                if "coursenumber" in features:
-                    course_dates_entry["coursenumber"] = course_number
-                # roomid
-                if "roomid" in features:
-                    course_dates_entry["roomid"] = room_id
-                # type
-                if "type" in features:
-                    if len(course_info["type"].unique())  > 1:
-                        raise
-                    
-                    type = self.type_mapping[course_info["type"].unique()[0]]
-                    course_dates_entry[type] = 1
-                
-                if "ects" in features:
-                    ects_str = course_info["ects"].values[0]
-                    ects = float(".".join(ects_str.split(",")))
-                    course_dates_entry["ects"] = ects
-                    
-                if "studyarea" in features:
-                    course_dates_entry[course_info["study_area"].values[0]] = 1
-
-                if "level" in features:
-                    course_dates_entry[course_info["level"].values[0]] = 1
-                
-                course_dates[course_dates_mask] = course_dates_entry
-                
-                
-            course_dates["starttime"] = pd.to_datetime(course_dates["starttime"])
-            course_dates["endtime"] = pd.to_datetime(course_dates["endtime"])
-            
-            if ("starttime" in features) or ("starttime" in course_dates.columns):
-                course_dates["time"] = course_dates["starttime"].dt.hour + (course_dates["starttime"].dt.minute / 60)
-                course_dates = self.starttime_fourier_series(course_dates, "time")
-                course_dates.drop(columns=["time"], inplace=True)
-                features = features.union({"starttime1", "starttime2"})
-                
-            if ("endtime" in features) or ("endtime" in course_dates.columns):
-                course_dates["time"] = course_dates["endtime"].dt.hour + (course_dates["endtime"].dt.minute / 60)
-                course_dates = self.endtime_fourier_series(course_dates, "time")
-                course_dates.drop(columns=["time"], inplace=True)
-                features = features.union({"endtime1", "endtime2"})
-                
-            if ("weekday" in features) or ("starttime" in course_dates.columns):
-                course_dates["dow"] = course_dates["starttime"].dt.dayofweek
-                course_dates = self.weekday_fourier_series(course_dates, "dow")
-                course_dates.drop(columns=["dow"], inplace=True)
-                features = features.union({"weekday1", "weekday2"})
-                
-            if ("calendarweek" in features) or ("starttime" in course_dates.columns):
-                course_dates = self.dfg.derive_week(course_dates, "starttime")
-                course_dates = self.week_fourier_series(course_dates, "week")
-                course_dates.drop(columns=["week"], inplace=True)
-                features = features.union({"calendarweek1", "calendarweek2"})
-            
-            return course_dates, features
-        
-    def starttime_fourier_series(self, time_series, hourfloat_column):
-        time_series["starttime1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
-        time_series["starttime2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
-        return time_series
-    
-    def endtime_fourier_series(self, time_series, hourfloat_column):
-        time_series["endtime1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
-        time_series["endtime2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
-        return time_series
-        
-    def weekday_fourier_series(self, time_series, day_column):
-        time_series["weekday1"] = 0.5 * np.sin(2 * np.pi *  (time_series[day_column]/7)).round(2) + 0.5
-        time_series["weekday2"] = 0.5 * np.cos(2 * np.pi *  (time_series[day_column]/7)).round(2) + 0.5
-        return time_series
-    
-    def week_fourier_series(self, time_series, week_column):
-        time_series["calendarweek1"] = 0.5 * np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4) + 0.5
-        time_series["calendarweek2"] = 0.5 * np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4) + 0.5
-        return time_series    
-     
 class OccFeatureEngineer():
     
     course_features = {"maxocccount","coursenumber", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate", "exam", "lecture", "lecturerampbefore", "lecturerampafter", "registered", "test", "tutorium", "type"}
@@ -620,15 +215,10 @@ class OccFeatureEngineer():
             end_time = max_timestamp,
             time_column = "start_time"
         )
-
-        self.course_info_table = course_info_data  
         
+        self.course_info_table = self.dfg.filter_by_courses(course_info_data, self.course_dates_table["course_number"].unique())
+
         self.course_types = ["VL", "UE", "KS"]
-        #self.course_types = self.course_info_table["type"].unique()
-        # VL: VL, VO, KO
-        # UE: UE, AG, IK, PR, PS
-        # KS: KS, VU, KV, RE, UV
-        # SE: SE
         
         self.type_mapping = {
             "VL": "VL",
@@ -757,6 +347,7 @@ class OccFeatureEngineer():
         if room_id is None:
             raise ValueError("Room ID must be provided.")
         
+
         course_dates_in_room = self.dfg.filter_by_roomid(self.course_dates_table, room_id)
         
         room_capa = course_dates_in_room["room_capacity"].unique()
@@ -787,7 +378,6 @@ class OccFeatureEngineer():
             course_number_list = sub_df["course_number"].values
             time_series.loc[course_time_mask, "coursenumber"] = ",".join(sorted(course_number_list))
             course_info = self.dfg.filter_by_courses(self.course_info_table, course_number_list)
-            course_info = self.dfg.filter_by_roomid(course_info, room_id)
 
             if "maxocccount" in features:
                 time_series.loc[course_time_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
@@ -926,7 +516,7 @@ class OccFeatureEngineer():
         
     #    raise NotImplementedError("Not implemented yet.")
     #    return time_series
-   
+           
 class OccupancyDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
@@ -1398,6 +988,417 @@ class OccupancyDataset(Dataset):
     
     def __getitem__(self, idx):
         return self.samples[idx]
+ 
+         
+########### Lecture Dataset ###########
+def load_data_lecture(path_to_data_dir, dfguru):
+
+    traindf = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name=f"lecture_train_set")
+    
+    valdf = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name=f"lecture_val_set")
+    
+    testdf = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name=f"lecture_test_set")
+    
+    return traindf, valdf, testdf
+    
+def prepare_data_lecture(path_to_data_dir, feature_list, dfguru, rng, split_by, test):
+    course_dates_data = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name="course_dates")
+    
+    course_info_data = dfguru.load_dataframe(
+        path_repo=path_to_data_dir, 
+        file_name="course_info")
+    
+    data_dict = {}
+    for room_id in [0, 1]:
+        
+        ########## Load Data ##########
+        occ_time_series = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"room-{room_id}_freq-1min_cleaned_data_29_08", 
+        )
+        data_dict[room_id] = occ_time_series
+        
+    
+    ########## OccFeatureEngineer ##########
+
+    
+    lfe = LectureFeatureEngineer(
+        data_dict, 
+        course_dates_data, 
+        course_info_data, 
+        dfguru,
+        helpers_path=f"data/helpers_lecture_{split_by}.json"
+    )
+    course_dates_df = lfe.derive_features(
+        features=feature_list, 
+    )
+        
+    datasets, indices = train_val_test_split_lecture(course_dates_df, rng, split_by, test, verbose=True)
+    
+    return datasets, indices
+
+def train_val_test_split_lecture(course_dates, rng, split_by, test, verbose=True):
+    
+    # randomly exclude chunks of the data
+    #train_dict = {}
+    #val_dict = {}
+    #test_dict = {}
+    
+    #total_size = 0
+    #val_size = 0
+    #test_size = 0
+    #train_size = 0
+    
+    if "_" in split_by:
+        split_by, n_weeks = split_by.split("_")
+        n_weeks = int(n_weeks)
+        
+    val_size = 0.10
+    if test:
+        test_size = 0.10
+    else:
+        test_size = 0.0
+    
+    if split_by == "coursenumber":
+        course_numbers = course_dates["coursenumber"].unique()
+        indices = np.arange(0, len(course_numbers))
+        
+        raise ValueError("Implement val and testsize")
+        slice_size = int(len(indices) * 0.15)
+        
+        rng.shuffle(indices)
+
+        val_indices = indices[:slice_size]
+        test_indices = indices[slice_size : 2*slice_size]
+        train_indices = indices[2*slice_size:]
+        
+        train_set = course_dates[course_dates["coursenumber"].isin(course_numbers[train_indices])].reset_index(drop=True)
+        val_set = course_dates[course_dates["coursenumber"].isin(course_numbers[val_indices])].reset_index(drop=True)
+        test_set = course_dates[course_dates["coursenumber"].isin(course_numbers[test_indices])].reset_index(drop=True)
+        
+    elif split_by == "time":
+        weeks = course_dates["calendarweek"].unique()
+        train_indices = weeks[:n_weeks]
+        val_indices = weeks[:n_weeks+1]
+        test_indices = weeks[:n_weeks+2]
+        
+        train_set = course_dates[course_dates["calendarweek"].isin(train_indices)].reset_index(drop=True)
+        val_set = course_dates[course_dates["calendarweek"].isin(val_indices)].reset_index(drop=True)
+        test_set = course_dates[course_dates["calendarweek"].isin(test_indices)].reset_index(drop=True)
+          
+    elif split_by == "random":
+        
+        all_weeks = sorted(course_dates["calendarweek"].unique())
+        weeks = all_weeks[:n_weeks]
+        
+        dataset = course_dates[course_dates["calendarweek"].isin(weeks)].reset_index(drop=True)
+        
+        indices = np.arange(0, len(dataset))
+        rng.shuffle(indices)
+        
+        val_size_indices = int(len(indices) * val_size)
+        val_indices = indices[ :val_size_indices]
+        
+        test_size_indices = int(len(indices) * test_size)
+        test_indices = indices[val_size_indices : val_size_indices + test_size_indices]
+        
+        train_indices = indices[val_size_indices + test_size_indices:]
+        
+        datasets = dataset
+        indices = (train_indices, val_indices, test_indices)
+        
+    else:
+        raise ValueError("Unknown split criteria.")
+    
+    #occ_time_series = data_dict[room_id]
+    #total_size += len(occ_time_series)
+    
+    # generate chunks with size 0.05 of the data
+    # index_shift = int(len(course_numbers) * 0.05)
+    # print(index_shift)
+
+
+    #if verbose:
+    #    print("############## Split Summary ##############")
+    #    print("Size of Validationset:", len(val_set)/len(course_dates))
+    #    print("Size of Testset:", len(test_set)/len(course_dates))
+    #    print("Size of Trainset:", len(train_set)/len(course_dates))
+    #    print()
+    
+    return datasets, indices               
+                 
+class LectureFeatureEngineer():
+    course_features = {"occcount", "occrate", "registered", "exam", "test", "tutorium", 
+                       "starttime", "endtime", "calendarweek", "weekday",
+                       "roomid","roomcapacity", "type",
+                       "studyarea", "ects", "level", "coursenumber"}
+    permissible_features = course_features
+    
+    def __init__(self, data_dict, course_dates_data, course_info_data, dfguru, helpers_path):
+        
+        self.ts_data_dict = data_dict
+        self.helpers_path = helpers_path
+        
+        min_list = []
+        max_list = []
+        for room_id in self.ts_data_dict:
+            min_timestamp = self.ts_data_dict[room_id]["datetime"].min().replace(hour=0, minute=0, second=0, microsecond=0)
+            max_timestamp = self.ts_data_dict[room_id]["datetime"].max().replace(hour=0, minute=0, second=0, microsecond=0) + DateOffset(days=1)
+            min_list.append(min_timestamp)
+            max_list.append(max_timestamp)
+        min_timestamp = min(min_list)
+        max_timestamp = max(max_list)
+        
+        self.dfg = dfguru
+        self.course_dates_table = dfguru.filter_by_timestamp(
+            dataframe = course_dates_data,
+            start_time = min_timestamp,
+            end_time = max_timestamp,
+            time_column = "start_time"
+        )
+
+        self.course_info_table = course_info_data  
+        self.course_info_table["level"].fillna("None_level", inplace=True)
+        self.course_info_table["study_area"].fillna("None_sa", inplace=True)
+        #self.course_types = ["VL", "UE", "KS", "SE"]
+        self.course_types = ["VL", "UE", "KS"]
+        #self.course_types = self.course_info_table["type"].unique()
+        # VL: VL, VO, KO
+        # UE: UE, AG, IK, PR, PS
+        # KS: KS, VU, KV, RE, UV
+        # SE: SE
+        self.type_mapping = {
+            "VL": "VL",
+            "VO": "VL",
+            "KO": "VL",
+            "UE": "UE",
+            "AG": "UE",
+            "IK": "UE",
+            "PR": "UE",
+            "PS": "UE",
+            "KS": "KS",
+            "VU": "KS",
+            "KV": "KS",
+            "RE": "KS",
+            "UV": "KS",}
+        
+        self.study_areas = self.course_info_table["study_area"].unique()
+
+        self.levels = self.course_info_table["level"].unique()
+        
+        self.course_numbers = self.course_dates_table["course_number"].unique()
+
+        dictionary = {
+            "study_areas": self.study_areas.tolist(),
+            "levels": self.levels.tolist(),
+            "course_types": self.course_types,
+            "course_numbers": self.course_numbers.tolist(),
+        }
+        # save auxillary data
+        with open(file=self.helpers_path, mode="w") as file:
+            json.dump(dictionary, file, indent=4)
+                      
+    def derive_features(self, features):
+        
+        # get the course number
+        # check if features are permissible
+        feature_set = set(features)
+        set_diff = feature_set.difference(self.permissible_features)
+        if set_diff:
+            raise ValueError(f"Features {set_diff} are not permissible.")
+        
+        # check if features are already present
+        feature_set_diff = feature_set.difference(self.course_dates_table.columns)
+
+        # include featuers that should always be present
+        feature_set_diff = feature_set_diff.union({"coursenumber", "roomid", "starttime", "endtime", "roomcapacity"})
+        
+        course_dates, feature_set_diff = self.add_features(self.course_dates_table, feature_set_diff)
+        
+        feature_set = feature_set.union(feature_set_diff)
+        
+        # remove feature type from feature set
+        if "type" in feature_set:
+            feature_set.remove("type")
+            feature_set = feature_set.union(self.course_types)
+            
+        # remove feature studyarea from feature set
+        if "studyarea" in feature_set:
+            feature_set.remove("studyarea")
+            feature_set = feature_set.union(self.study_areas)
+            
+        # remove feature level from feature set
+        if "level" in feature_set:
+            feature_set.remove("level")
+            feature_set = feature_set.union(self.levels)
+
+        with open(file=self.helpers_path, mode="r") as file:
+            dictionary = json.load(file)
+        dictionary["min_max_registered"] = [str(course_dates["registered"].min()), str(course_dates["registered"].max())]
+        with open(file=self.helpers_path, mode="w") as file:
+            json.dump(dictionary, file, indent=4)  
+        
+        return course_dates[sorted(list(feature_set))]
+
+    def add_features(self, course_dates, features):
+            
+            # initialize all features to 0
+            for feature in features:
+                course_dates[feature] = 0
+                
+            if "type" in features:
+                course_dates.drop(columns=["type"], inplace=True)
+                for course_type in self.course_types:
+                    course_dates[course_type] = 0   
+                    
+            if "studyarea" in features:
+                course_dates.drop(columns=["studyarea"], inplace=True)
+                for study_area in self.study_areas:
+                    course_dates[study_area] = 0
+            
+            if "level" in features:
+                course_dates.drop(columns=["level"], inplace=True)
+                for level in self.levels:
+                    course_dates[level] = 0
+               
+            
+            for grouping, subdf in course_dates.groupby(["start_time", "end_time", "course_number", "room_id"]):
+                
+                start_time, end_time, course_number, room_id = grouping
+                time_series = self.ts_data_dict[room_id]
+                
+                #"occcount", "occrate", "occcountlast", "occratelast",                
+                time_series_mask = (time_series["datetime"] >= grouping[0]) & (time_series["datetime"] <= grouping[1])
+                # extract course entry course dates table
+                course_dates_mask = (course_dates["start_time"] == grouping[0]) & (course_dates["end_time"] == grouping[1]) & (course_dates["course_number"] == grouping[2]) & (course_dates["room_id"] == grouping[3])
+                
+                course_dates_entry = course_dates[course_dates_mask]
+                course_info = self.dfg.filter_by_courses(self.course_info_table, [course_number])
+                
+                # occrate last lecture
+                if "occcount" in features:
+                    course_dates_entry["occcount"] = int(time_series[time_series_mask].max()["CC_estimates"])
+                    
+                if "roomcapacity" in features:
+                    course_dates_entry["roomcapacity"] = course_dates_entry["room_capacity"].values[0]
+
+                # occrate last lecture
+                if "occrate" in features:
+                    course_dates_entry["occrate"] = course_dates_entry["occcount"]/(course_info["registered_students"].values[0])
+                    
+                    if course_dates_entry["occrate"].values[0] > 10:
+                        course_dates_entry["occrate"] = course_dates["occrate"].max()
+
+                # occcount last lecture
+                #all_course_dates = course_dates[course_dates["course_number"] == course_number].sort_values(by="start_time").reset_index(drop=True)
+                #all_course_dates = all_course_dates[(all_course_dates["start_time"] < start_time)]
+                #if all_course_dates.empty:
+                #    course_dates_entry["occcountlast"] = -1
+                #    course_dates_entry["occratelast"] = -1
+                #else:
+                #    course_dates_entry["occcountlast"] = int(all_course_dates.iloc[-1]["occcount"])
+                #    course_dates_entry["occratelast"] = course_dates_entry["occcountlast"] / room_capacity
+
+                # registered
+                if "registered" in features:
+                    course_dates_entry["registered"] = course_info["registered_students"].values[0]
+                    
+                # starttime
+                if "starttime" in features:
+                    course_dates_entry["starttime"] = start_time           
+                # endtime
+                if "endtime" in features:
+                    course_dates_entry["endtime"] = end_time
+                # calendarweek
+                if "calendarweek" in features:
+                    course_dates_entry["calendarweek"] = course_dates_entry["calendar_week"].values[0]
+                # weekday
+                if "weekday" in features:
+                    course_dates_entry["weekday"] = course_dates_entry["weekday"].values[0]
+                # coursenumber
+                if "coursenumber" in features:
+                    course_dates_entry["coursenumber"] = course_number
+                # roomid
+                if "roomid" in features:
+                    course_dates_entry["roomid"] = room_id
+                # type
+                if "type" in features:
+                    if len(course_info["type"].unique())  > 1:
+                        raise
+                    
+                    type = self.type_mapping[course_info["type"].unique()[0]]
+                    course_dates_entry[type] = 1
+                
+                if "ects" in features:
+                    ects_str = course_info["ects"].values[0]
+                    ects = float(".".join(ects_str.split(",")))
+                    course_dates_entry["ects"] = ects
+                    
+                if "studyarea" in features:
+                    course_dates_entry[course_info["study_area"].values[0]] = 1
+
+                if "level" in features:
+                    course_dates_entry[course_info["level"].values[0]] = 1
+                
+                course_dates[course_dates_mask] = course_dates_entry
+                
+                
+            course_dates["starttime"] = pd.to_datetime(course_dates["starttime"])
+            course_dates["endtime"] = pd.to_datetime(course_dates["endtime"])
+            
+            if ("starttime" in features) or ("starttime" in course_dates.columns):
+                course_dates["time"] = course_dates["starttime"].dt.hour + (course_dates["starttime"].dt.minute / 60)
+                course_dates = self.starttime_fourier_series(course_dates, "time")
+                course_dates.drop(columns=["time"], inplace=True)
+                features = features.union({"starttime1", "starttime2"})
+                
+            if ("endtime" in features) or ("endtime" in course_dates.columns):
+                course_dates["time"] = course_dates["endtime"].dt.hour + (course_dates["endtime"].dt.minute / 60)
+                course_dates = self.endtime_fourier_series(course_dates, "time")
+                course_dates.drop(columns=["time"], inplace=True)
+                features = features.union({"endtime1", "endtime2"})
+                
+            if ("weekday" in features) or ("starttime" in course_dates.columns):
+                course_dates["dow"] = course_dates["starttime"].dt.dayofweek
+                course_dates = self.weekday_fourier_series(course_dates, "dow")
+                course_dates.drop(columns=["dow"], inplace=True)
+                features = features.union({"weekday1", "weekday2"})
+                
+            if ("calendarweek" in features) or ("starttime" in course_dates.columns):
+                course_dates = self.dfg.derive_week(course_dates, "starttime")
+                course_dates = self.week_fourier_series(course_dates, "week")
+                course_dates.drop(columns=["week"], inplace=True)
+                features = features.union({"calendarweek1", "calendarweek2"})
+            
+            return course_dates, features
+        
+    def starttime_fourier_series(self, time_series, hourfloat_column):
+        time_series["starttime1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
+        time_series["starttime2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
+        return time_series
+    
+    def endtime_fourier_series(self, time_series, hourfloat_column):
+        time_series["endtime1"] = 0.5 * np.sin(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
+        time_series["endtime2"] = 0.5 * np.cos(2 * np.pi *  (time_series[hourfloat_column]/24)).round(4) + 0.5
+        return time_series
+        
+    def weekday_fourier_series(self, time_series, day_column):
+        time_series["weekday1"] = 0.5 * np.sin(2 * np.pi *  (time_series[day_column]/7)).round(2) + 0.5
+        time_series["weekday2"] = 0.5 * np.cos(2 * np.pi *  (time_series[day_column]/7)).round(2) + 0.5
+        return time_series
+    
+    def week_fourier_series(self, time_series, week_column):
+        time_series["calendarweek1"] = 0.5 * np.sin(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4) + 0.5
+        time_series["calendarweek2"] = 0.5 * np.cos(2 * np.pi *  (time_series[week_column]/52)).astype(np.float64).round(4) + 0.5
+        return time_series    
     
 class LectureDataset(Dataset):
     
@@ -1896,3 +1897,6 @@ class LectureDataset(Dataset):
        
     def set_samples(self, samples):
         self.samples = samples
+        
+        
+         
