@@ -1,0 +1,27 @@
+{   
+    "info": "Run 1: additive_noise",
+    "model_class": ["ed_lstm"],
+    "lr": [0.001],
+    "batch_size": [32],
+    "hidden_size": [[32]],
+    "num_layers": [2],
+    "bidirectional": [true],
+    "additive_noise": [0, 0.01],
+    "course_encoding_dim": [1, 5],
+    "x_horizon": [36],
+    "y_horizon": [12],
+    "features": [
+        "occrate_lecture_coursenumber_exam_tutorium_test"],
+    "frequency": "5min",
+    "max_n_updates": 100000,
+    "unnecessary_features_below": [
+        "--------------------------------------------------"],
+    "optimizer_class": ["Adam"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "layer_norm": [false],
+    "weight_decay": [0],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "zero_sample_drop_rate": [0.1]
+}

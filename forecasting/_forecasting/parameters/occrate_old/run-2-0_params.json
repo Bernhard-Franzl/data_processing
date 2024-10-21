@@ -1,18 +1,22 @@
 {   
-    "info": "Run 2: Densenet sweep",
-    "model_class": ["simple_densenet"],
+    "info": "Run 0: maxoccrate - identity last acti",
+    "model_class": ["ed_lstm"],
+    "optimizer_class": ["Adam"],
     "differencing": ["none"],
     "criterion": ["MAE"],
+    "layer_norm": [false],
     "lr": [0.0001, 0.00001],
     "weight_decay": [0],
-    "batch_size": [32],
-    "hidden_size": [[1024, 256]],
-    "num_layers": [1],
-    "x_horizon": [72, 36],
-    "y_horizon": [6, 12, 1],
-    "features": ["occrate_occrate1day_occrate1week_dow_hod_lecture_exam_registered"],
-    "zero_sample_drop_rate": [0.1, 0.05],
+    "batch_size": [64],
+    "hidden_size": [[256, 128]],
+    "num_layers": [3],
+    "x_horizon": [36],
+    "y_horizon": [12, 36],
+    "features": [
+        "occrate_lecture_lecturerampbefore_maxoccrate_exam_tutorium_test"],
+    "zero_sample_drop_rate": [0.1],
+    "forget_gate": [true],
     "include_x_features": [true],
     "frequency": "5min",
-    "max_n_updates": 25000
+    "max_n_updates": 50000
 }

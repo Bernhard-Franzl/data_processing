@@ -172,6 +172,7 @@ def run_detailed_test(model, dataset:OccupancyDataset, device):
             
             preds = preds.to("cpu")
             y_adjusted = y[:len(preds)]
+            y_features = y_features[:len(preds)]
             
             
             info = (info[0], info[1], info[2][:len(preds)], info[3], info[4])
@@ -353,7 +354,7 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
         
         if plot:
             if mode in ["normal", "dayahead", "unlimited"]:
-                plot_predictions(infos, predictions, targets, room_ids, n_run, n_comb)
+                plot_predictions(infos, predictions, targets, room_ids, n_run, n_comb, target_features)
             else:
                 plot_predictions_lecture(infos, predictions, targets, room_ids, n_run, n_comb, naive_preds)
             
@@ -362,11 +363,12 @@ def run_n_tests(run_comb_tuples, cp_log_dir, mode, plot, data, naive_baseline):
     else:
         return list_combs, dict_losses, list_hyperparameters
 
-def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int, naive_predictions=None):
+def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, n_run:int, n_comb:int, target_features:list, naive_predictions=None):
     
     dict_y_times = dict([(room_id,[]) for room_id in room_ids])    
     dict_preds = dict([(room_id,[]) for room_id in room_ids])
     dict_targets = dict([(room_id,[]) for room_id in room_ids])
+    dict_target_features = dict([(room_id,[]) for room_id in room_ids])
     
     
     for i, pred in enumerate(predictions):
@@ -378,12 +380,14 @@ def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, 
             
             dict_y_times[room_id].append(y_time.values)
 
+            dict_target_features[room_id].append(target_features[i].cpu().numpy())
+
             if pred.shape[-1]==1:
                 pred = pred.squeeze(-1)
             
             dict_preds[room_id].append(pred)
             dict_targets[room_id].append(targets[i].squeeze().numpy())
-            
+
     for room_id in room_ids:
         fig = go.Figure()
         
@@ -403,6 +407,22 @@ def plot_predictions(infos:list, predictions:list, targets:list, room_ids:list, 
                 name=f"Target Room {room_id}"
             )
         )
+        
+        target_feature_names = infos[0][3]
+        target_features_room = dict_target_features[room_id]
+        x=np.concatenate(dict_y_times[room_id])
+        y=np.concatenate(target_features_room) 
+        
+        for i in range(len(target_feature_names)):
+            fig.add_trace(
+                go.Scatter(
+                    x=x,
+                    y=y[:, i],
+                    mode="lines+markers",
+                    name=f"{target_feature_names[i]} Room {room_id}"
+                )
+            )
+        
         
         fig.update_layout(
             title=f"Run {n_run} - Combination {n_comb} - Room {room_id}",

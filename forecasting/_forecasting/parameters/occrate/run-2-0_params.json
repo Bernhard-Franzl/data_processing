@@ -1,22 +1,27 @@
 {   
-    "info": "Run 0: maxoccrate - identity last acti",
+    "info": "Run 1: additive_noise",
     "model_class": ["ed_lstm"],
+    "lr": [0.001],
+    "batch_size": [32],
+    "hidden_size": [[32]],
+    "num_layers": [3],
+    "bidirectional": [true],
+    "additive_noise": [0, 0.01],
+    "course_encoding_dim": [5],
+    "x_horizon": [36],
+    "y_horizon": [12],
+    "features": [
+        "occrate_lecture_maxoccrate"],
+    "frequency": "5min",
+    "max_n_updates": 100000,
+    "unnecessary_features_below": [
+        "--------------------------------------------------"],
     "optimizer_class": ["Adam"],
     "differencing": ["none"],
     "criterion": ["MAE"],
     "layer_norm": [false],
-    "lr": [0.0001, 0.00001],
     "weight_decay": [0],
-    "batch_size": [64],
-    "hidden_size": [[256, 128]],
-    "num_layers": [3],
-    "x_horizon": [36],
-    "y_horizon": [12, 36],
-    "features": [
-        "occrate_lecture_lecturerampbefore_maxoccrate_exam_tutorium_test"],
-    "zero_sample_drop_rate": [0.1],
     "forget_gate": [true],
     "include_x_features": [true],
-    "frequency": "5min",
-    "max_n_updates": 50000
+    "zero_sample_drop_rate": [0.1]
 }

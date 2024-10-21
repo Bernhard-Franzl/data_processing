@@ -1,0 +1,19 @@
+{   
+    "info": "Run 5: Direct comparison",
+    "model_class": ["simple_densenet"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "lr": [0.0001],
+    "weight_decay": [0],
+    "batch_size": [64],
+    "hidden_size": [[1024, 512]],
+    "num_layers": [3],
+    "x_horizon": [288],
+    "y_horizon": [144],
+    "features": ["occrate_occrate1week_dow_hod_week_holiday_zwickltag_lecture_lectureramp_test_exam_tutorium_registered_type"],
+    "zero_sample_drop_rate": [0.1],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "frequency": "5min",
+    "max_n_updates": 50000
+}

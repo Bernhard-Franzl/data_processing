@@ -1,0 +1,23 @@
+{   
+    "info": "Run 0:",
+    "model_class": ["ed_lstm1"],
+    "optimizer_class": ["Adam"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "layer_norm": [false],
+    "lr": [0.001],
+    "weight_decay": [0],
+    "batch_size": [32],
+    "hidden_size": [[256]],
+    "num_layers": [2],
+    "bidirectional": [true],
+    "x_horizon": [36],
+    "y_horizon": [12],
+    "features": [
+        "occrate_lecture_coursenumber"],
+    "zero_sample_drop_rate": [0.1],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "frequency": "5min",
+    "max_n_updates": 20000
+}

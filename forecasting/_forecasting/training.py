@@ -170,7 +170,8 @@ class MasterTrainer:
             return SimpleOccLSTM
         
         elif model_class == "simple_transformer":
-            return SimpleOccTransformer
+            raise ValueError("Model not supported.")
+            #return SimpleOccTransformer
         
         elif model_class == "simple_gru":
             return SimpleOccGRU
@@ -501,6 +502,10 @@ class MasterTrainer:
         
         if not os.path.exists(save_path):
             os.makedirs(save_path)
+            
+        with open(os.path.join(save_path, "info.txt"), "w") as file:
+            file.write(f"N Updates: {self.n_updates}\n")
+            file.write(f"Best Loss: {self.best_loss}")
             
         #torch.save(train_loader.dataset, os.path.join(self.save_path, "train_dataset.pt"))
         #torch.save(val_loader.dataset, os.path.join(self.save_path, "val_dataset.pt"))

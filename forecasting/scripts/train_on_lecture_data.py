@@ -86,6 +86,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
                         model, optimizer, log_predictions=False)
     
     # Final Test on Validation and Training Set -> for logging purposes
+    model, _,  _ =  mt.load_checkpoint(cp_path)
     mt.criterion = nn.L1Loss()
     mt.test_one_epoch(val_loader, model, log_info=True)
     val_loss_final = mt.stats_logger.val_loss.pop()

@@ -63,12 +63,13 @@ def load_data_dicts(path_to_data_dir, frequency, dfguru):
     val_dict = {}
     test_dict = {}
     
+    path_to_data = os.path.join(path_to_data_dir, f"freq_{frequency}")
     for room_id in [0, 1]:
         for type in ["train", "test", "val"]:
             
             df = dfguru.load_dataframe(
-                path_repo=path_to_data_dir, 
-                file_name=f"room-{room_id}_freq-{frequency}_{type}_dict")
+                path_repo=path_to_data, 
+                file_name=f"room-{room_id}_{type}_dict")
             
             if type == "train":
                 train_dict[room_id] = df
@@ -200,7 +201,7 @@ class OccFeatureEngineer():
     permissible_features = course_features.union(datetime_features)
     permissible_features = permissible_features.union(general_features)
     permissible_features = permissible_features.union(shift_features)
-        
+      
     def __init__(self, cleaned_occ_data, course_dates_data, course_info_data, dfguru, frequency):
 
         self.occ_time_series = cleaned_occ_data
@@ -255,11 +256,13 @@ class OccFeatureEngineer():
         
         # add course features
         course_features = self.course_features.intersection(feature_set)
+        
         if course_features:
             occ_time_series = self.add_course_features(occ_time_series, course_features, room_id)
         
         # add datetime features
         datetime_features = self.datetime_features.intersection(feature_set)
+        
         if datetime_features:
             occ_time_series = self.add_datetime_features(occ_time_series, datetime_features)
 
@@ -408,7 +411,6 @@ class OccFeatureEngineer():
                     max_occrate_estimate = max_occount_estimate / room_capa
                     time_series.loc[course_time_mask, "maxoccrateestimate"] = float(max_occrate_estimate)
                 
-            
             # get course features  
             if "registered" in features:
                 time_series.loc[course_time_mask, "registered"] = course_info["registered_students"].values.sum()
@@ -436,17 +438,18 @@ class OccFeatureEngineer():
                 ramp_up_fraction = (time_series["datetime"][ramp_up_mask] - start_minus_15) / ramp_duration
                 time_series.loc[ramp_up_mask, "lecturerampbefore"] = ramp_up_fraction
                 
-                if "maxoccrate" in features:
-                    time_series.loc[ramp_up_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
-                    
-                if "maxoccrateestimate" in features:
-                    time_series.loc[ramp_up_mask, "maxoccrateestimate"] = time_series.loc[course_time_mask, "maxoccrateestimate"].max()
-                    
-                if "maxocccount" in features:
-                    time_series.loc[ramp_up_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
                 
-                if "maxocccountestimate" in features:
-                    time_series.loc[ramp_up_mask, "maxocccountestimate"] = time_series.loc[course_time_mask, "maxocccountestimate"].max()
+                #if "maxoccrate" in features:
+                #    time_series.loc[ramp_up_mask, "maxoccrate"] = time_series.loc[course_time_mask, "occrate"].max()
+                    
+                #if "maxoccrateestimate" in features:
+                #    time_series.loc[ramp_up_mask, "maxoccrateestimate"] = time_series.loc[course_time_mask, "maxoccrateestimate"].max()
+                    
+                #if "maxocccount" in features:
+                #    time_series.loc[ramp_up_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
+                
+                #if "maxocccountestimate" in features:
+                #    time_series.loc[ramp_up_mask, "maxocccountestimate"] = time_series.loc[course_time_mask, "maxocccountestimate"].max()
                          
             if "lecturerampafter" in features:
                 end_plus_15 = grouping[1] + ramp_duration

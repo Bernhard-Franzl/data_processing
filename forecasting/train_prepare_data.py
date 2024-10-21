@@ -8,7 +8,6 @@ from _forecasting import OccFeatureEngineer, LectureFeatureEngineer
 dfg = DFG()
 
 
-
 for frequency in ["1min", "5min", "15min", "30min", "1h"]:
     
     #### Control Randomness ####
