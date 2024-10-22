@@ -14,6 +14,7 @@
         "handle_6":false
     },
     "plcount_params":{
-        "cc_max_factor":0.5
+        "cc_max_factor":0.5,
+        "sigma_factor":1
     }
 }

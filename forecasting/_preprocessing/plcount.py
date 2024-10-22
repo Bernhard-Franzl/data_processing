@@ -20,8 +20,9 @@ class PLCount():
     def calc_delta(self, dataframe, column):
         return dataframe[column].diff().fillna(0)
     
-    def calc_sigma(self, dataframe, column):
-        sigma = dataframe[column].apply(lambda x : np.sqrt(np.abs(x)))
+    def calc_sigma(self, dataframe, column, multiplier):
+        sigma = dataframe[column].apply(lambda x : np.sqrt(np.abs(x))*multiplier)
+        #sigma = dataframe[column].apply(lambda x : np.abs(x))
         try:
             sigma = sigma.replace(0, min(sigma[sigma > 0]))
         except:
@@ -43,6 +44,7 @@ class PLCount():
             for j in range(0, M.shape[1]): # count
                 
                 listy = [self.probability_function(j-k, delta_c_i, sigma_i) * M[i-1, k] for k in range(0, M.shape[1])]
+                
                 k_max = np.argmax(listy)
                 
                 M[i, j] = listy[k_max]
@@ -101,12 +103,18 @@ class PLCount():
             
             k_max = np.argmax(M_i, axis=1)
             
+            # sample from M_i instead of using argmax
+            print((k_max-np.array([np.argmax(M_i[i]) for i in range(len(M_i))])).sum())
+ 
+            #print((k_max-np.array([np.random.choice(np.arange(M_i.shape[1]), p=M_i[i]) for i in range(len(M_i))])).sum())
+            #k_max = np.random.choice(np.arange(M_shape[1]), p=M_i)
+            
             N[i] = k_max
             M[i] = M_i[np.arange(M_shape[1]), k_max]
                         
             # normalize row  
             M[i] = M[i] / sum(M[i])
-            
+        raise
         return M, N
     
     def run_algorithm_vectorized(self, n, m, delta_array, sigma_array):
@@ -159,8 +167,7 @@ class PLCount():
                 occ_counts_pl = occ_counts_raw[filter_mask].reset_index(drop=True)
 
                 occ_counts_pl["delta_CC"] = self.calc_delta(occ_counts_pl, "CC")
-                occ_counts_pl["sigma"] = self.calc_sigma(occ_counts_pl, "delta_CC")
-                
+                occ_counts_pl["sigma"] = self.calc_sigma(occ_counts_pl, "delta_CC", params["plcount_params"]["sigma_factor"])
             
                 cc_max = occ_counts_pl.CC.max()
                 m = int(cc_max + (cc_max*params["plcount_params"]["cc_max_factor"]))

@@ -21,6 +21,7 @@
         "nm":[2]
     },
     "plcount_params":{
-        "cc_max_factor":[0.5]
+        "cc_max_factor":[0.5],
+        "sigma_factor":[0, 0.5, 1, 2, 5, 10]
     }
 }

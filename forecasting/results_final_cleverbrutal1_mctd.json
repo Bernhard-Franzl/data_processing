@@ -1,0 +1,134 @@
+{
+    "filtering_params-discard_samples": [
+        [
+            true,
+            5
+        ]
+    ],
+    "filtering_params-discard_times": [
+        [
+            "7:30:00,21:15:00",
+            5
+        ]
+    ],
+    "filtering_params-apply_filter": [
+        [
+            true,
+            5
+        ]
+    ],
+    "filtering_params-filter_mode": [
+        [
+            "time_window",
+            5
+        ]
+    ],
+    "filtering_params-k": [
+        [
+            5,
+            2
+        ],
+        [
+            2,
+            1
+        ],
+        [
+            6,
+            1
+        ],
+        [
+            4,
+            1
+        ]
+    ],
+    "filtering_params-nm": [
+        [
+            3,
+            5
+        ]
+    ],
+    "filtering_params-ns": [
+        [
+            2,
+            4
+        ],
+        [
+            4,
+            1
+        ]
+    ],
+    "filtering_params-s": [
+        [
+            10,
+            5
+        ]
+    ],
+    "filtering_params-lb_in": [
+        [
+            2,
+            3
+        ],
+        [
+            3,
+            2
+        ]
+    ],
+    "filtering_params-lb_out": [
+        [
+            2,
+            5
+        ]
+    ],
+    "filtering_params-handle_5": [
+        [
+            false,
+            5
+        ]
+    ],
+    "filtering_params-handle_6": [
+        [
+            false,
+            5
+        ]
+    ],
+    "handle_56_params-k": [
+        [
+            2,
+            5
+        ]
+    ],
+    "handle_56_params-m": [
+        [
+            2,
+            5
+        ]
+    ],
+    "handle_56_params-s": [
+        [
+            2,
+            5
+        ]
+    ],
+    "handle_56_params-ns": [
+        [
+            2,
+            5
+        ]
+    ],
+    "handle_56_params-nm": [
+        [
+            2,
+            5
+        ]
+    ],
+    "plcount_params-cc_max_factor": [
+        [
+            0.5,
+            4
+        ],
+        [
+            1.0,
+            1
+        ]
+    ]
+}

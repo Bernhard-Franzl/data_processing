@@ -30,7 +30,7 @@ cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 corrected_data = preprocessor.correct_25_04_HS19(cleaned_data, "/home/berni/github_repos/data_processing/data/logs_25_04_HS19.txt")
 
 ############## PLCount ################
-for frequency in ["1min", "5min", "15min", "30min", "1h"]:
+for frequency in ["1h", "5min", "15min", "30min", "1min"]:
     plcount = PLCount()
 
     data_dict = {}
@@ -39,7 +39,7 @@ for frequency in ["1min", "5min", "15min", "30min", "1h"]:
         #data_filterd_room = dfg.filter_by_roomid(corrected_data, room_id)
         occ_list = plcount.run_on_whole_dataset(df, dfg, frequency, params)
         data_dict[room_id] = pd.concat(occ_list).drop_duplicates(subset="datetime").reset_index(drop=True)
-     
+
         #if frequency == "1min":
         #    # visualize for "1min":
         #    plcount_data = pd.concat(occ_list).drop_duplicates(subset="datetime").reset_index(drop=True)

@@ -150,7 +150,7 @@ def update_ts_viewer(room_dropdown_value,
     )
 
     inverted_lecture = (~occ_time_series["lecture"].astype(bool)).astype(int)
-    y = occ_time_series["occrate"] * inverted_lecture
+    y = occ_time_series["occcount"] * inverted_lecture
     
     fig.add_trace(
         go.Scattergl(

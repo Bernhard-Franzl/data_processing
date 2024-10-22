@@ -25,42 +25,42 @@ warnings.filterwarnings("ignore")
 
 ###### Parameter Search ########
 
-#path_to_json = "_preprocessing/parameters/parameters_to_try.json"
+path_to_json = "_preprocessing/parameters/parameters_to_try.json"
 
-#comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
+comb_iterator = ParameterSearch(path_to_json=path_to_json).combinations_iterator(tqdm_bar=True)
 
-#preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
+preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
 
-#for i, params in enumerate(comb_iterator):
+for i, params in enumerate(comb_iterator):
     
-#    if i == 0:
-#        answer = input("Are you sure you want to start? Have you checked file names?")
-#        if answer == "y":
-#            pass
-#        else:
-#            raise 
+    if i == 0:
+        answer = input("Are you sure you want to start? Have you checked file names?")
+        if answer == "y":
+            pass
+        else:
+            raise 
 
-#    cleaned_data, plot_data = preprocessor.apply_preprocessing(params)
+    cleaned_data, plot_data = preprocessor.apply_preprocessing(params)
     
-#    corrected_data = preprocessor.correct_25_04_HS19(
-#        cleaned_data, 
-#        "/home/berni/github_repos/data_processing/data/logs_25_04_HS19.txt"
-#    )
+    corrected_data = preprocessor.correct_25_04_HS19(
+        cleaned_data, 
+        "/home/berni/github_repos/data_processing/data/logs_25_04_HS19.txt"
+    )
 
-#    ctd_list = Evaluator(
-#        "PLCount", 
-#        "/home/berni/github_repos/data_processing/data/control_data/zählung.csv"
-#        ).evaluate_pl_count(
-#            data=corrected_data,
-#            dfguru=dfg,
-#            params=params, 
-#            print_details=False,
-#        )
+    ctd_list = Evaluator(
+        "PLCount", 
+        "/home/berni/github_repos/data_processing/data/control_data/zählung.csv"
+        ).evaluate_pl_count(
+            data=corrected_data,
+            dfguru=dfg,
+            params=params, 
+            print_details=False,
+        )
     
-#    file_name = "_preprocessing/results/results_final_cleverbrutal1.txt"
-#    write_results_to_txt(file_name, i, params, ctd_list)
-#    file_name = f"_preprocessing/results/final_cleverbrutal1/comb_time-window_{i}.json"
-#    write_results_to_json(file_name, params, ctd_list)
+    file_name = "_preprocessing/results/results_final_sigma.txt"
+    write_results_to_txt(file_name, i, params, ctd_list)
+    file_name = f"_preprocessing/results/final_sigma/comb_time-window_{i}.json"
+    write_results_to_json(file_name, params, ctd_list)
 
 
 ############## Analyze Results ##############
@@ -120,53 +120,53 @@ warnings.filterwarnings("ignore")
 
 ########## Read out Results ########
 
-directory_filter = "final_cleverbrutal1"
+#directory_filter = "final_cleverbrutal1"
 
-file_path = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.join(file_path, "_preprocessing", "results")
-#parent_dir = parent_dir.split(" ")[0]
-#directories = [x for x in list(os.walk(parent_dir))[0][1] if "with_5_6" in x]
-directories = [x for x in list(os.walk(parent_dir))[0][1] if directory_filter in x]
+#file_path = os.path.dirname(os.path.abspath(__file__))
+#parent_dir = os.path.join(file_path, "_preprocessing", "results")
+##parent_dir = parent_dir.split(" ")[0]
+##directories = [x for x in list(os.walk(parent_dir))[0][1] if "with_5_6" in x]
+#directories = [x for x in list(os.walk(parent_dir))[0][1] if directory_filter in x]
 
-ctd_list = []
-parameters_list = []
-for directory in directories:
-    files = list(os.walk(os.path.join(parent_dir, directory)))[0][2]
-    for i, file in enumerate(files):
-        with open(os.path.join(parent_dir, directory, file), "r") as file:
-            results = json.load(file)
+#ctd_list = []
+#parameters_list = []
+#for directory in directories:
+#    files = list(os.walk(os.path.join(parent_dir, directory)))[0][2]
+#    for i, file in enumerate(files):
+#        with open(os.path.join(parent_dir, directory, file), "r") as file:
+#            results = json.load(file)
             
-            parameters_list.append(results["parameters"])
-            ctd_list.append(results["CTD"])
+#            parameters_list.append(results["parameters"])
+#            ctd_list.append(results["CTD"])
             
-dataframe = pd.DataFrame({"parameters":parameters_list, "ctd":ctd_list})
-dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
+#dataframe = pd.DataFrame({"parameters":parameters_list, "ctd":ctd_list})
+#dataframe["mctd"] = dataframe["ctd"].apply(lambda x: np.mean(x))
 
-dict_list = []
-#for  sort_by in sort_by_list:
-sort_by = ["mctd"]
-dataframe_sorted = dataframe.sort_values(by=sort_by)
-parameter_series_list = []
-for i,row in iter(dataframe_sorted[:5].iterrows()):
-    parameter_series = pd.json_normalize(row["parameters"], sep="-")
-    parameter_series_list.append(parameter_series)
-    #print(f"######## Combination: {i} ########")
-    #print(row["mse"], row["mae"], row["mctd"])
+#dict_list = []
+##for  sort_by in sort_by_list:
+#sort_by = ["mctd"]
+#dataframe_sorted = dataframe.sort_values(by=sort_by)
+#parameter_series_list = []
+#for i,row in iter(dataframe_sorted[:5].iterrows()):
+#    parameter_series = pd.json_normalize(row["parameters"], sep="-")
+#    parameter_series_list.append(parameter_series)
+#    #print(f"######## Combination: {i} ########")
+#    #print(row["mse"], row["mae"], row["mctd"])
     
-parameters_df = pd.concat(parameter_series_list, axis=0)
-parameters_df["filtering_params-discard_times"] = parameters_df["filtering_params-discard_times"].apply(lambda x: ",".join(x))
-unique_values = [list(parameters_df[col].unique()) for col in parameters_df.columns]
+#parameters_df = pd.concat(parameter_series_list, axis=0)
+#parameters_df["filtering_params-discard_times"] = parameters_df["filtering_params-discard_times"].apply(lambda x: ",".join(x))
+#unique_values = [list(parameters_df[col].unique()) for col in parameters_df.columns]
 
-dict_uniqe_params = dict(list(zip(parameters_df.columns, unique_values)))
-print(dict_uniqe_params)
+#dict_uniqe_params = dict(list(zip(parameters_df.columns, unique_values)))
+#print(dict_uniqe_params)
 
-results_dict = dict()
-for key in parameters_df.keys():
-    vcs = parameters_df[key].value_counts()
-    results_dict[key] = list(vcs.items())
-    file_name = "-".join(sort_by)
-    with open(os.path.join(file_path, f"results_{directory_filter}_{file_name}.json"), "w") as file:
-        json.dump(results_dict, file, indent=4)
+#results_dict = dict()
+#for key in parameters_df.keys():
+#    vcs = parameters_df[key].value_counts()
+#    results_dict[key] = list(vcs.items())
+#    file_name = "-".join(sort_by)
+#    with open(os.path.join(file_path, f"results_{directory_filter}_{file_name}.json"), "w") as file:
+#        json.dump(results_dict, file, indent=4)
 
 
 #######################################################################################

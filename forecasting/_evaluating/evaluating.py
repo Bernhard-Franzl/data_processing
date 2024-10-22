@@ -393,7 +393,7 @@ class Evaluator:
             # means label 7:30:00 = from 7:29:01 to 7:30:00
                 
             occ_counts_pl["delta_CC"] = self.class_to_evaluate.calc_delta(occ_counts_pl, "CC")
-            occ_counts_pl["sigma"] = self.class_to_evaluate.calc_sigma(occ_counts_pl, "delta_CC")
+            occ_counts_pl["sigma"] = self.class_to_evaluate.calc_sigma(occ_counts_pl, "delta_CC", plcount_params["sigma_factor"])
             
         
             cc_max = occ_counts_pl.CC.max()
