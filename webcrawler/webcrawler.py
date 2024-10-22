@@ -4,6 +4,8 @@ import re
 import pandas as pd
 from tqdm import tqdm
 
+import webbrowser
+
 class Snail():
     """
     Snail that crawls KUSSS and collects data
@@ -70,6 +72,7 @@ class Snail():
         #coursecatalogue-start.action?advanced=true
         url = self.base_url + "coursecatalogue-start.action" + "?advanced=true"
         soup = self.crawl(url)
+
         return soup
     
     def prepare_catalogue_search(self, soup):
@@ -82,8 +85,7 @@ class Snail():
         action = details_form["action"]
         
         payload = {}
-        
-        input_fields = []
+    
         input_fields += self.search_html(details_form, "input", {"class":"inputfields"}, all=True)
         input_fields += self.search_html(details_form, "input", {"type":"hidden"}, all=True)
         for field in input_fields:
@@ -100,7 +102,8 @@ class Snail():
         Returns the search results
         """
         result_html = self.crawl(self.base_url + action, payload)
-        
+        print(result_html)
+        raise
         tables = self.search_html(result_html, "table", all=True)
         result_table = self.search_html(tables[-1], "tr", all=True)
         
