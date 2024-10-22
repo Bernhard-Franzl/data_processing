@@ -90,6 +90,10 @@ class DataFrameGuru():
             df_resampled = df_resampled.count()
         elif agg_func == "value_counts":
             df_resampled = df_resampled.value_counts()
+        elif agg_func == "mean":
+            df_resampled = df_resampled.mean()
+        elif agg_func == "median":
+            df_resampled = df_resampled.median()
         else:
             raise ValueError("agg_func must be 'sum', 'count' or 'value_counts'")
         
@@ -117,7 +121,6 @@ class DataFrameGuru():
         df = self.derive_in_out(df)
         
         df_resampled = self.resample(df, time_column, frequency, "sum", output_columns=["people_in", "people_out"])
-        
         df_resampled = self.calc_inside(df_resampled)
         
         df_resampled = df_resampled.rename(columns={"people_inside": "CC"}).drop(["people_in", "people_out"], axis=1)

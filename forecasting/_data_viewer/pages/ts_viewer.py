@@ -4,6 +4,7 @@ import pandas as pd
 #from data_handling.data_handler import DataHandler
 #from visualization.visualization import Visualizer
 from dash import dash_table
+import dash
 
 import os
 from _dfguru import DataFrameGuru as DFG
@@ -39,10 +40,26 @@ def load_data(path_to_data_dir, frequency, feature_list, dfguru, room_id):
 
 register_page(__name__, path="/")
 
-
-frequency = "1h"
+room_id_default = 0
+init_frequency = "15min"
 path_to_data_dir = "data"
-data_dict, course_dates_data, course_info_data = load_data(path_to_data_dir, frequency, global_feature_list, dfguru, 0)
+
+occ_time_series, course_dates_data, course_info_data = load_data(path_to_data_dir, init_frequency, global_feature_list, dfguru, 0)
+global_occ_time_series = OccFeatureEngineer(
+    occ_time_series, 
+    course_dates_data, 
+    course_info_data, 
+    dfguru,
+    init_frequency
+).derive_features(
+    features=global_feature_list, 
+    room_id=room_id_default
+)
+    
+event_data = dfguru.load_dataframe(
+    path_repo=path_to_data_dir,
+    file_name="cleaned_events_29_08"
+)
 
 # Layout
 def layout():
@@ -65,18 +82,31 @@ def layout():
             dcc.Dropdown(
                 id="ts_viewer_room_filter",
                 options=[{'label': f'Room {i}', 'value': i} for i in range(2)],  # Room ids 0 to 5
-                value=0,  # Default value
+                value=room_id_default,  # Default value
                 clearable=False,
                 style={'width': '50%'}
             ),
-            # Hidden store for keeping the x-axis range
+            # Hidden store for keeping the x-axis range and room_id and frequency
             dcc.Store(
                 id="xaxis_range_store"
+            ),
+            dcc.Store(
+                id="room_id_store",
+                data = room_id_default
+            ),
+            dcc.Store(
+                id="frequency_store",
+                data = init_frequency
+            ),
+            dcc.Store(
+                id="occ_time_series_store",
             ),
             # Graph for time series viewer
             dcc.Graph(
                 id="ts_viewer_figure",
             ),
+            # refresh button
+            html.Button('Refresh Tables', id='refresh_button', n_clicks=0),
             # DataTable to show filtered course dates
             dash_table.DataTable(
                 id='course_dates_table',
@@ -84,29 +114,69 @@ def layout():
                 data=[],  # Start with empty data
                 page_size=10,  # Adjust the page size as needed
             ),
+            dash_table.DataTable(
+                id = 'events_table',
+                columns=[{"name": i, "id": i} for i in event_data.columns],
+                data=[],
+                page_size=25)
         ]
     )
 
 @callback(
     Output("ts_viewer_figure", "figure"),
     Output("xaxis_range_store", "data"),
+    Output("room_id_store", "data"),
+    Output("frequency_store", "data"),
+    Output("occ_time_series_store", "data"),
     Input("ts_viewer_room_filter", "value"),
     Input("ts_viewer_frequency", "value"),
     Input("ts_viewer_figure", "relayoutData"),
-    State("xaxis_range_store", "data")
+    State("xaxis_range_store", "data"),
+    State("room_id_store", "data"),
+    State("frequency_store", "data"),
+    State("occ_time_series_store", "data")
 )
 def update_ts_viewer(room_dropdown_value, 
                      frequency_dropdown_value, 
                      relayout_data, 
-                     stored_xaxis_range):
+                     stored_xaxis_range,
+                     room_id_store,
+                     frequency_store,
+                     occ_ts_store):
 
-    occ_time_series, course_dates_data, course_info_data = load_data(
-        path_to_data_dir, 
-        frequency_dropdown_value, 
-        global_feature_list, 
-        dfguru, 
-        room_dropdown_value
-    )
+    if (room_id_default == room_dropdown_value) and (init_frequency == frequency_dropdown_value):
+        occ_time_series = global_occ_time_series.copy()
+        
+    elif (room_id_store == room_dropdown_value) and (frequency_store == frequency_dropdown_value):
+        occ_time_series = pd.DataFrame(occ_ts_store)
+        
+    elif (room_id_store != room_dropdown_value) or (frequency_store != frequency_dropdown_value):
+        
+        # reload data and reset xaxis_range
+        occ_time_series, course_dates_data, course_info_data = load_data(
+            path_to_data_dir, 
+            frequency_dropdown_value, 
+            global_feature_list, 
+            dfguru, 
+            room_dropdown_value
+        )
+    
+        ########## OccFeatureEngineer ##########
+        occ_time_series = OccFeatureEngineer(
+            occ_time_series, 
+            course_dates_data, 
+            course_info_data, 
+            dfguru,
+            frequency_dropdown_value
+        ).derive_features(
+            features=global_feature_list, 
+            room_id=room_dropdown_value
+        )
+    
+    else:
+        print("Something went wrong")
+        raise dash.exceptions.PreventUpdate
+
     
     # Update the x-axis range if relayoutData has a new range
     if relayout_data and ('xaxis.range' in relayout_data):
@@ -129,19 +199,6 @@ def update_ts_viewer(room_dropdown_value,
         
     else:
         xaxis_range = [occ_time_series["datetime"].min(), occ_time_series["datetime"].max()]
-        
-    
-    ########## OccFeatureEngineer ##########
-    occ_time_series = OccFeatureEngineer(
-        occ_time_series, 
-        course_dates_data, 
-        course_info_data, 
-        dfguru,
-        frequency
-    ).derive_features(
-        features=global_feature_list, 
-        room_id=room_dropdown_value
-    )
     
     fig = go.Figure()
     # resize figure
@@ -151,7 +208,6 @@ def update_ts_viewer(room_dropdown_value,
 
     inverted_lecture = (~occ_time_series["lecture"].astype(bool)).astype(int)
     y = occ_time_series["occcount"] * inverted_lecture
-    
     fig.add_trace(
         go.Scattergl(
             x=occ_time_series["datetime"],
@@ -188,23 +244,28 @@ def update_ts_viewer(room_dropdown_value,
         )
     )
     
-    return fig, xaxis_range
+    return fig, xaxis_range, room_dropdown_value, frequency_dropdown_value, occ_time_series.to_dict('records')
     
 @callback(
     Output("course_dates_table", "data"),
-    Input("xaxis_range_store", "data"),
-    Input("ts_viewer_room_filter", "value")
+    Output("events_table", "data"),
+    Input("ts_viewer_room_filter", "value"),
+    Input("refresh_button", "n_clicks"),
+    State("xaxis_range_store", "data")
 )
-def update_course_dates_table(xaxis_range, room_dropdown_value):
+def update_course_dates_table(room_dropdown_value, n_clicks, xaxis_range):
     
+    #print(room_dropdown_value, n_clicks, xaxis_range)
+
     # filter by room
-    filtered_data = course_dates_data[course_dates_data["room_id"] == room_dropdown_value]
+    filt_dates_data = course_dates_data[course_dates_data["room_id"] == room_dropdown_value]
+    filt_event_data = event_data[event_data["room_id"] == room_dropdown_value]
     
     if xaxis_range is None:
         # If no range is set, return the entire dataset or empty
-        raise Exception("I am here")
+        return [], []
     
-    else:
+    elif (xaxis_range) and (n_clicks>0):
         # Filter course_dates_data based on xaxis_range
         min_time, max_time = xaxis_range
         # Ensure min_time and max_time are datetime objects
@@ -212,10 +273,19 @@ def update_course_dates_table(xaxis_range, room_dropdown_value):
         max_time = pd.to_datetime(max_time)
         
         # Assuming 'datetime' is the column in course_dates_data that has the dates
-        mask = (course_dates_data['start_time'] >= min_time) & (course_dates_data['end_time'] <= max_time)
-        # Optionally filter by room_id if needed
-        filtered_data = filtered_data.loc[mask]
+        mask = (filt_dates_data['start_time'] >= min_time) & (filt_dates_data['end_time'] <= max_time)
+        filt_dates_data = filt_dates_data.loc[mask]
         
-    filtered_data = filtered_data.sort_values(by="start_time")
-    filtered_data = filtered_data.to_dict('records')
-    return filtered_data
+        mask = (filt_event_data["datetime"] >= min_time) & (filt_event_data["datetime"] <= max_time)
+        filt_event_data = filt_event_data.loc[mask]
+        
+        filt_dates_data = filt_dates_data.sort_values(by="start_time")
+        filt_dates_data = filt_dates_data.to_dict('records')
+        
+        filt_event_data = filt_event_data.sort_values(by="datetime")
+        filt_event_data = filt_event_data.to_dict('records')
+        
+        return filt_dates_data, filt_event_data
+    
+    else:
+        raise dash.exceptions.PreventUpdate

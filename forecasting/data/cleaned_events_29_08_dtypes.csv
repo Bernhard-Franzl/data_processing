@@ -1,0 +1,9 @@
+,0
+in_support_count,int64
+out_support_count,int64
+sensor_one_support_count,int64
+sensor_two_support_count,int64
+room_id,int64
+door_id,int64
+event_type,int64
+datetime,datetime64[ns]

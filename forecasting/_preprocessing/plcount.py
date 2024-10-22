@@ -104,17 +104,16 @@ class PLCount():
             k_max = np.argmax(M_i, axis=1)
             
             # sample from M_i instead of using argmax
-            print((k_max-np.array([np.argmax(M_i[i]) for i in range(len(M_i))])).sum())
- 
-            #print((k_max-np.array([np.random.choice(np.arange(M_i.shape[1]), p=M_i[i]) for i in range(len(M_i))])).sum())
-            #k_max = np.random.choice(np.arange(M_shape[1]), p=M_i)
+            # print((k_max-np.array([np.argmax(M_i[i]) for i in range(len(M_i))])).sum())
+            # print((k_max-np.array([np.random.choice(np.arange(M_i.shape[1]), p=M_i[i]) for i in range(len(M_i))])).sum())
+            # k_max = np.random.choice(np.arange(M_shape[1]), p=M_i)
             
             N[i] = k_max
             M[i] = M_i[np.arange(M_shape[1]), k_max]
                         
             # normalize row  
             M[i] = M[i] / sum(M[i])
-        raise
+            
         return M, N
     
     def run_algorithm_vectorized(self, n, m, delta_array, sigma_array):
@@ -132,6 +131,7 @@ class PLCount():
         occupancy_count_list = []
         day_list = list(pd.Series(1, dataframe['datetime']).resample("D").sum().index)
         
+        i = 0
         for timestamp in tqdm(day_list):
             
             df_filtered = data_handler.filter_by_timestamp(dataframe, "datetime",
@@ -147,7 +147,17 @@ class PLCount():
                 occupancy_count_list.append(occupancy_counts)    
                 
             else:
-                occ_counts_raw = data_handler.calc_occupancy_count(df_filtered, "datetime", frequency)
+                occ_counts_raw = data_handler.calc_occupancy_count(df_filtered, "datetime", "1min")
+                
+                if frequency != "1min":
+                    if params["plcount_params"]["agg_function"] == "mean":
+                        occ_counts_raw = occ_counts_raw.set_index("datetime").resample(frequency).mean().reset_index()
+                        occ_counts_raw["CC"] = occ_counts_raw["CC"].round().astype(int)
+                    
+                    elif params["plcount_params"]["agg_function"] == "median":
+                        occ_counts_raw = occ_counts_raw.set_index("datetime").resample(frequency).median().reset_index()
+                    else:
+                        raise ValueError("agg_function not implemented")
                 
                 occ_res = occ_counts_raw.copy()
                 occ_res["CC_estimates"] = 0

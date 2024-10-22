@@ -14,7 +14,8 @@
         "handle_6":false
     },
     "plcount_params":{
-        "cc_max_factor":0.5,
-        "sigma_factor":1
+        "agg_function":"mean",
+        "cc_max_factor": 1,
+        "sigma_factor": 5
     }
 }

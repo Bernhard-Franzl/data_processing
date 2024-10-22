@@ -18,7 +18,7 @@ harry_plotter = DataPlotter(
 )
 
 ############## SignalPreprocessor ################
-data_path = "/home/berni/Dropbox/data_29_06_merged/archive"
+data_path = "/home/franzl/Dropbox/data_29_06_merged/archive"
 path_to_json = "_preprocessing/parameters/parameters_best.json"
 
 params = json.load(open(path_to_json, "r"))
@@ -27,10 +27,12 @@ preprocessor = SignalPreprocessor(data_path, room_to_id, door_to_id)
 
 cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 
-corrected_data = preprocessor.correct_25_04_HS19(cleaned_data, "/home/berni/github_repos/data_processing/data/logs_25_04_HS19.txt")
+corrected_data = preprocessor.correct_25_04_HS19(cleaned_data, "/home/franzl/github_repos/data_processing/data/logs_25_04_HS19.txt")
+
+dfg.save_to_csv(corrected_data, "data", "cleaned_events_29_08")
 
 ############## PLCount ################
-for frequency in ["1h", "5min", "15min", "30min", "1min"]:
+for frequency in ["1min", "1h",  "5min", "15min", "30min"]:
     plcount = PLCount()
 
     data_dict = {}
