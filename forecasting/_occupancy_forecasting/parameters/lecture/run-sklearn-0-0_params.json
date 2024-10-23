@@ -1,0 +1,11 @@
+{   
+    "info": "Run 1: Linearregression, without discretization, split_by=weeks, k=5",
+    "model_class": ["linearreg"],
+    "fit_intercept": [true],
+    "criterion": ["MAE"],
+    "features": [
+        "occrate_tutorium_exam_test_type_weekday_starttime_studyarea"],
+    "include_x_features": [true],
+    "discretization": [false],
+    "binsize": [0.01]
+}

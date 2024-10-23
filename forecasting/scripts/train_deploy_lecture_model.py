@@ -1,6 +1,6 @@
 from _dfguru import DataFrameGuru as DFG
-from _forecasting import MasterTrainer, load_data_lecture
-from _forecasting import avoid_name_conflicts, parse_arguments, prompt_for_missing_arguments
+from _occupany_forecasting import MasterTrainer, load_data_lecture
+from _occupany_forecasting import avoid_name_conflicts, parse_arguments, prompt_for_missing_arguments
 from _evaluating import ParameterSearch
 
 import torch

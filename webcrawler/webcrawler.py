@@ -4,8 +4,14 @@ import re
 import pandas as pd
 from tqdm import tqdm
 
-import webbrowser
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
+
+import time
 class Snail():
     """
     Snail that crawls KUSSS and collects data
@@ -14,15 +20,17 @@ class Snail():
     
     def __init__(self):
         
+        self.driver = webdriver.Firefox()   
+        self.wait = WebDriverWait(self.driver, 10)
         # get course catalogue
         self.course_catalogue = self.get_detailed_course_catalogue()
         # prepare general search
-        self.action, self.payload = self.prepare_catalogue_search(self.course_catalogue)
+        #self.action, self.payload = self.prepare_catalogue_search(self.course_catalogue)
         
         # get all rooms
         dropdown_entries = self.search_html(self.course_catalogue, "select", {"name":"room"}, all=False)\
                                             .find_all("option")
-        self.room_dict = {x.text.strip():x["value"] for x in dropdown_entries}                                    
+        self.room_dict = {x.text.strip():x["value"] for x in dropdown_entries}                              
     
     ####### Basic Methods #######
     def crawl(self, url, parameters=None, parse=True):
@@ -69,11 +77,36 @@ class Snail():
         """
         Returns the detailed course catalog
         """
+        
         #coursecatalogue-start.action?advanced=true
         url = self.base_url + "coursecatalogue-start.action" + "?advanced=true"
-        soup = self.crawl(url)
+        
+        # Navigate to the webpage
+        self.driver.get(url)
+        
+        # Wait for the language options to be present
+        self.wait.until(EC.presence_of_element_located((By.ID, 'language')))
 
-        return soup
+        # Locate the "DE" link
+        de_link = self.driver.find_element(By.XPATH, '//ul[@id="language"]//a[abbr[text()="DE"]]')
+
+        # Click on the "DE" link
+        de_link.click()
+        
+        # Wait for the 'term' dropdown to be present
+        self.wait.until(EC.presence_of_element_located((By.ID, 'term')))
+
+        # Locate the 'term' select element
+        term_select = Select(self.driver.find_element(By.ID, 'term'))
+        
+        # Select '2024S' by value
+        term_select.select_by_value('2024S')
+        
+        time.sleep(2)
+        
+        course_catalogue = BeautifulSoup(self.driver.page_source, 'html.parser')
+
+        return course_catalogue
     
     def prepare_catalogue_search(self, soup):
         """
@@ -83,9 +116,10 @@ class Snail():
         details_form = self.search_html(soup, "form", {"method":"get"}, all=True)[-1]
 
         action = details_form["action"]
-        
+
         payload = {}
-    
+        
+        input_fields = []
         input_fields += self.search_html(details_form, "input", {"class":"inputfields"}, all=True)
         input_fields += self.search_html(details_form, "input", {"type":"hidden"}, all=True)
         for field in input_fields:
@@ -97,13 +131,36 @@ class Snail():
             
         return action, payload
         
+    def get_search_result_table_selenium(self, room_name):
+        
+        # Wait for the page to reload after selecting the term
+        # Wait until the 'room' dropdown is present
+
+        # Now locate the 'room' select element
+        room_select = Select(self.driver.find_element(By.ID, 'room'))
+
+        # Select 'HS 18' by visible text
+        room_select.select_by_visible_text(room_name)
+
+        # Click the "Search" button
+        search_button = self.driver.find_element(By.XPATH, '//input[@type="submit" and @value="Suchen"]')
+        search_button.click()
+
+        # Wait for the results page to load
+        time.sleep(2)
+        
+        soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+            
+        tables = self.search_html(soup, "table", all=True)
+        result_table = self.search_html(tables[-1], "tr", all=True)
+
+        return result_table
+    
     def get_search_result_table(self, action, payload):
         """
         Returns the search results
         """
         result_html = self.crawl(self.base_url + action, payload)
-        print(result_html)
-        raise
         tables = self.search_html(result_html, "table", all=True)
         result_table = self.search_html(tables[-1], "tr", all=True)
         
@@ -153,12 +210,15 @@ class Snail():
     def get_lva_details_and_dates(self, lva_url):
 
         # harvest all the information from the lva overview page
-        lva_page = self.crawl(self.base_url + lva_url)        
+        self.driver.get(self.base_url + lva_url)
+        lva_page = BeautifulSoup(self.driver.page_source, "html.parser")   
         
         ############# Study Handbook #############
         # get link to study handbook
         studyhandbook_link = self.search_html(lva_page, "a", {"title":"Studienhandbuch"}, all=False)["href"]
-        studyhandbook_page = self.crawl(studyhandbook_link)
+        
+        self.driver.get(studyhandbook_link)
+        studyhandbook_page = BeautifulSoup(self.driver.page_source, "html.parser")
         
         handbook_info_dict = dict()
 
@@ -236,7 +296,8 @@ class Snail():
                 if len(date_info) != 0:
                     dates_dataframe.loc[idx//2, "Anmerkung"] = " ".join(date_info)
 
-
+        self.driver.back()
+        self.driver.back()
         return max_students, registered_students, dates_dataframe, subinfo_dict, handbook_info_dict
 
     ######### Application #########
@@ -312,7 +373,7 @@ class Snail():
             
             # twice a week
             
-    def accumulate_course_dates(self, dataframe_courses, link_dict, room):
+    def accumulate_course_dates(self, dataframe_courses, link_dict, room, filter_by_room):
         
         df_courses = dataframe_courses.copy()
         
@@ -330,8 +391,10 @@ class Snail():
             # derive regularity
             no_dates_total = self.derive_regularity(df_dates)
             df_courses.loc[i, "no_dates_total"] = no_dates_total
-            # filter the dates by the room            
-            df_dates = self.filter_by_room(df_dates, room)
+            
+            if filter_by_room:
+                # filter the dates by the room            
+                df_dates = self.filter_by_room(df_dates, room)
             
             # store the dates
             dates_list.append(df_dates)
@@ -372,16 +435,17 @@ class Snail():
     
     def get_courses_by_room(self, room_name):
         
-        if self.validate_room(room_name):
+        #if self.validate_room(room_name):
             
-            # get the search results
-            result_table = self.get_search_result_table(self.action, self.payload)
-            # extract the search results
-            df_courses, link_dict = self.extract_search_results(result_table)
-            
-            df_courses, df_dates = self.accumulate_course_dates(df_courses, link_dict, room_name)
-            
-            return df_courses, df_dates 
         
-        else:
-            return None, None
+        # get the search results
+        result_table = self.get_search_result_table_selenium(room_name)
+
+        # extract the search results
+        df_courses, link_dict = self.extract_search_results(result_table)
+        
+        df_courses, df_dates = self.accumulate_course_dates(df_courses, link_dict, room_name, filter_by_room=False)
+        return df_courses, df_dates 
+        
+        #else:
+            #return None, None

@@ -1,11 +1,11 @@
 import numpy as np
-from _forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
+from _occupany_forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
 import os
 import torch
-from _forecasting.testing import load_checkpoint, run_detailed_test_forward
+from _occupany_forecasting.testing import load_checkpoint, run_detailed_test_forward
 
 from _dfguru import DataFrameGuru as DFG
-from _forecasting import MasterTrainer, LectureDataset
+from _occupany_forecasting import MasterTrainer, LectureDataset
 import json
         
         
@@ -37,7 +37,11 @@ for run_id in [4]:
             )
             checkpoint_path = os.path.join(cp_log_dir, f"run_{run_id}/comb_{0}_data_{i}")
             hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
-            dataset = LectureDataset(datadf, hyperparameters, mode, path_to_helpers=f"data/helpers_lecture_random_{i}.json", validation=True)
+            dataset = LectureDataset(datadf, 
+                                     hyperparameters, 
+                                     mode, 
+                                     path_to_helpers=f"data/helpers_lecture_random_{i}.json", 
+                                     validation=True)
             
             # load model from checkpoint i-1
             checkpoint_path = os.path.join(cp_log_dir, f"run_{run_id}/comb_{0}_data_{i-1}")

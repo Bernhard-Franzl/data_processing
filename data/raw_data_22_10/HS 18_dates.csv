@@ -1,346 +1,1423 @@
 LVA-Nummer,Wochentag,Datum,Startzeit,Endzeit,Ort,Anmerkung,exam,test,tutorium
-345.012,Mi.,02.10.24,13:45,15:15,HS 18,,False,False,False
-345.007,Mi.,02.10.24,13:45,15:15,HS 18,,False,False,False
-323.001,Do.,10.10.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,17.10.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,24.10.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,31.10.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,07.11.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,14.11.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,21.11.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,05.12.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,12.12.24,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,09.01.25,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,16.01.25,12:00,12:45,HS 18,,False,False,False
-323.001,Do.,23.01.25,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,10.10.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,17.10.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,24.10.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,31.10.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,07.11.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,14.11.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,21.11.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,05.12.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,12.12.24,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,09.01.25,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,16.01.25,12:00,12:45,HS 18,,False,False,False
-323.009,Do.,23.01.25,12:00,12:45,HS 18,,False,False,False
-257.114,Mi.,09.10.24,13:45,15:15,HS 18,Vorbesprechung,False,False,False
-257.114,Mi.,16.10.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,23.10.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,30.10.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,06.11.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,13.11.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,20.11.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,27.11.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,11.12.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,18.12.24,15:30,17:00,HS 18,,False,False,False
-257.114,Mi.,15.01.25,15:30,17:00,HS 18,Klausur,True,False,False
-257.100,Mi.,09.10.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,16.10.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,23.10.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,30.10.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,06.11.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,13.11.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,20.11.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,27.11.24,13:45,15:15,HS 18,,False,False,False
-257.100,Mi.,29.01.25,13:45,15:15,HS 18,Nachklausur,True,False,False
-353.020,Mo.,07.10.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,14.10.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,21.10.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,28.10.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,04.11.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,11.11.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,18.11.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,25.11.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,02.12.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,09.12.24,15:30,18:00,HS 18,,False,False,False
-353.020,Mo.,16.12.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,07.10.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,14.10.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,21.10.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,28.10.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,04.11.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,11.11.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,18.11.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,25.11.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,02.12.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,09.12.24,15:30,18:00,HS 18,,False,False,False
-353.026,Mo.,16.12.24,15:30,18:00,HS 18,,False,False,False
-361.004,Do.,30.01.25,17:15,18:45,HS 18,Exam attempt 1,True,False,False
-361.030,Do.,30.01.25,17:15,18:45,HS 18,Exam attempt 1,True,False,False
-269.060,Fr.,06.12.24,10:15,13:30,HS 18,4_1: Openness & 4_2 Platforms,False,False,False
-258.401,Mo.,07.10.24,13:45,15:15,HS 18,Kick-off (mandatory attendance or written excuse via e-mail in advance),False,False,False
-258.401,Mo.,14.10.24,13:45,15:15,HS 18,Concepts and Terminology,False,False,False
-258.401,Mo.,21.10.24,13:45,15:15,HS 18,Conceptual Design,False,False,False
-258.401,Mo.,28.10.24,13:45,15:15,HS 18,Logical Design,False,False,False
-258.401,Mo.,04.11.24,13:45,15:15,HS 18,OLAP with SQL,False,False,False
-258.401,Mo.,11.11.24,13:45,15:15,HS 18,OLAP with MDX,False,False,False
-258.401,Mo.,18.11.24,13:45,15:15,HS 18,Physical Design,False,False,False
-258.401,Mo.,25.11.24,13:45,15:15,HS 18,Data Integration,False,False,False
-258.401,Mo.,02.12.24,13:45,15:15,HS 18,Business Analytics,False,False,False
-258.401,Mo.,09.12.24,13:45,15:15,HS 18,Modern Analytics Infrastructure,False,False,False
-258.401,Mo.,16.12.24,13:45,15:15,HS 18,"BI Project Management (Guest Lecture by Dr. Thomas Neuböck, solvistas GmbH)",False,False,False
-258.401,Mo.,13.01.25,13:45,15:15,HS 18,Q & A,False,False,False
-258.100,Mi.,02.10.24,12:00,13:30,HS 18,Vorbesprechung & Einführung,False,False,False
-258.100,Mi.,09.10.24,12:00,13:30,HS 18,Konzeptueller Entwurf,False,False,False
-258.100,Mi.,16.10.24,12:00,13:30,HS 18,Grundlagen Relationenmodell,False,False,False
-258.100,Mi.,23.10.24,12:00,13:30,HS 18,SQL,False,False,False
-258.100,Mi.,30.10.24,12:00,13:30,HS 18,Funktionale Abhängigkeiten,True,False,False
-258.100,Mi.,06.11.24,12:00,13:30,HS 18,Normalformen,False,False,False
-258.100,Mi.,13.11.24,12:00,13:30,HS 18,"Mehrwertige und Verbundabhängigkeiten, DB und Programmiersprachen (SQLJ)",False,False,False
-258.100,Mi.,20.11.24,12:00,13:30,HS 18,"DB und Programmiersprachen (JDBC), DB & Web",False,False,False
-258.100,Mi.,27.11.24,12:00,13:30,HS 18,Logischer Entwurf,False,False,False
-258.100,Mi.,04.12.24,12:00,13:30,HS 18,Physischer Entwurf,False,False,False
-258.100,Mi.,11.12.24,12:00,13:30,HS 18,"Physischer Entwurf, Datenschutz",False,False,False
-258.100,Mi.,18.12.24,12:00,13:30,HS 18,"(Reservetermin, ev. WebML)",False,False,False
-258.100,Mi.,15.01.25,12:00,13:30,HS 18,(Reservetermin),False,False,False
-258.100,Mi.,22.01.25,12:00,13:30,HS 18,(Reservetermin),False,False,False
-531.102,Di.,04.02.25,10:15,11:45,HS 18,Klausur,True,False,False
-536.018,Fr.,29.11.24,13:45,17:00,HS 18,,False,False,False
-536.088,Fr.,29.11.24,10:15,13:30,HS 18,,False,False,False
-241.044,Do.,03.10.24,12:00,16:15,HS 18,,False,False,False
-239.222,Do.,28.11.24,12:00,13:30,HS 18,,False,False,False
-326.013,Fr.,31.01.25,08:30,11:00,HS 18,,False,False,False
-229.054,Di.,08.10.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,15.10.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,22.10.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,29.10.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,05.11.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,12.11.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,19.11.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,26.11.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,03.12.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,17.12.24,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,14.01.25,15:30,18:00,HS 18,,False,False,False
-229.054,Di.,28.01.25,15:30,18:00,HS 18,,False,False,False
-245.310,Di.,01.10.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,08.10.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,15.10.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,29.10.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,05.11.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,12.11.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,26.11.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,03.12.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,10.12.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,17.12.24,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,07.01.25,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,14.01.25,10:15,11:45,HS 18,,False,False,False
-245.310,Di.,21.01.25,10:15,11:45,HS 18,,False,False,False
-243.430,Fr.,15.11.24,08:30,17:00,HS 18,inklusive Gastvortragvon Hannes Weinzierl,True,False,False
-229.055,Do.,10.10.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,17.10.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,24.10.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,31.10.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,07.11.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,14.11.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,21.11.24,15:30,18:00,HS 18,1. Teilklausur,True,False,False
-229.055,Do.,28.11.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,05.12.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,12.12.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,19.12.24,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,16.01.25,15:30,18:00,HS 18,,False,False,False
-229.055,Do.,23.01.25,15:30,18:00,HS 18,2. Teilklausur/Gesamtklausur,True,False,False
-345.151,Do.,12.12.24,08:30,10:00,HS 18,,False,False,False
-345.242,Do.,10.10.24,08:30,10:00,HS 18,,False,False,False
-353.067,Mo.,07.10.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,14.10.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,21.10.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,04.11.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,11.11.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,18.11.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,25.11.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,02.12.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,09.12.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,16.12.24,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,13.01.25,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,20.01.25,12:00,13:30,HS 18,,False,False,False
-353.067,Mo.,27.01.25,12:00,13:30,HS 18,,False,False,False
-241.009,Mi.,02.10.24,18:00,20:30,HS 18,,False,False,False
-241.009,Mi.,09.10.24,18:00,20:30,HS 18,,False,False,False
-241.009,Mi.,16.10.24,18:00,20:30,HS 18,,False,False,False
-241.009,Mi.,06.11.24,18:00,20:30,HS 18,,False,False,False
-241.009,Mi.,13.11.24,18:00,20:30,HS 18,,False,False,False
-241.009,Mi.,20.11.24,18:00,20:30,HS 18,,False,False,False
-241.009,Mi.,27.11.24,18:00,20:30,HS 18,Exam,True,False,False
-241.009,Mi.,11.12.24,18:00,20:30,HS 18,Reflection Session - Presence mandatory,False,False,False
-241.009,Mi.,18.12.24,18:00,20:30,HS 18,Remake Exam,True,False,False
-347.309,Mo.,27.01.25,10:15,11:45,HS 18,,False,False,False
-377.012,Do.,24.10.24,12:45,13:30,HS 18,,False,False,False
-377.012,Do.,07.11.24,12:45,13:30,HS 18,,False,False,False
-377.012,Do.,21.11.24,12:45,13:30,HS 18,,False,False,False
-377.012,Do.,05.12.24,12:45,13:30,HS 18,,False,False,False
-377.012,Do.,19.12.24,12:45,13:30,HS 18,,False,False,False
-377.012,Do.,16.01.25,12:45,13:30,HS 18,,False,False,False
-377.017,Do.,24.10.24,12:45,13:30,HS 18,Tutorium,False,False,True
-377.017,Do.,07.11.24,12:45,13:30,HS 18,Tutorium,False,False,True
-377.017,Do.,21.11.24,12:45,13:30,HS 18,Tutorium,False,False,True
-377.017,Do.,05.12.24,12:45,13:30,HS 18,Tutorium,False,False,True
-377.017,Do.,19.12.24,12:45,13:30,HS 18,Tutorium,False,False,True
-377.017,Do.,16.01.25,12:45,13:30,HS 18,Tutorium,False,False,True
-365.107,Mo.,03.02.25,15:30,17:00,HS 18,EXAM,True,False,False
-531.140,Mo.,03.02.25,09:00,11:00,HS 18,,False,False,False
-239.418,Do.,17.10.24,08:30,10:00,HS 18,,False,False,False
-239.418,Do.,31.10.24,08:30,10:00,HS 18,,False,False,False
-239.418,Do.,07.11.24,08:30,10:00,HS 18,,False,False,False
-239.418,Do.,14.11.24,08:30,10:00,HS 18,,False,False,False
-239.418,Do.,21.11.24,08:30,10:00,HS 18,,False,False,False
-239.418,Do.,28.11.24,08:30,10:00,HS 18,,False,False,False
-239.418,Do.,05.12.24,08:30,10:00,HS 18,Klausur,True,False,False
-323.002,Do.,30.01.25,12:00,13:30,HS 18,,False,False,False
-357.101,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.101,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.102,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.102,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.103,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.103,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.104,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.104,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.105,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.105,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.106,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.106,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.107,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.107,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.108,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.108,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.109,Fr.,31.01.25,13:45,16:15,HS 18,2. Übungstest,False,True,False
-357.109,Do.,27.02.25,12:45,15:15,HS 18,Nachtest,False,True,False
-357.100,Do.,06.02.25,08:30,11:00,HS 18,1. Klausur,True,False,False
-326.700,Di.,15.10.24,18:00,18:45,HS 18,,False,False,False
-326.700,Di.,22.10.24,18:00,18:45,HS 18,Kurztest Modul 2 A-K,False,True,False
-326.700,Di.,12.11.24,18:00,18:45,HS 18,Kurztest Modul 4 A-K,False,True,False
-326.700,Di.,19.11.24,18:00,18:45,HS 18,Kurztest Modul 5 A-K,False,True,False
-326.700,Di.,26.11.24,18:00,18:45,HS 18,Kurztest Modul 6 A-K,False,True,False
-326.700,Di.,03.12.24,18:00,18:45,HS 18,Kurztest Modul 7 A-K,False,True,False
-326.700,Di.,17.12.24,18:00,18:45,HS 18,Kurztest Modul 9 A-K,False,True,False
-326.700,Di.,14.01.25,18:00,18:45,HS 18,Kurztest Modul 10 A-K,False,True,False
-326.700,Di.,28.01.25,18:00,18:45,HS 18,Kurztest Modul 12 A-K,False,True,False
-140.065,Fr.,20.12.24,15:30,17:00,HS 18,Klausur,True,False,False
-382.028,Di.,01.10.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,08.10.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,15.10.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,22.10.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,05.11.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,12.11.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,19.11.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,26.11.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,03.12.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,10.12.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,17.12.24,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,07.01.25,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,14.01.25,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,21.01.25,12:45,15:15,HS 18,,False,False,False
-382.028,Di.,28.01.25,12:45,15:15,HS 18,,False,False,False
-335.022,Di.,01.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,02.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,08.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,09.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,15.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,16.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,22.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,23.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,29.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,30.10.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,05.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,06.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,12.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,13.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,19.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,20.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,26.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,27.11.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,03.12.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,04.12.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,10.12.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,11.12.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,17.12.24,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,18.12.24,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,07.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,08.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,14.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,15.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,21.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,22.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Di.,28.01.25,08:30,10:00,HS 18,,False,False,False
-335.022,Mi.,29.01.25,08:30,10:00,HS 18,,False,False,False
-343.324,Mi.,09.10.24,10:15,11:45,HS 18,L01 Introduction to SWE / L02 Dronology Overview,False,False,False
-343.324,Mi.,16.10.24,10:15,11:45,HS 18,"L03 Requirements, Use Cases, and Scenarios",False,False,False
-343.324,Mi.,23.10.24,10:15,11:45,HS 18,L04 Requirements Syntax and Traceability,False,False,False
-343.324,Mi.,30.10.24,10:15,11:45,HS 18,L05 UML Design Modeling,False,False,False
-343.324,Mi.,06.11.24,10:15,11:45,HS 18,L06 Design Choices,False,False,False
-343.324,Mi.,13.11.24,10:15,11:45,HS 18,L07 Software Process,False,False,False
-343.324,Mi.,20.11.24,10:15,11:45,HS 18,L08 Design Evolution,False,False,False
-343.324,Mi.,27.11.24,10:15,11:45,HS 18,L09 Planning and Cost Estimation,False,False,False
-343.324,Mi.,04.12.24,10:15,11:45,HS 18,L10 Verification and Validation,False,False,False
-343.324,Mi.,11.12.24,10:15,11:45,HS 18,L11 Testing and Monitoring,False,True,False
-343.324,Mi.,18.12.24,10:15,11:45,HS 18,L12 Software Reuse and Product Lines,False,False,False
-343.324,Mi.,08.01.25,10:15,11:45,HS 18,L13 Designing in the Ilities,False,False,False
-343.324,Mi.,15.01.25,10:15,11:45,HS 18,L14 Invited Talk,False,False,False
-343.324,Mi.,22.01.25,10:15,11:45,HS 18,Exam,True,False,False
-339.160,Mo.,27.01.25,08:30,10:00,HS 18,Klausur,True,False,False
-250.231,Mi.,29.01.25,10:15,11:45,HS 18,Schlussklausur,True,False,False
-238.213,Mo.,07.10.24,10:15,11:45,HS 18,Anwesenheitspflicht mit Unterschriftenliste,False,False,False
-238.213,Mo.,14.10.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,21.10.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,28.10.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,04.11.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,11.11.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,18.11.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,25.11.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,02.12.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,09.12.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,16.12.24,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,13.01.25,10:15,11:45,HS 18,,False,False,False
-238.213,Mo.,20.01.25,10:15,11:45,HS 18,,False,False,False
-238.213,Fr.,24.01.25,13:45,15:15,HS 18,Klausur (Hörsaal wird zugeteilt),True,False,False
-238.217,Fr.,24.01.25,13:45,15:15,HS 18,Klausur (Hörsaal wird zugeteilt),True,False,False
-238.221,Fr.,24.01.25,13:45,15:15,HS 18,Klausur (Hörsaal wird zugeteilt),True,False,False
-136.415,Di.,19.11.24,10:15,12:45,HS 18,,False,False,False
-339.022,Do.,10.10.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,17.10.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,24.10.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,31.10.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,07.11.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,14.11.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,21.11.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,28.11.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,05.12.24,13:45,15:15,HS 18,,False,False,False
-339.022,Do.,12.12.24,13:45,15:15,HS 18,Klausur,True,False,False
-359.002,Fr.,22.11.24,13:45,15:15,HS 18,1. Übungstest,False,True,False
-359.003,Fr.,22.11.24,13:45,15:15,HS 18,1. Übungstest,False,True,False
-359.004,Fr.,22.11.24,13:45,15:15,HS 18,1. Übungstest,False,True,False
-359.005,Fr.,22.11.24,13:45,15:15,HS 18,1. Übungstest,False,True,False
-359.006,Fr.,22.11.24,13:45,15:15,HS 18,1. Übungstest,False,True,False
-359.007,Fr.,22.11.24,13:45,15:15,HS 18,1. Übungstest,False,True,False
-370.006,Fr.,13.12.24,12:00,13:30,HS 18,1. Teilklausur,True,False,False
-370.002,Do.,03.10.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,10.10.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,24.10.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,31.10.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,07.11.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,14.11.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,21.11.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,28.11.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,05.12.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,12.12.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,19.12.24,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,09.01.25,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,16.01.25,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,23.01.25,10:15,11:45,HS 18,,False,False,False
-370.002,Do.,30.01.25,10:15,11:45,HS 18,,False,False,False
-267.022,Fr.,13.12.24,08:30,11:45,HS 18,Klausur,True,False,False
-367.031,Do.,30.01.25,13:45,15:15,HS 18,Klausur,True,False,False
-367.045,Do.,30.01.25,13:45,15:15,HS 18,Klausur,True,False,False
-300.950,Do.,20.02.25,12:00,15:15,HS 18,Präsentation Seminararbeiten,False,False,False
-300.950,Fr.,21.02.25,12:00,15:15,HS 18,Präsentation Seminararbeiten,False,False,False
-237.002,Do.,10.10.24,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,24.10.24,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,07.11.24,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,21.11.24,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,05.12.24,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,12.12.24,18:00,19:45,HS 18,,False,False,False
-237.002,Do.,09.01.25,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,16.01.25,18:00,20:30,HS 18,,False,False,False
-237.002,Do.,23.01.25,18:00,20:30,HS 18,"schriftliche Klausur, 1. Antritt",True,False,False
-140.130,Fr.,28.02.25,12:00,13:30,HS 18,NACHKLAUSUR,True,False,False
+340.100,Mi.,06.03.24,08:30,10:00,HS 7,Joint Introduction,False,False,False
+340.100,Mi.,13.03.24,08:30,10:00,HS 7 or zoom,,False,False,False
+340.100,Mi.,20.03.24,08:30,10:00,HS 7/ zoom,,False,False,False
+340.100,Di.,09.04.24,10:15,11:45,HS 18,,False,False,False
+340.100,Di.,16.04.24,10:15,11:45,HS 18,,False,False,False
+340.100,Di.,23.04.24,10:15,11:45,HS 18,,False,False,False
+340.100,Di.,07.05.24,10:15,11:45,HS 18,,False,False,False
+340.100,Di.,14.05.24,10:15,11:45,HS 18,,False,False,False
+340.100,Mi.,22.05.24,08:30,10:00,HS 7/ zoom,,False,False,False
+340.100,Mi.,29.05.24,08:30,10:00,HS 7/ zoom,,False,False,False
+340.100,Di.,04.06.24,10:15,11:45,HS 18,,False,False,False
+340.100,Di.,11.06.24,10:15,11:45,HS 18,,False,False,False
+340.100,Di.,18.06.24,10:15,11:45,HS 18,,False,False,False
+340.100,Mi.,26.06.24,08:30,10:00,HS 19,Exam (I-Z),True,False,False
+340.100,Mi.,26.06.24,08:30,10:00,HS 5,Exam (A-H),True,False,False
+340.100,Mo.,30.09.24,12:00,13:30,HS 1,Retry 1,False,False,False
+340.100,Do.,14.11.24,08:30,10:00,HS 1,Retry 2,False,False,False
+531.163,Mi.,13.03.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,20.03.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,10.04.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,24.04.24,13:45,15:15,K 224B,,False,False,False
+531.163,Fr.,26.04.24,10:15,12:45,HS 18,1. Teilklausur,True,False,False
+531.163,Fr.,26.04.24,10:15,12:45,HS 2,1. Teilklausur,True,False,False
+531.163,Mi.,15.05.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,29.05.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,12.06.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,19.06.24,13:45,15:15,K 224B,,False,False,False
+531.163,Mi.,26.06.24,12:00,14:30,HS 9,2. Teilklausur,True,False,False
+531.163,Mo.,08.07.24,10:15,12:45,S4 025,Endklausur,True,False,False
+531.160,Mo.,04.03.24,10:15,11:45,MT 127,,False,False,False
+531.160,Di.,05.03.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,11.03.24,10:15,11:45,MT 127,,False,False,False
+531.160,Di.,12.03.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,18.03.24,10:15,11:45,MT 127,,False,False,False
+531.160,Di.,19.03.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,08.04.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,08.04.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,09.04.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,15.04.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,15.04.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,16.04.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,22.04.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,22.04.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,23.04.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,29.04.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,29.04.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,30.04.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,06.05.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,06.05.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,07.05.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,13.05.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,13.05.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,14.05.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,27.05.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,27.05.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,28.05.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,03.06.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,03.06.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,04.06.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,10.06.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,10.06.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,11.06.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,17.06.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,17.06.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,18.06.24,08:30,09:15,MT 226,,False,False,False
+531.160,Mo.,24.06.24,10:15,11:45,MT 127,,False,False,False
+531.160,Mo.,24.06.24,15:30,17:00,S3 047,Tutorium,False,False,True
+531.160,Di.,25.06.24,08:30,09:15,MT 226,,False,False,False
+531.160,Di.,02.07.24,10:15,11:45,HS 18,,False,False,False
+531.160,Di.,17.09.24,10:15,11:45,HS 10,Klausur,True,False,False
+531.160,Mi.,23.10.24,08:30,10:00,K 153C,Klausur,True,False,False
+239.141,Di.,12.03.24,13:45,15:15,HS 15,,False,False,False
+239.141,Mi.,13.03.24,08:30,10:00,HS 19,,False,False,False
+239.141,Mi.,20.03.24,08:30,10:00,HS 19,,False,False,False
+239.141,Di.,16.04.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,23.04.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,30.04.24,13:45,15:15,HS 15,Zoom link: https://jku.zoom.us/j/93861824910?pwd=amZaK0lBR25hZkZHQnM3UFFxQzdLZz09,True,False,False
+239.141,Di.,07.05.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,14.05.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,28.05.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,04.06.24,13:45,15:15,HS 15,Zoom link: https://jku.zoom.us/j/93861824910?pwd=amZaK0lBR25hZkZHQnM3UFFxQzdLZz09,True,False,False
+239.141,Di.,11.06.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,18.06.24,13:45,15:15,HS 15,,False,False,False
+239.141,Di.,25.06.24,13:45,15:15,HS 7,Final exam; last names beginning with E-Z,True,False,False
+239.141,Di.,25.06.24,13:45,15:15,K 269D,Final exam; last names beginning with A-D,True,False,False
+239.141,Mi.,10.07.24,13:45,15:15,HS 18,NK,True,False,False
+239.141,Mi.,04.09.24,12:00,13:30,HS 4,NK,True,False,False
+376.027,Mo.,08.04.24,13:45,16:15,HS 12,LV Ende: 16:00 Uhr,False,False,False
+376.027,Mo.,15.04.24,13:45,16:15,K 001A,LV Ende: 16:00 Uhr,False,False,False
+376.027,Mo.,22.04.24,13:45,16:15,HS 11,LV Ende: 16:00 Uhr,False,False,False
+376.027,Mo.,29.04.24,13:45,16:15,HS 14,LV Ende: 16:00 Uhr,False,False,False
+376.027,Mo.,03.06.24,13:45,15:15,HS 16,EXAM,True,False,False
+376.027,Mo.,26.08.24,10:15,11:45,HS 18,EXAM,True,False,False
+376.027,Mo.,16.09.24,10:15,11:45,HS 8,EXAM,True,False,False
+257.350,Do.,07.03.24,13:45,15:15,S4 025,gemeinsam mit Vorlesung,False,False,False
+257.350,Do.,21.03.24,15:30,17:00,HS 18,,False,False,False
+257.350,Do.,11.04.24,15:30,17:00,BA 9911,,False,False,False
+257.350,Do.,25.04.24,15:30,17:00,S2 120,,False,False,False
+257.350,Do.,02.05.24,15:30,17:00,S2 219,,False,False,False
+257.350,Do.,16.05.24,15:30,17:00,BA 9910,,False,False,False
+257.350,Do.,23.05.24,15:30,17:00,BA 9910,,False,False,False
+257.350,Do.,06.06.24,15:30,17:00,BA 9910,,False,False,False
+257.350,Do.,13.06.24,15:30,17:00,BA 9910,,False,False,False
+257.350,Do.,20.06.24,15:30,17:00,S2 059,,False,False,False
+257.350,Do.,27.06.24,11:00,15:00,S3 - 102,,False,False,False
+257.320,Do.,07.03.24,13:45,15:15,S4 025,,False,False,False
+257.320,Do.,14.03.24,13:45,15:15,HS 5,,False,False,False
+257.320,Do.,21.03.24,13:45,15:15,HS 18,,False,False,False
+257.320,Do.,11.04.24,13:45,15:15,BA 9910,,False,False,False
+257.320,Do.,25.04.24,13:45,15:15,S3 055,,False,False,False
+257.320,Do.,02.05.24,13:45,15:15,S2 219,,False,False,False
+257.320,Do.,16.05.24,13:45,15:15,BA 9910,,False,False,False
+257.320,Do.,23.05.24,13:45,15:15,BA 9910,,False,False,False
+257.320,Do.,06.06.24,13:45,15:15,BA 9910,,False,False,False
+257.320,Do.,13.06.24,13:45,15:15,BA 9910,,False,False,False
+257.320,Do.,20.06.24,13:45,15:15,HS 5,Klausur,True,False,False
+257.320,Do.,04.07.24,13:45,15:15,S3 055,Nachklausur,True,False,False
+364.000,Di.,05.03.24,13:45,15:15,HS 18,Introduction and Course Overview,False,False,False
+364.000,Di.,12.03.24,13:45,15:15,HS 18,Transformations and Projections,False,False,False
+364.000,Di.,19.03.24,13:45,15:15,HS 18,Raster Algorithms and Depth Handling,False,False,False
+364.000,Di.,09.04.24,13:45,15:15,HS 18,Local Shading and Illumination,False,False,False
+364.000,Di.,16.04.24,13:45,15:15,HS 18,Texture Mapping Basics,False,False,False
+364.000,Di.,23.04.24,13:45,15:15,HS 18,Advanced Texture Mapping & Graphics Pipelines,False,False,False
+364.000,Di.,30.04.24,13:45,15:15,HS 18,Intermediate Exam,True,False,False
+364.000,Di.,07.05.24,13:45,15:15,HS 18,Global Illumination I: Raytracing,False,False,False
+364.000,Di.,14.05.24,13:45,15:15,HS 18,Global Illumination II: Radiosity,False,False,False
+364.000,Di.,28.05.24,13:45,15:15,HS 18,Volume Rendering,False,False,False
+364.000,Di.,04.06.24,13:45,15:15,HS 18,Scientific Data Visualization,False,False,False
+364.000,Di.,11.06.24,13:45,15:15,HS 18,Curves and Surfaces,False,False,False
+364.000,Di.,18.06.24,13:45,15:15,HS 18,Basics of Animation,False,False,False
+364.000,Di.,25.06.24,13:45,15:15,HS 18,Final Exam,True,False,False
+364.000,Di.,01.10.24,13:45,15:15,HS 19,Retry Exam,True,False,False
+258.300,Mi.,06.03.24,12:00,13:30,HS 18,"DKE: Introduction,  DBS: Concurrency Control",False,False,False
+258.300,Mi.,13.03.24,12:00,13:30,HS 18,"DBS: Recovery, Query Optimization",False,False,False
+258.300,Mi.,20.03.24,12:00,13:30,HS 18,DBS: OO & OR DBS,False,False,False
+258.300,Mi.,10.04.24,12:00,13:30,HS 18,DBS: Distributed DBS,False,False,False
+258.300,Mi.,17.04.24,12:00,13:30,HS 18,DBS: Fortsetzung Distributed DBS;  NoSQL Stores and NewSQL DBMS,False,False,False
+258.300,Mi.,24.04.24,12:00,13:30,HS 18,"WebIS: XML, DBS: Temporal DBS",False,False,False
+258.300,Mi.,08.05.24,12:00,13:30,HS 18,DBS: Active DBS and BREs,False,False,False
+258.300,Mi.,15.05.24,12:00,13:30,HS 18,DBS: Deductive DBS; KBS: Introduction,False,False,False
+258.300,Mi.,22.05.24,12:00,13:30,HS 18,"KBS: Logic-based Knowl. Repr & Reas, Heuristic Search, Gen. Algo.",False,False,False
+258.300,Mi.,22.05.24,18:00,19:15,LP B045,"1. Teiltest (Computerprüfung, Life Science Park, Zunamen: A - L)",True,True,False
+258.300,Mi.,22.05.24,18:00,19:15,LP B132,"1. Teiltest (Computerprüfung, Life Science Park, Zunamen: M - Z)",True,True,False
+258.300,Mi.,29.05.24,12:00,13:30,HS 18,"KBS: Constraint Satisfaction,  Artificial Neural Nets",False,False,False
+258.300,Mi.,05.06.24,12:00,13:30,HS 18,WebIS: Semantic Web,False,False,False
+258.300,Mi.,12.06.24,12:00,13:30,HS 18,BI: Data Warehousing,False,False,False
+258.300,Mi.,19.06.24,12:00,13:30,HS 18,BI: Data Mining,False,False,False
+258.300,Mi.,26.06.24,12:00,13:30,HS 18,(Reservetermin),False,False,False
+258.300,Di.,02.07.24,18:00,19:15,LP B045,"2. Teiltest (Computerprüfung, Life Science Park, Zunamen: A - L)",True,True,False
+258.300,Di.,02.07.24,18:00,19:15,LP B132,"2. Teiltest (Computerprüfung, Life Science Park, Zunamen: M - Z)",True,True,False
+258.300,Mo.,30.09.24,15:30,18:30,LP B132,"Nachklausur (Computerprüfung, Life Science Park, Zunamen: A - J)",True,False,False
+258.300,Mo.,30.09.24,15:30,18:30,LP B243,"Nachklausur (Computerprüfung, Life Science Park, Zunamen: K - Z)",True,False,False
+258.300,Di.,04.02.25,15:30,18:30,LP B045,"2. Nachklausur (Computerprüfung, Life Science Park)",True,False,False
+258.410,Mo.,04.03.24,12:00,13:30,HS 18,Kick-off,False,False,False
+258.410,Mo.,11.03.24,12:00,13:30,HS 18,Knowledge Discovery from Data,False,False,False
+258.410,Mo.,18.03.24,12:00,13:30,HS 18,"Data, Measurements, and Data Preprocessing",False,False,False
+258.410,Mo.,08.04.24,12:00,13:30,HS 18,Pattern Mining,False,False,False
+258.410,Mo.,15.04.24,12:00,13:30,HS 18,Classification,False,False,False
+258.410,Mo.,22.04.24,12:00,13:30,HS 18,Cluster Analysis / Outlier Detection,False,False,False
+258.410,Mo.,29.04.24,12:00,13:30,HS 18,Q & A / Exam Preparation,True,False,False
+258.410,Mo.,06.05.24,17:15,18:45,HS 1,Midterm Exam,True,False,False
+258.410,Mo.,13.05.24,12:00,13:30,HS 18,Deep Learning,False,False,False
+258.410,Mo.,27.05.24,12:00,13:30,HS 18,Text Mining and Natural Language Processing,False,False,False
+258.410,Mo.,03.06.24,12:00,13:30,HS 18,Web and Graph Mining,False,False,False
+258.410,Mo.,10.06.24,12:00,13:30,HS 18,Process Mining / Time Series Analysis,False,False,False
+258.410,Mo.,17.06.24,12:00,13:30,HS 18,Q & A / Exam Preparation,True,False,False
+258.410,Mo.,24.06.24,19:00,20:30,HS 1,Final Exam,True,False,False
+258.410,Mo.,30.09.24,18:00,20:30,HS 1,Resit Exam,True,False,False
+371.000,Do.,07.03.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,13.03.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,14.03.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,20.03.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,21.03.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,10.04.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,11.04.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,17.04.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,18.04.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,24.04.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,25.04.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,02.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,08.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,15.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,16.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,22.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,23.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,29.05.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,05.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,06.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,12.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,13.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,19.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,20.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Mi.,26.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Do.,27.06.24,08:30,10:00,HS 18,,False,False,False
+371.000,Fr.,05.07.24,10:15,13:00,HS 10,,False,False,False
+239.124,Do.,14.03.24,15:30,18:45,HS 12,,False,False,False
+239.124,Fr.,15.03.24,10:15,13:30,K 269D,,False,False,False
+239.124,Do.,25.04.24,15:30,18:45,HS 14,,False,False,False
+239.124,Fr.,26.04.24,10:15,13:30,K 269D,,False,False,False
+239.124,Do.,06.06.24,15:30,18:45,HS 14,,False,False,False
+239.124,Fr.,07.06.24,10:15,13:30,K 269D,,False,False,False
+239.124,Fr.,14.06.24,13:45,15:15,HS 2,Klausur,True,False,False
+239.124,Fr.,12.07.24,13:45,15:15,HS 18,NK,True,False,False
+239.125,Mo.,04.03.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,11.03.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,18.03.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,08.04.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,22.04.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,29.04.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,06.05.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,13.05.24,13:45,15:15,K 269D,,False,False,False
+239.125,Mo.,27.05.24,13:45,15:15,K 269D,,False,False,False
+239.125,Do.,06.06.24,17:15,18:45,Zoom,Q&A,False,False,False
+239.125,Mo.,10.06.24,17:15,18:45,HS 1,Klausur,True,False,False
+239.125,Mo.,24.06.24,17:15,18:45,MZ 003A,Einsicht,False,False,False
+239.125,Mo.,01.07.24,17:15,18:45,HS 18,NK,True,False,False
+239.126,Mo.,04.03.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,11.03.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,18.03.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,08.04.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,22.04.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,29.04.24,18:15,19:45,MZ 412A,,False,False,False
+239.126,Mo.,06.05.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,13.05.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Mo.,27.05.24,17:15,18:45,MZ 003A,,False,False,False
+239.126,Do.,06.06.24,17:15,18:45,Zoom,Q&A,False,False,False
+239.126,Mo.,10.06.24,17:15,18:45,HS 1,Klausur,True,False,False
+239.126,Mo.,24.06.24,17:15,18:45,MZ 003A,Einsicht,False,False,False
+239.126,Mo.,01.07.24,17:15,18:45,HS 18,NK,True,False,False
+239.300,Fr.,19.04.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,26.04.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,03.05.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,17.05.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,24.05.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,07.06.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,14.06.24,12:00,15:15,MZ 412A,,False,False,False
+239.300,Fr.,05.07.24,12:00,13:30,HS 18,Klausur,True,False,False
+239.300,Fr.,26.07.24,12:00,13:30,HS 3,NK,True,False,False
+259.002,Di.,05.03.24,12:00,13:30,HS 18,"Kurs Übersicht, Python Installation",False,False,False
+259.002,Di.,12.03.24,12:00,13:30,HS 18,Einführung in Python + Einfache Programme,False,False,False
+259.002,Di.,19.03.24,12:00,13:30,Virtuell,Video Einheit: Datentypen in Python,False,False,False
+259.002,Di.,09.04.24,12:00,13:30,HS 18,"Präsenztermin, Video Einheit: Bedingungen - If/Else",False,False,False
+259.002,Di.,16.04.24,12:00,13:30,Virtuell,Video Einheit: Schleifen,False,False,False
+259.002,Di.,23.04.24,12:00,13:30,HS 18,"Präsenztermin, Video Einheit: Collections",False,False,False
+259.002,Di.,30.04.24,12:00,13:30,Virtuell,Video Einheit: Funktionen I,True,False,False
+259.002,Di.,07.05.24,12:00,13:30,Virtuell,Video Einheit: Funktionen II,True,False,False
+259.002,Di.,14.05.24,12:00,13:30,HS 18,"Präsenztermin, Video Einheit: Dateien, Module, Bibliotheken I",False,False,False
+259.002,Di.,28.05.24,12:00,13:30,Virtuell,Video Einheit: Bibliotheken II,False,False,False
+259.002,Di.,04.06.24,12:00,13:30,HS 18,"Präsenztermin, Video Einheit: Bibliotheken III",False,False,False
+259.002,Di.,11.06.24,12:00,13:30,Virtuell,Video Einheit: Objekt-Orientierung,False,False,False
+259.002,Di.,18.06.24,12:00,13:30,HS 18,"Präsenztermin, Video Einheit: Einführung in Java",False,False,False
+259.002,Di.,25.06.24,12:00,13:30,"LP B045, LP B13",Klausur,True,False,False
+243.115,Mo.,04.03.24,08:30,11:45,HS 2,,False,False,False
+243.115,Fr.,08.03.24,08:30,11:45,HS 18,,False,False,False
+243.115,Mo.,11.03.24,08:30,11:45,HS 2,,False,False,False
+243.115,Mo.,18.03.24,08:30,11:45,HS 2,,False,False,False
+243.115,Fr.,22.03.24,08:30,11:45,HS 18,,False,False,False
+243.115,Mo.,08.04.24,08:30,11:45,HS 2,,False,False,False
+243.115,Fr.,12.04.24,08:30,11:45,HS 18,,False,False,False
+243.115,Mo.,15.04.24,08:30,11:45,HS 2,,False,False,False
+243.115,Fr.,19.04.24,08:30,11:45,HS 18,,False,False,False
+243.115,Mo.,22.04.24,08:30,11:45,HS 2,,False,False,False
+243.115,Mo.,29.04.24,08:30,11:45,HS 2,,False,False,False
+243.115,Fr.,03.05.24,08:30,11:45,HS 18,,False,False,False
+243.115,Mo.,06.05.24,08:30,11:45,HS 2,,False,False,False
+243.115,Mo.,13.05.24,08:30,11:45,HS 2,,False,False,False
+243.115,Fr.,17.05.24,08:30,11:45,HS 18,,False,False,False
+243.115,Mo.,27.05.24,08:30,11:45,HS 2,,False,False,False
+243.115,Mo.,03.06.24,08:30,11:45,HS 2,,False,False,False
+243.115,Di.,04.06.24,15:30,17:00,HS 15,,False,False,False
+243.115,Di.,04.06.24,17:15,18:45,BA 9911,,False,False,False
+243.115,Do.,06.06.24,15:30,18:45,HS 15,,False,False,False
+243.115,Fr.,07.06.24,13:45,15:15,HS 16,Klausur,True,False,False
+243.115,Di.,17.09.24,15:30,18:45,HS 8,,False,False,False
+243.115,Mi.,18.09.24,15:30,18:45,HS 8,,False,False,False
+243.115,Fr.,20.09.24,13:45,15:15,HS 16,Nachklausur,True,False,False
+325.004,Mi.,06.03.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,13.03.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,20.03.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,10.04.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,17.04.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,24.04.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,08.05.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,15.05.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,22.05.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,29.05.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,05.06.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,12.06.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,19.06.24,10:15,11:45,HS 18,,False,False,False
+325.004,Mi.,26.06.24,10:15,11:45,BA 9911,,False,False,False
+325.004,Di.,09.07.24,08:30,10:00,HS 18,Klausur,True,False,False
+325.004,Di.,24.09.24,10:15,11:45,HS 16,Klausur,True,False,False
+325.004,Mi.,30.10.24,08:30,10:00,K 153C,Klausur,True,False,False
+362.064,Mo.,04.03.24,12:00,14:30,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False
+362.064,Fr.,15.03.24,08:30,10:00,MT 226,Magnetkreis 1 (Dobler),True,False,False
+362.064,Fr.,22.03.24,08:30,10:00,MT 226,Magnetkreis 2 (Dobler),True,False,False
+362.064,Fr.,12.04.24,08:30,10:00,MT 226,Gleichstrommaschine 1 (Weissitsch),False,False,False
+362.064,Fr.,19.04.24,08:30,10:00,MT 226,Gleichstrommaschine 2 (Weissitsch),False,False,False
+362.064,Fr.,26.04.24,10:15,11:45,HS 19,Tutorium 1. TK,True,False,True
+362.064,Mo.,29.04.24,10:15,11:45,S2 048,Sprechstunde 1. TK,True,False,True
+362.064,Sa.,04.05.24,09:15,11:45,HS 1,1. TK,True,False,False
+362.064,Fr.,10.05.24,08:30,10:00,MT 226,Asynchronmaschine 1 (Mallinger),False,False,False
+362.064,Fr.,17.05.24,08:30,10:00,MT 226,Asynchronmaschine 2 (Mallinger),False,False,False
+362.064,Fr.,24.05.24,08:30,10:00,HS 19,Synchronmaschine 1 (Krainer),False,False,False
+362.064,Fr.,31.05.24,08:30,11:00,K 033C,Asynchronmaschine 2 Ersatztermin (Mallinger),False,False,False
+362.064,Fr.,07.06.24,08:30,10:00,MT 226,Synchronmaschine 2 (Krainer),False,False,False
+362.064,Fr.,14.06.24,10:15,11:45,HS 19,Tutorium 2. TK,True,False,True
+362.064,Mo.,17.06.24,10:15,11:45,S2 048,Sprechstunde 2. TK,True,False,True
+362.064,Sa.,22.06.24,09:15,11:45,HS 1,2. TK,True,False,False
+362.064,Fr.,20.09.24,09:15,11:45,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True
+362.064,Sa.,28.09.24,09:15,11:45,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False
+362.065,Mo.,04.03.24,12:00,14:15,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False
+362.065,Fr.,15.03.24,10:15,11:45,MT 226,Magnetkreis 1 (Dobler),True,False,False
+362.065,Fr.,22.03.24,10:15,11:45,MT 226,Magnetkreis 2 (Dobler),True,False,False
+362.065,Fr.,12.04.24,10:15,11:45,MT 226,Gleichstrommaschine 1 (Weissitsch),False,False,False
+362.065,Fr.,19.04.24,10:15,11:45,MT 226,Gleichstrommaschine 2 (Weissitsch),False,False,False
+362.065,Fr.,26.04.24,10:15,11:45,HS 19,Tutorium 1. TK,True,False,True
+362.065,Mo.,29.04.24,10:15,11:45,S2 048,Sprechstunde 1. TK,True,False,True
+362.065,Sa.,04.05.24,09:15,11:45,HS 1,1. TK,True,False,False
+362.065,Fr.,10.05.24,10:15,11:45,MT 226,Asynchronmaschine 1 (Mallinger),False,False,False
+362.065,Fr.,17.05.24,10:15,11:45,MT 226,Asynchronmaschine 2 (Mallinger),False,False,False
+362.065,Fr.,24.05.24,10:15,11:45,HS 19,Synchronmaschine 1 (Krainer),False,False,False
+362.065,Fr.,31.05.24,08:30,11:00,K 033C,Asynchronmaschine 2 Ersatztermin (Mallinger),False,False,False
+362.065,Fr.,07.06.24,10:15,11:45,MT 226,Synchronmaschine 2 (Krainer),False,False,False
+362.065,Fr.,14.06.24,10:15,11:45,HS 19,Tutorium 2. TK,True,False,True
+362.065,Mo.,17.06.24,10:15,11:45,S2 048,Sprechstunde 2. TK,True,False,True
+362.065,Sa.,22.06.24,09:15,11:45,HS 1,2. TK,True,False,False
+362.065,Fr.,20.09.24,09:15,11:45,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True
+362.065,Sa.,28.09.24,09:15,11:45,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False
+362.066,Mo.,04.03.24,12:00,14:30,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False
+362.066,Fr.,15.03.24,12:45,14:30,MT 226,Magnetkreis 1 (Dobler),True,False,False
+362.066,Fr.,22.03.24,12:45,14:30,MT 226,Magnetkreis 2 (Dobler),True,False,False
+362.066,Fr.,12.04.24,12:45,14:30,MT 226,Gleichstrommaschine 1 (Weissitsch),False,False,False
+362.066,Fr.,19.04.24,12:45,14:30,MT 226,Gleichstrommaschine 2 (Weissitsch),False,False,False
+362.066,Fr.,26.04.24,10:15,11:45,HS 19,Tutorium 1. TK,True,False,True
+362.066,Mo.,29.04.24,10:15,11:45,S2 048,Sprechstunde 1. TK,True,False,True
+362.066,Sa.,04.05.24,09:15,11:45,HS 1,1. TK,True,False,False
+362.066,Fr.,10.05.24,12:45,14:30,MT 226,Asynchronmaschine 1 (Mallinger),False,False,False
+362.066,Fr.,17.05.24,12:45,14:30,MT 226,Asynchronmaschine 2 (Mallinger),False,False,False
+362.066,Fr.,24.05.24,12:45,14:30,HS 19,Synchronmaschine 1 (Krainer),False,False,False
+362.066,Fr.,31.05.24,08:30,11:00,K 033C,Asynchronmaschine 2 Ersatztermin (Mallinger),False,False,False
+362.066,Fr.,07.06.24,12:45,14:30,MT 226,Synchronmaschine 2 (Krainer),False,False,False
+362.066,Fr.,14.06.24,10:15,11:45,HS 19,Tutorium 2. TK,True,False,True
+362.066,Mo.,17.06.24,10:15,11:45,S2 048,Sprechstunde 2.TK,True,False,True
+362.066,Sa.,22.06.24,09:15,11:45,HS 1,2. TK,True,False,False
+362.066,Fr.,20.09.24,09:15,11:45,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True
+362.066,Sa.,28.09.24,09:15,11:45,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False
+362.068,Mo.,04.03.24,12:00,14:30,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False
+362.068,Mo.,18.03.24,10:15,11:45,S2 048,Magnetkreis 1 (Dobler),True,False,False
+362.068,Mo.,08.04.24,10:15,11:45,S2 048,Magnetkreis 2 (Dobler),True,False,False
+362.068,Mo.,15.04.24,10:15,11:45,S2 048,Gleichstrommaschine 1 (Weissitsch),False,False,False
+362.068,Mo.,22.04.24,10:15,11:45,S2 048,Gleichstrommaschine 2 (Weissitsch),False,False,False
+362.068,Fr.,26.04.24,10:15,11:45,HS 19,Tutorium 1. TK,True,False,True
+362.068,Mo.,29.04.24,10:15,11:45,S2 048,Sprechstunde 1. TK,True,False,True
+362.068,Sa.,04.05.24,09:15,11:45,HS 1,1. TK,True,False,False
+362.068,Mo.,13.05.24,10:15,11:45,S2 048,Asynchronmaschine 1 (Mallinger),False,False,False
+362.068,Mo.,27.05.24,10:15,11:45,S2 048,Asynchronmaschine 2 (Mallinger),False,False,False
+362.068,Mo.,03.06.24,10:15,11:45,S2 048,Synchronmaschine 1 (Krainer),False,False,False
+362.068,Mo.,10.06.24,10:15,11:45,S2 048,Synchronmaschine 2 (Krainer),False,False,False
+362.068,Fr.,14.06.24,10:15,11:45,HS 19,Tutorium 2. TK,True,False,True
+362.068,Mo.,17.06.24,10:15,11:45,S2 048,Sprechstunde 2. TK,True,False,True
+362.068,Sa.,22.06.24,09:15,11:45,HS 1,2. TK,True,False,False
+362.068,Fr.,20.09.24,09:15,11:45,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True
+362.068,Sa.,28.09.24,09:15,11:45,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False
+362.073,Mo.,04.03.24,12:00,14:30,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False
+362.073,Mo.,18.03.24,10:15,11:45,S2 048,Magnetkreis 1 (Dobler),True,False,False
+362.073,Mo.,08.04.24,10:15,11:45,S2 048,Magnetkreis 2 (Dobler),True,False,False
+362.073,Mo.,15.04.24,10:15,11:45,S2 048,Gleichstrommaschine 1 (Weissitsch),False,False,False
+362.073,Mo.,22.04.24,10:15,11:45,S2 048,Gleichstrommaschine 2 (Weissitsch),False,False,False
+362.073,Fr.,26.04.24,10:15,11:45,HS 19,Tutorium 1. TK,True,False,True
+362.073,Mo.,29.04.24,10:15,11:45,S2 048,Sprechstunde 1. TK,True,False,True
+362.073,Sa.,04.05.24,09:15,11:45,HS 1,1. TK,True,False,False
+362.073,Mo.,13.05.24,10:15,11:45,S2 048,Asynchronmaschine 1 (Mallinger),False,False,False
+362.073,Mo.,27.05.24,10:15,11:45,S2 048,Asynchronmaschine 2 (Mallinger),False,False,False
+362.073,Mo.,03.06.24,10:15,11:45,S2 048,Synchronmaschine 1 (Krainer),False,False,False
+362.073,Mo.,10.06.24,10:15,11:45,S2 048,Synchronmaschine 2 (Krainer),False,False,False
+362.073,Fr.,14.06.24,10:15,11:45,HS 19,Tutorium 2. TK,True,False,True
+362.073,Mo.,17.06.24,10:15,11:45,S2 048,Sprechstunde 2. TK,True,False,True
+362.073,Sa.,22.06.24,09:15,11:45,HS 1,2. TK,True,False,False
+362.073,Fr.,20.09.24,09:15,11:45,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True
+362.073,Sa.,28.09.24,09:15,11:45,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False
+340.400,Di.,05.03.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,12.03.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,19.03.24,15:30,17:00,Video,,False,False,False
+340.400,Di.,09.04.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,16.04.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,23.04.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,30.04.24,15:30,17:00,Video,,False,False,False
+340.400,Di.,07.05.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,14.05.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,28.05.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,11.06.24,15:30,17:00,HS 18,,False,False,False
+340.400,Di.,18.06.24,15:30,17:00,HS 18,,False,False,False
+340.400,Do.,27.06.24,12:00,13:30,HS 16,Exam (A-O),True,False,False
+340.400,Do.,27.06.24,12:00,13:30,HS 7,Exam (P-Z),True,False,False
+340.400,Mo.,30.09.24,08:30,10:00,HS 7,Retry 1,False,False,False
+340.400,Do.,21.11.24,08:30,10:00,HS 1,Retry 2,False,False,False
+346.202,Di.,05.03.24,09:15,10:00,HS 12,Preliminary Discussion (presence is mandatory!),False,False,False
+346.202,Fr.,08.03.24,13:45,14:30,P 215,Tutorium Exercise Sheet 1,False,False,True
+346.202,Mo.,11.03.24,12:00,12:45,T 911,Tutorium Exercise Sheet 1,False,False,True
+346.202,Di.,12.03.24,08:30,09:15,T 911,Exercise 1,False,False,False
+346.202,Fr.,22.03.24,13:45,14:30,P 215,Tutorium Exercise Sheet 2,False,False,True
+346.202,Mo.,08.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 2,False,False,True
+346.202,Di.,09.04.24,08:30,09:15,T 911,Exercise 2,False,False,False
+346.202,Fr.,12.04.24,13:45,14:30,P 215,Tutorium Exercise Sheet 3,False,False,True
+346.202,Mo.,15.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 3,False,False,True
+346.202,Di.,16.04.24,08:30,09:15,T 911,Exercise 3,False,False,False
+346.202,Fr.,19.04.24,13:45,14:30,P 215,Tutorium Exercise Sheet 4,False,False,True
+346.202,Mo.,22.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 4,False,False,True
+346.202,Di.,23.04.24,08:30,09:15,T 911,Exercise 4,False,False,False
+346.202,Fr.,26.04.24,13:45,14:30,P 215,Tutorium Exercise Sheet 5,False,False,True
+346.202,Mo.,29.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 5,False,False,True
+346.202,Di.,30.04.24,08:30,09:15,T 911,Exercise 5,False,False,False
+346.202,Fr.,03.05.24,09:15,10:00,HF 9904,Tutorium Exercise Sheet 6,False,False,True
+346.202,Mo.,06.05.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 6,False,False,True
+346.202,Di.,07.05.24,08:30,09:15,T 911,Exercise 6,False,False,False
+346.202,Mo.,13.05.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 7,False,False,True
+346.202,Di.,14.05.24,08:30,09:15,T 911,Exercise 7,False,False,False
+346.202,Fr.,17.05.24,09:15,10:00,HF 9904,Tutorium Exercise Sheet 8,False,False,True
+346.202,Mo.,27.05.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 8,False,False,True
+346.202,Di.,28.05.24,08:30,09:15,T 911,Exercise 8,False,False,False
+346.202,Mo.,03.06.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 9,False,False,True
+346.202,Di.,04.06.24,08:30,09:15,T 911,Exercise 9,False,False,False
+346.202,Mo.,10.06.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 10,False,False,True
+346.202,Di.,11.06.24,08:30,09:15,T 911,Exercise 10,False,False,False
+346.202,Mo.,17.06.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 11,False,False,True
+346.202,Di.,18.06.24,08:30,09:15,T 911,Exercise 11,False,False,False
+346.202,Do.,20.06.24,08:30,11:00,HS 10,Tutorium - Calculation of the Trial Exam (Probeklausur zur Abschlußklausur),True,False,True
+346.202,Di.,02.07.24,12:00,14:00,HS 18,Final Exam,True,False,False
+346.202,Do.,03.10.24,15:30,18:00,HS 5,Catch-up Exam,True,False,False
+346.203,Di.,05.03.24,09:15,10:00,HS 12,Preliminary Discussion (presence is mandatory!),False,False,False
+346.203,Fr.,08.03.24,13:45,14:30,P 215,Tutorium Exercise Sheet 1,False,False,True
+346.203,Mo.,11.03.24,12:00,12:45,T 911,Tutorium Exercise Sheet 1,False,False,True
+346.203,Di.,12.03.24,09:15,10:00,T 911,Exercise 1,False,False,False
+346.203,Fr.,22.03.24,13:45,14:30,P 215,Tutorium Exercise Sheet 2,False,False,True
+346.203,Mo.,08.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 2,False,False,True
+346.203,Di.,09.04.24,09:15,10:00,T 911,Exercise 2,False,False,False
+346.203,Fr.,12.04.24,13:45,14:30,P 215,Tutorium Exercise Sheet 3,False,False,True
+346.203,Mo.,15.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 3,False,False,True
+346.203,Di.,16.04.24,09:15,10:00,T 911,Exercise 3,False,False,False
+346.203,Fr.,19.04.24,13:45,14:30,P 215,Tutorium Exercise Sheet 4,False,False,True
+346.203,Mo.,22.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 4,False,False,True
+346.203,Di.,23.04.24,09:15,10:00,T 911,Exercise 4,False,False,False
+346.203,Fr.,26.04.24,13:45,14:30,P 215,Tutorium Exercise Sheet 5,False,False,True
+346.203,Mo.,29.04.24,12:00,12:45,T 911,Tutorium Exercise Sheet 5,False,False,True
+346.203,Di.,30.04.24,09:15,10:00,T 911,Exercise 5,False,False,False
+346.203,Fr.,03.05.24,09:15,10:00,HF 9904,Tutorium Exercise Sheet 6,False,False,True
+346.203,Mo.,06.05.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 6,False,False,True
+346.203,Di.,07.05.24,09:15,10:00,T 911,Exercise 6,False,False,False
+346.203,Mo.,13.05.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 7,False,False,True
+346.203,Di.,14.05.24,09:15,10:00,T 911,Exercise 7,False,False,False
+346.203,Fr.,17.05.24,09:15,10:00,HF 9904,Tutorium Exercise Sheet 8,False,False,True
+346.203,Mo.,27.05.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 8,False,False,True
+346.203,Di.,28.05.24,09:15,10:00,T 911,Exercise 8,False,False,False
+346.203,Mo.,03.06.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 9,False,False,True
+346.203,Di.,04.06.24,09:15,10:00,T 911,Exercise 9,False,False,False
+346.203,Mo.,10.06.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 10,False,False,True
+346.203,Di.,11.06.24,09:15,10:00,T 911,Exercise 10,False,False,False
+346.203,Mo.,17.06.24,09:15,10:00,HS 12,Tutorium Exercise Sheet 11,False,False,True
+346.203,Di.,18.06.24,09:15,10:00,T 911,Exercise 11,False,False,False
+346.203,Do.,20.06.24,08:30,11:00,HS 10,Tutorium - Calculation of the Trial Exam (Probeklausur zur Abschlußklausur),True,False,True
+346.203,Di.,02.07.24,12:00,14:00,HS 18,Final Exam,True,False,False
+346.203,Do.,03.10.24,15:30,18:00,HS 5,Catch-up Exam,True,False,False
+531.240,Do.,07.03.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,07.03.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,14.03.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,14.03.24,14:30,15:15,HS 19,,False,False,False
+531.240,Di.,19.03.24,11:00,13:35,PHDL/AS12,GAM,False,False,False
+531.240,Do.,21.03.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,21.03.24,14:30,15:15,HS 19,,False,False,False
+531.240,Di.,09.04.24,11:00,13:35,PHDL/AS12,GAM,False,False,False
+531.240,Do.,11.04.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,11.04.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,18.04.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,18.04.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,25.04.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,25.04.24,14:30,15:15,HS 19,,False,False,False
+531.240,Di.,30.04.24,11:00,13:35,PHDL/AS12,GAM,False,False,False
+531.240,Do.,02.05.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,02.05.24,14:30,15:15,HS 19,"1. Test, Nachname A - R",False,True,False
+531.240,Di.,14.05.24,11:00,13:35,PHDL/AS12,GAM,False,False,False
+531.240,Do.,16.05.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,16.05.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,23.05.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,23.05.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,23.05.24,15:30,16:15,HS 18,1. Nachtest,False,True,False
+531.240,Di.,04.06.24,11:00,13:35,PHDL/AS12,GAM,False,False,False
+531.240,Do.,06.06.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,06.06.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,13.06.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,13.06.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,20.06.24,13:45,14:30,HS 19,,False,False,False
+531.240,Do.,20.06.24,14:30,15:15,HS 19,,False,False,False
+531.240,Do.,27.06.24,13:45,14:30,HS 19,2. Test,False,True,False
+531.240,Do.,27.06.24,13:45,14:30,HS 17,2. Test,False,True,False
+531.240,Do.,11.07.24,13:45,14:30,HS 19,2. Nachtest,False,True,False
+531.241,Do.,07.03.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,07.03.24,14:30,15:15,HS 19,,False,False,False
+531.241,Do.,14.03.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,14.03.24,14:30,15:15,S2 044,,False,False,False
+531.241,Mi.,20.03.24,12:45,15:15,S2 048,GAM,False,False,False
+531.241,Do.,21.03.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,21.03.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,11.04.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,11.04.24,14:30,15:15,S2 044,,False,False,False
+531.241,Mi.,17.04.24,12:45,15:15,S2 048,GAM,False,False,False
+531.241,Do.,18.04.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,18.04.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,25.04.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,25.04.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,02.05.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,02.05.24,14:30,15:15,S2 044,"1. Test, Nachname mit S",False,True,False
+531.241,Mi.,08.05.24,12:45,15:15,S2 048,GAM,False,False,False
+531.241,Do.,16.05.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,16.05.24,14:30,15:15,S2 044,,False,False,False
+531.241,Mi.,22.05.24,12:45,15:15,S2 048,GAM,False,False,False
+531.241,Do.,23.05.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,23.05.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,23.05.24,15:30,16:15,HS 18,1. Nachtest,False,True,False
+531.241,Mi.,05.06.24,12:45,15:15,S2 048,GAM,False,False,False
+531.241,Do.,06.06.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,06.06.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,13.06.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,13.06.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,20.06.24,13:45,14:30,HS 19,,False,False,False
+531.241,Do.,20.06.24,14:30,15:15,S2 044,,False,False,False
+531.241,Do.,27.06.24,13:45,14:30,HS 19,2. Test,False,True,False
+531.241,Do.,27.06.24,13:45,14:30,HS 17,2. Test,False,True,False
+531.241,Do.,11.07.24,13:45,14:30,HS 19,2. Nachtest,False,True,False
+531.242,Do.,07.03.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,07.03.24,14:30,15:15,HS 19,,False,False,False
+531.242,Mi.,13.03.24,12:45,15:15,S2 048,GAM,False,False,False
+531.242,Do.,14.03.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,14.03.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,21.03.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,21.03.24,14:30,15:15,MT 327,,False,False,False
+531.242,Mi.,10.04.24,12:45,15:15,S2 048,GAM,False,False,False
+531.242,Do.,11.04.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,11.04.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,18.04.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,18.04.24,14:30,15:15,MT 327,,False,False,False
+531.242,Mi.,24.04.24,12:45,15:15,S2 048,GAM,False,False,False
+531.242,Do.,25.04.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,25.04.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,02.05.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,02.05.24,14:30,15:15,MT 327,"1. Test, Nachname T - Z",False,True,False
+531.242,Mi.,15.05.24,12:45,15:15,S2 048,GAM,False,False,False
+531.242,Do.,16.05.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,16.05.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,23.05.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,23.05.24,14:30,15:15,MT 327,HS 19,False,False,False
+531.242,Do.,23.05.24,15:30,16:15,HS 18,1. Nachtest,False,True,False
+531.242,Mi.,29.05.24,12:45,15:15,S2 048,GAM,False,False,False
+531.242,Do.,06.06.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,06.06.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,13.06.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,13.06.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,20.06.24,13:45,14:30,HS 19,,False,False,False
+531.242,Do.,20.06.24,14:30,15:15,MT 327,,False,False,False
+531.242,Do.,27.06.24,13:45,14:30,HS 19,2. Test,False,True,False
+531.242,Do.,27.06.24,13:45,14:30,HS 17,2. Test,False,True,False
+531.242,Do.,11.07.24,13:45,14:30,HS 19,2. Nachtest,False,True,False
+243.001,Di.,12.03.24,15:30,18:45,BA 9910,Hilgers,False,False,False
+243.001,Mi.,13.03.24,15:30,18:45,HF 9901,Hilgers,False,False,False
+243.001,Di.,19.03.24,15:30,18:45,BA 9910,Hilgers,False,False,False
+243.001,Mi.,20.03.24,15:30,18:45,HF 9901,Hilgers,False,False,False
+243.001,Di.,09.04.24,15:30,18:45,BA 9910,Stötzer,False,False,False
+243.001,Mi.,10.04.24,15:30,18:45,HF 9901,Stötzer,False,False,False
+243.001,Mi.,17.04.24,15:30,18:45,HF 9901,Stötzer,False,False,False
+243.001,Di.,23.04.24,15:30,18:45,Online / Zoom,Stötzer & Gastvortrag,False,False,False
+243.001,Mi.,24.04.24,15:30,18:45,HF 9901,Stötzer,False,False,False
+243.001,Mi.,08.05.24,15:30,18:45,HF 9901,Stötzer,False,False,False
+243.001,Mi.,15.05.24,15:30,18:45,zoom,Hilgers,False,False,False
+243.001,Mi.,12.06.24,15:30,18:45,HS 2,Klausur ab 17:15 Uhr,True,False,False
+243.001,Mi.,03.07.24,15:30,18:45,HS 18,Nachklausur ab 15:30 Uhr,True,False,False
+360.001,Mo.,04.03.24,12:00,13:30,HS 9,,False,False,False
+360.001,Di.,05.03.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,11.03.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,11.03.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,12.03.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,18.03.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,18.03.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,19.03.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,08.04.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,08.04.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,09.04.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,15.04.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,15.04.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,16.04.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,22.04.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,22.04.24,17:15,18:45,HS 19,Tutorium,False,False,True
+360.001,Di.,23.04.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,29.04.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,29.04.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,30.04.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,06.05.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,06.05.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,07.05.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,13.05.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,13.05.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,14.05.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,27.05.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,27.05.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,28.05.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,03.06.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,03.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,04.06.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,10.06.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,10.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,11.06.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,17.06.24,12:00,13:30,HS 9,,False,False,False
+360.001,Mo.,17.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Di.,18.06.24,10:15,11:45,HS 19,,False,False,False
+360.001,Mo.,24.06.24,17:15,18:45,HS 18,Tutorium,False,False,True
+360.001,Mo.,01.07.24,19:30,20:30,ZOOM,Tutorium,False,False,True
+360.001,Mo.,08.07.24,15:30,17:00,HS 18,Fragestunde mit Musterklausur,True,False,True
+360.001,Mo.,15.07.24,13:45,17:00,HS 1,Klausurtermin,True,False,False
+360.001,Di.,24.09.24,13:45,17:00,HS 2,,False,False,False
+360.001,Fr.,06.12.24,13:45,17:00,HS 7,,False,False,False
+360.001,Fr.,28.02.25,13:45,17:00,HS 7,,False,False,False
+364.046,Mi.,06.03.24,10:15,11:45,Zoom,Introduction and Course Overview,False,False,False
+364.046,Mi.,13.03.24,10:15,11:45,Zoom,Fundamentals of Light,False,False,False
+364.046,Mi.,20.03.24,10:15,11:45,Zoom,Principles of Optics,False,False,False
+364.046,Mi.,10.04.24,10:15,11:45,Zoom,Basics of Visual Perception,False,False,False
+364.046,Mi.,17.04.24,10:15,11:45,Zoom,Holographic Principles,False,False,False
+364.046,Mi.,24.04.24,10:15,11:45,Zoom,Display Basics I,False,False,False
+364.046,Mi.,08.05.24,10:15,11:45,Zoom,Display Basics II,False,False,False
+364.046,Mi.,15.05.24,10:15,11:45,Zoom,Spatial Light Modulation,False,False,False
+364.046,Mi.,22.05.24,10:15,11:45,Zoom,Projector-Camera Systems,False,False,False
+364.046,Mi.,29.05.24,10:15,11:45,Zoom,Three-Dimensional Displays I,False,False,False
+364.046,Mi.,05.06.24,10:15,11:45,Zoom,Three-Dimensional Displays II,False,False,False
+364.046,Mi.,12.06.24,10:15,11:45,Zoom,Near-Eye Displays,False,False,False
+364.046,Mi.,19.06.24,10:15,11:45,Zoom,Q&A and Recap,False,False,False
+364.046,Mi.,26.06.24,10:15,11:45,HS 18,Exam,True,False,False
+364.046,Mi.,02.10.24,10:15,11:45,K 033C,Retry Exam,True,False,False
+256.300,Di.,05.03.24,12:00,15:15,MT 127,Einführung und Überblick LVA,False,False,False
+256.300,Di.,19.03.24,12:00,15:15,MT 127,FC 1: Recap & Diskussion Strategische Bedeutung und Rolle von IS/IT inkl. Leadership bei Digitalisierung und digitaler Transform,True,False,False
+256.300,Di.,09.04.24,12:00,15:15,MT 127,"FC 2: Recap & Diskussion: Informationsmanagement - Übersicht, Grundlagen, Ziele und Aufgaben / IT-Governance und COBIT",False,False,False
+256.300,Di.,16.04.24,12:00,15:15,MT 127,Repetitorium: Fragestunde / Informationen zum Klausuerablauf / Moodle-Quiz,False,True,True
+256.300,Di.,23.04.24,12:00,13:30,HS 1,"Klausur - Teil 1, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False
+256.300,Di.,30.04.24,12:00,15:15,MT 127,"Einführung LVA Teil 2 : Ausblick Aufgaben & Methoden des IM / +NEU+ ""DigiScale"" Survey: Teste Deine Digitalisierungsbereitschaft",False,True,False
+256.300,Di.,04.06.24,12:00,15:15,MT 127,FC 3: Recap & Diskussion Aufgaben &Methoden Informationsmanagement;  Ausblick IT-Servicemanagement & ITIL,False,False,False
+256.300,Di.,18.06.24,12:00,15:15,MT 127,Repetitorium und Fragestunde zu IT-Servicemanagement und ITIL,False,False,True
+256.300,Di.,25.06.24,12:00,13:30,HS 18,"Klausur - Teil 2, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False
+256.300,Do.,04.07.24,16:00,19:15,HS 1,"Gesamtklausur, geprüft werden Teil 1 und Teil 2",True,False,False
+256.300,Mo.,09.09.24,09:00,12:00,HS 1,"Nachklausur, geprüft werden Teil 1 und Teil 2 des Stoffes",True,False,False
+531.413,Di.,05.03.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,12.03.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,19.03.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,09.04.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,16.04.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,23.04.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,30.04.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,07.05.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,14.05.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,28.05.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,04.06.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,11.06.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,18.06.24,13:45,15:15,KG 519,,False,False,False
+531.413,Di.,25.06.24,13:45,15:15,KG 519,,False,False,False
+531.413,Mo.,08.07.24,10:00,13:00,HS 18,,False,False,False
+347.354,Mo.,03.06.24,17:15,18:45,,,False,False,False
+347.354,Di.,04.06.24,17:15,18:45,,,False,False,False
+347.354,Mi.,05.06.24,17:15,18:45,,,False,False,False
+347.354,Do.,06.06.24,17:15,18:45,,,False,False,False
+347.354,Fr.,07.06.24,08:30,10:00,,,False,False,False
+347.354,Mo.,17.06.24,10:15,11:45,,Exam,True,False,False
+347.354,Di.,09.07.24,12:00,14:30,,Exam,True,False,False
+347.354,Fr.,27.09.24,10:15,12:45,,Exam,True,False,False
+239.527,Di.,05.03.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,12.03.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,19.03.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,09.04.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,16.04.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,23.04.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,30.04.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,07.05.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,14.05.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,28.05.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,04.06.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,11.06.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,18.06.24,15:30,17:00,HS 5,,False,False,False
+239.527,Di.,25.06.24,15:30,17:00,HS 18,Final Exam,True,False,False
+239.527,Di.,09.07.24,15:30,17:00,HS 18,Retake Exam,True,False,False
+249.443,Di.,05.03.24,10:15,11:45,K 269D,Folien 1-13,False,False,False
+249.443,Di.,12.03.24,10:15,11:45,K 269D,Folien 14-26,False,False,False
+249.443,Di.,19.03.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,09.04.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,16.04.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,30.04.24,08:30,10:00,MZ 005A,,False,False,False
+249.443,Di.,30.04.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,28.05.24,08:30,10:00,MZ 005A,,False,False,False
+249.443,Di.,28.05.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,04.06.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,11.06.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,18.06.24,10:15,11:45,K 269D,,False,False,False
+249.443,Di.,25.06.24,10:15,11:45,HS 2,Hauptklausur,True,False,False
+249.443,Di.,09.07.24,10:15,11:45,HS 18,Nachklausur,True,False,False
+136.309,Mo.,11.03.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,18.03.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,08.04.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,15.04.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,22.04.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,29.04.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,06.05.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,13.05.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,27.05.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,03.06.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,10.06.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,17.06.24,13:45,15:15,HS 18,,False,False,False
+136.309,Mo.,24.06.24,13:45,15:15,HS 18,Klausur,True,False,False
+531.120,Mo.,04.03.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,07.03.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,07.03.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,11.03.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,14.03.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,14.03.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,18.03.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,21.03.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,21.03.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,08.04.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,11.04.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,11.04.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,15.04.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,18.04.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,18.04.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,22.04.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,25.04.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,25.04.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,29.04.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,02.05.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,02.05.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,06.05.24,10:15,11:45,HS 4,,False,False,False
+531.120,Mo.,13.05.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,16.05.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,16.05.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Do.,23.05.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,23.05.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,03.06.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,06.06.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,06.06.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,10.06.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,13.06.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,13.06.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,17.06.24,10:15,11:45,HS 4,,False,False,False
+531.120,Do.,20.06.24,10:15,11:45,HS 18,,False,False,False
+531.120,Do.,20.06.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mo.,24.06.24,10:15,11:45,HS 19,,False,False,False
+531.120,Do.,27.06.24,10:15,11:45,HS 17,,False,False,False
+531.120,Do.,27.06.24,12:00,13:30,HS 18,Tutorium / Fragestunde,False,False,True
+531.120,Mi.,03.07.24,08:30,11:00,HS 16,1. Termin schriftliche Vorlesungsprüfung,True,False,False
+531.120,Fr.,11.10.24,15:30,18:00,HS 2,,False,False,False
+368.102,Mo.,04.03.24,08:30,10:00,S2 Z74,,False,False,False
+368.102,Mo.,04.03.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,06.03.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,07.03.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mi.,13.03.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,14.03.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mo.,18.03.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,20.03.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,21.03.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mi.,10.04.24,08:30,10:00,video,,False,False,False
+368.102,Do.,11.04.24,10:15,11:45,video,,False,False,False
+368.102,Mo.,15.04.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,17.04.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,18.04.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mi.,24.04.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,25.04.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mo.,29.04.24,12:00,13:30,HS 4,,False,False,False
+368.102,Do.,02.05.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mi.,08.05.24,08:30,10:00,HS 17,,False,False,False
+368.102,Mo.,13.05.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,15.05.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,16.05.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mi.,22.05.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,23.05.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mo.,27.05.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,29.05.24,08:30,10:00,HS 17,,False,False,False
+368.102,Mo.,03.06.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,05.06.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,06.06.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mo.,10.06.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mi.,12.06.24,08:30,10:00,HS 17,,False,False,False
+368.102,Do.,13.06.24,10:15,11:45,HS 12,,False,False,False
+368.102,Mo.,17.06.24,12:00,13:30,HS 4,,False,False,False
+368.102,Mo.,24.06.24,12:00,13:30,HS 4,,False,False,False
+368.102,Fr.,12.07.24,10:15,11:45,HS 18,,False,False,False
+368.102,Mo.,16.09.24,10:15,11:45,S5 101,,False,False,False
+239.506,Mi.,06.03.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,13.03.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,20.03.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,10.04.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,17.04.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,24.04.24,10:15,11:45,K 153C,Termin entfällt krankheitsbedingt!,True,False,False
+239.506,Mi.,08.05.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,15.05.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,22.05.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,29.05.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,05.06.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,12.06.24,10:15,11:45,K 153C,,False,False,False
+239.506,Mi.,19.06.24,13:45,15:15,HS 10,,False,False,False
+239.506,Mi.,10.07.24,12:00,13:30,HS 18,,False,False,False
+239.509,Di.,12.03.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,19.03.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,09.04.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,16.04.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,23.04.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,30.04.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,07.05.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,14.05.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,28.05.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,04.06.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Di.,11.06.24,12:00,13:30,BA 9908,,False,False,False
+239.509,Mi.,19.06.24,13:45,15:15,HS 3,Endklausur,True,False,False
+239.509,Mi.,10.07.24,12:00,13:30,HS 18,Nachklausur,True,False,False
+358.001,Do.,07.03.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,14.03.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,21.03.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,11.04.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,18.04.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,25.04.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,02.05.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,16.05.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,23.05.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,06.06.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,13.06.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,20.06.24,08:30,10:00,HS 19,,False,False,False
+358.001,Do.,27.06.24,08:30,10:00,HS 19,,False,False,False
+358.001,Mi.,03.07.24,08:30,11:45,HS 18,Klausurtermin,True,False,False
+358.001,Mo.,23.09.24,08:30,11:45,HS 16,Klausurtermin,True,False,False
+358.001,Fr.,08.11.24,12:00,15:15,HS 16,Klausurtermin,True,False,False
+358.001,Mo.,17.02.25,13:45,17:00,HS 15,Klausurtermin,True,False,False
+324.820,Mi.,06.03.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,07.03.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,13.03.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,14.03.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,20.03.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,21.03.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,10.04.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,11.04.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,17.04.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,18.04.24,15:30,16:15,HS 1,,False,False,False
+324.820,Mi.,24.04.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,25.04.24,15:30,17:00,HS 1,,False,False,False
+324.820,Do.,02.05.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,08.05.24,10:15,11:45,HS 1,,False,False,False
+324.820,Mi.,15.05.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,16.05.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,22.05.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,23.05.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,29.05.24,10:15,11:45,HS 1,,False,False,False
+324.820,Mi.,05.06.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,06.06.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,12.06.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,13.06.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,19.06.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,20.06.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,26.06.24,10:15,11:45,HS 1,,False,False,False
+324.820,Do.,27.06.24,15:30,17:00,HS 1,,False,False,False
+324.820,Mi.,03.07.24,12:00,15:15,HS 18,Exam,True,False,False
+324.820,Mi.,03.07.24,12:00,15:15,HS 9,Exam,True,False,False
+324.820,Mi.,03.07.24,12:00,15:15,HS 8,Exam,True,False,False
+324.820,Mi.,04.09.24,12:00,15:15,HS 1,Exam,True,False,False
+324.820,Mo.,11.11.24,16:15,19:45,BA 9910,Exam,True,False,False
+357.121,Do.,07.03.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,14.03.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,21.03.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,11.04.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,18.04.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,25.04.24,12:00,12:45,MT 127,,False,False,False
+357.121,Do.,02.05.24,12:00,12:45,S3 057,,False,False,False
+357.121,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.121,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.121,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.121,Do.,16.05.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,23.05.24,12:00,12:45,HS 14,,False,False,False
+357.121,Do.,06.06.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,13.06.24,12:00,12:45,S3 057,,False,False,False
+357.121,Do.,20.06.24,12:00,12:45,MT 128,,False,False,False
+357.121,Do.,27.06.24,12:00,12:45,S3 057,,False,False,False
+357.121,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.121,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.121,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+357.122,Do.,07.03.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,14.03.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,21.03.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,11.04.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,18.04.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,25.04.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,02.05.24,12:45,13:30,S3 057,,False,False,False
+357.122,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.122,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.122,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.122,Do.,16.05.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,23.05.24,12:45,13:30,HS 14,,False,False,False
+357.122,Do.,06.06.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,13.06.24,12:45,13:30,S3 057,,False,False,False
+357.122,Do.,20.06.24,12:45,13:30,MT 128,,False,False,False
+357.122,Do.,27.06.24,12:45,13:30,S3 057,,False,False,False
+357.122,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.122,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.122,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+357.123,Do.,07.03.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,14.03.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,21.03.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,11.04.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,18.04.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,25.04.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,02.05.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.123,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.123,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.123,Do.,16.05.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,23.05.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,06.06.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,13.06.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,20.06.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Do.,27.06.24,12:00,12:45,S2 Z74,,False,False,False
+357.123,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.123,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.123,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+357.124,Do.,07.03.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,14.03.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,21.03.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,11.04.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,18.04.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,25.04.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,02.05.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.124,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.124,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.124,Do.,16.05.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,23.05.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,06.06.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,13.06.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,20.06.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Do.,27.06.24,12:45,13:30,S2 Z74,,False,False,False
+357.124,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.124,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.124,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+357.125,Do.,07.03.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,14.03.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,21.03.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,11.04.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,18.04.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,25.04.24,12:00,12:45,MT 127,,False,False,False
+357.125,Do.,02.05.24,12:00,12:45,MT 128,,False,False,False
+357.125,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.125,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.125,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.125,Do.,16.05.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,23.05.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,06.06.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,13.06.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,20.06.24,12:00,12:45,MT 128,,False,False,False
+357.125,Do.,27.06.24,12:00,12:45,MT 128,,False,False,False
+357.125,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.125,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.125,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+357.126,Do.,07.03.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,14.03.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,21.03.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,11.04.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,18.04.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,25.04.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,02.05.24,12:45,13:30,MT 128,,False,False,False
+357.126,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.126,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.126,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.126,Do.,16.05.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,23.05.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,06.06.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,13.06.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,20.06.24,12:45,13:30,MT 128,,False,False,False
+357.126,Do.,27.06.24,12:45,13:30,MT 128,,False,False,False
+357.126,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.126,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.126,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+357.128,Do.,07.03.24,13:45,14:30,MT 226/1,,False,False,False
+357.128,Do.,14.03.24,13:45,14:30,K 001A,,False,False,False
+357.128,Do.,21.03.24,13:45,14:30,K 001A,,False,False,False
+357.128,Do.,11.04.24,13:45,14:30,K 001A,,False,False,False
+357.128,Do.,18.04.24,13:45,14:30,MT 226/1,,False,False,False
+357.128,Do.,25.04.24,13:45,14:30,K 001A,,False,False,False
+357.128,Do.,02.05.24,13:45,14:30,MT 226/1,,False,False,False
+357.128,Fr.,03.05.24,12:45,15:15,HS 10,1. Übungstest,False,True,False
+357.128,Fr.,03.05.24,12:45,15:15,HS 7,1. Übungstest,False,True,False
+357.128,Fr.,03.05.24,12:45,15:15,HS 2,1. Übungstest,False,True,False
+357.128,Do.,16.05.24,13:45,14:30,K 001A,,False,False,False
+357.128,Do.,23.05.24,13:45,14:30,HS 11,,False,False,False
+357.128,Do.,06.06.24,13:45,14:30,MT 226/1,,False,False,False
+357.128,Do.,13.06.24,13:45,14:30,MT 226/1,,False,False,False
+357.128,Do.,20.06.24,13:45,14:30,K 001A,,False,False,False
+357.128,Do.,27.06.24,13:45,14:30,S3 055,,False,False,False
+357.128,Fr.,28.06.24,12:00,14:30,HS 10,2. Übungstest,False,True,False
+357.128,Fr.,28.06.24,12:00,14:30,HS 16,2. Übungstest,False,True,False
+357.128,Fr.,28.06.24,12:00,14:30,HS 18,2. Übungstest,False,True,False
+367.060,Di.,05.03.24,13:45,15:15,HS 16,"Themenüberblick, Grundlagen (hybrid)",False,False,False
+367.060,Di.,12.03.24,13:45,15:15,HS 16,Medientyp Text - Basics (hybrid),False,False,False
+367.060,Di.,19.03.24,13:45,15:15,HS 16,Medientyp Bild - Basics (hybrid),False,False,False
+367.060,Di.,09.04.24,13:45,15:15,HS 16,Medientyp Audio - Basics (hybrid),False,False,False
+367.060,Di.,16.04.24,13:45,15:15,HS 16,Medientyp Video - Basics (hybrid),False,False,False
+367.060,Di.,23.04.24,13:45,15:15,HS 16,Zwischenklausur (online),True,False,False
+367.060,Di.,30.04.24,13:45,15:15,HS 16,Themenvergabe Vertiefungen (online),False,False,False
+367.060,Di.,07.05.24,13:45,15:15,HS 16,Feedback zur Klausur (hybrid),True,False,False
+367.060,Di.,14.05.24,13:45,15:15,HS 16,Abgabe Ausarbeitungen (online),False,False,False
+367.060,Di.,28.05.24,13:45,15:15,HS 16,Vertiefung Block I (hybrid),False,False,False
+367.060,Di.,04.06.24,13:45,15:15,--,Vertiefung Block II (hybrid),False,False,False
+367.060,Di.,11.06.24,13:45,15:15,--,Vertiefung Block III (hybrid),False,False,False
+367.060,Di.,18.06.24,13:45,15:15,--,Vertiefung Block IV (hybrid),False,False,False
+367.060,Di.,25.06.24,13:45,15:15,HS 16,"Klausur (HS 16, Anmeldung erforderlich!)",True,False,False
+367.060,Mi.,02.10.24,15:30,17:00,HS 18,Nachklausur (Anmeldung erforderlich),True,False,False
+245.312,Mi.,06.03.24,15:30,17:00,HS 6,,False,False,False
+245.312,Mi.,13.03.24,15:30,17:00,HS 7,,False,False,False
+245.312,Mi.,20.03.24,15:30,17:00,HS 3,,False,False,False
+245.312,Mi.,10.04.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,17.04.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,24.04.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,15.05.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,29.05.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,05.06.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,19.06.24,15:30,17:00,K 001A,,False,False,False
+245.312,Mi.,26.06.24,15:30,17:00,HS 18,Final Exam,True,False,False
+245.312,Mi.,17.07.24,15:30,17:00,HS 15,Resit Exam,True,False,False
+245.311,Mi.,06.03.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,13.03.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,20.03.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,10.04.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,17.04.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,24.04.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,08.05.24,13:45,15:15,HS 7,Midterm Exam,True,False,False
+245.311,Mi.,15.05.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,22.05.24,13:45,15:15,HS 6,"PLM Industry Talk Sami Özarik (Amazon EU SARL, Netherlands)",False,False,False
+245.311,Mi.,29.05.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,05.06.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,19.06.24,13:45,15:15,HS 6,,False,False,False
+245.311,Mi.,26.06.24,13:45,15:15,HS 18,Final Exam,True,False,False
+245.311,Mi.,17.07.24,13:45,15:15,HS 15,Resit Exam,True,False,False
+381.013,Mi.,06.03.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,13.03.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,20.03.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,10.04.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,17.04.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,24.04.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,08.05.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,15.05.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,22.05.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,29.05.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,05.06.24,10:15,11:45,S2 053,DI Dr. Klaus Straka,False,False,False
+381.013,Mi.,12.06.24,10:15,11:45,S2 053,DI Dr. Klaus Straka,False,False,False
+381.013,Mi.,19.06.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mi.,26.06.24,10:15,11:45,S2 053,,False,False,False
+381.013,Mo.,08.07.24,13:45,15:15,HS 18,Exam - please register in KUSSS,True,False,False
+381.013,Mo.,23.09.24,13:45,15:15,HS 15,Exam - please register in KUSSS,True,False,False
+381.013,Di.,11.02.25,13:45,15:15,HS 19,Exam - please register in KUSSS,True,False,False
+381.013,Di.,08.07.25,13:45,15:15,HS 19,Exam - please register in KUSSS,True,False,False
+150.031,Mo.,08.04.24,15:30,18:45,Petrinum,,False,False,False
+150.031,Do.,25.04.24,15:30,18:45,Petrinum,,False,False,False
+150.031,Mi.,15.05.24,15:30,18:45,Petrinum,,False,False,False
+150.031,Di.,21.05.24,16:15,17:15,HS 18,Klausur,True,False,False
+150.031,Do.,27.06.24,10:15,11:45,HS 12,Nachklausur 10:15 - 11:15 Uhr,True,False,False
+343.355,Fr.,08.03.24,08:30,12:45,S2 059,,False,False,False
+343.355,Fr.,22.03.24,08:30,12:45,S2 059,,False,False,False
+343.355,Fr.,19.04.24,08:30,12:45,S2 059,,False,False,False
+343.355,Fr.,03.05.24,08:30,12:45,S2 059,,False,False,False
+343.355,Fr.,24.05.24,08:30,12:45,S2 059,,False,False,False
+343.355,Fr.,14.06.24,10:15,11:45,HS 18,,False,False,False
+257.211,Mi.,06.03.24,13:45,15:15,HS 18,Vorbesprechung,False,False,False
+257.211,Mi.,13.03.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,20.03.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,10.04.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,17.04.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,24.04.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,08.05.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,15.05.24,15:30,17:00,MT 127,,False,False,False
+257.211,Mi.,29.05.24,15:30,17:00,HS 18,,False,False,False
+257.211,Mi.,05.06.24,15:30,17:00,MT 127,,False,False,False
+257.213,Mi.,06.03.24,13:45,15:15,HS 18,Vorbesprechung,False,False,False
+257.213,Mi.,13.03.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,20.03.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,10.04.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,17.04.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,24.04.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,08.05.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,15.05.24,15:30,17:00,MT 127,,False,False,False
+257.213,Mi.,29.05.24,15:30,17:00,HS 18,,False,False,False
+257.213,Mi.,05.06.24,15:30,17:00,MT 127,,False,False,False
+257.214,Mi.,06.03.24,13:45,15:15,HS 18,Vorbesprechung,False,False,False
+257.214,Mi.,13.03.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,20.03.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,10.04.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,17.04.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,24.04.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,08.05.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,15.05.24,15:30,17:00,MT 127,,False,False,False
+257.214,Mi.,29.05.24,15:30,17:00,HS 18,,False,False,False
+257.214,Mi.,05.06.24,15:30,17:00,MT 127,,False,False,False
+257.200,Mi.,06.03.24,13:45,15:15,HS 18,Vorbesprechung VL+UE (hybrid),False,False,False
+257.200,Mi.,13.03.24,13:45,15:15,HS 18,,False,False,False
+257.200,Mi.,20.03.24,13:45,15:15,HS 18,,False,False,False
+257.200,Mi.,10.04.24,13:45,15:15,HS 18,,False,False,False
+257.200,Mi.,17.04.24,13:45,15:15,HS 18,,False,False,False
+257.200,Mi.,24.04.24,13:45,15:15,HS 18,,False,False,False
+257.200,Mi.,08.05.24,13:45,15:15,HS 18,,False,False,False
+257.200,Mi.,15.05.24,13:45,15:15,HS 18,,False,False,False
+257.200,Di.,28.05.24,08:30,10:00,HS 1,Klausur,True,False,False
+257.200,Di.,28.05.24,08:30,10:00,HS 9,Klausur,True,False,False
+257.200,Di.,18.06.24,08:30,10:00,HS 1,Nachklausur,True,False,False
+361.001,Di.,05.03.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,08.03.24,08:30,10:00,HS 19,,False,False,False
+361.001,Di.,12.03.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,15.03.24,08:30,10:00,HS 19,,False,False,False
+361.001,Fr.,15.03.24,10:15,12:45,HS 5,Klausur,True,False,False
+361.001,Di.,19.03.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,22.03.24,08:30,10:00,HS 19,,False,False,False
+361.001,Di.,09.04.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,12.04.24,08:30,10:00,HS 19,,False,False,False
+361.001,Di.,16.04.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,19.04.24,08:30,10:00,HS 19,,False,False,False
+361.001,Di.,23.04.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,26.04.24,08:30,10:00,HS 19,,False,False,False
+361.001,Di.,30.04.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,03.05.24,08:30,10:00,HS 19,,False,False,False
+361.001,Fr.,03.05.24,10:15,12:45,HS 19,Klausur,True,False,False
+361.001,Di.,07.05.24,08:30,10:00,HS 18,,False,False,False
+361.001,Di.,14.05.24,08:30,10:00,HS 18,,False,False,False
+361.001,Di.,28.05.24,08:30,10:00,HS 18,,False,False,False
+361.001,Di.,04.06.24,08:30,10:00,HS 18,,False,False,False
+361.001,Di.,11.06.24,08:30,10:00,HS 18,,False,False,False
+361.001,Di.,18.06.24,08:30,10:00,HS 18,,False,False,False
+361.001,Di.,25.06.24,08:30,10:00,HS 18,,False,False,False
+361.001,Fr.,19.07.24,10:15,12:45,HS 1,Klausur,True,False,False
+361.001,Fr.,18.10.24,10:15,12:45,HS 1,Klausur,True,False,False
+361.001,Fr.,13.12.24,10:15,12:45,HS 9,Klausur,True,False,False
+361.001,Fr.,07.02.25,10:15,12:45,HS 19,Klausur,True,False,False
+382.059,Mi.,06.03.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,13.03.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,20.03.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,10.04.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,17.04.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,24.04.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,08.05.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,15.05.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,22.05.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,29.05.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,05.06.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,12.06.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,26.06.24,08:30,11:00,S2 048,,False,False,False
+382.059,Mi.,10.07.24,08:30,11:00,HS 18,,False,False,False
+382.059,Mo.,30.09.24,08:30,11:00,S3 055,,False,False,False
+382.059,Fr.,15.11.24,08:30,11:00,S5 101,,False,False,False
+382.059,Do.,09.01.25,13:45,16:15,S5 102,,False,False,False
+382.059,Di.,11.02.25,10:15,12:45,S3 057,,False,False,False
+339.170,Do.,07.03.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,14.03.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,21.03.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,11.04.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,18.04.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,25.04.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,02.05.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,16.05.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,23.05.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,06.06.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,13.06.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,20.06.24,15:30,17:00,HS 19,,False,False,False
+339.170,Do.,27.06.24,15:30,17:00,HS 19,Klausur M-Z,True,False,False
+339.170,Do.,27.06.24,15:30,17:00,HS 18,Klausur A-L,True,False,False
+339.170,Di.,22.10.24,17:15,18:45,HS 16,Nachklausur,True,False,False
+339.191,Do.,07.03.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,14.03.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,21.03.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,11.04.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,18.04.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,18.04.24,19:00,19:45,HS 10,19:00 - 19:30 Uhr Test,False,True,False
+339.191,Do.,18.04.24,19:00,19:45,HS 18,19:00 - 19:30 Uhr Test,False,True,False
+339.191,Do.,18.04.24,19:00,19:45,HS 16,19:00 - 19:30 Uhr Test,False,True,False
+339.191,Do.,25.04.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,02.05.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,16.05.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,23.05.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,23.05.24,19:00,19:45,HS 16,19:00 - 19:30 Uhr Test,False,True,False
+339.191,Do.,23.05.24,19:00,19:45,HS 1,19:00-19:30 Uhr Test,False,True,False
+339.191,Do.,06.06.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,13.06.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,20.06.24,08:30,10:00,HS 7,,False,False,False
+339.191,Do.,27.06.24,08:30,10:00,HS 16,Klausur,True,False,False
+339.191,Do.,27.06.24,08:30,10:00,HS 7,Klausur,True,False,False
+339.191,Do.,27.06.24,08:30,10:00,HS 2,Klausur,True,False,False
+339.191,Do.,27.06.24,08:30,10:00,T 405,Klausur,True,False,False
+339.191,Do.,27.06.24,08:30,10:00,MT 226/1,Klausur,True,False,False
+339.191,Do.,27.06.24,08:30,10:00,HS 10,Klausur,True,False,False
+339.191,Do.,27.06.24,08:30,10:00,HS 17,Klausur,True,False,False
+339.191,Do.,10.10.24,17:15,19:45,HS 2,Nachklausur/Test,True,True,False
+256.600,Mi.,06.03.24,17:15,18:45,HS 18,Digitalisierung; Social Impact der Digitalisierung,False,False,False
+256.600,Mi.,13.03.24,17:15,18:45,HS 18,Media Ecology - Teil 1/2,False,False,False
+256.600,Mi.,20.03.24,17:15,18:45,HS 18,Media Ecology - Teil 2/2,False,False,False
+256.600,Mi.,10.04.24,17:15,18:45,HS 18,Digital Age Management - Teil 1/2,False,False,False
+256.600,Mi.,17.04.24,17:15,18:45,HS 18,Digital Age Management - Teil 2/2; Informationsmanagement,False,False,False
+256.600,Mi.,24.04.24,17:15,18:45,HS 18,Vertiefungsthema Künstliche Intelligenz (KI),False,False,False
+256.600,Mi.,08.05.24,17:15,18:45,HS 18,Vertiefungsthema Agilität (letztes Kapitel der Hauptunterlage),False,False,False
+256.600,Mi.,15.05.24,17:15,18:45,MT 127,Vertiefungsthema Krypto-Assets - Teil 1,False,False,False
+256.600,Mi.,22.05.24,17:15,18:45,HS 18,"Flipped Classroom - Selbststudium (Videos zu Media Ecology), siehe Mail",False,False,False
+256.600,Mi.,29.05.24,17:15,18:45,HS 18,"Gastreferent Mag. Böhm / Fallstudie im Kontext des Kapitels ""Media Ecology""",False,False,False
+256.600,Mi.,05.06.24,17:15,18:45,MT 127,Vertiefungsthema Krypto-Assets - Teil 2,False,False,False
+256.600,Mi.,12.06.24,17:15,18:45,HS 18,"Vertiefungsthema ""IT und Sustainibility""",False,False,False
+256.600,Mi.,19.06.24,17:15,18:45,HS 18,"Optional: Online per Zoom (siehe Mail), kein neuer Stoff, Möglichkeit für Fragen zum Stoff",False,False,False
+256.600,Mi.,26.06.24,19:00,20:30,HS 1,"Schriftliche Prüfung im HS 1, closed book",True,False,False
+256.600,Mi.,24.07.24,16:30,17:30,online,"Einsichtnahme Klausur, Anmeldung bis 21. Juli 2024 an karina.dorfer@jku.at / Zuteilung Slot erfolgt anschließend",True,False,False
+256.600,Do.,24.10.24,19:00,20:30,HS 10,"Schriftliche Nachklausur, closed book",True,False,False
+339.341,Fr.,12.04.24,12:00,18:00,HS 18,,False,False,False
+339.341,Sa.,13.04.24,08:30,12:45,HS 18,,False,False,False
+339.341,Fr.,19.04.24,12:00,18:00,HS 18,,False,False,False
+339.341,Do.,23.05.24,17:15,18:45,HS 16,"Klausur 17:15-18:15, Mo-Z",True,False,False
+339.341,Do.,23.05.24,17:15,18:45,HS 2,"Klausur 17:15-18:15, A-Mi",True,False,False
+339.341,Do.,04.07.24,10:00,11:00,S2 048,Nachklausur,True,False,False
+339.350,Mo.,13.05.24,14:30,17:00,T 911,,False,False,False
+339.350,Di.,14.05.24,13:45,17:00,KHG I,,False,False,False
+339.350,Mi.,15.05.24,13:45,17:00,ESH 3,,False,False,False
+339.350,Do.,16.05.24,13:45,17:00,T 406/1,,False,False,False
+339.350,Do.,06.06.24,15:30,17:00,HS 18,Klausur,True,False,False
+366.594,Di.,12.03.24,17:15,18:45, ,Zoom meeting about submitting homework (link see Moodle),True,False,False
+366.594,Mi.,10.04.24,16:00,17:00,Zoom,"Voluntary Q&A about homwork, Zoom-link see Moodle",True,False,False
+366.594,Di.,07.05.24,16:00,17:00,Zoom,"Voluntary Q&A about homwork, Zoom-link see Moodle",True,False,False
+366.594,Di.,04.06.24,16:00,17:00,Zoom,"Voluntary Q&A about homwork, Zoom-link see Moodle",True,False,False
+366.594,Mi.,26.06.24,15:45,16:45,Zoom,"Voluntary Q&A about homwork/exam, Zoom-link see Moodle",True,False,False
+366.594,Do.,27.06.24,17:15,18:45,HS 18,Distance Exercise Exam - check seating plan in Moodle,True,False,False
+366.594,Do.,27.06.24,17:15,18:45,HS 7,Distance Exercise Exam - check seating plan in Moodle,True,False,False
+366.594,Fr.,18.10.24,16:15,17:45,JKU HS 1,Second distance exercise exam,True,False,False
+238.213,Mo.,04.03.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,06.03.24,18:00,18:45, ,"Zoom-Tutorium (Alle Tutorien sind ein Angebot, keine Pflicht)",False,False,True
+238.213,Mo.,11.03.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,13.03.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,18.03.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,20.03.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,08.04.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,10.04.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,15.04.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,17.04.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,22.04.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,24.04.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,29.04.24,15:30,17:00,HS 18,,False,False,False
+238.213,Di.,30.04.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,06.05.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,08.05.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,13.05.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,15.05.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,27.05.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,29.05.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,03.06.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,05.06.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,10.06.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,12.06.24,18:00,18:45, ,Zoom-Tutorium,False,False,True
+238.213,Mo.,17.06.24,15:30,17:00,HS 18,,False,False,False
+238.213,Mi.,26.06.24,18:00,18:45, ,Fragestunde zur Klausur (via Zoom),True,False,True
+238.213,Fr.,28.06.24,15:30,17:00,HS 1,Klausur (Hörsaal wird zugeteilt),True,False,False
+238.213,Fr.,28.06.24,15:30,17:00,HS 7,Klausur (Hörsaal wird zugeteilt),True,False,False
+238.213,Fr.,28.06.24,15:30,17:00,HS 2,Klausur (Hörsaal wird zugeteilt),True,False,False
+238.213,Mo.,01.07.24,18:00,18:45, ,Nachbesprechung (via Zoom),False,False,False
+238.213,Do.,26.09.24,15:30,17:00,HS 15,Nachklausur (Hörsaal wird zugeteilt),True,False,False
+238.213,Do.,26.09.24,15:30,17:00,HS 16,Nachklausur (Hörsaal wird zugeteilt),True,False,False
+150.004,Mi.,10.04.24,15:30,18:45,HS 10,,False,False,False
+150.004,Do.,11.04.24,15:30,18:45,HS 18,,False,False,False
+150.004,Di.,16.04.24,16:15,19:45,HS 3,,False,False,False
+150.004,Do.,18.04.24,15:30,18:45,HS 3,,False,False,False
+269.030,Mo.,04.03.24,10:15,13:30,HS 17,1. Termin Anwesenheitspflicht,False,False,False
+269.030,Mo.,11.03.24,10:15,13:30,ONLINE/ZOOM,,False,False,False
+269.030,Mo.,18.03.24,10:15,13:30,KEP 1,,False,False,False
+269.030,Mo.,08.04.24,10:15,13:30,ONLINE/ZOOM,,False,False,False
+269.030,Mo.,15.04.24,10:15,13:30,K 033C,,False,False,False
+269.030,Mo.,22.04.24,10:15,13:30,KEP 1,In Kooperation mit Firma Rosenbauer / Innovation Technology & Research,False,False,False
+269.030,Di.,07.05.24,12:00,13:30,HS 18,Klausur,True,False,False
+269.030,Fr.,07.06.24,12:00,13:30,HS 6,Nachklausur,True,False,False
+381.001,Mi.,06.03.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,13.03.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,20.03.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,10.04.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,17.04.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,24.04.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,08.05.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,15.05.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,22.05.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,29.05.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,05.06.24,13:45,15:15,S3 047,"Vortrag DI Dr. Johannes Kilian, ENGEL AUSTRIA GmbH - Werkzeugtemperierung",False,False,False
+381.001,Mi.,12.06.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,19.06.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mi.,26.06.24,13:45,15:15,S3 047,,False,False,False
+381.001,Mo.,08.07.24,13:45,15:15,HS 18,Prüfung - bitte im KUSSS anmelden,True,False,False
+381.001,Mo.,23.09.24,13:45,15:15,HS 15,Prüfung - bitte im KUSSS anmelden,True,False,False
+381.001,Di.,11.02.25,13:45,15:15,HS 19,,False,False,False
+381.001,Di.,08.07.25,13:45,15:15,HS 19,,False,False,False
+367.044,Di.,05.03.24,13:45,15:15,HS 9,"Introduction: Organization, OO Programming Basics",False,False,False
+367.044,Di.,12.03.24,13:45,15:15,HS 9,Inheritance,False,False,False
+367.044,Di.,19.03.24,13:45,15:15,HS 9,Types of Classes and Interfaces,False,False,False
+367.044,Di.,09.04.24,13:45,15:15,HS 9,Generics,False,False,False
+367.044,Di.,16.04.24,13:45,15:15,HS 9,Collections,False,False,False
+367.044,Di.,23.04.24,13:45,15:15,HS 9,Lambda Expressions,False,False,False
+367.044,Di.,30.04.24,13:45,15:15,HS 9,Streams,False,False,False
+367.044,Di.,07.05.24,13:45,15:15,HS 9,Multithreading,False,False,False
+367.044,Di.,14.05.24,13:45,15:15,HS 9,Design and Test,False,True,False
+367.044,Di.,28.05.24,13:45,15:15,HS 9,Q&A,False,False,False
+367.044,Di.,04.06.24,13:45,15:15,HS 9,GUI and Model-View-Controller,False,False,False
+367.044,Di.,11.06.24,13:45,15:15,HS 9,Software Design Patterns,False,False,False
+367.044,Di.,18.06.24,13:45,15:15,HS 9,Q&A,False,False,False
+367.044,Do.,27.06.24,13:45,15:15,HS 10,Klausur HS Einteilung: Nachname A - M,True,False,False
+367.044,Do.,27.06.24,13:45,15:15,HS 16,Klausur HS Einteilung: Nachname N - Z,True,False,False
+367.044,Di.,01.10.24,15:30,17:00,HS 18,Nachklausur,True,False,False
+531.208,Di.,05.03.24,13:45,15:15,BA 9911,,False,False,False
+531.208,Do.,07.03.24,13:45,15:15,HS 18,,False,False,False
+531.208,Di.,12.03.24,13:45,15:15,HS 17,,False,False,False
+531.208,Do.,14.03.24,13:45,15:15,HS 18,,False,False,False
+531.208,Di.,19.03.24,13:45,15:15,MT 226,,False,False,False
+531.208,Di.,09.04.24,13:45,15:15,MT 226,,False,False,False
+531.208,Do.,11.04.24,13:45,15:15,HS 18,,False,False,False
+531.208,Fr.,12.04.24,10:15,11:45,BA 9910,,False,False,False
+531.208,Di.,16.04.24,13:45,15:15,MT 226,,False,False,False
+531.208,Do.,18.04.24,13:45,15:15,HS 18,,False,False,False
+531.208,Di.,23.04.24,13:45,15:15,MT 226,,False,False,False
+531.208,Do.,25.04.24,13:45,15:15,HS 18,,False,False,False
+531.208,Di.,30.04.24,13:45,15:15,MT 226,,False,False,False
+531.208,Do.,02.05.24,13:45,15:15,HS 18,,False,False,False
+531.208,Di.,07.05.24,13:45,15:15,MT 226,,False,False,False
+531.208,Di.,14.05.24,13:45,15:15,HS 7,,False,False,False
+531.208,Do.,16.05.24,13:45,15:15,HS 18,,False,False,False
+531.208,Do.,23.05.24,13:45,15:15,HS 18,,False,False,False
+531.208,Mo.,27.05.24,10:15,11:45,HF 9901,,False,False,False
+531.208,Di.,28.05.24,13:45,15:15,MT 226,,False,False,False
+531.208,Mo.,03.06.24,10:15,11:45,S4 025,,False,False,False
+531.208,Di.,04.06.24,13:45,15:15,BA 9910,,False,False,False
+531.208,Do.,06.06.24,13:45,15:15,HS 18,,False,False,False
+531.208,Di.,11.06.24,13:45,15:15,HS 3,,False,False,False
+531.208,Mo.,24.06.24,10:15,11:45,S2 054,,False,False,False
+531.208,Di.,25.06.24,13:45,15:15,BA 9910,,False,False,False
+531.208,Do.,27.06.24,13:45,15:15,HS 18,,False,False,False
+531.208,Mo.,08.07.24,10:00,13:00,HS 9,,False,False,False
+531.208,Di.,17.09.24,10:15,12:45,HS 19,,False,False,False
+531.208,Fr.,13.12.24,10:15,12:45,S2 048,,False,False,False
+233.KS2,Di.,05.03.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,19.03.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,09.04.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,16.04.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,23.04.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,30.04.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,07.05.24,19:00,20:30,HS 15,1. Teilklausur,True,False,False
+233.KS2,Di.,14.05.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,28.05.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,04.06.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,11.06.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,18.06.24,17:15,18:45,HS 5,,False,False,False
+233.KS2,Di.,25.06.24,17:15,18:45,HS 18,2. Teilklausur,True,False,False
+233.KS2,Di.,08.10.24,17:15,18:45,HS 9,Nachklausur,True,False,False
+367.144,Mo.,04.03.24,08:30,11:45,HS 18,,False,False,False
+367.144,Mo.,11.03.24,08:30,11:45,HS 18,,False,False,False
+367.144,Mo.,18.03.24,08:30,11:45,HS 18,,False,False,False
+367.144,Mo.,15.04.24,08:30,11:45,Zoom,,False,False,False
+367.144,Mo.,06.05.24,08:30,11:45,HS 18,,False,False,False
+367.144,Mo.,27.05.24,08:30,11:45,HS 18,"Klausur von 10-11 Uhr, online",True,False,False
+367.144,Mo.,09.12.24,17:15,18:45,online,Nachklausur,True,False,False
+367.145,Mo.,04.03.24,08:30,11:45,HS 18,,False,False,False
+367.145,Mo.,11.03.24,08:30,11:45,HS 18,,False,False,False
+367.145,Mo.,18.03.24,08:30,11:45,HS 18,,False,False,False
+367.145,Mo.,15.04.24,08:30,11:45,HS 18,,False,False,False
+367.145,Mo.,06.05.24,08:30,11:45,HS 18,,False,False,False
+367.145,Mo.,27.05.24,08:30,11:45,HS 18,"Klausur von 10-11 Uhr, online",True,False,False
+367.145,Mo.,09.12.24,17:15,18:45,online,Nachklausur,True,False,False
+300.951,Mo.,26.08.24,10:15,11:45,HS 19,"Vorbesprechung, Informationen zur Übung, Themenzuteilung für Seminararbeiten",False,False,False
+300.951,Do.,19.09.24,13:45,17:00,HS 18,Präsentationstermin Seminararbeiten,False,False,False
+300.951,Fr.,20.09.24,13:45,17:00,HS 10,Präsentationstermin Seminararbeiten,False,False,False
+300.951,Do.,26.09.24,13:45,17:00,HS 5,Präsentationstermin Seminararbeiten,False,False,False
+531.170,Mi.,06.03.24,10:15,11:45,HS 18,,False,False,False
+531.170,Mi.,13.03.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,14.03.24,15:30,18:00,S2 120,Tutorium,False,False,True
+531.170,Mi.,20.03.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,21.03.24,15:30,18:00,KG 519,Tutorium,False,False,True
+531.170,Mi.,10.04.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,11.04.24,15:30,18:00,S2 120,Tutorium,False,False,True
+531.170,Mi.,17.04.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,18.04.24,15:30,18:00,S2 219,Tutorium,False,False,True
+531.170,Mi.,24.04.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,25.04.24,15:30,18:00,S2 219,Tutorium,False,False,True
+531.170,Do.,02.05.24,15:30,18:00,HS 14,Tutorium,False,False,True
+531.170,Mi.,08.05.24,10:15,11:45,HS 18,,False,False,False
+531.170,Mi.,15.05.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,16.05.24,15:30,18:00,KG 519,Tutorium,False,False,True
+531.170,Mi.,22.05.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,23.05.24,15:30,18:00,S2 120,Tutorium,False,False,True
+531.170,Mi.,29.05.24,10:15,11:45,HS 18,,False,False,False
+531.170,Mi.,05.06.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,06.06.24,15:30,18:00,MT 327,Tutorium,False,False,True
+531.170,Mi.,12.06.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,13.06.24,15:30,18:00,MT 327,Tutorium,False,False,True
+531.170,Mi.,19.06.24,10:15,11:45,HS 18,,False,False,False
+531.170,Do.,20.06.24,15:30,18:00,MT 327,Tutorium,False,False,True
+531.170,Mi.,26.06.24,10:15,11:45,BA 9911,,False,False,False
+531.170,Do.,27.06.24,15:30,18:00,MT 327,Tutorium,False,False,True
+531.170,Di.,09.07.24,08:30,10:00,HS 18,Klausur,True,False,False
+531.170,Di.,24.09.24,10:15,11:45,HS 16,Klausur,True,False,False
+531.170,Mi.,30.10.24,08:30,10:00,K 153C,Klausur,True,False,False
+239.301,Do.,07.03.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,07.03.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,14.03.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,14.03.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,21.03.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,11.04.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,11.04.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,18.04.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,18.04.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,25.04.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,25.04.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,02.05.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,02.05.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,16.05.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,16.05.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,23.05.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,23.05.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,06.06.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,06.06.24,12:00,13:30,HS 1,entfällt,False,False,False
+239.301,Do.,13.06.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,13.06.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,20.06.24,10:15,11:45,HS 15,BWL-Teil Andeßner,False,False,False
+239.301,Do.,20.06.24,12:00,13:30,HS 1,VWL-Teil,False,False,False
+239.301,Do.,04.07.24,10:15,11:45,HS 18,Klausur,True,False,False
+239.301,Do.,19.09.24,10:15,11:45,HS 9,Nachklausur,True,False,False

@@ -49,7 +49,7 @@ class Preprocessor:
 
 # class CoursePreprocessor that inherits from Preprocessor
 class CoursePreprocessor(Preprocessor):
-    room_capacities = {0:164, 1:152}
+    room_capacities = {0:164, 1:152, -1:-1}
 
     def __init__(self, path_to_raw_courses, room_to_id, door_to_id):
         super().__init__(room_to_id=room_to_id, door_to_id=door_to_id)
@@ -59,8 +59,10 @@ class CoursePreprocessor(Preprocessor):
         ### Call the methods to read the data
         self.raw_course_dates = self.read_course_dates_data(self.path_to_raw_courses)
         self.raw_course_info = self.read_course_info_data(self.path_to_raw_courses)
+        
+        self.room_names = set(self.room_to_id.keys())
 
-    ########## Read/Load Data ##########
+    ########## Read/Load Data ##########    
     def read_and_assign_room(self, file, path_to_raw_data):
         
         df = self.read_from_csv(os.path.join(path_to_raw_data, file))
@@ -141,10 +143,17 @@ class CoursePreprocessor(Preprocessor):
                                          ["instute", "email", "level", "study_area", "university", "curriculum", "assessment_criteria", "teaching_methods", "language", "study_subject", "other_information"])
         
         df["course_number"] = df["course_number"].apply(lambda x: self.format_course_number(x))
-        
+
         df = df.drop_duplicates().reset_index(drop=True)
         return df
-    
+     
+    def fix_room_assignment(self, room_name):
+        
+        if room_name not in self.room_names:
+            return -1
+        else:
+            return self.room_to_id[room_name]
+       
     def clean_raw_course_dates(self, dataframe):
         df = dataframe.copy()
         
@@ -161,10 +170,11 @@ class CoursePreprocessor(Preprocessor):
         # format the course number
         df["course_number"] = df["course_number"].apply(lambda x: self.format_course_number(x))
         
+        df["room_id"] = df["room"].apply(lambda x: self.fix_room_assignment(x))
+        
         # drop potential duplicates and reset index
-        print(len(df))
         df = df.drop_duplicates().reset_index(drop=True)
-        print(len(df))
+
         return df
     
     #######  Data Enhancement Methods ########
@@ -194,11 +204,13 @@ class CoursePreprocessor(Preprocessor):
         mask = ~dataframe["curriculum"].isna()
         dataframe.loc[mask, "curriculum"] = dataframe.loc[mask, "curriculum"].apply(lambda x: self.correct_curriculum_row(x))
         return dataframe
+    
     #######  Preprocessing Application ########
     def apply_preprocessing(self):     
         # clean the raw dates 
         cleaned_dates = self.clean_raw_course_dates(self.raw_course_dates)
         cleaned_dates = self.enhance_dataset(cleaned_dates)
+        
         # clean the raw course info
         cleaned_courses = self.clean_raw_course_info(self.raw_course_info)
         cleaned_courses = self.correct_curriculum(cleaned_courses)

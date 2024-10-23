@@ -1,0 +1,23 @@
+{   
+    "info": "Run 0: lstm split by time",
+    "model_class": ["simple_lecture_lstm"],
+    "embedding_dim": [5], 
+    "hidden_size": [[25, 10]],
+    "num_layers": [2],
+    "lr": [1e-3],
+    "batch_size": [4],
+    "inhall_threshold": [0.7],
+    "ndates_threshold": [2],
+    "features": [
+        "occrate_tutorium_exam_test_type"],
+    "max_n_updates": 30000,
+    "------------------------":"--------------------------",
+    "criterion": ["MAE"],
+    "include_x_features": [true],
+    "differencing": ["none"],
+    "optimizer_class": ["Adam"],
+    "weight_decay": [0.0],
+    "discretization": [false],
+    "dropout": [0.0],
+    "binsize": [0.01]
+}

@@ -17,9 +17,9 @@ cleaned_data, raw_data = preprocessor.apply_preprocessing(params)
 preprocessor.save_to_csv(cleaned_data, "data/cleaned_data", "frequency_data")
 
 
-#path_to_raw_courses = "/home/berni/github_repos/data_processing/data/raw_data"
-#preprocessor = CoursePreprocessor(path_to_raw_courses, 
-#                                  room_to_id=room_to_id, door_to_id=door_to_id)
+path_to_raw_courses = "/home/berni/github_repos/data_processing/data/raw_data"
+preprocessor = CoursePreprocessor(path_to_raw_courses, 
+                                  room_to_id=room_to_id, door_to_id=door_to_id)
 
 cleaned_course_info, cleaned_course_dates = preprocessor.apply_preprocessing()
 

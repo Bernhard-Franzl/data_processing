@@ -1,0 +1,2043 @@
+course_number,weekday,room,note,exam,test,tutorium,room_id,start_time,end_time,room_capacity,calendar_week
+340.100,Mi.,HS 7,Joint Introduction,False,False,False,-1,2024-03-06 08:30:00,2024-03-06 10:00:00,-1,10
+340.100,Mi.,HS 7 or zoom,,False,False,False,-1,2024-03-13 08:30:00,2024-03-13 10:00:00,-1,11
+340.100,Mi.,HS 7/ zoom,,False,False,False,-1,2024-03-20 08:30:00,2024-03-20 10:00:00,-1,12
+340.100,Di.,HS 18,,False,False,False,0,2024-04-09 10:15:00,2024-04-09 11:45:00,164,15
+340.100,Di.,HS 18,,False,False,False,0,2024-04-16 10:15:00,2024-04-16 11:45:00,164,16
+340.100,Di.,HS 18,,False,False,False,0,2024-04-23 10:15:00,2024-04-23 11:45:00,164,17
+340.100,Di.,HS 18,,False,False,False,0,2024-05-07 10:15:00,2024-05-07 11:45:00,164,19
+340.100,Di.,HS 18,,False,False,False,0,2024-05-14 10:15:00,2024-05-14 11:45:00,164,20
+340.100,Mi.,HS 7/ zoom,,False,False,False,-1,2024-05-22 08:30:00,2024-05-22 10:00:00,-1,21
+340.100,Mi.,HS 7/ zoom,,False,False,False,-1,2024-05-29 08:30:00,2024-05-29 10:00:00,-1,22
+340.100,Di.,HS 18,,False,False,False,0,2024-06-04 10:15:00,2024-06-04 11:45:00,164,23
+340.100,Di.,HS 18,,False,False,False,0,2024-06-11 10:15:00,2024-06-11 11:45:00,164,24
+340.100,Di.,HS 18,,False,False,False,0,2024-06-18 10:15:00,2024-06-18 11:45:00,164,25
+340.100,Mi.,HS 19,Exam (I-Z),True,False,False,1,2024-06-26 08:30:00,2024-06-26 10:00:00,152,26
+340.100,Mi.,HS 5,Exam (A-H),True,False,False,-1,2024-06-26 08:30:00,2024-06-26 10:00:00,-1,26
+340.100,Mo.,HS 1,Retry 1,False,False,False,-1,2024-09-30 12:00:00,2024-09-30 13:30:00,-1,40
+340.100,Do.,HS 1,Retry 2,False,False,False,-1,2024-11-14 08:30:00,2024-11-14 10:00:00,-1,46
+531.163,Mi.,K 224B,,False,False,False,-1,2024-03-13 13:45:00,2024-03-13 15:15:00,-1,11
+531.163,Mi.,K 224B,,False,False,False,-1,2024-03-20 13:45:00,2024-03-20 15:15:00,-1,12
+531.163,Mi.,K 224B,,False,False,False,-1,2024-04-10 13:45:00,2024-04-10 15:15:00,-1,15
+531.163,Mi.,K 224B,,False,False,False,-1,2024-04-24 13:45:00,2024-04-24 15:15:00,-1,17
+531.163,Fr.,HS 18,1. Teilklausur,True,False,False,0,2024-04-26 10:15:00,2024-04-26 12:45:00,164,17
+531.163,Fr.,HS 2,1. Teilklausur,True,False,False,-1,2024-04-26 10:15:00,2024-04-26 12:45:00,-1,17
+531.163,Mi.,K 224B,,False,False,False,-1,2024-05-15 13:45:00,2024-05-15 15:15:00,-1,20
+531.163,Mi.,K 224B,,False,False,False,-1,2024-05-29 13:45:00,2024-05-29 15:15:00,-1,22
+531.163,Mi.,K 224B,,False,False,False,-1,2024-06-12 13:45:00,2024-06-12 15:15:00,-1,24
+531.163,Mi.,K 224B,,False,False,False,-1,2024-06-19 13:45:00,2024-06-19 15:15:00,-1,25
+531.163,Mi.,HS 9,2. Teilklausur,True,False,False,-1,2024-06-26 12:00:00,2024-06-26 14:30:00,-1,26
+531.163,Mo.,S4 025,Endklausur,True,False,False,-1,2024-07-08 10:15:00,2024-07-08 12:45:00,-1,28
+531.160,Mo.,MT 127,,False,False,False,-1,2024-03-04 10:15:00,2024-03-04 11:45:00,-1,10
+531.160,Di.,MT 226,,False,False,False,-1,2024-03-05 08:30:00,2024-03-05 09:15:00,-1,10
+531.160,Mo.,MT 127,,False,False,False,-1,2024-03-11 10:15:00,2024-03-11 11:45:00,-1,11
+531.160,Di.,MT 226,,False,False,False,-1,2024-03-12 08:30:00,2024-03-12 09:15:00,-1,11
+531.160,Mo.,MT 127,,False,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+531.160,Di.,MT 226,,False,False,False,-1,2024-03-19 08:30:00,2024-03-19 09:15:00,-1,12
+531.160,Mo.,MT 127,,False,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-04-08 15:30:00,2024-04-08 17:00:00,-1,15
+531.160,Di.,MT 226,,False,False,False,-1,2024-04-09 08:30:00,2024-04-09 09:15:00,-1,15
+531.160,Mo.,MT 127,,False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-04-15 15:30:00,2024-04-15 17:00:00,-1,16
+531.160,Di.,MT 226,,False,False,False,-1,2024-04-16 08:30:00,2024-04-16 09:15:00,-1,16
+531.160,Mo.,MT 127,,False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-04-22 15:30:00,2024-04-22 17:00:00,-1,17
+531.160,Di.,MT 226,,False,False,False,-1,2024-04-23 08:30:00,2024-04-23 09:15:00,-1,17
+531.160,Mo.,MT 127,,False,False,False,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-04-29 15:30:00,2024-04-29 17:00:00,-1,18
+531.160,Di.,MT 226,,False,False,False,-1,2024-04-30 08:30:00,2024-04-30 09:15:00,-1,18
+531.160,Mo.,MT 127,,False,False,False,-1,2024-05-06 10:15:00,2024-05-06 11:45:00,-1,19
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-05-06 15:30:00,2024-05-06 17:00:00,-1,19
+531.160,Di.,MT 226,,False,False,False,-1,2024-05-07 08:30:00,2024-05-07 09:15:00,-1,19
+531.160,Mo.,MT 127,,False,False,False,-1,2024-05-13 10:15:00,2024-05-13 11:45:00,-1,20
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-05-13 15:30:00,2024-05-13 17:00:00,-1,20
+531.160,Di.,MT 226,,False,False,False,-1,2024-05-14 08:30:00,2024-05-14 09:15:00,-1,20
+531.160,Mo.,MT 127,,False,False,False,-1,2024-05-27 10:15:00,2024-05-27 11:45:00,-1,22
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-05-27 15:30:00,2024-05-27 17:00:00,-1,22
+531.160,Di.,MT 226,,False,False,False,-1,2024-05-28 08:30:00,2024-05-28 09:15:00,-1,22
+531.160,Mo.,MT 127,,False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-06-03 15:30:00,2024-06-03 17:00:00,-1,23
+531.160,Di.,MT 226,,False,False,False,-1,2024-06-04 08:30:00,2024-06-04 09:15:00,-1,23
+531.160,Mo.,MT 127,,False,False,False,-1,2024-06-10 10:15:00,2024-06-10 11:45:00,-1,24
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-06-10 15:30:00,2024-06-10 17:00:00,-1,24
+531.160,Di.,MT 226,,False,False,False,-1,2024-06-11 08:30:00,2024-06-11 09:15:00,-1,24
+531.160,Mo.,MT 127,,False,False,False,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-06-17 15:30:00,2024-06-17 17:00:00,-1,25
+531.160,Di.,MT 226,,False,False,False,-1,2024-06-18 08:30:00,2024-06-18 09:15:00,-1,25
+531.160,Mo.,MT 127,,False,False,False,-1,2024-06-24 10:15:00,2024-06-24 11:45:00,-1,26
+531.160,Mo.,S3 047,Tutorium,False,False,True,-1,2024-06-24 15:30:00,2024-06-24 17:00:00,-1,26
+531.160,Di.,MT 226,,False,False,False,-1,2024-06-25 08:30:00,2024-06-25 09:15:00,-1,26
+531.160,Di.,HS 18,,False,False,False,0,2024-07-02 10:15:00,2024-07-02 11:45:00,164,27
+531.160,Di.,HS 10,Klausur,True,False,False,-1,2024-09-17 10:15:00,2024-09-17 11:45:00,-1,38
+531.160,Mi.,K 153C,Klausur,True,False,False,-1,2024-10-23 08:30:00,2024-10-23 10:00:00,-1,43
+239.141,Di.,HS 15,,False,False,False,-1,2024-03-12 13:45:00,2024-03-12 15:15:00,-1,11
+239.141,Mi.,HS 19,,False,False,False,1,2024-03-13 08:30:00,2024-03-13 10:00:00,152,11
+239.141,Mi.,HS 19,,False,False,False,1,2024-03-20 08:30:00,2024-03-20 10:00:00,152,12
+239.141,Di.,HS 15,,False,False,False,-1,2024-04-16 13:45:00,2024-04-16 15:15:00,-1,16
+239.141,Di.,HS 15,,False,False,False,-1,2024-04-23 13:45:00,2024-04-23 15:15:00,-1,17
+239.141,Di.,HS 15,Zoom link: https://jku.zoom.us/j/93861824910?pwd=amZaK0lBR25hZkZHQnM3UFFxQzdLZz09,True,False,False,-1,2024-04-30 13:45:00,2024-04-30 15:15:00,-1,18
+239.141,Di.,HS 15,,False,False,False,-1,2024-05-07 13:45:00,2024-05-07 15:15:00,-1,19
+239.141,Di.,HS 15,,False,False,False,-1,2024-05-14 13:45:00,2024-05-14 15:15:00,-1,20
+239.141,Di.,HS 15,,False,False,False,-1,2024-05-28 13:45:00,2024-05-28 15:15:00,-1,22
+239.141,Di.,HS 15,Zoom link: https://jku.zoom.us/j/93861824910?pwd=amZaK0lBR25hZkZHQnM3UFFxQzdLZz09,True,False,False,-1,2024-06-04 13:45:00,2024-06-04 15:15:00,-1,23
+239.141,Di.,HS 15,,False,False,False,-1,2024-06-11 13:45:00,2024-06-11 15:15:00,-1,24
+239.141,Di.,HS 15,,False,False,False,-1,2024-06-18 13:45:00,2024-06-18 15:15:00,-1,25
+239.141,Di.,HS 7,Final exam; last names beginning with E-Z,True,False,False,-1,2024-06-25 13:45:00,2024-06-25 15:15:00,-1,26
+239.141,Di.,K 269D,Final exam; last names beginning with A-D,True,False,False,-1,2024-06-25 13:45:00,2024-06-25 15:15:00,-1,26
+239.141,Mi.,HS 18,NK,True,False,False,0,2024-07-10 13:45:00,2024-07-10 15:15:00,164,28
+239.141,Mi.,HS 4,NK,True,False,False,-1,2024-09-04 12:00:00,2024-09-04 13:30:00,-1,36
+376.027,Mo.,HS 12,LV Ende: 16:00 Uhr,False,False,False,-1,2024-04-08 13:45:00,2024-04-08 16:15:00,-1,15
+376.027,Mo.,K 001A,LV Ende: 16:00 Uhr,False,False,False,-1,2024-04-15 13:45:00,2024-04-15 16:15:00,-1,16
+376.027,Mo.,HS 11,LV Ende: 16:00 Uhr,False,False,False,-1,2024-04-22 13:45:00,2024-04-22 16:15:00,-1,17
+376.027,Mo.,HS 14,LV Ende: 16:00 Uhr,False,False,False,-1,2024-04-29 13:45:00,2024-04-29 16:15:00,-1,18
+376.027,Mo.,HS 16,EXAM,True,False,False,-1,2024-06-03 13:45:00,2024-06-03 15:15:00,-1,23
+376.027,Mo.,HS 18,EXAM,True,False,False,0,2024-08-26 10:15:00,2024-08-26 11:45:00,164,35
+376.027,Mo.,HS 8,EXAM,True,False,False,-1,2024-09-16 10:15:00,2024-09-16 11:45:00,-1,38
+257.350,Do.,S4 025,gemeinsam mit Vorlesung,False,False,False,-1,2024-03-07 13:45:00,2024-03-07 15:15:00,-1,10
+257.350,Do.,HS 18,,False,False,False,0,2024-03-21 15:30:00,2024-03-21 17:00:00,164,12
+257.350,Do.,BA 9911,,False,False,False,-1,2024-04-11 15:30:00,2024-04-11 17:00:00,-1,15
+257.350,Do.,S2 120,,False,False,False,-1,2024-04-25 15:30:00,2024-04-25 17:00:00,-1,17
+257.350,Do.,S2 219,,False,False,False,-1,2024-05-02 15:30:00,2024-05-02 17:00:00,-1,18
+257.350,Do.,BA 9910,,False,False,False,-1,2024-05-16 15:30:00,2024-05-16 17:00:00,-1,20
+257.350,Do.,BA 9910,,False,False,False,-1,2024-05-23 15:30:00,2024-05-23 17:00:00,-1,21
+257.350,Do.,BA 9910,,False,False,False,-1,2024-06-06 15:30:00,2024-06-06 17:00:00,-1,23
+257.350,Do.,BA 9910,,False,False,False,-1,2024-06-13 15:30:00,2024-06-13 17:00:00,-1,24
+257.350,Do.,S2 059,,False,False,False,-1,2024-06-20 15:30:00,2024-06-20 17:00:00,-1,25
+257.350,Do.,S3 - 102,,False,False,False,-1,2024-06-27 11:00:00,2024-06-27 15:00:00,-1,26
+257.320,Do.,S4 025,,False,False,False,-1,2024-03-07 13:45:00,2024-03-07 15:15:00,-1,10
+257.320,Do.,HS 5,,False,False,False,-1,2024-03-14 13:45:00,2024-03-14 15:15:00,-1,11
+257.320,Do.,HS 18,,False,False,False,0,2024-03-21 13:45:00,2024-03-21 15:15:00,164,12
+257.320,Do.,BA 9910,,False,False,False,-1,2024-04-11 13:45:00,2024-04-11 15:15:00,-1,15
+257.320,Do.,S3 055,,False,False,False,-1,2024-04-25 13:45:00,2024-04-25 15:15:00,-1,17
+257.320,Do.,S2 219,,False,False,False,-1,2024-05-02 13:45:00,2024-05-02 15:15:00,-1,18
+257.320,Do.,BA 9910,,False,False,False,-1,2024-05-16 13:45:00,2024-05-16 15:15:00,-1,20
+257.320,Do.,BA 9910,,False,False,False,-1,2024-05-23 13:45:00,2024-05-23 15:15:00,-1,21
+257.320,Do.,BA 9910,,False,False,False,-1,2024-06-06 13:45:00,2024-06-06 15:15:00,-1,23
+257.320,Do.,BA 9910,,False,False,False,-1,2024-06-13 13:45:00,2024-06-13 15:15:00,-1,24
+257.320,Do.,HS 5,Klausur,True,False,False,-1,2024-06-20 13:45:00,2024-06-20 15:15:00,-1,25
+257.320,Do.,S3 055,Nachklausur,True,False,False,-1,2024-07-04 13:45:00,2024-07-04 15:15:00,-1,27
+364.000,Di.,HS 18,Introduction and Course Overview,False,False,False,0,2024-03-05 13:45:00,2024-03-05 15:15:00,164,10
+364.000,Di.,HS 18,Transformations and Projections,False,False,False,0,2024-03-12 13:45:00,2024-03-12 15:15:00,164,11
+364.000,Di.,HS 18,Raster Algorithms and Depth Handling,False,False,False,0,2024-03-19 13:45:00,2024-03-19 15:15:00,164,12
+364.000,Di.,HS 18,Local Shading and Illumination,False,False,False,0,2024-04-09 13:45:00,2024-04-09 15:15:00,164,15
+364.000,Di.,HS 18,Texture Mapping Basics,False,False,False,0,2024-04-16 13:45:00,2024-04-16 15:15:00,164,16
+364.000,Di.,HS 18,Advanced Texture Mapping & Graphics Pipelines,False,False,False,0,2024-04-23 13:45:00,2024-04-23 15:15:00,164,17
+364.000,Di.,HS 18,Intermediate Exam,True,False,False,0,2024-04-30 13:45:00,2024-04-30 15:15:00,164,18
+364.000,Di.,HS 18,Global Illumination I: Raytracing,False,False,False,0,2024-05-07 13:45:00,2024-05-07 15:15:00,164,19
+364.000,Di.,HS 18,Global Illumination II: Radiosity,False,False,False,0,2024-05-14 13:45:00,2024-05-14 15:15:00,164,20
+364.000,Di.,HS 18,Volume Rendering,False,False,False,0,2024-05-28 13:45:00,2024-05-28 15:15:00,164,22
+364.000,Di.,HS 18,Scientific Data Visualization,False,False,False,0,2024-06-04 13:45:00,2024-06-04 15:15:00,164,23
+364.000,Di.,HS 18,Curves and Surfaces,False,False,False,0,2024-06-11 13:45:00,2024-06-11 15:15:00,164,24
+364.000,Di.,HS 18,Basics of Animation,False,False,False,0,2024-06-18 13:45:00,2024-06-18 15:15:00,164,25
+364.000,Di.,HS 18,Final Exam,True,False,False,0,2024-06-25 13:45:00,2024-06-25 15:15:00,164,26
+364.000,Di.,HS 19,Retry Exam,True,False,False,1,2024-10-01 13:45:00,2024-10-01 15:15:00,152,40
+258.300,Mi.,HS 18,"DKE: Introduction,  DBS: Concurrency Control",False,False,False,0,2024-03-06 12:00:00,2024-03-06 13:30:00,164,10
+258.300,Mi.,HS 18,"DBS: Recovery, Query Optimization",False,False,False,0,2024-03-13 12:00:00,2024-03-13 13:30:00,164,11
+258.300,Mi.,HS 18,DBS: OO & OR DBS,False,False,False,0,2024-03-20 12:00:00,2024-03-20 13:30:00,164,12
+258.300,Mi.,HS 18,DBS: Distributed DBS,False,False,False,0,2024-04-10 12:00:00,2024-04-10 13:30:00,164,15
+258.300,Mi.,HS 18,DBS: Fortsetzung Distributed DBS;  NoSQL Stores and NewSQL DBMS,False,False,False,0,2024-04-17 12:00:00,2024-04-17 13:30:00,164,16
+258.300,Mi.,HS 18,"WebIS: XML, DBS: Temporal DBS",False,False,False,0,2024-04-24 12:00:00,2024-04-24 13:30:00,164,17
+258.300,Mi.,HS 18,DBS: Active DBS and BREs,False,False,False,0,2024-05-08 12:00:00,2024-05-08 13:30:00,164,19
+258.300,Mi.,HS 18,DBS: Deductive DBS; KBS: Introduction,False,False,False,0,2024-05-15 12:00:00,2024-05-15 13:30:00,164,20
+258.300,Mi.,HS 18,"KBS: Logic-based Knowl. Repr & Reas, Heuristic Search, Gen. Algo.",False,False,False,0,2024-05-22 12:00:00,2024-05-22 13:30:00,164,21
+258.300,Mi.,LP B045,"1. Teiltest (Computerprüfung, Life Science Park, Zunamen: A - L)",True,True,False,-1,2024-05-22 18:00:00,2024-05-22 19:15:00,-1,21
+258.300,Mi.,LP B132,"1. Teiltest (Computerprüfung, Life Science Park, Zunamen: M - Z)",True,True,False,-1,2024-05-22 18:00:00,2024-05-22 19:15:00,-1,21
+258.300,Mi.,HS 18,"KBS: Constraint Satisfaction,  Artificial Neural Nets",False,False,False,0,2024-05-29 12:00:00,2024-05-29 13:30:00,164,22
+258.300,Mi.,HS 18,WebIS: Semantic Web,False,False,False,0,2024-06-05 12:00:00,2024-06-05 13:30:00,164,23
+258.300,Mi.,HS 18,BI: Data Warehousing,False,False,False,0,2024-06-12 12:00:00,2024-06-12 13:30:00,164,24
+258.300,Mi.,HS 18,BI: Data Mining,False,False,False,0,2024-06-19 12:00:00,2024-06-19 13:30:00,164,25
+258.300,Mi.,HS 18,(Reservetermin),False,False,False,0,2024-06-26 12:00:00,2024-06-26 13:30:00,164,26
+258.300,Di.,LP B045,"2. Teiltest (Computerprüfung, Life Science Park, Zunamen: A - L)",True,True,False,-1,2024-07-02 18:00:00,2024-07-02 19:15:00,-1,27
+258.300,Di.,LP B132,"2. Teiltest (Computerprüfung, Life Science Park, Zunamen: M - Z)",True,True,False,-1,2024-07-02 18:00:00,2024-07-02 19:15:00,-1,27
+258.300,Mo.,LP B132,"Nachklausur (Computerprüfung, Life Science Park, Zunamen: A - J)",True,False,False,-1,2024-09-30 15:30:00,2024-09-30 18:30:00,-1,40
+258.300,Mo.,LP B243,"Nachklausur (Computerprüfung, Life Science Park, Zunamen: K - Z)",True,False,False,-1,2024-09-30 15:30:00,2024-09-30 18:30:00,-1,40
+258.300,Di.,LP B045,"2. Nachklausur (Computerprüfung, Life Science Park)",True,False,False,-1,2025-02-04 15:30:00,2025-02-04 18:30:00,-1,6
+258.410,Mo.,HS 18,Kick-off,False,False,False,0,2024-03-04 12:00:00,2024-03-04 13:30:00,164,10
+258.410,Mo.,HS 18,Knowledge Discovery from Data,False,False,False,0,2024-03-11 12:00:00,2024-03-11 13:30:00,164,11
+258.410,Mo.,HS 18,"Data, Measurements, and Data Preprocessing",False,False,False,0,2024-03-18 12:00:00,2024-03-18 13:30:00,164,12
+258.410,Mo.,HS 18,Pattern Mining,False,False,False,0,2024-04-08 12:00:00,2024-04-08 13:30:00,164,15
+258.410,Mo.,HS 18,Classification,False,False,False,0,2024-04-15 12:00:00,2024-04-15 13:30:00,164,16
+258.410,Mo.,HS 18,Cluster Analysis / Outlier Detection,False,False,False,0,2024-04-22 12:00:00,2024-04-22 13:30:00,164,17
+258.410,Mo.,HS 18,Q & A / Exam Preparation,True,False,False,0,2024-04-29 12:00:00,2024-04-29 13:30:00,164,18
+258.410,Mo.,HS 1,Midterm Exam,True,False,False,-1,2024-05-06 17:15:00,2024-05-06 18:45:00,-1,19
+258.410,Mo.,HS 18,Deep Learning,False,False,False,0,2024-05-13 12:00:00,2024-05-13 13:30:00,164,20
+258.410,Mo.,HS 18,Text Mining and Natural Language Processing,False,False,False,0,2024-05-27 12:00:00,2024-05-27 13:30:00,164,22
+258.410,Mo.,HS 18,Web and Graph Mining,False,False,False,0,2024-06-03 12:00:00,2024-06-03 13:30:00,164,23
+258.410,Mo.,HS 18,Process Mining / Time Series Analysis,False,False,False,0,2024-06-10 12:00:00,2024-06-10 13:30:00,164,24
+258.410,Mo.,HS 18,Q & A / Exam Preparation,True,False,False,0,2024-06-17 12:00:00,2024-06-17 13:30:00,164,25
+258.410,Mo.,HS 1,Final Exam,True,False,False,-1,2024-06-24 19:00:00,2024-06-24 20:30:00,-1,26
+258.410,Mo.,HS 1,Resit Exam,True,False,False,-1,2024-09-30 18:00:00,2024-09-30 20:30:00,-1,40
+371.000,Do.,HS 18,,False,False,False,0,2024-03-07 08:30:00,2024-03-07 10:00:00,164,10
+371.000,Mi.,HS 18,,False,False,False,0,2024-03-13 08:30:00,2024-03-13 10:00:00,164,11
+371.000,Do.,HS 18,,False,False,False,0,2024-03-14 08:30:00,2024-03-14 10:00:00,164,11
+371.000,Mi.,HS 18,,False,False,False,0,2024-03-20 08:30:00,2024-03-20 10:00:00,164,12
+371.000,Do.,HS 18,,False,False,False,0,2024-03-21 08:30:00,2024-03-21 10:00:00,164,12
+371.000,Mi.,HS 18,,False,False,False,0,2024-04-10 08:30:00,2024-04-10 10:00:00,164,15
+371.000,Do.,HS 18,,False,False,False,0,2024-04-11 08:30:00,2024-04-11 10:00:00,164,15
+371.000,Mi.,HS 18,,False,False,False,0,2024-04-17 08:30:00,2024-04-17 10:00:00,164,16
+371.000,Do.,HS 18,,False,False,False,0,2024-04-18 08:30:00,2024-04-18 10:00:00,164,16
+371.000,Mi.,HS 18,,False,False,False,0,2024-04-24 08:30:00,2024-04-24 10:00:00,164,17
+371.000,Do.,HS 18,,False,False,False,0,2024-04-25 08:30:00,2024-04-25 10:00:00,164,17
+371.000,Do.,HS 18,,False,False,False,0,2024-05-02 08:30:00,2024-05-02 10:00:00,164,18
+371.000,Mi.,HS 18,,False,False,False,0,2024-05-08 08:30:00,2024-05-08 10:00:00,164,19
+371.000,Mi.,HS 18,,False,False,False,0,2024-05-15 08:30:00,2024-05-15 10:00:00,164,20
+371.000,Do.,HS 18,,False,False,False,0,2024-05-16 08:30:00,2024-05-16 10:00:00,164,20
+371.000,Mi.,HS 18,,False,False,False,0,2024-05-22 08:30:00,2024-05-22 10:00:00,164,21
+371.000,Do.,HS 18,,False,False,False,0,2024-05-23 08:30:00,2024-05-23 10:00:00,164,21
+371.000,Mi.,HS 18,,False,False,False,0,2024-05-29 08:30:00,2024-05-29 10:00:00,164,22
+371.000,Mi.,HS 18,,False,False,False,0,2024-06-05 08:30:00,2024-06-05 10:00:00,164,23
+371.000,Do.,HS 18,,False,False,False,0,2024-06-06 08:30:00,2024-06-06 10:00:00,164,23
+371.000,Mi.,HS 18,,False,False,False,0,2024-06-12 08:30:00,2024-06-12 10:00:00,164,24
+371.000,Do.,HS 18,,False,False,False,0,2024-06-13 08:30:00,2024-06-13 10:00:00,164,24
+371.000,Mi.,HS 18,,False,False,False,0,2024-06-19 08:30:00,2024-06-19 10:00:00,164,25
+371.000,Do.,HS 18,,False,False,False,0,2024-06-20 08:30:00,2024-06-20 10:00:00,164,25
+371.000,Mi.,HS 18,,False,False,False,0,2024-06-26 08:30:00,2024-06-26 10:00:00,164,26
+371.000,Do.,HS 18,,False,False,False,0,2024-06-27 08:30:00,2024-06-27 10:00:00,164,26
+371.000,Fr.,HS 10,,False,False,False,-1,2024-07-05 10:15:00,2024-07-05 13:00:00,-1,27
+239.124,Do.,HS 12,,False,False,False,-1,2024-03-14 15:30:00,2024-03-14 18:45:00,-1,11
+239.124,Fr.,K 269D,,False,False,False,-1,2024-03-15 10:15:00,2024-03-15 13:30:00,-1,11
+239.124,Do.,HS 14,,False,False,False,-1,2024-04-25 15:30:00,2024-04-25 18:45:00,-1,17
+239.124,Fr.,K 269D,,False,False,False,-1,2024-04-26 10:15:00,2024-04-26 13:30:00,-1,17
+239.124,Do.,HS 14,,False,False,False,-1,2024-06-06 15:30:00,2024-06-06 18:45:00,-1,23
+239.124,Fr.,K 269D,,False,False,False,-1,2024-06-07 10:15:00,2024-06-07 13:30:00,-1,23
+239.124,Fr.,HS 2,Klausur,True,False,False,-1,2024-06-14 13:45:00,2024-06-14 15:15:00,-1,24
+239.124,Fr.,HS 18,NK,True,False,False,0,2024-07-12 13:45:00,2024-07-12 15:15:00,164,28
+239.125,Mo.,K 269D,,False,False,False,-1,2024-03-04 13:45:00,2024-03-04 15:15:00,-1,10
+239.125,Mo.,K 269D,,False,False,False,-1,2024-03-11 13:45:00,2024-03-11 15:15:00,-1,11
+239.125,Mo.,K 269D,,False,False,False,-1,2024-03-18 13:45:00,2024-03-18 15:15:00,-1,12
+239.125,Mo.,K 269D,,False,False,False,-1,2024-04-08 13:45:00,2024-04-08 15:15:00,-1,15
+239.125,Mo.,K 269D,,False,False,False,-1,2024-04-22 13:45:00,2024-04-22 15:15:00,-1,17
+239.125,Mo.,K 269D,,False,False,False,-1,2024-04-29 13:45:00,2024-04-29 15:15:00,-1,18
+239.125,Mo.,K 269D,,False,False,False,-1,2024-05-06 13:45:00,2024-05-06 15:15:00,-1,19
+239.125,Mo.,K 269D,,False,False,False,-1,2024-05-13 13:45:00,2024-05-13 15:15:00,-1,20
+239.125,Mo.,K 269D,,False,False,False,-1,2024-05-27 13:45:00,2024-05-27 15:15:00,-1,22
+239.125,Do.,Zoom,Q&A,False,False,False,-1,2024-06-06 17:15:00,2024-06-06 18:45:00,-1,23
+239.125,Mo.,HS 1,Klausur,True,False,False,-1,2024-06-10 17:15:00,2024-06-10 18:45:00,-1,24
+239.125,Mo.,MZ 003A,Einsicht,False,False,False,-1,2024-06-24 17:15:00,2024-06-24 18:45:00,-1,26
+239.125,Mo.,HS 18,NK,True,False,False,0,2024-07-01 17:15:00,2024-07-01 18:45:00,164,27
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-03-04 17:15:00,2024-03-04 18:45:00,-1,10
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-03-11 17:15:00,2024-03-11 18:45:00,-1,11
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-03-18 17:15:00,2024-03-18 18:45:00,-1,12
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-04-08 17:15:00,2024-04-08 18:45:00,-1,15
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-04-22 17:15:00,2024-04-22 18:45:00,-1,17
+239.126,Mo.,MZ 412A,,False,False,False,-1,2024-04-29 18:15:00,2024-04-29 19:45:00,-1,18
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-05-06 17:15:00,2024-05-06 18:45:00,-1,19
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-05-13 17:15:00,2024-05-13 18:45:00,-1,20
+239.126,Mo.,MZ 003A,,False,False,False,-1,2024-05-27 17:15:00,2024-05-27 18:45:00,-1,22
+239.126,Do.,Zoom,Q&A,False,False,False,-1,2024-06-06 17:15:00,2024-06-06 18:45:00,-1,23
+239.126,Mo.,HS 1,Klausur,True,False,False,-1,2024-06-10 17:15:00,2024-06-10 18:45:00,-1,24
+239.126,Mo.,MZ 003A,Einsicht,False,False,False,-1,2024-06-24 17:15:00,2024-06-24 18:45:00,-1,26
+239.126,Mo.,HS 18,NK,True,False,False,0,2024-07-01 17:15:00,2024-07-01 18:45:00,164,27
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-04-19 12:00:00,2024-04-19 15:15:00,-1,16
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-04-26 12:00:00,2024-04-26 15:15:00,-1,17
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-05-03 12:00:00,2024-05-03 15:15:00,-1,18
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-05-17 12:00:00,2024-05-17 15:15:00,-1,20
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-05-24 12:00:00,2024-05-24 15:15:00,-1,21
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-06-07 12:00:00,2024-06-07 15:15:00,-1,23
+239.300,Fr.,MZ 412A,,False,False,False,-1,2024-06-14 12:00:00,2024-06-14 15:15:00,-1,24
+239.300,Fr.,HS 18,Klausur,True,False,False,0,2024-07-05 12:00:00,2024-07-05 13:30:00,164,27
+239.300,Fr.,HS 3,NK,True,False,False,-1,2024-07-26 12:00:00,2024-07-26 13:30:00,-1,30
+259.002,Di.,HS 18,"Kurs Übersicht, Python Installation",False,False,False,0,2024-03-05 12:00:00,2024-03-05 13:30:00,164,10
+259.002,Di.,HS 18,Einführung in Python + Einfache Programme,False,False,False,0,2024-03-12 12:00:00,2024-03-12 13:30:00,164,11
+259.002,Di.,Virtuell,Video Einheit: Datentypen in Python,False,False,False,-1,2024-03-19 12:00:00,2024-03-19 13:30:00,-1,12
+259.002,Di.,HS 18,"Präsenztermin, Video Einheit: Bedingungen - If/Else",False,False,False,0,2024-04-09 12:00:00,2024-04-09 13:30:00,164,15
+259.002,Di.,Virtuell,Video Einheit: Schleifen,False,False,False,-1,2024-04-16 12:00:00,2024-04-16 13:30:00,-1,16
+259.002,Di.,HS 18,"Präsenztermin, Video Einheit: Collections",False,False,False,0,2024-04-23 12:00:00,2024-04-23 13:30:00,164,17
+259.002,Di.,Virtuell,Video Einheit: Funktionen I,True,False,False,-1,2024-04-30 12:00:00,2024-04-30 13:30:00,-1,18
+259.002,Di.,Virtuell,Video Einheit: Funktionen II,True,False,False,-1,2024-05-07 12:00:00,2024-05-07 13:30:00,-1,19
+259.002,Di.,HS 18,"Präsenztermin, Video Einheit: Dateien, Module, Bibliotheken I",False,False,False,0,2024-05-14 12:00:00,2024-05-14 13:30:00,164,20
+259.002,Di.,Virtuell,Video Einheit: Bibliotheken II,False,False,False,-1,2024-05-28 12:00:00,2024-05-28 13:30:00,-1,22
+259.002,Di.,HS 18,"Präsenztermin, Video Einheit: Bibliotheken III",False,False,False,0,2024-06-04 12:00:00,2024-06-04 13:30:00,164,23
+259.002,Di.,Virtuell,Video Einheit: Objekt-Orientierung,False,False,False,-1,2024-06-11 12:00:00,2024-06-11 13:30:00,-1,24
+259.002,Di.,HS 18,"Präsenztermin, Video Einheit: Einführung in Java",False,False,False,0,2024-06-18 12:00:00,2024-06-18 13:30:00,164,25
+259.002,Di.,"LP B045, LP B13",Klausur,True,False,False,-1,2024-06-25 12:00:00,2024-06-25 13:30:00,-1,26
+243.115,Mo.,HS 2,,False,False,False,-1,2024-03-04 08:30:00,2024-03-04 11:45:00,-1,10
+243.115,Fr.,HS 18,,False,False,False,0,2024-03-08 08:30:00,2024-03-08 11:45:00,164,10
+243.115,Mo.,HS 2,,False,False,False,-1,2024-03-11 08:30:00,2024-03-11 11:45:00,-1,11
+243.115,Mo.,HS 2,,False,False,False,-1,2024-03-18 08:30:00,2024-03-18 11:45:00,-1,12
+243.115,Fr.,HS 18,,False,False,False,0,2024-03-22 08:30:00,2024-03-22 11:45:00,164,12
+243.115,Mo.,HS 2,,False,False,False,-1,2024-04-08 08:30:00,2024-04-08 11:45:00,-1,15
+243.115,Fr.,HS 18,,False,False,False,0,2024-04-12 08:30:00,2024-04-12 11:45:00,164,15
+243.115,Mo.,HS 2,,False,False,False,-1,2024-04-15 08:30:00,2024-04-15 11:45:00,-1,16
+243.115,Fr.,HS 18,,False,False,False,0,2024-04-19 08:30:00,2024-04-19 11:45:00,164,16
+243.115,Mo.,HS 2,,False,False,False,-1,2024-04-22 08:30:00,2024-04-22 11:45:00,-1,17
+243.115,Mo.,HS 2,,False,False,False,-1,2024-04-29 08:30:00,2024-04-29 11:45:00,-1,18
+243.115,Fr.,HS 18,,False,False,False,0,2024-05-03 08:30:00,2024-05-03 11:45:00,164,18
+243.115,Mo.,HS 2,,False,False,False,-1,2024-05-06 08:30:00,2024-05-06 11:45:00,-1,19
+243.115,Mo.,HS 2,,False,False,False,-1,2024-05-13 08:30:00,2024-05-13 11:45:00,-1,20
+243.115,Fr.,HS 18,,False,False,False,0,2024-05-17 08:30:00,2024-05-17 11:45:00,164,20
+243.115,Mo.,HS 2,,False,False,False,-1,2024-05-27 08:30:00,2024-05-27 11:45:00,-1,22
+243.115,Mo.,HS 2,,False,False,False,-1,2024-06-03 08:30:00,2024-06-03 11:45:00,-1,23
+243.115,Di.,HS 15,,False,False,False,-1,2024-06-04 15:30:00,2024-06-04 17:00:00,-1,23
+243.115,Di.,BA 9911,,False,False,False,-1,2024-06-04 17:15:00,2024-06-04 18:45:00,-1,23
+243.115,Do.,HS 15,,False,False,False,-1,2024-06-06 15:30:00,2024-06-06 18:45:00,-1,23
+243.115,Fr.,HS 16,Klausur,True,False,False,-1,2024-06-07 13:45:00,2024-06-07 15:15:00,-1,23
+243.115,Di.,HS 8,,False,False,False,-1,2024-09-17 15:30:00,2024-09-17 18:45:00,-1,38
+243.115,Mi.,HS 8,,False,False,False,-1,2024-09-18 15:30:00,2024-09-18 18:45:00,-1,38
+243.115,Fr.,HS 16,Nachklausur,True,False,False,-1,2024-09-20 13:45:00,2024-09-20 15:15:00,-1,38
+325.004,Mi.,HS 18,,False,False,False,0,2024-03-06 10:15:00,2024-03-06 11:45:00,164,10
+325.004,Mi.,HS 18,,False,False,False,0,2024-03-13 10:15:00,2024-03-13 11:45:00,164,11
+325.004,Mi.,HS 18,,False,False,False,0,2024-03-20 10:15:00,2024-03-20 11:45:00,164,12
+325.004,Mi.,HS 18,,False,False,False,0,2024-04-10 10:15:00,2024-04-10 11:45:00,164,15
+325.004,Mi.,HS 18,,False,False,False,0,2024-04-17 10:15:00,2024-04-17 11:45:00,164,16
+325.004,Mi.,HS 18,,False,False,False,0,2024-04-24 10:15:00,2024-04-24 11:45:00,164,17
+325.004,Mi.,HS 18,,False,False,False,0,2024-05-08 10:15:00,2024-05-08 11:45:00,164,19
+325.004,Mi.,HS 18,,False,False,False,0,2024-05-15 10:15:00,2024-05-15 11:45:00,164,20
+325.004,Mi.,HS 18,,False,False,False,0,2024-05-22 10:15:00,2024-05-22 11:45:00,164,21
+325.004,Mi.,HS 18,,False,False,False,0,2024-05-29 10:15:00,2024-05-29 11:45:00,164,22
+325.004,Mi.,HS 18,,False,False,False,0,2024-06-05 10:15:00,2024-06-05 11:45:00,164,23
+325.004,Mi.,HS 18,,False,False,False,0,2024-06-12 10:15:00,2024-06-12 11:45:00,164,24
+325.004,Mi.,HS 18,,False,False,False,0,2024-06-19 10:15:00,2024-06-19 11:45:00,164,25
+325.004,Mi.,BA 9911,,False,False,False,-1,2024-06-26 10:15:00,2024-06-26 11:45:00,-1,26
+325.004,Di.,HS 18,Klausur,True,False,False,0,2024-07-09 08:30:00,2024-07-09 10:00:00,164,28
+325.004,Di.,HS 16,Klausur,True,False,False,-1,2024-09-24 10:15:00,2024-09-24 11:45:00,-1,39
+325.004,Mi.,K 153C,Klausur,True,False,False,-1,2024-10-30 08:30:00,2024-10-30 10:00:00,-1,44
+362.064,Mo.,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 14:30:00,-1,10
+362.064,Fr.,MT 226,Magnetkreis 1 (Dobler),True,False,False,-1,2024-03-15 08:30:00,2024-03-15 10:00:00,-1,11
+362.064,Fr.,MT 226,Magnetkreis 2 (Dobler),True,False,False,-1,2024-03-22 08:30:00,2024-03-22 10:00:00,-1,12
+362.064,Fr.,MT 226,Gleichstrommaschine 1 (Weissitsch),False,False,False,-1,2024-04-12 08:30:00,2024-04-12 10:00:00,-1,15
+362.064,Fr.,MT 226,Gleichstrommaschine 2 (Weissitsch),False,False,False,-1,2024-04-19 08:30:00,2024-04-19 10:00:00,-1,16
+362.064,Fr.,HS 19,Tutorium 1. TK,True,False,True,1,2024-04-26 10:15:00,2024-04-26 11:45:00,152,17
+362.064,Mo.,S2 048,Sprechstunde 1. TK,True,False,True,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+362.064,Sa.,HS 1,1. TK,True,False,False,-1,2024-05-04 09:15:00,2024-05-04 11:45:00,-1,18
+362.064,Fr.,MT 226,Asynchronmaschine 1 (Mallinger),False,False,False,-1,2024-05-10 08:30:00,2024-05-10 10:00:00,-1,19
+362.064,Fr.,MT 226,Asynchronmaschine 2 (Mallinger),False,False,False,-1,2024-05-17 08:30:00,2024-05-17 10:00:00,-1,20
+362.064,Fr.,HS 19,Synchronmaschine 1 (Krainer),False,False,False,1,2024-05-24 08:30:00,2024-05-24 10:00:00,152,21
+362.064,Fr.,K 033C,Asynchronmaschine 2 Ersatztermin (Mallinger),False,False,False,-1,2024-05-31 08:30:00,2024-05-31 11:00:00,-1,22
+362.064,Fr.,MT 226,Synchronmaschine 2 (Krainer),False,False,False,-1,2024-06-07 08:30:00,2024-06-07 10:00:00,-1,23
+362.064,Fr.,HS 19,Tutorium 2. TK,True,False,True,1,2024-06-14 10:15:00,2024-06-14 11:45:00,152,24
+362.064,Mo.,S2 048,Sprechstunde 2. TK,True,False,True,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+362.064,Sa.,HS 1,2. TK,True,False,False,-1,2024-06-22 09:15:00,2024-06-22 11:45:00,-1,25
+362.064,Fr.,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True,0,2024-09-20 09:15:00,2024-09-20 11:45:00,164,38
+362.064,Sa.,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False,-1,2024-09-28 09:15:00,2024-09-28 11:45:00,-1,39
+362.065,Mo.,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 14:15:00,-1,10
+362.065,Fr.,MT 226,Magnetkreis 1 (Dobler),True,False,False,-1,2024-03-15 10:15:00,2024-03-15 11:45:00,-1,11
+362.065,Fr.,MT 226,Magnetkreis 2 (Dobler),True,False,False,-1,2024-03-22 10:15:00,2024-03-22 11:45:00,-1,12
+362.065,Fr.,MT 226,Gleichstrommaschine 1 (Weissitsch),False,False,False,-1,2024-04-12 10:15:00,2024-04-12 11:45:00,-1,15
+362.065,Fr.,MT 226,Gleichstrommaschine 2 (Weissitsch),False,False,False,-1,2024-04-19 10:15:00,2024-04-19 11:45:00,-1,16
+362.065,Fr.,HS 19,Tutorium 1. TK,True,False,True,1,2024-04-26 10:15:00,2024-04-26 11:45:00,152,17
+362.065,Mo.,S2 048,Sprechstunde 1. TK,True,False,True,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+362.065,Sa.,HS 1,1. TK,True,False,False,-1,2024-05-04 09:15:00,2024-05-04 11:45:00,-1,18
+362.065,Fr.,MT 226,Asynchronmaschine 1 (Mallinger),False,False,False,-1,2024-05-10 10:15:00,2024-05-10 11:45:00,-1,19
+362.065,Fr.,MT 226,Asynchronmaschine 2 (Mallinger),False,False,False,-1,2024-05-17 10:15:00,2024-05-17 11:45:00,-1,20
+362.065,Fr.,HS 19,Synchronmaschine 1 (Krainer),False,False,False,1,2024-05-24 10:15:00,2024-05-24 11:45:00,152,21
+362.065,Fr.,K 033C,Asynchronmaschine 2 Ersatztermin (Mallinger),False,False,False,-1,2024-05-31 08:30:00,2024-05-31 11:00:00,-1,22
+362.065,Fr.,MT 226,Synchronmaschine 2 (Krainer),False,False,False,-1,2024-06-07 10:15:00,2024-06-07 11:45:00,-1,23
+362.065,Fr.,HS 19,Tutorium 2. TK,True,False,True,1,2024-06-14 10:15:00,2024-06-14 11:45:00,152,24
+362.065,Mo.,S2 048,Sprechstunde 2. TK,True,False,True,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+362.065,Sa.,HS 1,2. TK,True,False,False,-1,2024-06-22 09:15:00,2024-06-22 11:45:00,-1,25
+362.065,Fr.,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True,0,2024-09-20 09:15:00,2024-09-20 11:45:00,164,38
+362.065,Sa.,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False,-1,2024-09-28 09:15:00,2024-09-28 11:45:00,-1,39
+362.066,Mo.,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 14:30:00,-1,10
+362.066,Fr.,MT 226,Magnetkreis 1 (Dobler),True,False,False,-1,2024-03-15 12:45:00,2024-03-15 14:30:00,-1,11
+362.066,Fr.,MT 226,Magnetkreis 2 (Dobler),True,False,False,-1,2024-03-22 12:45:00,2024-03-22 14:30:00,-1,12
+362.066,Fr.,MT 226,Gleichstrommaschine 1 (Weissitsch),False,False,False,-1,2024-04-12 12:45:00,2024-04-12 14:30:00,-1,15
+362.066,Fr.,MT 226,Gleichstrommaschine 2 (Weissitsch),False,False,False,-1,2024-04-19 12:45:00,2024-04-19 14:30:00,-1,16
+362.066,Fr.,HS 19,Tutorium 1. TK,True,False,True,1,2024-04-26 10:15:00,2024-04-26 11:45:00,152,17
+362.066,Mo.,S2 048,Sprechstunde 1. TK,True,False,True,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+362.066,Sa.,HS 1,1. TK,True,False,False,-1,2024-05-04 09:15:00,2024-05-04 11:45:00,-1,18
+362.066,Fr.,MT 226,Asynchronmaschine 1 (Mallinger),False,False,False,-1,2024-05-10 12:45:00,2024-05-10 14:30:00,-1,19
+362.066,Fr.,MT 226,Asynchronmaschine 2 (Mallinger),False,False,False,-1,2024-05-17 12:45:00,2024-05-17 14:30:00,-1,20
+362.066,Fr.,HS 19,Synchronmaschine 1 (Krainer),False,False,False,1,2024-05-24 12:45:00,2024-05-24 14:30:00,152,21
+362.066,Fr.,K 033C,Asynchronmaschine 2 Ersatztermin (Mallinger),False,False,False,-1,2024-05-31 08:30:00,2024-05-31 11:00:00,-1,22
+362.066,Fr.,MT 226,Synchronmaschine 2 (Krainer),False,False,False,-1,2024-06-07 12:45:00,2024-06-07 14:30:00,-1,23
+362.066,Fr.,HS 19,Tutorium 2. TK,True,False,True,1,2024-06-14 10:15:00,2024-06-14 11:45:00,152,24
+362.066,Mo.,S2 048,Sprechstunde 2.TK,True,False,True,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+362.066,Sa.,HS 1,2. TK,True,False,False,-1,2024-06-22 09:15:00,2024-06-22 11:45:00,-1,25
+362.066,Fr.,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True,0,2024-09-20 09:15:00,2024-09-20 11:45:00,164,38
+362.066,Sa.,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False,-1,2024-09-28 09:15:00,2024-09-28 11:45:00,-1,39
+362.068,Mo.,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 14:30:00,-1,10
+362.068,Mo.,S2 048,Magnetkreis 1 (Dobler),True,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+362.068,Mo.,S2 048,Magnetkreis 2 (Dobler),True,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+362.068,Mo.,S2 048,Gleichstrommaschine 1 (Weissitsch),False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+362.068,Mo.,S2 048,Gleichstrommaschine 2 (Weissitsch),False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+362.068,Fr.,HS 19,Tutorium 1. TK,True,False,True,1,2024-04-26 10:15:00,2024-04-26 11:45:00,152,17
+362.068,Mo.,S2 048,Sprechstunde 1. TK,True,False,True,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+362.068,Sa.,HS 1,1. TK,True,False,False,-1,2024-05-04 09:15:00,2024-05-04 11:45:00,-1,18
+362.068,Mo.,S2 048,Asynchronmaschine 1 (Mallinger),False,False,False,-1,2024-05-13 10:15:00,2024-05-13 11:45:00,-1,20
+362.068,Mo.,S2 048,Asynchronmaschine 2 (Mallinger),False,False,False,-1,2024-05-27 10:15:00,2024-05-27 11:45:00,-1,22
+362.068,Mo.,S2 048,Synchronmaschine 1 (Krainer),False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+362.068,Mo.,S2 048,Synchronmaschine 2 (Krainer),False,False,False,-1,2024-06-10 10:15:00,2024-06-10 11:45:00,-1,24
+362.068,Fr.,HS 19,Tutorium 2. TK,True,False,True,1,2024-06-14 10:15:00,2024-06-14 11:45:00,152,24
+362.068,Mo.,S2 048,Sprechstunde 2. TK,True,False,True,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+362.068,Sa.,HS 1,2. TK,True,False,False,-1,2024-06-22 09:15:00,2024-06-22 11:45:00,-1,25
+362.068,Fr.,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True,0,2024-09-20 09:15:00,2024-09-20 11:45:00,164,38
+362.068,Sa.,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False,-1,2024-09-28 09:15:00,2024-09-28 11:45:00,-1,39
+362.073,Mo.,K 033C,Einführungsveranstaltung: Vorstellung der im SS24 angebotenen LVAs und ausgewählter BA/MA-Arbeitsthemen.,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 14:30:00,-1,10
+362.073,Mo.,S2 048,Magnetkreis 1 (Dobler),True,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+362.073,Mo.,S2 048,Magnetkreis 2 (Dobler),True,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+362.073,Mo.,S2 048,Gleichstrommaschine 1 (Weissitsch),False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+362.073,Mo.,S2 048,Gleichstrommaschine 2 (Weissitsch),False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+362.073,Fr.,HS 19,Tutorium 1. TK,True,False,True,1,2024-04-26 10:15:00,2024-04-26 11:45:00,152,17
+362.073,Mo.,S2 048,Sprechstunde 1. TK,True,False,True,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+362.073,Sa.,HS 1,1. TK,True,False,False,-1,2024-05-04 09:15:00,2024-05-04 11:45:00,-1,18
+362.073,Mo.,S2 048,Asynchronmaschine 1 (Mallinger),False,False,False,-1,2024-05-13 10:15:00,2024-05-13 11:45:00,-1,20
+362.073,Mo.,S2 048,Asynchronmaschine 2 (Mallinger),False,False,False,-1,2024-05-27 10:15:00,2024-05-27 11:45:00,-1,22
+362.073,Mo.,S2 048,Synchronmaschine 1 (Krainer),False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+362.073,Mo.,S2 048,Synchronmaschine 2 (Krainer),False,False,False,-1,2024-06-10 10:15:00,2024-06-10 11:45:00,-1,24
+362.073,Fr.,HS 19,Tutorium 2. TK,True,False,True,1,2024-06-14 10:15:00,2024-06-14 11:45:00,152,24
+362.073,Mo.,S2 048,Sprechstunde 2. TK,True,False,True,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+362.073,Sa.,HS 1,2. TK,True,False,False,-1,2024-06-22 09:15:00,2024-06-22 11:45:00,-1,25
+362.073,Fr.,HS 18,"Tutorium 3. TK (findet NICHT im HS 18 statt, sondern über ZOOM, Zugangsdaten im MOODLE)",True,False,True,0,2024-09-20 09:15:00,2024-09-20 11:45:00,164,38
+362.073,Sa.,HS 1,Nachtest (Gesamter Lehrinhalt),False,True,False,-1,2024-09-28 09:15:00,2024-09-28 11:45:00,-1,39
+340.400,Di.,HS 18,,False,False,False,0,2024-03-05 15:30:00,2024-03-05 17:00:00,164,10
+340.400,Di.,HS 18,,False,False,False,0,2024-03-12 15:30:00,2024-03-12 17:00:00,164,11
+340.400,Di.,Video,,False,False,False,-1,2024-03-19 15:30:00,2024-03-19 17:00:00,-1,12
+340.400,Di.,HS 18,,False,False,False,0,2024-04-09 15:30:00,2024-04-09 17:00:00,164,15
+340.400,Di.,HS 18,,False,False,False,0,2024-04-16 15:30:00,2024-04-16 17:00:00,164,16
+340.400,Di.,HS 18,,False,False,False,0,2024-04-23 15:30:00,2024-04-23 17:00:00,164,17
+340.400,Di.,Video,,False,False,False,-1,2024-04-30 15:30:00,2024-04-30 17:00:00,-1,18
+340.400,Di.,HS 18,,False,False,False,0,2024-05-07 15:30:00,2024-05-07 17:00:00,164,19
+340.400,Di.,HS 18,,False,False,False,0,2024-05-14 15:30:00,2024-05-14 17:00:00,164,20
+340.400,Di.,HS 18,,False,False,False,0,2024-05-28 15:30:00,2024-05-28 17:00:00,164,22
+340.400,Di.,HS 18,,False,False,False,0,2024-06-11 15:30:00,2024-06-11 17:00:00,164,24
+340.400,Di.,HS 18,,False,False,False,0,2024-06-18 15:30:00,2024-06-18 17:00:00,164,25
+340.400,Do.,HS 16,Exam (A-O),True,False,False,-1,2024-06-27 12:00:00,2024-06-27 13:30:00,-1,26
+340.400,Do.,HS 7,Exam (P-Z),True,False,False,-1,2024-06-27 12:00:00,2024-06-27 13:30:00,-1,26
+340.400,Mo.,HS 7,Retry 1,False,False,False,-1,2024-09-30 08:30:00,2024-09-30 10:00:00,-1,40
+340.400,Do.,HS 1,Retry 2,False,False,False,-1,2024-11-21 08:30:00,2024-11-21 10:00:00,-1,47
+346.202,Di.,HS 12,Preliminary Discussion (presence is mandatory!),False,False,False,-1,2024-03-05 09:15:00,2024-03-05 10:00:00,-1,10
+346.202,Fr.,P 215,Tutorium Exercise Sheet 1,False,False,True,-1,2024-03-08 13:45:00,2024-03-08 14:30:00,-1,10
+346.202,Mo.,T 911,Tutorium Exercise Sheet 1,False,False,True,-1,2024-03-11 12:00:00,2024-03-11 12:45:00,-1,11
+346.202,Di.,T 911,Exercise 1,False,False,False,-1,2024-03-12 08:30:00,2024-03-12 09:15:00,-1,11
+346.202,Fr.,P 215,Tutorium Exercise Sheet 2,False,False,True,-1,2024-03-22 13:45:00,2024-03-22 14:30:00,-1,12
+346.202,Mo.,T 911,Tutorium Exercise Sheet 2,False,False,True,-1,2024-04-08 12:00:00,2024-04-08 12:45:00,-1,15
+346.202,Di.,T 911,Exercise 2,False,False,False,-1,2024-04-09 08:30:00,2024-04-09 09:15:00,-1,15
+346.202,Fr.,P 215,Tutorium Exercise Sheet 3,False,False,True,-1,2024-04-12 13:45:00,2024-04-12 14:30:00,-1,15
+346.202,Mo.,T 911,Tutorium Exercise Sheet 3,False,False,True,-1,2024-04-15 12:00:00,2024-04-15 12:45:00,-1,16
+346.202,Di.,T 911,Exercise 3,False,False,False,-1,2024-04-16 08:30:00,2024-04-16 09:15:00,-1,16
+346.202,Fr.,P 215,Tutorium Exercise Sheet 4,False,False,True,-1,2024-04-19 13:45:00,2024-04-19 14:30:00,-1,16
+346.202,Mo.,T 911,Tutorium Exercise Sheet 4,False,False,True,-1,2024-04-22 12:00:00,2024-04-22 12:45:00,-1,17
+346.202,Di.,T 911,Exercise 4,False,False,False,-1,2024-04-23 08:30:00,2024-04-23 09:15:00,-1,17
+346.202,Fr.,P 215,Tutorium Exercise Sheet 5,False,False,True,-1,2024-04-26 13:45:00,2024-04-26 14:30:00,-1,17
+346.202,Mo.,T 911,Tutorium Exercise Sheet 5,False,False,True,-1,2024-04-29 12:00:00,2024-04-29 12:45:00,-1,18
+346.202,Di.,T 911,Exercise 5,False,False,False,-1,2024-04-30 08:30:00,2024-04-30 09:15:00,-1,18
+346.202,Fr.,HF 9904,Tutorium Exercise Sheet 6,False,False,True,-1,2024-05-03 09:15:00,2024-05-03 10:00:00,-1,18
+346.202,Mo.,HS 12,Tutorium Exercise Sheet 6,False,False,True,-1,2024-05-06 09:15:00,2024-05-06 10:00:00,-1,19
+346.202,Di.,T 911,Exercise 6,False,False,False,-1,2024-05-07 08:30:00,2024-05-07 09:15:00,-1,19
+346.202,Mo.,HS 12,Tutorium Exercise Sheet 7,False,False,True,-1,2024-05-13 09:15:00,2024-05-13 10:00:00,-1,20
+346.202,Di.,T 911,Exercise 7,False,False,False,-1,2024-05-14 08:30:00,2024-05-14 09:15:00,-1,20
+346.202,Fr.,HF 9904,Tutorium Exercise Sheet 8,False,False,True,-1,2024-05-17 09:15:00,2024-05-17 10:00:00,-1,20
+346.202,Mo.,HS 12,Tutorium Exercise Sheet 8,False,False,True,-1,2024-05-27 09:15:00,2024-05-27 10:00:00,-1,22
+346.202,Di.,T 911,Exercise 8,False,False,False,-1,2024-05-28 08:30:00,2024-05-28 09:15:00,-1,22
+346.202,Mo.,HS 12,Tutorium Exercise Sheet 9,False,False,True,-1,2024-06-03 09:15:00,2024-06-03 10:00:00,-1,23
+346.202,Di.,T 911,Exercise 9,False,False,False,-1,2024-06-04 08:30:00,2024-06-04 09:15:00,-1,23
+346.202,Mo.,HS 12,Tutorium Exercise Sheet 10,False,False,True,-1,2024-06-10 09:15:00,2024-06-10 10:00:00,-1,24
+346.202,Di.,T 911,Exercise 10,False,False,False,-1,2024-06-11 08:30:00,2024-06-11 09:15:00,-1,24
+346.202,Mo.,HS 12,Tutorium Exercise Sheet 11,False,False,True,-1,2024-06-17 09:15:00,2024-06-17 10:00:00,-1,25
+346.202,Di.,T 911,Exercise 11,False,False,False,-1,2024-06-18 08:30:00,2024-06-18 09:15:00,-1,25
+346.202,Do.,HS 10,Tutorium - Calculation of the Trial Exam (Probeklausur zur Abschlußklausur),True,False,True,-1,2024-06-20 08:30:00,2024-06-20 11:00:00,-1,25
+346.202,Di.,HS 18,Final Exam,True,False,False,0,2024-07-02 12:00:00,2024-07-02 14:00:00,164,27
+346.202,Do.,HS 5,Catch-up Exam,True,False,False,-1,2024-10-03 15:30:00,2024-10-03 18:00:00,-1,40
+346.203,Di.,HS 12,Preliminary Discussion (presence is mandatory!),False,False,False,-1,2024-03-05 09:15:00,2024-03-05 10:00:00,-1,10
+346.203,Fr.,P 215,Tutorium Exercise Sheet 1,False,False,True,-1,2024-03-08 13:45:00,2024-03-08 14:30:00,-1,10
+346.203,Mo.,T 911,Tutorium Exercise Sheet 1,False,False,True,-1,2024-03-11 12:00:00,2024-03-11 12:45:00,-1,11
+346.203,Di.,T 911,Exercise 1,False,False,False,-1,2024-03-12 09:15:00,2024-03-12 10:00:00,-1,11
+346.203,Fr.,P 215,Tutorium Exercise Sheet 2,False,False,True,-1,2024-03-22 13:45:00,2024-03-22 14:30:00,-1,12
+346.203,Mo.,T 911,Tutorium Exercise Sheet 2,False,False,True,-1,2024-04-08 12:00:00,2024-04-08 12:45:00,-1,15
+346.203,Di.,T 911,Exercise 2,False,False,False,-1,2024-04-09 09:15:00,2024-04-09 10:00:00,-1,15
+346.203,Fr.,P 215,Tutorium Exercise Sheet 3,False,False,True,-1,2024-04-12 13:45:00,2024-04-12 14:30:00,-1,15
+346.203,Mo.,T 911,Tutorium Exercise Sheet 3,False,False,True,-1,2024-04-15 12:00:00,2024-04-15 12:45:00,-1,16
+346.203,Di.,T 911,Exercise 3,False,False,False,-1,2024-04-16 09:15:00,2024-04-16 10:00:00,-1,16
+346.203,Fr.,P 215,Tutorium Exercise Sheet 4,False,False,True,-1,2024-04-19 13:45:00,2024-04-19 14:30:00,-1,16
+346.203,Mo.,T 911,Tutorium Exercise Sheet 4,False,False,True,-1,2024-04-22 12:00:00,2024-04-22 12:45:00,-1,17
+346.203,Di.,T 911,Exercise 4,False,False,False,-1,2024-04-23 09:15:00,2024-04-23 10:00:00,-1,17
+346.203,Fr.,P 215,Tutorium Exercise Sheet 5,False,False,True,-1,2024-04-26 13:45:00,2024-04-26 14:30:00,-1,17
+346.203,Mo.,T 911,Tutorium Exercise Sheet 5,False,False,True,-1,2024-04-29 12:00:00,2024-04-29 12:45:00,-1,18
+346.203,Di.,T 911,Exercise 5,False,False,False,-1,2024-04-30 09:15:00,2024-04-30 10:00:00,-1,18
+346.203,Fr.,HF 9904,Tutorium Exercise Sheet 6,False,False,True,-1,2024-05-03 09:15:00,2024-05-03 10:00:00,-1,18
+346.203,Mo.,HS 12,Tutorium Exercise Sheet 6,False,False,True,-1,2024-05-06 09:15:00,2024-05-06 10:00:00,-1,19
+346.203,Di.,T 911,Exercise 6,False,False,False,-1,2024-05-07 09:15:00,2024-05-07 10:00:00,-1,19
+346.203,Mo.,HS 12,Tutorium Exercise Sheet 7,False,False,True,-1,2024-05-13 09:15:00,2024-05-13 10:00:00,-1,20
+346.203,Di.,T 911,Exercise 7,False,False,False,-1,2024-05-14 09:15:00,2024-05-14 10:00:00,-1,20
+346.203,Fr.,HF 9904,Tutorium Exercise Sheet 8,False,False,True,-1,2024-05-17 09:15:00,2024-05-17 10:00:00,-1,20
+346.203,Mo.,HS 12,Tutorium Exercise Sheet 8,False,False,True,-1,2024-05-27 09:15:00,2024-05-27 10:00:00,-1,22
+346.203,Di.,T 911,Exercise 8,False,False,False,-1,2024-05-28 09:15:00,2024-05-28 10:00:00,-1,22
+346.203,Mo.,HS 12,Tutorium Exercise Sheet 9,False,False,True,-1,2024-06-03 09:15:00,2024-06-03 10:00:00,-1,23
+346.203,Di.,T 911,Exercise 9,False,False,False,-1,2024-06-04 09:15:00,2024-06-04 10:00:00,-1,23
+346.203,Mo.,HS 12,Tutorium Exercise Sheet 10,False,False,True,-1,2024-06-10 09:15:00,2024-06-10 10:00:00,-1,24
+346.203,Di.,T 911,Exercise 10,False,False,False,-1,2024-06-11 09:15:00,2024-06-11 10:00:00,-1,24
+346.203,Mo.,HS 12,Tutorium Exercise Sheet 11,False,False,True,-1,2024-06-17 09:15:00,2024-06-17 10:00:00,-1,25
+346.203,Di.,T 911,Exercise 11,False,False,False,-1,2024-06-18 09:15:00,2024-06-18 10:00:00,-1,25
+346.203,Do.,HS 10,Tutorium - Calculation of the Trial Exam (Probeklausur zur Abschlußklausur),True,False,True,-1,2024-06-20 08:30:00,2024-06-20 11:00:00,-1,25
+346.203,Di.,HS 18,Final Exam,True,False,False,0,2024-07-02 12:00:00,2024-07-02 14:00:00,164,27
+346.203,Do.,HS 5,Catch-up Exam,True,False,False,-1,2024-10-03 15:30:00,2024-10-03 18:00:00,-1,40
+531.240,Do.,HS 19,,False,False,False,1,2024-03-07 13:45:00,2024-03-07 14:30:00,152,10
+531.240,Do.,HS 19,,False,False,False,1,2024-03-07 14:30:00,2024-03-07 15:15:00,152,10
+531.240,Do.,HS 19,,False,False,False,1,2024-03-14 13:45:00,2024-03-14 14:30:00,152,11
+531.240,Do.,HS 19,,False,False,False,1,2024-03-14 14:30:00,2024-03-14 15:15:00,152,11
+531.240,Di.,PHDL/AS12,GAM,False,False,False,-1,2024-03-19 11:00:00,2024-03-19 13:35:00,-1,12
+531.240,Do.,HS 19,,False,False,False,1,2024-03-21 13:45:00,2024-03-21 14:30:00,152,12
+531.240,Do.,HS 19,,False,False,False,1,2024-03-21 14:30:00,2024-03-21 15:15:00,152,12
+531.240,Di.,PHDL/AS12,GAM,False,False,False,-1,2024-04-09 11:00:00,2024-04-09 13:35:00,-1,15
+531.240,Do.,HS 19,,False,False,False,1,2024-04-11 13:45:00,2024-04-11 14:30:00,152,15
+531.240,Do.,HS 19,,False,False,False,1,2024-04-11 14:30:00,2024-04-11 15:15:00,152,15
+531.240,Do.,HS 19,,False,False,False,1,2024-04-18 13:45:00,2024-04-18 14:30:00,152,16
+531.240,Do.,HS 19,,False,False,False,1,2024-04-18 14:30:00,2024-04-18 15:15:00,152,16
+531.240,Do.,HS 19,,False,False,False,1,2024-04-25 13:45:00,2024-04-25 14:30:00,152,17
+531.240,Do.,HS 19,,False,False,False,1,2024-04-25 14:30:00,2024-04-25 15:15:00,152,17
+531.240,Di.,PHDL/AS12,GAM,False,False,False,-1,2024-04-30 11:00:00,2024-04-30 13:35:00,-1,18
+531.240,Do.,HS 19,,False,False,False,1,2024-05-02 13:45:00,2024-05-02 14:30:00,152,18
+531.240,Do.,HS 19,"1. Test, Nachname A - R",False,True,False,1,2024-05-02 14:30:00,2024-05-02 15:15:00,152,18
+531.240,Di.,PHDL/AS12,GAM,False,False,False,-1,2024-05-14 11:00:00,2024-05-14 13:35:00,-1,20
+531.240,Do.,HS 19,,False,False,False,1,2024-05-16 13:45:00,2024-05-16 14:30:00,152,20
+531.240,Do.,HS 19,,False,False,False,1,2024-05-16 14:30:00,2024-05-16 15:15:00,152,20
+531.240,Do.,HS 19,,False,False,False,1,2024-05-23 13:45:00,2024-05-23 14:30:00,152,21
+531.240,Do.,HS 19,,False,False,False,1,2024-05-23 14:30:00,2024-05-23 15:15:00,152,21
+531.240,Do.,HS 18,1. Nachtest,False,True,False,0,2024-05-23 15:30:00,2024-05-23 16:15:00,164,21
+531.240,Di.,PHDL/AS12,GAM,False,False,False,-1,2024-06-04 11:00:00,2024-06-04 13:35:00,-1,23
+531.240,Do.,HS 19,,False,False,False,1,2024-06-06 13:45:00,2024-06-06 14:30:00,152,23
+531.240,Do.,HS 19,,False,False,False,1,2024-06-06 14:30:00,2024-06-06 15:15:00,152,23
+531.240,Do.,HS 19,,False,False,False,1,2024-06-13 13:45:00,2024-06-13 14:30:00,152,24
+531.240,Do.,HS 19,,False,False,False,1,2024-06-13 14:30:00,2024-06-13 15:15:00,152,24
+531.240,Do.,HS 19,,False,False,False,1,2024-06-20 13:45:00,2024-06-20 14:30:00,152,25
+531.240,Do.,HS 19,,False,False,False,1,2024-06-20 14:30:00,2024-06-20 15:15:00,152,25
+531.240,Do.,HS 19,2. Test,False,True,False,1,2024-06-27 13:45:00,2024-06-27 14:30:00,152,26
+531.240,Do.,HS 17,2. Test,False,True,False,-1,2024-06-27 13:45:00,2024-06-27 14:30:00,-1,26
+531.240,Do.,HS 19,2. Nachtest,False,True,False,1,2024-07-11 13:45:00,2024-07-11 14:30:00,152,28
+531.241,Do.,HS 19,,False,False,False,1,2024-03-07 13:45:00,2024-03-07 14:30:00,152,10
+531.241,Do.,HS 19,,False,False,False,1,2024-03-07 14:30:00,2024-03-07 15:15:00,152,10
+531.241,Do.,HS 19,,False,False,False,1,2024-03-14 13:45:00,2024-03-14 14:30:00,152,11
+531.241,Do.,S2 044,,False,False,False,-1,2024-03-14 14:30:00,2024-03-14 15:15:00,-1,11
+531.241,Mi.,S2 048,GAM,False,False,False,-1,2024-03-20 12:45:00,2024-03-20 15:15:00,-1,12
+531.241,Do.,HS 19,,False,False,False,1,2024-03-21 13:45:00,2024-03-21 14:30:00,152,12
+531.241,Do.,S2 044,,False,False,False,-1,2024-03-21 14:30:00,2024-03-21 15:15:00,-1,12
+531.241,Do.,HS 19,,False,False,False,1,2024-04-11 13:45:00,2024-04-11 14:30:00,152,15
+531.241,Do.,S2 044,,False,False,False,-1,2024-04-11 14:30:00,2024-04-11 15:15:00,-1,15
+531.241,Mi.,S2 048,GAM,False,False,False,-1,2024-04-17 12:45:00,2024-04-17 15:15:00,-1,16
+531.241,Do.,HS 19,,False,False,False,1,2024-04-18 13:45:00,2024-04-18 14:30:00,152,16
+531.241,Do.,S2 044,,False,False,False,-1,2024-04-18 14:30:00,2024-04-18 15:15:00,-1,16
+531.241,Do.,HS 19,,False,False,False,1,2024-04-25 13:45:00,2024-04-25 14:30:00,152,17
+531.241,Do.,S2 044,,False,False,False,-1,2024-04-25 14:30:00,2024-04-25 15:15:00,-1,17
+531.241,Do.,HS 19,,False,False,False,1,2024-05-02 13:45:00,2024-05-02 14:30:00,152,18
+531.241,Do.,S2 044,"1. Test, Nachname mit S",False,True,False,-1,2024-05-02 14:30:00,2024-05-02 15:15:00,-1,18
+531.241,Mi.,S2 048,GAM,False,False,False,-1,2024-05-08 12:45:00,2024-05-08 15:15:00,-1,19
+531.241,Do.,HS 19,,False,False,False,1,2024-05-16 13:45:00,2024-05-16 14:30:00,152,20
+531.241,Do.,S2 044,,False,False,False,-1,2024-05-16 14:30:00,2024-05-16 15:15:00,-1,20
+531.241,Mi.,S2 048,GAM,False,False,False,-1,2024-05-22 12:45:00,2024-05-22 15:15:00,-1,21
+531.241,Do.,HS 19,,False,False,False,1,2024-05-23 13:45:00,2024-05-23 14:30:00,152,21
+531.241,Do.,S2 044,,False,False,False,-1,2024-05-23 14:30:00,2024-05-23 15:15:00,-1,21
+531.241,Do.,HS 18,1. Nachtest,False,True,False,0,2024-05-23 15:30:00,2024-05-23 16:15:00,164,21
+531.241,Mi.,S2 048,GAM,False,False,False,-1,2024-06-05 12:45:00,2024-06-05 15:15:00,-1,23
+531.241,Do.,HS 19,,False,False,False,1,2024-06-06 13:45:00,2024-06-06 14:30:00,152,23
+531.241,Do.,S2 044,,False,False,False,-1,2024-06-06 14:30:00,2024-06-06 15:15:00,-1,23
+531.241,Do.,HS 19,,False,False,False,1,2024-06-13 13:45:00,2024-06-13 14:30:00,152,24
+531.241,Do.,S2 044,,False,False,False,-1,2024-06-13 14:30:00,2024-06-13 15:15:00,-1,24
+531.241,Do.,HS 19,,False,False,False,1,2024-06-20 13:45:00,2024-06-20 14:30:00,152,25
+531.241,Do.,S2 044,,False,False,False,-1,2024-06-20 14:30:00,2024-06-20 15:15:00,-1,25
+531.241,Do.,HS 19,2. Test,False,True,False,1,2024-06-27 13:45:00,2024-06-27 14:30:00,152,26
+531.241,Do.,HS 17,2. Test,False,True,False,-1,2024-06-27 13:45:00,2024-06-27 14:30:00,-1,26
+531.241,Do.,HS 19,2. Nachtest,False,True,False,1,2024-07-11 13:45:00,2024-07-11 14:30:00,152,28
+531.242,Do.,HS 19,,False,False,False,1,2024-03-07 13:45:00,2024-03-07 14:30:00,152,10
+531.242,Do.,HS 19,,False,False,False,1,2024-03-07 14:30:00,2024-03-07 15:15:00,152,10
+531.242,Mi.,S2 048,GAM,False,False,False,-1,2024-03-13 12:45:00,2024-03-13 15:15:00,-1,11
+531.242,Do.,HS 19,,False,False,False,1,2024-03-14 13:45:00,2024-03-14 14:30:00,152,11
+531.242,Do.,MT 327,,False,False,False,-1,2024-03-14 14:30:00,2024-03-14 15:15:00,-1,11
+531.242,Do.,HS 19,,False,False,False,1,2024-03-21 13:45:00,2024-03-21 14:30:00,152,12
+531.242,Do.,MT 327,,False,False,False,-1,2024-03-21 14:30:00,2024-03-21 15:15:00,-1,12
+531.242,Mi.,S2 048,GAM,False,False,False,-1,2024-04-10 12:45:00,2024-04-10 15:15:00,-1,15
+531.242,Do.,HS 19,,False,False,False,1,2024-04-11 13:45:00,2024-04-11 14:30:00,152,15
+531.242,Do.,MT 327,,False,False,False,-1,2024-04-11 14:30:00,2024-04-11 15:15:00,-1,15
+531.242,Do.,HS 19,,False,False,False,1,2024-04-18 13:45:00,2024-04-18 14:30:00,152,16
+531.242,Do.,MT 327,,False,False,False,-1,2024-04-18 14:30:00,2024-04-18 15:15:00,-1,16
+531.242,Mi.,S2 048,GAM,False,False,False,-1,2024-04-24 12:45:00,2024-04-24 15:15:00,-1,17
+531.242,Do.,HS 19,,False,False,False,1,2024-04-25 13:45:00,2024-04-25 14:30:00,152,17
+531.242,Do.,MT 327,,False,False,False,-1,2024-04-25 14:30:00,2024-04-25 15:15:00,-1,17
+531.242,Do.,HS 19,,False,False,False,1,2024-05-02 13:45:00,2024-05-02 14:30:00,152,18
+531.242,Do.,MT 327,"1. Test, Nachname T - Z",False,True,False,-1,2024-05-02 14:30:00,2024-05-02 15:15:00,-1,18
+531.242,Mi.,S2 048,GAM,False,False,False,-1,2024-05-15 12:45:00,2024-05-15 15:15:00,-1,20
+531.242,Do.,HS 19,,False,False,False,1,2024-05-16 13:45:00,2024-05-16 14:30:00,152,20
+531.242,Do.,MT 327,,False,False,False,-1,2024-05-16 14:30:00,2024-05-16 15:15:00,-1,20
+531.242,Do.,HS 19,,False,False,False,1,2024-05-23 13:45:00,2024-05-23 14:30:00,152,21
+531.242,Do.,MT 327,HS 19,False,False,False,-1,2024-05-23 14:30:00,2024-05-23 15:15:00,-1,21
+531.242,Do.,HS 18,1. Nachtest,False,True,False,0,2024-05-23 15:30:00,2024-05-23 16:15:00,164,21
+531.242,Mi.,S2 048,GAM,False,False,False,-1,2024-05-29 12:45:00,2024-05-29 15:15:00,-1,22
+531.242,Do.,HS 19,,False,False,False,1,2024-06-06 13:45:00,2024-06-06 14:30:00,152,23
+531.242,Do.,MT 327,,False,False,False,-1,2024-06-06 14:30:00,2024-06-06 15:15:00,-1,23
+531.242,Do.,HS 19,,False,False,False,1,2024-06-13 13:45:00,2024-06-13 14:30:00,152,24
+531.242,Do.,MT 327,,False,False,False,-1,2024-06-13 14:30:00,2024-06-13 15:15:00,-1,24
+531.242,Do.,HS 19,,False,False,False,1,2024-06-20 13:45:00,2024-06-20 14:30:00,152,25
+531.242,Do.,MT 327,,False,False,False,-1,2024-06-20 14:30:00,2024-06-20 15:15:00,-1,25
+531.242,Do.,HS 19,2. Test,False,True,False,1,2024-06-27 13:45:00,2024-06-27 14:30:00,152,26
+531.242,Do.,HS 17,2. Test,False,True,False,-1,2024-06-27 13:45:00,2024-06-27 14:30:00,-1,26
+531.242,Do.,HS 19,2. Nachtest,False,True,False,1,2024-07-11 13:45:00,2024-07-11 14:30:00,152,28
+243.001,Di.,BA 9910,Hilgers,False,False,False,-1,2024-03-12 15:30:00,2024-03-12 18:45:00,-1,11
+243.001,Mi.,HF 9901,Hilgers,False,False,False,-1,2024-03-13 15:30:00,2024-03-13 18:45:00,-1,11
+243.001,Di.,BA 9910,Hilgers,False,False,False,-1,2024-03-19 15:30:00,2024-03-19 18:45:00,-1,12
+243.001,Mi.,HF 9901,Hilgers,False,False,False,-1,2024-03-20 15:30:00,2024-03-20 18:45:00,-1,12
+243.001,Di.,BA 9910,Stötzer,False,False,False,-1,2024-04-09 15:30:00,2024-04-09 18:45:00,-1,15
+243.001,Mi.,HF 9901,Stötzer,False,False,False,-1,2024-04-10 15:30:00,2024-04-10 18:45:00,-1,15
+243.001,Mi.,HF 9901,Stötzer,False,False,False,-1,2024-04-17 15:30:00,2024-04-17 18:45:00,-1,16
+243.001,Di.,Online / Zoom,Stötzer & Gastvortrag,False,False,False,-1,2024-04-23 15:30:00,2024-04-23 18:45:00,-1,17
+243.001,Mi.,HF 9901,Stötzer,False,False,False,-1,2024-04-24 15:30:00,2024-04-24 18:45:00,-1,17
+243.001,Mi.,HF 9901,Stötzer,False,False,False,-1,2024-05-08 15:30:00,2024-05-08 18:45:00,-1,19
+243.001,Mi.,zoom,Hilgers,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 18:45:00,-1,20
+243.001,Mi.,HS 2,Klausur ab 17:15 Uhr,True,False,False,-1,2024-06-12 15:30:00,2024-06-12 18:45:00,-1,24
+243.001,Mi.,HS 18,Nachklausur ab 15:30 Uhr,True,False,False,0,2024-07-03 15:30:00,2024-07-03 18:45:00,164,27
+360.001,Mo.,HS 9,,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 13:30:00,-1,10
+360.001,Di.,HS 19,,False,False,False,1,2024-03-05 10:15:00,2024-03-05 11:45:00,152,10
+360.001,Mo.,HS 9,,False,False,False,-1,2024-03-11 12:00:00,2024-03-11 13:30:00,-1,11
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-03-11 17:15:00,2024-03-11 18:45:00,164,11
+360.001,Di.,HS 19,,False,False,False,1,2024-03-12 10:15:00,2024-03-12 11:45:00,152,11
+360.001,Mo.,HS 9,,False,False,False,-1,2024-03-18 12:00:00,2024-03-18 13:30:00,-1,12
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-03-18 17:15:00,2024-03-18 18:45:00,164,12
+360.001,Di.,HS 19,,False,False,False,1,2024-03-19 10:15:00,2024-03-19 11:45:00,152,12
+360.001,Mo.,HS 9,,False,False,False,-1,2024-04-08 12:00:00,2024-04-08 13:30:00,-1,15
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-04-08 17:15:00,2024-04-08 18:45:00,164,15
+360.001,Di.,HS 19,,False,False,False,1,2024-04-09 10:15:00,2024-04-09 11:45:00,152,15
+360.001,Mo.,HS 9,,False,False,False,-1,2024-04-15 12:00:00,2024-04-15 13:30:00,-1,16
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-04-15 17:15:00,2024-04-15 18:45:00,164,16
+360.001,Di.,HS 19,,False,False,False,1,2024-04-16 10:15:00,2024-04-16 11:45:00,152,16
+360.001,Mo.,HS 9,,False,False,False,-1,2024-04-22 12:00:00,2024-04-22 13:30:00,-1,17
+360.001,Mo.,HS 19,Tutorium,False,False,True,1,2024-04-22 17:15:00,2024-04-22 18:45:00,152,17
+360.001,Di.,HS 19,,False,False,False,1,2024-04-23 10:15:00,2024-04-23 11:45:00,152,17
+360.001,Mo.,HS 9,,False,False,False,-1,2024-04-29 12:00:00,2024-04-29 13:30:00,-1,18
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-04-29 17:15:00,2024-04-29 18:45:00,164,18
+360.001,Di.,HS 19,,False,False,False,1,2024-04-30 10:15:00,2024-04-30 11:45:00,152,18
+360.001,Mo.,HS 9,,False,False,False,-1,2024-05-06 12:00:00,2024-05-06 13:30:00,-1,19
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-05-06 17:15:00,2024-05-06 18:45:00,164,19
+360.001,Di.,HS 19,,False,False,False,1,2024-05-07 10:15:00,2024-05-07 11:45:00,152,19
+360.001,Mo.,HS 9,,False,False,False,-1,2024-05-13 12:00:00,2024-05-13 13:30:00,-1,20
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-05-13 17:15:00,2024-05-13 18:45:00,164,20
+360.001,Di.,HS 19,,False,False,False,1,2024-05-14 10:15:00,2024-05-14 11:45:00,152,20
+360.001,Mo.,HS 9,,False,False,False,-1,2024-05-27 12:00:00,2024-05-27 13:30:00,-1,22
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-05-27 17:15:00,2024-05-27 18:45:00,164,22
+360.001,Di.,HS 19,,False,False,False,1,2024-05-28 10:15:00,2024-05-28 11:45:00,152,22
+360.001,Mo.,HS 9,,False,False,False,-1,2024-06-03 12:00:00,2024-06-03 13:30:00,-1,23
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-03 17:15:00,2024-06-03 18:45:00,164,23
+360.001,Di.,HS 19,,False,False,False,1,2024-06-04 10:15:00,2024-06-04 11:45:00,152,23
+360.001,Mo.,HS 9,,False,False,False,-1,2024-06-10 12:00:00,2024-06-10 13:30:00,-1,24
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-10 17:15:00,2024-06-10 18:45:00,164,24
+360.001,Di.,HS 19,,False,False,False,1,2024-06-11 10:15:00,2024-06-11 11:45:00,152,24
+360.001,Mo.,HS 9,,False,False,False,-1,2024-06-17 12:00:00,2024-06-17 13:30:00,-1,25
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-17 17:15:00,2024-06-17 18:45:00,164,25
+360.001,Di.,HS 19,,False,False,False,1,2024-06-18 10:15:00,2024-06-18 11:45:00,152,25
+360.001,Mo.,HS 18,Tutorium,False,False,True,0,2024-06-24 17:15:00,2024-06-24 18:45:00,164,26
+360.001,Mo.,ZOOM,Tutorium,False,False,True,-1,2024-07-01 19:30:00,2024-07-01 20:30:00,-1,27
+360.001,Mo.,HS 18,Fragestunde mit Musterklausur,True,False,True,0,2024-07-08 15:30:00,2024-07-08 17:00:00,164,28
+360.001,Mo.,HS 1,Klausurtermin,True,False,False,-1,2024-07-15 13:45:00,2024-07-15 17:00:00,-1,29
+360.001,Di.,HS 2,,False,False,False,-1,2024-09-24 13:45:00,2024-09-24 17:00:00,-1,39
+360.001,Fr.,HS 7,,False,False,False,-1,2024-12-06 13:45:00,2024-12-06 17:00:00,-1,49
+360.001,Fr.,HS 7,,False,False,False,-1,2025-02-28 13:45:00,2025-02-28 17:00:00,-1,9
+364.046,Mi.,Zoom,Introduction and Course Overview,False,False,False,-1,2024-03-06 10:15:00,2024-03-06 11:45:00,-1,10
+364.046,Mi.,Zoom,Fundamentals of Light,False,False,False,-1,2024-03-13 10:15:00,2024-03-13 11:45:00,-1,11
+364.046,Mi.,Zoom,Principles of Optics,False,False,False,-1,2024-03-20 10:15:00,2024-03-20 11:45:00,-1,12
+364.046,Mi.,Zoom,Basics of Visual Perception,False,False,False,-1,2024-04-10 10:15:00,2024-04-10 11:45:00,-1,15
+364.046,Mi.,Zoom,Holographic Principles,False,False,False,-1,2024-04-17 10:15:00,2024-04-17 11:45:00,-1,16
+364.046,Mi.,Zoom,Display Basics I,False,False,False,-1,2024-04-24 10:15:00,2024-04-24 11:45:00,-1,17
+364.046,Mi.,Zoom,Display Basics II,False,False,False,-1,2024-05-08 10:15:00,2024-05-08 11:45:00,-1,19
+364.046,Mi.,Zoom,Spatial Light Modulation,False,False,False,-1,2024-05-15 10:15:00,2024-05-15 11:45:00,-1,20
+364.046,Mi.,Zoom,Projector-Camera Systems,False,False,False,-1,2024-05-22 10:15:00,2024-05-22 11:45:00,-1,21
+364.046,Mi.,Zoom,Three-Dimensional Displays I,False,False,False,-1,2024-05-29 10:15:00,2024-05-29 11:45:00,-1,22
+364.046,Mi.,Zoom,Three-Dimensional Displays II,False,False,False,-1,2024-06-05 10:15:00,2024-06-05 11:45:00,-1,23
+364.046,Mi.,Zoom,Near-Eye Displays,False,False,False,-1,2024-06-12 10:15:00,2024-06-12 11:45:00,-1,24
+364.046,Mi.,Zoom,Q&A and Recap,False,False,False,-1,2024-06-19 10:15:00,2024-06-19 11:45:00,-1,25
+364.046,Mi.,HS 18,Exam,True,False,False,0,2024-06-26 10:15:00,2024-06-26 11:45:00,164,26
+364.046,Mi.,K 033C,Retry Exam,True,False,False,-1,2024-10-02 10:15:00,2024-10-02 11:45:00,-1,40
+256.300,Di.,MT 127,Einführung und Überblick LVA,False,False,False,-1,2024-03-05 12:00:00,2024-03-05 15:15:00,-1,10
+256.300,Di.,MT 127,FC 1: Recap & Diskussion Strategische Bedeutung und Rolle von IS/IT inkl. Leadership bei Digitalisierung und digitaler Transform,True,False,False,-1,2024-03-19 12:00:00,2024-03-19 15:15:00,-1,12
+256.300,Di.,MT 127,"FC 2: Recap & Diskussion: Informationsmanagement - Übersicht, Grundlagen, Ziele und Aufgaben / IT-Governance und COBIT",False,False,False,-1,2024-04-09 12:00:00,2024-04-09 15:15:00,-1,15
+256.300,Di.,MT 127,Repetitorium: Fragestunde / Informationen zum Klausuerablauf / Moodle-Quiz,False,True,True,-1,2024-04-16 12:00:00,2024-04-16 15:15:00,-1,16
+256.300,Di.,HS 1,"Klausur - Teil 1, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False,-1,2024-04-23 12:00:00,2024-04-23 13:30:00,-1,17
+256.300,Di.,MT 127,"Einführung LVA Teil 2 : Ausblick Aufgaben & Methoden des IM / +NEU+ ""DigiScale"" Survey: Teste Deine Digitalisierungsbereitschaft",False,True,False,-1,2024-04-30 12:00:00,2024-04-30 15:15:00,-1,18
+256.300,Di.,MT 127,FC 3: Recap & Diskussion Aufgaben &Methoden Informationsmanagement;  Ausblick IT-Servicemanagement & ITIL,False,False,False,-1,2024-06-04 12:00:00,2024-06-04 15:15:00,-1,23
+256.300,Di.,MT 127,Repetitorium und Fragestunde zu IT-Servicemanagement und ITIL,False,False,True,-1,2024-06-18 12:00:00,2024-06-18 15:15:00,-1,25
+256.300,Di.,HS 18,"Klausur - Teil 2, Anmeldung geöffnet - bitte 15 Min. vor Klausurbeginn in den Hörsaal kommen!",True,False,False,0,2024-06-25 12:00:00,2024-06-25 13:30:00,164,26
+256.300,Do.,HS 1,"Gesamtklausur, geprüft werden Teil 1 und Teil 2",True,False,False,-1,2024-07-04 16:00:00,2024-07-04 19:15:00,-1,27
+256.300,Mo.,HS 1,"Nachklausur, geprüft werden Teil 1 und Teil 2 des Stoffes",True,False,False,-1,2024-09-09 09:00:00,2024-09-09 12:00:00,-1,37
+531.413,Di.,KG 519,,False,False,False,-1,2024-03-05 13:45:00,2024-03-05 15:15:00,-1,10
+531.413,Di.,KG 519,,False,False,False,-1,2024-03-12 13:45:00,2024-03-12 15:15:00,-1,11
+531.413,Di.,KG 519,,False,False,False,-1,2024-03-19 13:45:00,2024-03-19 15:15:00,-1,12
+531.413,Di.,KG 519,,False,False,False,-1,2024-04-09 13:45:00,2024-04-09 15:15:00,-1,15
+531.413,Di.,KG 519,,False,False,False,-1,2024-04-16 13:45:00,2024-04-16 15:15:00,-1,16
+531.413,Di.,KG 519,,False,False,False,-1,2024-04-23 13:45:00,2024-04-23 15:15:00,-1,17
+531.413,Di.,KG 519,,False,False,False,-1,2024-04-30 13:45:00,2024-04-30 15:15:00,-1,18
+531.413,Di.,KG 519,,False,False,False,-1,2024-05-07 13:45:00,2024-05-07 15:15:00,-1,19
+531.413,Di.,KG 519,,False,False,False,-1,2024-05-14 13:45:00,2024-05-14 15:15:00,-1,20
+531.413,Di.,KG 519,,False,False,False,-1,2024-05-28 13:45:00,2024-05-28 15:15:00,-1,22
+531.413,Di.,KG 519,,False,False,False,-1,2024-06-04 13:45:00,2024-06-04 15:15:00,-1,23
+531.413,Di.,KG 519,,False,False,False,-1,2024-06-11 13:45:00,2024-06-11 15:15:00,-1,24
+531.413,Di.,KG 519,,False,False,False,-1,2024-06-18 13:45:00,2024-06-18 15:15:00,-1,25
+531.413,Di.,KG 519,,False,False,False,-1,2024-06-25 13:45:00,2024-06-25 15:15:00,-1,26
+531.413,Mo.,HS 18,,False,False,False,0,2024-07-08 10:00:00,2024-07-08 13:00:00,164,28
+347.354,Mo.,,,False,False,False,-1,2024-06-03 17:15:00,2024-06-03 18:45:00,-1,23
+347.354,Di.,,,False,False,False,-1,2024-06-04 17:15:00,2024-06-04 18:45:00,-1,23
+347.354,Mi.,,,False,False,False,-1,2024-06-05 17:15:00,2024-06-05 18:45:00,-1,23
+347.354,Do.,,,False,False,False,-1,2024-06-06 17:15:00,2024-06-06 18:45:00,-1,23
+347.354,Fr.,,,False,False,False,-1,2024-06-07 08:30:00,2024-06-07 10:00:00,-1,23
+347.354,Mo.,,Exam,True,False,False,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+347.354,Di.,,Exam,True,False,False,-1,2024-07-09 12:00:00,2024-07-09 14:30:00,-1,28
+347.354,Fr.,,Exam,True,False,False,-1,2024-09-27 10:15:00,2024-09-27 12:45:00,-1,39
+239.527,Di.,HS 5,,False,False,False,-1,2024-03-05 15:30:00,2024-03-05 17:00:00,-1,10
+239.527,Di.,HS 5,,False,False,False,-1,2024-03-12 15:30:00,2024-03-12 17:00:00,-1,11
+239.527,Di.,HS 5,,False,False,False,-1,2024-03-19 15:30:00,2024-03-19 17:00:00,-1,12
+239.527,Di.,HS 5,,False,False,False,-1,2024-04-09 15:30:00,2024-04-09 17:00:00,-1,15
+239.527,Di.,HS 5,,False,False,False,-1,2024-04-16 15:30:00,2024-04-16 17:00:00,-1,16
+239.527,Di.,HS 5,,False,False,False,-1,2024-04-23 15:30:00,2024-04-23 17:00:00,-1,17
+239.527,Di.,HS 5,,False,False,False,-1,2024-04-30 15:30:00,2024-04-30 17:00:00,-1,18
+239.527,Di.,HS 5,,False,False,False,-1,2024-05-07 15:30:00,2024-05-07 17:00:00,-1,19
+239.527,Di.,HS 5,,False,False,False,-1,2024-05-14 15:30:00,2024-05-14 17:00:00,-1,20
+239.527,Di.,HS 5,,False,False,False,-1,2024-05-28 15:30:00,2024-05-28 17:00:00,-1,22
+239.527,Di.,HS 5,,False,False,False,-1,2024-06-04 15:30:00,2024-06-04 17:00:00,-1,23
+239.527,Di.,HS 5,,False,False,False,-1,2024-06-11 15:30:00,2024-06-11 17:00:00,-1,24
+239.527,Di.,HS 5,,False,False,False,-1,2024-06-18 15:30:00,2024-06-18 17:00:00,-1,25
+239.527,Di.,HS 18,Final Exam,True,False,False,0,2024-06-25 15:30:00,2024-06-25 17:00:00,164,26
+239.527,Di.,HS 18,Retake Exam,True,False,False,0,2024-07-09 15:30:00,2024-07-09 17:00:00,164,28
+249.443,Di.,K 269D,Folien 1-13,False,False,False,-1,2024-03-05 10:15:00,2024-03-05 11:45:00,-1,10
+249.443,Di.,K 269D,Folien 14-26,False,False,False,-1,2024-03-12 10:15:00,2024-03-12 11:45:00,-1,11
+249.443,Di.,K 269D,,False,False,False,-1,2024-03-19 10:15:00,2024-03-19 11:45:00,-1,12
+249.443,Di.,K 269D,,False,False,False,-1,2024-04-09 10:15:00,2024-04-09 11:45:00,-1,15
+249.443,Di.,K 269D,,False,False,False,-1,2024-04-16 10:15:00,2024-04-16 11:45:00,-1,16
+249.443,Di.,MZ 005A,,False,False,False,-1,2024-04-30 08:30:00,2024-04-30 10:00:00,-1,18
+249.443,Di.,K 269D,,False,False,False,-1,2024-04-30 10:15:00,2024-04-30 11:45:00,-1,18
+249.443,Di.,MZ 005A,,False,False,False,-1,2024-05-28 08:30:00,2024-05-28 10:00:00,-1,22
+249.443,Di.,K 269D,,False,False,False,-1,2024-05-28 10:15:00,2024-05-28 11:45:00,-1,22
+249.443,Di.,K 269D,,False,False,False,-1,2024-06-04 10:15:00,2024-06-04 11:45:00,-1,23
+249.443,Di.,K 269D,,False,False,False,-1,2024-06-11 10:15:00,2024-06-11 11:45:00,-1,24
+249.443,Di.,K 269D,,False,False,False,-1,2024-06-18 10:15:00,2024-06-18 11:45:00,-1,25
+249.443,Di.,HS 2,Hauptklausur,True,False,False,-1,2024-06-25 10:15:00,2024-06-25 11:45:00,-1,26
+249.443,Di.,HS 18,Nachklausur,True,False,False,0,2024-07-09 10:15:00,2024-07-09 11:45:00,164,28
+136.309,Mo.,HS 18,,False,False,False,0,2024-03-11 13:45:00,2024-03-11 15:15:00,164,11
+136.309,Mo.,HS 18,,False,False,False,0,2024-03-18 13:45:00,2024-03-18 15:15:00,164,12
+136.309,Mo.,HS 18,,False,False,False,0,2024-04-08 13:45:00,2024-04-08 15:15:00,164,15
+136.309,Mo.,HS 18,,False,False,False,0,2024-04-15 13:45:00,2024-04-15 15:15:00,164,16
+136.309,Mo.,HS 18,,False,False,False,0,2024-04-22 13:45:00,2024-04-22 15:15:00,164,17
+136.309,Mo.,HS 18,,False,False,False,0,2024-04-29 13:45:00,2024-04-29 15:15:00,164,18
+136.309,Mo.,HS 18,,False,False,False,0,2024-05-06 13:45:00,2024-05-06 15:15:00,164,19
+136.309,Mo.,HS 18,,False,False,False,0,2024-05-13 13:45:00,2024-05-13 15:15:00,164,20
+136.309,Mo.,HS 18,,False,False,False,0,2024-05-27 13:45:00,2024-05-27 15:15:00,164,22
+136.309,Mo.,HS 18,,False,False,False,0,2024-06-03 13:45:00,2024-06-03 15:15:00,164,23
+136.309,Mo.,HS 18,,False,False,False,0,2024-06-10 13:45:00,2024-06-10 15:15:00,164,24
+136.309,Mo.,HS 18,,False,False,False,0,2024-06-17 13:45:00,2024-06-17 15:15:00,164,25
+136.309,Mo.,HS 18,Klausur,True,False,False,0,2024-06-24 13:45:00,2024-06-24 15:15:00,164,26
+531.120,Mo.,HS 4,,False,False,False,-1,2024-03-04 10:15:00,2024-03-04 11:45:00,-1,10
+531.120,Do.,HS 18,,False,False,False,0,2024-03-07 10:15:00,2024-03-07 11:45:00,164,10
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-03-07 12:00:00,2024-03-07 13:30:00,164,10
+531.120,Mo.,HS 4,,False,False,False,-1,2024-03-11 10:15:00,2024-03-11 11:45:00,-1,11
+531.120,Do.,HS 18,,False,False,False,0,2024-03-14 10:15:00,2024-03-14 11:45:00,164,11
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-03-14 12:00:00,2024-03-14 13:30:00,164,11
+531.120,Mo.,HS 4,,False,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+531.120,Do.,HS 18,,False,False,False,0,2024-03-21 10:15:00,2024-03-21 11:45:00,164,12
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-03-21 12:00:00,2024-03-21 13:30:00,164,12
+531.120,Mo.,HS 4,,False,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+531.120,Do.,HS 18,,False,False,False,0,2024-04-11 10:15:00,2024-04-11 11:45:00,164,15
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-04-11 12:00:00,2024-04-11 13:30:00,164,15
+531.120,Mo.,HS 4,,False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+531.120,Do.,HS 18,,False,False,False,0,2024-04-18 10:15:00,2024-04-18 11:45:00,164,16
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-04-18 12:00:00,2024-04-18 13:30:00,164,16
+531.120,Mo.,HS 4,,False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+531.120,Do.,HS 18,,False,False,False,0,2024-04-25 10:15:00,2024-04-25 11:45:00,164,17
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-04-25 12:00:00,2024-04-25 13:30:00,164,17
+531.120,Mo.,HS 4,,False,False,False,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+531.120,Do.,HS 18,,False,False,False,0,2024-05-02 10:15:00,2024-05-02 11:45:00,164,18
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-05-02 12:00:00,2024-05-02 13:30:00,164,18
+531.120,Mo.,HS 4,,False,False,False,-1,2024-05-06 10:15:00,2024-05-06 11:45:00,-1,19
+531.120,Mo.,HS 4,,False,False,False,-1,2024-05-13 10:15:00,2024-05-13 11:45:00,-1,20
+531.120,Do.,HS 18,,False,False,False,0,2024-05-16 10:15:00,2024-05-16 11:45:00,164,20
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-05-16 12:00:00,2024-05-16 13:30:00,164,20
+531.120,Do.,HS 18,,False,False,False,0,2024-05-23 10:15:00,2024-05-23 11:45:00,164,21
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-05-23 12:00:00,2024-05-23 13:30:00,164,21
+531.120,Mo.,HS 4,,False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+531.120,Do.,HS 18,,False,False,False,0,2024-06-06 10:15:00,2024-06-06 11:45:00,164,23
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-06-06 12:00:00,2024-06-06 13:30:00,164,23
+531.120,Mo.,HS 4,,False,False,False,-1,2024-06-10 10:15:00,2024-06-10 11:45:00,-1,24
+531.120,Do.,HS 18,,False,False,False,0,2024-06-13 10:15:00,2024-06-13 11:45:00,164,24
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-06-13 12:00:00,2024-06-13 13:30:00,164,24
+531.120,Mo.,HS 4,,False,False,False,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+531.120,Do.,HS 18,,False,False,False,0,2024-06-20 10:15:00,2024-06-20 11:45:00,164,25
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-06-20 12:00:00,2024-06-20 13:30:00,164,25
+531.120,Mo.,HS 19,,False,False,False,1,2024-06-24 10:15:00,2024-06-24 11:45:00,152,26
+531.120,Do.,HS 17,,False,False,False,-1,2024-06-27 10:15:00,2024-06-27 11:45:00,-1,26
+531.120,Do.,HS 18,Tutorium / Fragestunde,False,False,True,0,2024-06-27 12:00:00,2024-06-27 13:30:00,164,26
+531.120,Mi.,HS 16,1. Termin schriftliche Vorlesungsprüfung,True,False,False,-1,2024-07-03 08:30:00,2024-07-03 11:00:00,-1,27
+531.120,Fr.,HS 2,,False,False,False,-1,2024-10-11 15:30:00,2024-10-11 18:00:00,-1,41
+368.102,Mo.,S2 Z74,,False,False,False,-1,2024-03-04 08:30:00,2024-03-04 10:00:00,-1,10
+368.102,Mo.,HS 4,,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 13:30:00,-1,10
+368.102,Mi.,HS 17,,False,False,False,-1,2024-03-06 08:30:00,2024-03-06 10:00:00,-1,10
+368.102,Do.,HS 12,,False,False,False,-1,2024-03-07 10:15:00,2024-03-07 11:45:00,-1,10
+368.102,Mi.,HS 17,,False,False,False,-1,2024-03-13 08:30:00,2024-03-13 10:00:00,-1,11
+368.102,Do.,HS 12,,False,False,False,-1,2024-03-14 10:15:00,2024-03-14 11:45:00,-1,11
+368.102,Mo.,HS 4,,False,False,False,-1,2024-03-18 12:00:00,2024-03-18 13:30:00,-1,12
+368.102,Mi.,HS 17,,False,False,False,-1,2024-03-20 08:30:00,2024-03-20 10:00:00,-1,12
+368.102,Do.,HS 12,,False,False,False,-1,2024-03-21 10:15:00,2024-03-21 11:45:00,-1,12
+368.102,Mi.,video,,False,False,False,-1,2024-04-10 08:30:00,2024-04-10 10:00:00,-1,15
+368.102,Do.,video,,False,False,False,-1,2024-04-11 10:15:00,2024-04-11 11:45:00,-1,15
+368.102,Mo.,HS 4,,False,False,False,-1,2024-04-15 12:00:00,2024-04-15 13:30:00,-1,16
+368.102,Mi.,HS 17,,False,False,False,-1,2024-04-17 08:30:00,2024-04-17 10:00:00,-1,16
+368.102,Do.,HS 12,,False,False,False,-1,2024-04-18 10:15:00,2024-04-18 11:45:00,-1,16
+368.102,Mi.,HS 17,,False,False,False,-1,2024-04-24 08:30:00,2024-04-24 10:00:00,-1,17
+368.102,Do.,HS 12,,False,False,False,-1,2024-04-25 10:15:00,2024-04-25 11:45:00,-1,17
+368.102,Mo.,HS 4,,False,False,False,-1,2024-04-29 12:00:00,2024-04-29 13:30:00,-1,18
+368.102,Do.,HS 12,,False,False,False,-1,2024-05-02 10:15:00,2024-05-02 11:45:00,-1,18
+368.102,Mi.,HS 17,,False,False,False,-1,2024-05-08 08:30:00,2024-05-08 10:00:00,-1,19
+368.102,Mo.,HS 4,,False,False,False,-1,2024-05-13 12:00:00,2024-05-13 13:30:00,-1,20
+368.102,Mi.,HS 17,,False,False,False,-1,2024-05-15 08:30:00,2024-05-15 10:00:00,-1,20
+368.102,Do.,HS 12,,False,False,False,-1,2024-05-16 10:15:00,2024-05-16 11:45:00,-1,20
+368.102,Mi.,HS 17,,False,False,False,-1,2024-05-22 08:30:00,2024-05-22 10:00:00,-1,21
+368.102,Do.,HS 12,,False,False,False,-1,2024-05-23 10:15:00,2024-05-23 11:45:00,-1,21
+368.102,Mo.,HS 4,,False,False,False,-1,2024-05-27 12:00:00,2024-05-27 13:30:00,-1,22
+368.102,Mi.,HS 17,,False,False,False,-1,2024-05-29 08:30:00,2024-05-29 10:00:00,-1,22
+368.102,Mo.,HS 4,,False,False,False,-1,2024-06-03 12:00:00,2024-06-03 13:30:00,-1,23
+368.102,Mi.,HS 17,,False,False,False,-1,2024-06-05 08:30:00,2024-06-05 10:00:00,-1,23
+368.102,Do.,HS 12,,False,False,False,-1,2024-06-06 10:15:00,2024-06-06 11:45:00,-1,23
+368.102,Mo.,HS 4,,False,False,False,-1,2024-06-10 12:00:00,2024-06-10 13:30:00,-1,24
+368.102,Mi.,HS 17,,False,False,False,-1,2024-06-12 08:30:00,2024-06-12 10:00:00,-1,24
+368.102,Do.,HS 12,,False,False,False,-1,2024-06-13 10:15:00,2024-06-13 11:45:00,-1,24
+368.102,Mo.,HS 4,,False,False,False,-1,2024-06-17 12:00:00,2024-06-17 13:30:00,-1,25
+368.102,Mo.,HS 4,,False,False,False,-1,2024-06-24 12:00:00,2024-06-24 13:30:00,-1,26
+368.102,Fr.,HS 18,,False,False,False,0,2024-07-12 10:15:00,2024-07-12 11:45:00,164,28
+368.102,Mo.,S5 101,,False,False,False,-1,2024-09-16 10:15:00,2024-09-16 11:45:00,-1,38
+239.506,Mi.,K 153C,,False,False,False,-1,2024-03-06 10:15:00,2024-03-06 11:45:00,-1,10
+239.506,Mi.,K 153C,,False,False,False,-1,2024-03-13 10:15:00,2024-03-13 11:45:00,-1,11
+239.506,Mi.,K 153C,,False,False,False,-1,2024-03-20 10:15:00,2024-03-20 11:45:00,-1,12
+239.506,Mi.,K 153C,,False,False,False,-1,2024-04-10 10:15:00,2024-04-10 11:45:00,-1,15
+239.506,Mi.,K 153C,,False,False,False,-1,2024-04-17 10:15:00,2024-04-17 11:45:00,-1,16
+239.506,Mi.,K 153C,Termin entfällt krankheitsbedingt!,True,False,False,-1,2024-04-24 10:15:00,2024-04-24 11:45:00,-1,17
+239.506,Mi.,K 153C,,False,False,False,-1,2024-05-08 10:15:00,2024-05-08 11:45:00,-1,19
+239.506,Mi.,K 153C,,False,False,False,-1,2024-05-15 10:15:00,2024-05-15 11:45:00,-1,20
+239.506,Mi.,K 153C,,False,False,False,-1,2024-05-22 10:15:00,2024-05-22 11:45:00,-1,21
+239.506,Mi.,K 153C,,False,False,False,-1,2024-05-29 10:15:00,2024-05-29 11:45:00,-1,22
+239.506,Mi.,K 153C,,False,False,False,-1,2024-06-05 10:15:00,2024-06-05 11:45:00,-1,23
+239.506,Mi.,K 153C,,False,False,False,-1,2024-06-12 10:15:00,2024-06-12 11:45:00,-1,24
+239.506,Mi.,HS 10,,False,False,False,-1,2024-06-19 13:45:00,2024-06-19 15:15:00,-1,25
+239.506,Mi.,HS 18,,False,False,False,0,2024-07-10 12:00:00,2024-07-10 13:30:00,164,28
+239.509,Di.,BA 9908,,False,False,False,-1,2024-03-12 12:00:00,2024-03-12 13:30:00,-1,11
+239.509,Di.,BA 9908,,False,False,False,-1,2024-03-19 12:00:00,2024-03-19 13:30:00,-1,12
+239.509,Di.,BA 9908,,False,False,False,-1,2024-04-09 12:00:00,2024-04-09 13:30:00,-1,15
+239.509,Di.,BA 9908,,False,False,False,-1,2024-04-16 12:00:00,2024-04-16 13:30:00,-1,16
+239.509,Di.,BA 9908,,False,False,False,-1,2024-04-23 12:00:00,2024-04-23 13:30:00,-1,17
+239.509,Di.,BA 9908,,False,False,False,-1,2024-04-30 12:00:00,2024-04-30 13:30:00,-1,18
+239.509,Di.,BA 9908,,False,False,False,-1,2024-05-07 12:00:00,2024-05-07 13:30:00,-1,19
+239.509,Di.,BA 9908,,False,False,False,-1,2024-05-14 12:00:00,2024-05-14 13:30:00,-1,20
+239.509,Di.,BA 9908,,False,False,False,-1,2024-05-28 12:00:00,2024-05-28 13:30:00,-1,22
+239.509,Di.,BA 9908,,False,False,False,-1,2024-06-04 12:00:00,2024-06-04 13:30:00,-1,23
+239.509,Di.,BA 9908,,False,False,False,-1,2024-06-11 12:00:00,2024-06-11 13:30:00,-1,24
+239.509,Mi.,HS 3,Endklausur,True,False,False,-1,2024-06-19 13:45:00,2024-06-19 15:15:00,-1,25
+239.509,Mi.,HS 18,Nachklausur,True,False,False,0,2024-07-10 12:00:00,2024-07-10 13:30:00,164,28
+358.001,Do.,HS 19,,False,False,False,1,2024-03-07 08:30:00,2024-03-07 10:00:00,152,10
+358.001,Do.,HS 19,,False,False,False,1,2024-03-14 08:30:00,2024-03-14 10:00:00,152,11
+358.001,Do.,HS 19,,False,False,False,1,2024-03-21 08:30:00,2024-03-21 10:00:00,152,12
+358.001,Do.,HS 19,,False,False,False,1,2024-04-11 08:30:00,2024-04-11 10:00:00,152,15
+358.001,Do.,HS 19,,False,False,False,1,2024-04-18 08:30:00,2024-04-18 10:00:00,152,16
+358.001,Do.,HS 19,,False,False,False,1,2024-04-25 08:30:00,2024-04-25 10:00:00,152,17
+358.001,Do.,HS 19,,False,False,False,1,2024-05-02 08:30:00,2024-05-02 10:00:00,152,18
+358.001,Do.,HS 19,,False,False,False,1,2024-05-16 08:30:00,2024-05-16 10:00:00,152,20
+358.001,Do.,HS 19,,False,False,False,1,2024-05-23 08:30:00,2024-05-23 10:00:00,152,21
+358.001,Do.,HS 19,,False,False,False,1,2024-06-06 08:30:00,2024-06-06 10:00:00,152,23
+358.001,Do.,HS 19,,False,False,False,1,2024-06-13 08:30:00,2024-06-13 10:00:00,152,24
+358.001,Do.,HS 19,,False,False,False,1,2024-06-20 08:30:00,2024-06-20 10:00:00,152,25
+358.001,Do.,HS 19,,False,False,False,1,2024-06-27 08:30:00,2024-06-27 10:00:00,152,26
+358.001,Mi.,HS 18,Klausurtermin,True,False,False,0,2024-07-03 08:30:00,2024-07-03 11:45:00,164,27
+358.001,Mo.,HS 16,Klausurtermin,True,False,False,-1,2024-09-23 08:30:00,2024-09-23 11:45:00,-1,39
+358.001,Fr.,HS 16,Klausurtermin,True,False,False,-1,2024-11-08 12:00:00,2024-11-08 15:15:00,-1,45
+358.001,Mo.,HS 15,Klausurtermin,True,False,False,-1,2025-02-17 13:45:00,2025-02-17 17:00:00,-1,8
+324.820,Mi.,HS 1,,False,False,False,-1,2024-03-06 10:15:00,2024-03-06 11:45:00,-1,10
+324.820,Do.,HS 1,,False,False,False,-1,2024-03-07 15:30:00,2024-03-07 17:00:00,-1,10
+324.820,Mi.,HS 1,,False,False,False,-1,2024-03-13 10:15:00,2024-03-13 11:45:00,-1,11
+324.820,Do.,HS 1,,False,False,False,-1,2024-03-14 15:30:00,2024-03-14 17:00:00,-1,11
+324.820,Mi.,HS 1,,False,False,False,-1,2024-03-20 10:15:00,2024-03-20 11:45:00,-1,12
+324.820,Do.,HS 1,,False,False,False,-1,2024-03-21 15:30:00,2024-03-21 17:00:00,-1,12
+324.820,Mi.,HS 1,,False,False,False,-1,2024-04-10 10:15:00,2024-04-10 11:45:00,-1,15
+324.820,Do.,HS 1,,False,False,False,-1,2024-04-11 15:30:00,2024-04-11 17:00:00,-1,15
+324.820,Mi.,HS 1,,False,False,False,-1,2024-04-17 10:15:00,2024-04-17 11:45:00,-1,16
+324.820,Do.,HS 1,,False,False,False,-1,2024-04-18 15:30:00,2024-04-18 16:15:00,-1,16
+324.820,Mi.,HS 1,,False,False,False,-1,2024-04-24 10:15:00,2024-04-24 11:45:00,-1,17
+324.820,Do.,HS 1,,False,False,False,-1,2024-04-25 15:30:00,2024-04-25 17:00:00,-1,17
+324.820,Do.,HS 1,,False,False,False,-1,2024-05-02 15:30:00,2024-05-02 17:00:00,-1,18
+324.820,Mi.,HS 1,,False,False,False,-1,2024-05-08 10:15:00,2024-05-08 11:45:00,-1,19
+324.820,Mi.,HS 1,,False,False,False,-1,2024-05-15 10:15:00,2024-05-15 11:45:00,-1,20
+324.820,Do.,HS 1,,False,False,False,-1,2024-05-16 15:30:00,2024-05-16 17:00:00,-1,20
+324.820,Mi.,HS 1,,False,False,False,-1,2024-05-22 10:15:00,2024-05-22 11:45:00,-1,21
+324.820,Do.,HS 1,,False,False,False,-1,2024-05-23 15:30:00,2024-05-23 17:00:00,-1,21
+324.820,Mi.,HS 1,,False,False,False,-1,2024-05-29 10:15:00,2024-05-29 11:45:00,-1,22
+324.820,Mi.,HS 1,,False,False,False,-1,2024-06-05 10:15:00,2024-06-05 11:45:00,-1,23
+324.820,Do.,HS 1,,False,False,False,-1,2024-06-06 15:30:00,2024-06-06 17:00:00,-1,23
+324.820,Mi.,HS 1,,False,False,False,-1,2024-06-12 10:15:00,2024-06-12 11:45:00,-1,24
+324.820,Do.,HS 1,,False,False,False,-1,2024-06-13 15:30:00,2024-06-13 17:00:00,-1,24
+324.820,Mi.,HS 1,,False,False,False,-1,2024-06-19 10:15:00,2024-06-19 11:45:00,-1,25
+324.820,Do.,HS 1,,False,False,False,-1,2024-06-20 15:30:00,2024-06-20 17:00:00,-1,25
+324.820,Mi.,HS 1,,False,False,False,-1,2024-06-26 10:15:00,2024-06-26 11:45:00,-1,26
+324.820,Do.,HS 1,,False,False,False,-1,2024-06-27 15:30:00,2024-06-27 17:00:00,-1,26
+324.820,Mi.,HS 18,Exam,True,False,False,0,2024-07-03 12:00:00,2024-07-03 15:15:00,164,27
+324.820,Mi.,HS 9,Exam,True,False,False,-1,2024-07-03 12:00:00,2024-07-03 15:15:00,-1,27
+324.820,Mi.,HS 8,Exam,True,False,False,-1,2024-07-03 12:00:00,2024-07-03 15:15:00,-1,27
+324.820,Mi.,HS 1,Exam,True,False,False,-1,2024-09-04 12:00:00,2024-09-04 15:15:00,-1,36
+324.820,Mo.,BA 9910,Exam,True,False,False,-1,2024-11-11 16:15:00,2024-11-11 19:45:00,-1,46
+357.121,Do.,S3 057,,False,False,False,-1,2024-03-07 12:00:00,2024-03-07 12:45:00,-1,10
+357.121,Do.,S3 057,,False,False,False,-1,2024-03-14 12:00:00,2024-03-14 12:45:00,-1,11
+357.121,Do.,S3 057,,False,False,False,-1,2024-03-21 12:00:00,2024-03-21 12:45:00,-1,12
+357.121,Do.,S3 057,,False,False,False,-1,2024-04-11 12:00:00,2024-04-11 12:45:00,-1,15
+357.121,Do.,S3 057,,False,False,False,-1,2024-04-18 12:00:00,2024-04-18 12:45:00,-1,16
+357.121,Do.,MT 127,,False,False,False,-1,2024-04-25 12:00:00,2024-04-25 12:45:00,-1,17
+357.121,Do.,S3 057,,False,False,False,-1,2024-05-02 12:00:00,2024-05-02 12:45:00,-1,18
+357.121,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.121,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.121,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.121,Do.,S3 057,,False,False,False,-1,2024-05-16 12:00:00,2024-05-16 12:45:00,-1,20
+357.121,Do.,HS 14,,False,False,False,-1,2024-05-23 12:00:00,2024-05-23 12:45:00,-1,21
+357.121,Do.,S3 057,,False,False,False,-1,2024-06-06 12:00:00,2024-06-06 12:45:00,-1,23
+357.121,Do.,S3 057,,False,False,False,-1,2024-06-13 12:00:00,2024-06-13 12:45:00,-1,24
+357.121,Do.,MT 128,,False,False,False,-1,2024-06-20 12:00:00,2024-06-20 12:45:00,-1,25
+357.121,Do.,S3 057,,False,False,False,-1,2024-06-27 12:00:00,2024-06-27 12:45:00,-1,26
+357.121,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.121,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.121,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+357.122,Do.,S3 057,,False,False,False,-1,2024-03-07 12:45:00,2024-03-07 13:30:00,-1,10
+357.122,Do.,S3 057,,False,False,False,-1,2024-03-14 12:45:00,2024-03-14 13:30:00,-1,11
+357.122,Do.,S3 057,,False,False,False,-1,2024-03-21 12:45:00,2024-03-21 13:30:00,-1,12
+357.122,Do.,S3 057,,False,False,False,-1,2024-04-11 12:45:00,2024-04-11 13:30:00,-1,15
+357.122,Do.,S3 057,,False,False,False,-1,2024-04-18 12:45:00,2024-04-18 13:30:00,-1,16
+357.122,Do.,S3 057,,False,False,False,-1,2024-04-25 12:45:00,2024-04-25 13:30:00,-1,17
+357.122,Do.,S3 057,,False,False,False,-1,2024-05-02 12:45:00,2024-05-02 13:30:00,-1,18
+357.122,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.122,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.122,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.122,Do.,S3 057,,False,False,False,-1,2024-05-16 12:45:00,2024-05-16 13:30:00,-1,20
+357.122,Do.,HS 14,,False,False,False,-1,2024-05-23 12:45:00,2024-05-23 13:30:00,-1,21
+357.122,Do.,S3 057,,False,False,False,-1,2024-06-06 12:45:00,2024-06-06 13:30:00,-1,23
+357.122,Do.,S3 057,,False,False,False,-1,2024-06-13 12:45:00,2024-06-13 13:30:00,-1,24
+357.122,Do.,MT 128,,False,False,False,-1,2024-06-20 12:45:00,2024-06-20 13:30:00,-1,25
+357.122,Do.,S3 057,,False,False,False,-1,2024-06-27 12:45:00,2024-06-27 13:30:00,-1,26
+357.122,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.122,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.122,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-03-07 12:00:00,2024-03-07 12:45:00,-1,10
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-03-14 12:00:00,2024-03-14 12:45:00,-1,11
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-03-21 12:00:00,2024-03-21 12:45:00,-1,12
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-04-11 12:00:00,2024-04-11 12:45:00,-1,15
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-04-18 12:00:00,2024-04-18 12:45:00,-1,16
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-04-25 12:00:00,2024-04-25 12:45:00,-1,17
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-05-02 12:00:00,2024-05-02 12:45:00,-1,18
+357.123,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.123,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.123,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-05-16 12:00:00,2024-05-16 12:45:00,-1,20
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-05-23 12:00:00,2024-05-23 12:45:00,-1,21
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-06-06 12:00:00,2024-06-06 12:45:00,-1,23
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-06-13 12:00:00,2024-06-13 12:45:00,-1,24
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-06-20 12:00:00,2024-06-20 12:45:00,-1,25
+357.123,Do.,S2 Z74,,False,False,False,-1,2024-06-27 12:00:00,2024-06-27 12:45:00,-1,26
+357.123,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.123,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.123,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-03-07 12:45:00,2024-03-07 13:30:00,-1,10
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-03-14 12:45:00,2024-03-14 13:30:00,-1,11
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-03-21 12:45:00,2024-03-21 13:30:00,-1,12
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-04-11 12:45:00,2024-04-11 13:30:00,-1,15
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-04-18 12:45:00,2024-04-18 13:30:00,-1,16
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-04-25 12:45:00,2024-04-25 13:30:00,-1,17
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-05-02 12:45:00,2024-05-02 13:30:00,-1,18
+357.124,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.124,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.124,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-05-16 12:45:00,2024-05-16 13:30:00,-1,20
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-05-23 12:45:00,2024-05-23 13:30:00,-1,21
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-06-06 12:45:00,2024-06-06 13:30:00,-1,23
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-06-13 12:45:00,2024-06-13 13:30:00,-1,24
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-06-20 12:45:00,2024-06-20 13:30:00,-1,25
+357.124,Do.,S2 Z74,,False,False,False,-1,2024-06-27 12:45:00,2024-06-27 13:30:00,-1,26
+357.124,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.124,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.124,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+357.125,Do.,MT 128,,False,False,False,-1,2024-03-07 12:00:00,2024-03-07 12:45:00,-1,10
+357.125,Do.,MT 128,,False,False,False,-1,2024-03-14 12:00:00,2024-03-14 12:45:00,-1,11
+357.125,Do.,MT 128,,False,False,False,-1,2024-03-21 12:00:00,2024-03-21 12:45:00,-1,12
+357.125,Do.,MT 128,,False,False,False,-1,2024-04-11 12:00:00,2024-04-11 12:45:00,-1,15
+357.125,Do.,MT 128,,False,False,False,-1,2024-04-18 12:00:00,2024-04-18 12:45:00,-1,16
+357.125,Do.,MT 127,,False,False,False,-1,2024-04-25 12:00:00,2024-04-25 12:45:00,-1,17
+357.125,Do.,MT 128,,False,False,False,-1,2024-05-02 12:00:00,2024-05-02 12:45:00,-1,18
+357.125,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.125,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.125,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.125,Do.,MT 128,,False,False,False,-1,2024-05-16 12:00:00,2024-05-16 12:45:00,-1,20
+357.125,Do.,MT 128,,False,False,False,-1,2024-05-23 12:00:00,2024-05-23 12:45:00,-1,21
+357.125,Do.,MT 128,,False,False,False,-1,2024-06-06 12:00:00,2024-06-06 12:45:00,-1,23
+357.125,Do.,MT 128,,False,False,False,-1,2024-06-13 12:00:00,2024-06-13 12:45:00,-1,24
+357.125,Do.,MT 128,,False,False,False,-1,2024-06-20 12:00:00,2024-06-20 12:45:00,-1,25
+357.125,Do.,MT 128,,False,False,False,-1,2024-06-27 12:00:00,2024-06-27 12:45:00,-1,26
+357.125,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.125,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.125,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+357.126,Do.,MT 128,,False,False,False,-1,2024-03-07 12:45:00,2024-03-07 13:30:00,-1,10
+357.126,Do.,MT 128,,False,False,False,-1,2024-03-14 12:45:00,2024-03-14 13:30:00,-1,11
+357.126,Do.,MT 128,,False,False,False,-1,2024-03-21 12:45:00,2024-03-21 13:30:00,-1,12
+357.126,Do.,MT 128,,False,False,False,-1,2024-04-11 12:45:00,2024-04-11 13:30:00,-1,15
+357.126,Do.,MT 128,,False,False,False,-1,2024-04-18 12:45:00,2024-04-18 13:30:00,-1,16
+357.126,Do.,MT 128,,False,False,False,-1,2024-04-25 12:45:00,2024-04-25 13:30:00,-1,17
+357.126,Do.,MT 128,,False,False,False,-1,2024-05-02 12:45:00,2024-05-02 13:30:00,-1,18
+357.126,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.126,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.126,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.126,Do.,MT 128,,False,False,False,-1,2024-05-16 12:45:00,2024-05-16 13:30:00,-1,20
+357.126,Do.,MT 128,,False,False,False,-1,2024-05-23 12:45:00,2024-05-23 13:30:00,-1,21
+357.126,Do.,MT 128,,False,False,False,-1,2024-06-06 12:45:00,2024-06-06 13:30:00,-1,23
+357.126,Do.,MT 128,,False,False,False,-1,2024-06-13 12:45:00,2024-06-13 13:30:00,-1,24
+357.126,Do.,MT 128,,False,False,False,-1,2024-06-20 12:45:00,2024-06-20 13:30:00,-1,25
+357.126,Do.,MT 128,,False,False,False,-1,2024-06-27 12:45:00,2024-06-27 13:30:00,-1,26
+357.126,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.126,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.126,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+357.128,Do.,MT 226/1,,False,False,False,-1,2024-03-07 13:45:00,2024-03-07 14:30:00,-1,10
+357.128,Do.,K 001A,,False,False,False,-1,2024-03-14 13:45:00,2024-03-14 14:30:00,-1,11
+357.128,Do.,K 001A,,False,False,False,-1,2024-03-21 13:45:00,2024-03-21 14:30:00,-1,12
+357.128,Do.,K 001A,,False,False,False,-1,2024-04-11 13:45:00,2024-04-11 14:30:00,-1,15
+357.128,Do.,MT 226/1,,False,False,False,-1,2024-04-18 13:45:00,2024-04-18 14:30:00,-1,16
+357.128,Do.,K 001A,,False,False,False,-1,2024-04-25 13:45:00,2024-04-25 14:30:00,-1,17
+357.128,Do.,MT 226/1,,False,False,False,-1,2024-05-02 13:45:00,2024-05-02 14:30:00,-1,18
+357.128,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.128,Fr.,HS 7,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.128,Fr.,HS 2,1. Übungstest,False,True,False,-1,2024-05-03 12:45:00,2024-05-03 15:15:00,-1,18
+357.128,Do.,K 001A,,False,False,False,-1,2024-05-16 13:45:00,2024-05-16 14:30:00,-1,20
+357.128,Do.,HS 11,,False,False,False,-1,2024-05-23 13:45:00,2024-05-23 14:30:00,-1,21
+357.128,Do.,MT 226/1,,False,False,False,-1,2024-06-06 13:45:00,2024-06-06 14:30:00,-1,23
+357.128,Do.,MT 226/1,,False,False,False,-1,2024-06-13 13:45:00,2024-06-13 14:30:00,-1,24
+357.128,Do.,K 001A,,False,False,False,-1,2024-06-20 13:45:00,2024-06-20 14:30:00,-1,25
+357.128,Do.,S3 055,,False,False,False,-1,2024-06-27 13:45:00,2024-06-27 14:30:00,-1,26
+357.128,Fr.,HS 10,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.128,Fr.,HS 16,2. Übungstest,False,True,False,-1,2024-06-28 12:00:00,2024-06-28 14:30:00,-1,26
+357.128,Fr.,HS 18,2. Übungstest,False,True,False,0,2024-06-28 12:00:00,2024-06-28 14:30:00,164,26
+367.060,Di.,HS 16,"Themenüberblick, Grundlagen (hybrid)",False,False,False,-1,2024-03-05 13:45:00,2024-03-05 15:15:00,-1,10
+367.060,Di.,HS 16,Medientyp Text - Basics (hybrid),False,False,False,-1,2024-03-12 13:45:00,2024-03-12 15:15:00,-1,11
+367.060,Di.,HS 16,Medientyp Bild - Basics (hybrid),False,False,False,-1,2024-03-19 13:45:00,2024-03-19 15:15:00,-1,12
+367.060,Di.,HS 16,Medientyp Audio - Basics (hybrid),False,False,False,-1,2024-04-09 13:45:00,2024-04-09 15:15:00,-1,15
+367.060,Di.,HS 16,Medientyp Video - Basics (hybrid),False,False,False,-1,2024-04-16 13:45:00,2024-04-16 15:15:00,-1,16
+367.060,Di.,HS 16,Zwischenklausur (online),True,False,False,-1,2024-04-23 13:45:00,2024-04-23 15:15:00,-1,17
+367.060,Di.,HS 16,Themenvergabe Vertiefungen (online),False,False,False,-1,2024-04-30 13:45:00,2024-04-30 15:15:00,-1,18
+367.060,Di.,HS 16,Feedback zur Klausur (hybrid),True,False,False,-1,2024-05-07 13:45:00,2024-05-07 15:15:00,-1,19
+367.060,Di.,HS 16,Abgabe Ausarbeitungen (online),False,False,False,-1,2024-05-14 13:45:00,2024-05-14 15:15:00,-1,20
+367.060,Di.,HS 16,Vertiefung Block I (hybrid),False,False,False,-1,2024-05-28 13:45:00,2024-05-28 15:15:00,-1,22
+367.060,Di.,--,Vertiefung Block II (hybrid),False,False,False,-1,2024-06-04 13:45:00,2024-06-04 15:15:00,-1,23
+367.060,Di.,--,Vertiefung Block III (hybrid),False,False,False,-1,2024-06-11 13:45:00,2024-06-11 15:15:00,-1,24
+367.060,Di.,--,Vertiefung Block IV (hybrid),False,False,False,-1,2024-06-18 13:45:00,2024-06-18 15:15:00,-1,25
+367.060,Di.,HS 16,"Klausur (HS 16, Anmeldung erforderlich!)",True,False,False,-1,2024-06-25 13:45:00,2024-06-25 15:15:00,-1,26
+367.060,Mi.,HS 18,Nachklausur (Anmeldung erforderlich),True,False,False,0,2024-10-02 15:30:00,2024-10-02 17:00:00,164,40
+245.312,Mi.,HS 6,,False,False,False,-1,2024-03-06 15:30:00,2024-03-06 17:00:00,-1,10
+245.312,Mi.,HS 7,,False,False,False,-1,2024-03-13 15:30:00,2024-03-13 17:00:00,-1,11
+245.312,Mi.,HS 3,,False,False,False,-1,2024-03-20 15:30:00,2024-03-20 17:00:00,-1,12
+245.312,Mi.,K 001A,,False,False,False,-1,2024-04-10 15:30:00,2024-04-10 17:00:00,-1,15
+245.312,Mi.,K 001A,,False,False,False,-1,2024-04-17 15:30:00,2024-04-17 17:00:00,-1,16
+245.312,Mi.,K 001A,,False,False,False,-1,2024-04-24 15:30:00,2024-04-24 17:00:00,-1,17
+245.312,Mi.,K 001A,,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 17:00:00,-1,20
+245.312,Mi.,K 001A,,False,False,False,-1,2024-05-29 15:30:00,2024-05-29 17:00:00,-1,22
+245.312,Mi.,K 001A,,False,False,False,-1,2024-06-05 15:30:00,2024-06-05 17:00:00,-1,23
+245.312,Mi.,K 001A,,False,False,False,-1,2024-06-19 15:30:00,2024-06-19 17:00:00,-1,25
+245.312,Mi.,HS 18,Final Exam,True,False,False,0,2024-06-26 15:30:00,2024-06-26 17:00:00,164,26
+245.312,Mi.,HS 15,Resit Exam,True,False,False,-1,2024-07-17 15:30:00,2024-07-17 17:00:00,-1,29
+245.311,Mi.,HS 6,,False,False,False,-1,2024-03-06 13:45:00,2024-03-06 15:15:00,-1,10
+245.311,Mi.,HS 6,,False,False,False,-1,2024-03-13 13:45:00,2024-03-13 15:15:00,-1,11
+245.311,Mi.,HS 6,,False,False,False,-1,2024-03-20 13:45:00,2024-03-20 15:15:00,-1,12
+245.311,Mi.,HS 6,,False,False,False,-1,2024-04-10 13:45:00,2024-04-10 15:15:00,-1,15
+245.311,Mi.,HS 6,,False,False,False,-1,2024-04-17 13:45:00,2024-04-17 15:15:00,-1,16
+245.311,Mi.,HS 6,,False,False,False,-1,2024-04-24 13:45:00,2024-04-24 15:15:00,-1,17
+245.311,Mi.,HS 7,Midterm Exam,True,False,False,-1,2024-05-08 13:45:00,2024-05-08 15:15:00,-1,19
+245.311,Mi.,HS 6,,False,False,False,-1,2024-05-15 13:45:00,2024-05-15 15:15:00,-1,20
+245.311,Mi.,HS 6,"PLM Industry Talk Sami Özarik (Amazon EU SARL, Netherlands)",False,False,False,-1,2024-05-22 13:45:00,2024-05-22 15:15:00,-1,21
+245.311,Mi.,HS 6,,False,False,False,-1,2024-05-29 13:45:00,2024-05-29 15:15:00,-1,22
+245.311,Mi.,HS 6,,False,False,False,-1,2024-06-05 13:45:00,2024-06-05 15:15:00,-1,23
+245.311,Mi.,HS 6,,False,False,False,-1,2024-06-19 13:45:00,2024-06-19 15:15:00,-1,25
+245.311,Mi.,HS 18,Final Exam,True,False,False,0,2024-06-26 13:45:00,2024-06-26 15:15:00,164,26
+245.311,Mi.,HS 15,Resit Exam,True,False,False,-1,2024-07-17 13:45:00,2024-07-17 15:15:00,-1,29
+381.013,Mi.,S2 053,,False,False,False,-1,2024-03-06 10:15:00,2024-03-06 11:45:00,-1,10
+381.013,Mi.,S2 053,,False,False,False,-1,2024-03-13 10:15:00,2024-03-13 11:45:00,-1,11
+381.013,Mi.,S2 053,,False,False,False,-1,2024-03-20 10:15:00,2024-03-20 11:45:00,-1,12
+381.013,Mi.,S2 053,,False,False,False,-1,2024-04-10 10:15:00,2024-04-10 11:45:00,-1,15
+381.013,Mi.,S2 053,,False,False,False,-1,2024-04-17 10:15:00,2024-04-17 11:45:00,-1,16
+381.013,Mi.,S2 053,,False,False,False,-1,2024-04-24 10:15:00,2024-04-24 11:45:00,-1,17
+381.013,Mi.,S2 053,,False,False,False,-1,2024-05-08 10:15:00,2024-05-08 11:45:00,-1,19
+381.013,Mi.,S2 053,,False,False,False,-1,2024-05-15 10:15:00,2024-05-15 11:45:00,-1,20
+381.013,Mi.,S2 053,,False,False,False,-1,2024-05-22 10:15:00,2024-05-22 11:45:00,-1,21
+381.013,Mi.,S2 053,,False,False,False,-1,2024-05-29 10:15:00,2024-05-29 11:45:00,-1,22
+381.013,Mi.,S2 053,DI Dr. Klaus Straka,False,False,False,-1,2024-06-05 10:15:00,2024-06-05 11:45:00,-1,23
+381.013,Mi.,S2 053,DI Dr. Klaus Straka,False,False,False,-1,2024-06-12 10:15:00,2024-06-12 11:45:00,-1,24
+381.013,Mi.,S2 053,,False,False,False,-1,2024-06-19 10:15:00,2024-06-19 11:45:00,-1,25
+381.013,Mi.,S2 053,,False,False,False,-1,2024-06-26 10:15:00,2024-06-26 11:45:00,-1,26
+381.013,Mo.,HS 18,Exam - please register in KUSSS,True,False,False,0,2024-07-08 13:45:00,2024-07-08 15:15:00,164,28
+381.013,Mo.,HS 15,Exam - please register in KUSSS,True,False,False,-1,2024-09-23 13:45:00,2024-09-23 15:15:00,-1,39
+381.013,Di.,HS 19,Exam - please register in KUSSS,True,False,False,1,2025-02-11 13:45:00,2025-02-11 15:15:00,152,7
+381.013,Di.,HS 19,Exam - please register in KUSSS,True,False,False,1,2025-07-08 13:45:00,2025-07-08 15:15:00,152,28
+150.031,Mo.,Petrinum,,False,False,False,-1,2024-04-08 15:30:00,2024-04-08 18:45:00,-1,15
+150.031,Do.,Petrinum,,False,False,False,-1,2024-04-25 15:30:00,2024-04-25 18:45:00,-1,17
+150.031,Mi.,Petrinum,,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 18:45:00,-1,20
+150.031,Di.,HS 18,Klausur,True,False,False,0,2024-05-21 16:15:00,2024-05-21 17:15:00,164,21
+150.031,Do.,HS 12,Nachklausur 10:15 - 11:15 Uhr,True,False,False,-1,2024-06-27 10:15:00,2024-06-27 11:45:00,-1,26
+343.355,Fr.,S2 059,,False,False,False,-1,2024-03-08 08:30:00,2024-03-08 12:45:00,-1,10
+343.355,Fr.,S2 059,,False,False,False,-1,2024-03-22 08:30:00,2024-03-22 12:45:00,-1,12
+343.355,Fr.,S2 059,,False,False,False,-1,2024-04-19 08:30:00,2024-04-19 12:45:00,-1,16
+343.355,Fr.,S2 059,,False,False,False,-1,2024-05-03 08:30:00,2024-05-03 12:45:00,-1,18
+343.355,Fr.,S2 059,,False,False,False,-1,2024-05-24 08:30:00,2024-05-24 12:45:00,-1,21
+343.355,Fr.,HS 18,,False,False,False,0,2024-06-14 10:15:00,2024-06-14 11:45:00,164,24
+257.211,Mi.,HS 18,Vorbesprechung,False,False,False,0,2024-03-06 13:45:00,2024-03-06 15:15:00,164,10
+257.211,Mi.,HS 18,,False,False,False,0,2024-03-13 15:30:00,2024-03-13 17:00:00,164,11
+257.211,Mi.,HS 18,,False,False,False,0,2024-03-20 15:30:00,2024-03-20 17:00:00,164,12
+257.211,Mi.,HS 18,,False,False,False,0,2024-04-10 15:30:00,2024-04-10 17:00:00,164,15
+257.211,Mi.,HS 18,,False,False,False,0,2024-04-17 15:30:00,2024-04-17 17:00:00,164,16
+257.211,Mi.,HS 18,,False,False,False,0,2024-04-24 15:30:00,2024-04-24 17:00:00,164,17
+257.211,Mi.,HS 18,,False,False,False,0,2024-05-08 15:30:00,2024-05-08 17:00:00,164,19
+257.211,Mi.,MT 127,,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 17:00:00,-1,20
+257.211,Mi.,HS 18,,False,False,False,0,2024-05-29 15:30:00,2024-05-29 17:00:00,164,22
+257.211,Mi.,MT 127,,False,False,False,-1,2024-06-05 15:30:00,2024-06-05 17:00:00,-1,23
+257.213,Mi.,HS 18,Vorbesprechung,False,False,False,0,2024-03-06 13:45:00,2024-03-06 15:15:00,164,10
+257.213,Mi.,HS 18,,False,False,False,0,2024-03-13 15:30:00,2024-03-13 17:00:00,164,11
+257.213,Mi.,HS 18,,False,False,False,0,2024-03-20 15:30:00,2024-03-20 17:00:00,164,12
+257.213,Mi.,HS 18,,False,False,False,0,2024-04-10 15:30:00,2024-04-10 17:00:00,164,15
+257.213,Mi.,HS 18,,False,False,False,0,2024-04-17 15:30:00,2024-04-17 17:00:00,164,16
+257.213,Mi.,HS 18,,False,False,False,0,2024-04-24 15:30:00,2024-04-24 17:00:00,164,17
+257.213,Mi.,HS 18,,False,False,False,0,2024-05-08 15:30:00,2024-05-08 17:00:00,164,19
+257.213,Mi.,MT 127,,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 17:00:00,-1,20
+257.213,Mi.,HS 18,,False,False,False,0,2024-05-29 15:30:00,2024-05-29 17:00:00,164,22
+257.213,Mi.,MT 127,,False,False,False,-1,2024-06-05 15:30:00,2024-06-05 17:00:00,-1,23
+257.214,Mi.,HS 18,Vorbesprechung,False,False,False,0,2024-03-06 13:45:00,2024-03-06 15:15:00,164,10
+257.214,Mi.,HS 18,,False,False,False,0,2024-03-13 15:30:00,2024-03-13 17:00:00,164,11
+257.214,Mi.,HS 18,,False,False,False,0,2024-03-20 15:30:00,2024-03-20 17:00:00,164,12
+257.214,Mi.,HS 18,,False,False,False,0,2024-04-10 15:30:00,2024-04-10 17:00:00,164,15
+257.214,Mi.,HS 18,,False,False,False,0,2024-04-17 15:30:00,2024-04-17 17:00:00,164,16
+257.214,Mi.,HS 18,,False,False,False,0,2024-04-24 15:30:00,2024-04-24 17:00:00,164,17
+257.214,Mi.,HS 18,,False,False,False,0,2024-05-08 15:30:00,2024-05-08 17:00:00,164,19
+257.214,Mi.,MT 127,,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 17:00:00,-1,20
+257.214,Mi.,HS 18,,False,False,False,0,2024-05-29 15:30:00,2024-05-29 17:00:00,164,22
+257.214,Mi.,MT 127,,False,False,False,-1,2024-06-05 15:30:00,2024-06-05 17:00:00,-1,23
+257.200,Mi.,HS 18,Vorbesprechung VL+UE (hybrid),False,False,False,0,2024-03-06 13:45:00,2024-03-06 15:15:00,164,10
+257.200,Mi.,HS 18,,False,False,False,0,2024-03-13 13:45:00,2024-03-13 15:15:00,164,11
+257.200,Mi.,HS 18,,False,False,False,0,2024-03-20 13:45:00,2024-03-20 15:15:00,164,12
+257.200,Mi.,HS 18,,False,False,False,0,2024-04-10 13:45:00,2024-04-10 15:15:00,164,15
+257.200,Mi.,HS 18,,False,False,False,0,2024-04-17 13:45:00,2024-04-17 15:15:00,164,16
+257.200,Mi.,HS 18,,False,False,False,0,2024-04-24 13:45:00,2024-04-24 15:15:00,164,17
+257.200,Mi.,HS 18,,False,False,False,0,2024-05-08 13:45:00,2024-05-08 15:15:00,164,19
+257.200,Mi.,HS 18,,False,False,False,0,2024-05-15 13:45:00,2024-05-15 15:15:00,164,20
+257.200,Di.,HS 1,Klausur,True,False,False,-1,2024-05-28 08:30:00,2024-05-28 10:00:00,-1,22
+257.200,Di.,HS 9,Klausur,True,False,False,-1,2024-05-28 08:30:00,2024-05-28 10:00:00,-1,22
+257.200,Di.,HS 1,Nachklausur,True,False,False,-1,2024-06-18 08:30:00,2024-06-18 10:00:00,-1,25
+361.001,Di.,HS 18,,False,False,False,0,2024-03-05 08:30:00,2024-03-05 10:00:00,164,10
+361.001,Fr.,HS 19,,False,False,False,1,2024-03-08 08:30:00,2024-03-08 10:00:00,152,10
+361.001,Di.,HS 18,,False,False,False,0,2024-03-12 08:30:00,2024-03-12 10:00:00,164,11
+361.001,Fr.,HS 19,,False,False,False,1,2024-03-15 08:30:00,2024-03-15 10:00:00,152,11
+361.001,Fr.,HS 5,Klausur,True,False,False,-1,2024-03-15 10:15:00,2024-03-15 12:45:00,-1,11
+361.001,Di.,HS 18,,False,False,False,0,2024-03-19 08:30:00,2024-03-19 10:00:00,164,12
+361.001,Fr.,HS 19,,False,False,False,1,2024-03-22 08:30:00,2024-03-22 10:00:00,152,12
+361.001,Di.,HS 18,,False,False,False,0,2024-04-09 08:30:00,2024-04-09 10:00:00,164,15
+361.001,Fr.,HS 19,,False,False,False,1,2024-04-12 08:30:00,2024-04-12 10:00:00,152,15
+361.001,Di.,HS 18,,False,False,False,0,2024-04-16 08:30:00,2024-04-16 10:00:00,164,16
+361.001,Fr.,HS 19,,False,False,False,1,2024-04-19 08:30:00,2024-04-19 10:00:00,152,16
+361.001,Di.,HS 18,,False,False,False,0,2024-04-23 08:30:00,2024-04-23 10:00:00,164,17
+361.001,Fr.,HS 19,,False,False,False,1,2024-04-26 08:30:00,2024-04-26 10:00:00,152,17
+361.001,Di.,HS 18,,False,False,False,0,2024-04-30 08:30:00,2024-04-30 10:00:00,164,18
+361.001,Fr.,HS 19,,False,False,False,1,2024-05-03 08:30:00,2024-05-03 10:00:00,152,18
+361.001,Fr.,HS 19,Klausur,True,False,False,1,2024-05-03 10:15:00,2024-05-03 12:45:00,152,18
+361.001,Di.,HS 18,,False,False,False,0,2024-05-07 08:30:00,2024-05-07 10:00:00,164,19
+361.001,Di.,HS 18,,False,False,False,0,2024-05-14 08:30:00,2024-05-14 10:00:00,164,20
+361.001,Di.,HS 18,,False,False,False,0,2024-05-28 08:30:00,2024-05-28 10:00:00,164,22
+361.001,Di.,HS 18,,False,False,False,0,2024-06-04 08:30:00,2024-06-04 10:00:00,164,23
+361.001,Di.,HS 18,,False,False,False,0,2024-06-11 08:30:00,2024-06-11 10:00:00,164,24
+361.001,Di.,HS 18,,False,False,False,0,2024-06-18 08:30:00,2024-06-18 10:00:00,164,25
+361.001,Di.,HS 18,,False,False,False,0,2024-06-25 08:30:00,2024-06-25 10:00:00,164,26
+361.001,Fr.,HS 1,Klausur,True,False,False,-1,2024-07-19 10:15:00,2024-07-19 12:45:00,-1,29
+361.001,Fr.,HS 1,Klausur,True,False,False,-1,2024-10-18 10:15:00,2024-10-18 12:45:00,-1,42
+361.001,Fr.,HS 9,Klausur,True,False,False,-1,2024-12-13 10:15:00,2024-12-13 12:45:00,-1,50
+361.001,Fr.,HS 19,Klausur,True,False,False,1,2025-02-07 10:15:00,2025-02-07 12:45:00,152,6
+382.059,Mi.,S2 048,,False,False,False,-1,2024-03-06 08:30:00,2024-03-06 11:00:00,-1,10
+382.059,Mi.,S2 048,,False,False,False,-1,2024-03-13 08:30:00,2024-03-13 11:00:00,-1,11
+382.059,Mi.,S2 048,,False,False,False,-1,2024-03-20 08:30:00,2024-03-20 11:00:00,-1,12
+382.059,Mi.,S2 048,,False,False,False,-1,2024-04-10 08:30:00,2024-04-10 11:00:00,-1,15
+382.059,Mi.,S2 048,,False,False,False,-1,2024-04-17 08:30:00,2024-04-17 11:00:00,-1,16
+382.059,Mi.,S2 048,,False,False,False,-1,2024-04-24 08:30:00,2024-04-24 11:00:00,-1,17
+382.059,Mi.,S2 048,,False,False,False,-1,2024-05-08 08:30:00,2024-05-08 11:00:00,-1,19
+382.059,Mi.,S2 048,,False,False,False,-1,2024-05-15 08:30:00,2024-05-15 11:00:00,-1,20
+382.059,Mi.,S2 048,,False,False,False,-1,2024-05-22 08:30:00,2024-05-22 11:00:00,-1,21
+382.059,Mi.,S2 048,,False,False,False,-1,2024-05-29 08:30:00,2024-05-29 11:00:00,-1,22
+382.059,Mi.,S2 048,,False,False,False,-1,2024-06-05 08:30:00,2024-06-05 11:00:00,-1,23
+382.059,Mi.,S2 048,,False,False,False,-1,2024-06-12 08:30:00,2024-06-12 11:00:00,-1,24
+382.059,Mi.,S2 048,,False,False,False,-1,2024-06-26 08:30:00,2024-06-26 11:00:00,-1,26
+382.059,Mi.,HS 18,,False,False,False,0,2024-07-10 08:30:00,2024-07-10 11:00:00,164,28
+382.059,Mo.,S3 055,,False,False,False,-1,2024-09-30 08:30:00,2024-09-30 11:00:00,-1,40
+382.059,Fr.,S5 101,,False,False,False,-1,2024-11-15 08:30:00,2024-11-15 11:00:00,-1,46
+382.059,Do.,S5 102,,False,False,False,-1,2025-01-09 13:45:00,2025-01-09 16:15:00,-1,2
+382.059,Di.,S3 057,,False,False,False,-1,2025-02-11 10:15:00,2025-02-11 12:45:00,-1,7
+339.170,Do.,HS 19,,False,False,False,1,2024-03-07 15:30:00,2024-03-07 17:00:00,152,10
+339.170,Do.,HS 19,,False,False,False,1,2024-03-14 15:30:00,2024-03-14 17:00:00,152,11
+339.170,Do.,HS 19,,False,False,False,1,2024-03-21 15:30:00,2024-03-21 17:00:00,152,12
+339.170,Do.,HS 19,,False,False,False,1,2024-04-11 15:30:00,2024-04-11 17:00:00,152,15
+339.170,Do.,HS 19,,False,False,False,1,2024-04-18 15:30:00,2024-04-18 17:00:00,152,16
+339.170,Do.,HS 19,,False,False,False,1,2024-04-25 15:30:00,2024-04-25 17:00:00,152,17
+339.170,Do.,HS 19,,False,False,False,1,2024-05-02 15:30:00,2024-05-02 17:00:00,152,18
+339.170,Do.,HS 19,,False,False,False,1,2024-05-16 15:30:00,2024-05-16 17:00:00,152,20
+339.170,Do.,HS 19,,False,False,False,1,2024-05-23 15:30:00,2024-05-23 17:00:00,152,21
+339.170,Do.,HS 19,,False,False,False,1,2024-06-06 15:30:00,2024-06-06 17:00:00,152,23
+339.170,Do.,HS 19,,False,False,False,1,2024-06-13 15:30:00,2024-06-13 17:00:00,152,24
+339.170,Do.,HS 19,,False,False,False,1,2024-06-20 15:30:00,2024-06-20 17:00:00,152,25
+339.170,Do.,HS 19,Klausur M-Z,True,False,False,1,2024-06-27 15:30:00,2024-06-27 17:00:00,152,26
+339.170,Do.,HS 18,Klausur A-L,True,False,False,0,2024-06-27 15:30:00,2024-06-27 17:00:00,164,26
+339.170,Di.,HS 16,Nachklausur,True,False,False,-1,2024-10-22 17:15:00,2024-10-22 18:45:00,-1,43
+339.191,Do.,HS 7,,False,False,False,-1,2024-03-07 08:30:00,2024-03-07 10:00:00,-1,10
+339.191,Do.,HS 7,,False,False,False,-1,2024-03-14 08:30:00,2024-03-14 10:00:00,-1,11
+339.191,Do.,HS 7,,False,False,False,-1,2024-03-21 08:30:00,2024-03-21 10:00:00,-1,12
+339.191,Do.,HS 7,,False,False,False,-1,2024-04-11 08:30:00,2024-04-11 10:00:00,-1,15
+339.191,Do.,HS 7,,False,False,False,-1,2024-04-18 08:30:00,2024-04-18 10:00:00,-1,16
+339.191,Do.,HS 10,19:00 - 19:30 Uhr Test,False,True,False,-1,2024-04-18 19:00:00,2024-04-18 19:45:00,-1,16
+339.191,Do.,HS 18,19:00 - 19:30 Uhr Test,False,True,False,0,2024-04-18 19:00:00,2024-04-18 19:45:00,164,16
+339.191,Do.,HS 16,19:00 - 19:30 Uhr Test,False,True,False,-1,2024-04-18 19:00:00,2024-04-18 19:45:00,-1,16
+339.191,Do.,HS 7,,False,False,False,-1,2024-04-25 08:30:00,2024-04-25 10:00:00,-1,17
+339.191,Do.,HS 7,,False,False,False,-1,2024-05-02 08:30:00,2024-05-02 10:00:00,-1,18
+339.191,Do.,HS 7,,False,False,False,-1,2024-05-16 08:30:00,2024-05-16 10:00:00,-1,20
+339.191,Do.,HS 7,,False,False,False,-1,2024-05-23 08:30:00,2024-05-23 10:00:00,-1,21
+339.191,Do.,HS 16,19:00 - 19:30 Uhr Test,False,True,False,-1,2024-05-23 19:00:00,2024-05-23 19:45:00,-1,21
+339.191,Do.,HS 1,19:00-19:30 Uhr Test,False,True,False,-1,2024-05-23 19:00:00,2024-05-23 19:45:00,-1,21
+339.191,Do.,HS 7,,False,False,False,-1,2024-06-06 08:30:00,2024-06-06 10:00:00,-1,23
+339.191,Do.,HS 7,,False,False,False,-1,2024-06-13 08:30:00,2024-06-13 10:00:00,-1,24
+339.191,Do.,HS 7,,False,False,False,-1,2024-06-20 08:30:00,2024-06-20 10:00:00,-1,25
+339.191,Do.,HS 16,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,HS 7,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,HS 2,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,T 405,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,MT 226/1,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,HS 10,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,HS 17,Klausur,True,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+339.191,Do.,HS 2,Nachklausur/Test,True,True,False,-1,2024-10-10 17:15:00,2024-10-10 19:45:00,-1,41
+256.600,Mi.,HS 18,Digitalisierung; Social Impact der Digitalisierung,False,False,False,0,2024-03-06 17:15:00,2024-03-06 18:45:00,164,10
+256.600,Mi.,HS 18,Media Ecology - Teil 1/2,False,False,False,0,2024-03-13 17:15:00,2024-03-13 18:45:00,164,11
+256.600,Mi.,HS 18,Media Ecology - Teil 2/2,False,False,False,0,2024-03-20 17:15:00,2024-03-20 18:45:00,164,12
+256.600,Mi.,HS 18,Digital Age Management - Teil 1/2,False,False,False,0,2024-04-10 17:15:00,2024-04-10 18:45:00,164,15
+256.600,Mi.,HS 18,Digital Age Management - Teil 2/2; Informationsmanagement,False,False,False,0,2024-04-17 17:15:00,2024-04-17 18:45:00,164,16
+256.600,Mi.,HS 18,Vertiefungsthema Künstliche Intelligenz (KI),False,False,False,0,2024-04-24 17:15:00,2024-04-24 18:45:00,164,17
+256.600,Mi.,HS 18,Vertiefungsthema Agilität (letztes Kapitel der Hauptunterlage),False,False,False,0,2024-05-08 17:15:00,2024-05-08 18:45:00,164,19
+256.600,Mi.,MT 127,Vertiefungsthema Krypto-Assets - Teil 1,False,False,False,-1,2024-05-15 17:15:00,2024-05-15 18:45:00,-1,20
+256.600,Mi.,HS 18,"Flipped Classroom - Selbststudium (Videos zu Media Ecology), siehe Mail",False,False,False,0,2024-05-22 17:15:00,2024-05-22 18:45:00,164,21
+256.600,Mi.,HS 18,"Gastreferent Mag. Böhm / Fallstudie im Kontext des Kapitels ""Media Ecology""",False,False,False,0,2024-05-29 17:15:00,2024-05-29 18:45:00,164,22
+256.600,Mi.,MT 127,Vertiefungsthema Krypto-Assets - Teil 2,False,False,False,-1,2024-06-05 17:15:00,2024-06-05 18:45:00,-1,23
+256.600,Mi.,HS 18,"Vertiefungsthema ""IT und Sustainibility""",False,False,False,0,2024-06-12 17:15:00,2024-06-12 18:45:00,164,24
+256.600,Mi.,HS 18,"Optional: Online per Zoom (siehe Mail), kein neuer Stoff, Möglichkeit für Fragen zum Stoff",False,False,False,0,2024-06-19 17:15:00,2024-06-19 18:45:00,164,25
+256.600,Mi.,HS 1,"Schriftliche Prüfung im HS 1, closed book",True,False,False,-1,2024-06-26 19:00:00,2024-06-26 20:30:00,-1,26
+256.600,Mi.,online,"Einsichtnahme Klausur, Anmeldung bis 21. Juli 2024 an karina.dorfer@jku.at / Zuteilung Slot erfolgt anschließend",True,False,False,-1,2024-07-24 16:30:00,2024-07-24 17:30:00,-1,30
+256.600,Do.,HS 10,"Schriftliche Nachklausur, closed book",True,False,False,-1,2024-10-24 19:00:00,2024-10-24 20:30:00,-1,43
+339.341,Fr.,HS 18,,False,False,False,0,2024-04-12 12:00:00,2024-04-12 18:00:00,164,15
+339.341,Sa.,HS 18,,False,False,False,0,2024-04-13 08:30:00,2024-04-13 12:45:00,164,15
+339.341,Fr.,HS 18,,False,False,False,0,2024-04-19 12:00:00,2024-04-19 18:00:00,164,16
+339.341,Do.,HS 16,"Klausur 17:15-18:15, Mo-Z",True,False,False,-1,2024-05-23 17:15:00,2024-05-23 18:45:00,-1,21
+339.341,Do.,HS 2,"Klausur 17:15-18:15, A-Mi",True,False,False,-1,2024-05-23 17:15:00,2024-05-23 18:45:00,-1,21
+339.341,Do.,S2 048,Nachklausur,True,False,False,-1,2024-07-04 10:00:00,2024-07-04 11:00:00,-1,27
+339.350,Mo.,T 911,,False,False,False,-1,2024-05-13 14:30:00,2024-05-13 17:00:00,-1,20
+339.350,Di.,KHG I,,False,False,False,-1,2024-05-14 13:45:00,2024-05-14 17:00:00,-1,20
+339.350,Mi.,ESH 3,,False,False,False,-1,2024-05-15 13:45:00,2024-05-15 17:00:00,-1,20
+339.350,Do.,T 406/1,,False,False,False,-1,2024-05-16 13:45:00,2024-05-16 17:00:00,-1,20
+339.350,Do.,HS 18,Klausur,True,False,False,0,2024-06-06 15:30:00,2024-06-06 17:00:00,164,23
+366.594,Di., ,Zoom meeting about submitting homework (link see Moodle),True,False,False,-1,2024-03-12 17:15:00,2024-03-12 18:45:00,-1,11
+366.594,Mi.,Zoom,"Voluntary Q&A about homwork, Zoom-link see Moodle",True,False,False,-1,2024-04-10 16:00:00,2024-04-10 17:00:00,-1,15
+366.594,Di.,Zoom,"Voluntary Q&A about homwork, Zoom-link see Moodle",True,False,False,-1,2024-05-07 16:00:00,2024-05-07 17:00:00,-1,19
+366.594,Di.,Zoom,"Voluntary Q&A about homwork, Zoom-link see Moodle",True,False,False,-1,2024-06-04 16:00:00,2024-06-04 17:00:00,-1,23
+366.594,Mi.,Zoom,"Voluntary Q&A about homwork/exam, Zoom-link see Moodle",True,False,False,-1,2024-06-26 15:45:00,2024-06-26 16:45:00,-1,26
+366.594,Do.,HS 18,Distance Exercise Exam - check seating plan in Moodle,True,False,False,0,2024-06-27 17:15:00,2024-06-27 18:45:00,164,26
+366.594,Do.,HS 7,Distance Exercise Exam - check seating plan in Moodle,True,False,False,-1,2024-06-27 17:15:00,2024-06-27 18:45:00,-1,26
+366.594,Fr.,JKU HS 1,Second distance exercise exam,True,False,False,-1,2024-10-18 16:15:00,2024-10-18 17:45:00,-1,42
+238.213,Mo.,HS 18,,False,False,False,0,2024-03-04 15:30:00,2024-03-04 17:00:00,164,10
+238.213,Mi., ,"Zoom-Tutorium (Alle Tutorien sind ein Angebot, keine Pflicht)",False,False,True,-1,2024-03-06 18:00:00,2024-03-06 18:45:00,-1,10
+238.213,Mo.,HS 18,,False,False,False,0,2024-03-11 15:30:00,2024-03-11 17:00:00,164,11
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-03-13 18:00:00,2024-03-13 18:45:00,-1,11
+238.213,Mo.,HS 18,,False,False,False,0,2024-03-18 15:30:00,2024-03-18 17:00:00,164,12
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-03-20 18:00:00,2024-03-20 18:45:00,-1,12
+238.213,Mo.,HS 18,,False,False,False,0,2024-04-08 15:30:00,2024-04-08 17:00:00,164,15
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-04-10 18:00:00,2024-04-10 18:45:00,-1,15
+238.213,Mo.,HS 18,,False,False,False,0,2024-04-15 15:30:00,2024-04-15 17:00:00,164,16
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-04-17 18:00:00,2024-04-17 18:45:00,-1,16
+238.213,Mo.,HS 18,,False,False,False,0,2024-04-22 15:30:00,2024-04-22 17:00:00,164,17
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-04-24 18:00:00,2024-04-24 18:45:00,-1,17
+238.213,Mo.,HS 18,,False,False,False,0,2024-04-29 15:30:00,2024-04-29 17:00:00,164,18
+238.213,Di., ,Zoom-Tutorium,False,False,True,-1,2024-04-30 18:00:00,2024-04-30 18:45:00,-1,18
+238.213,Mo.,HS 18,,False,False,False,0,2024-05-06 15:30:00,2024-05-06 17:00:00,164,19
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-05-08 18:00:00,2024-05-08 18:45:00,-1,19
+238.213,Mo.,HS 18,,False,False,False,0,2024-05-13 15:30:00,2024-05-13 17:00:00,164,20
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-05-15 18:00:00,2024-05-15 18:45:00,-1,20
+238.213,Mo.,HS 18,,False,False,False,0,2024-05-27 15:30:00,2024-05-27 17:00:00,164,22
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-05-29 18:00:00,2024-05-29 18:45:00,-1,22
+238.213,Mo.,HS 18,,False,False,False,0,2024-06-03 15:30:00,2024-06-03 17:00:00,164,23
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-06-05 18:00:00,2024-06-05 18:45:00,-1,23
+238.213,Mo.,HS 18,,False,False,False,0,2024-06-10 15:30:00,2024-06-10 17:00:00,164,24
+238.213,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-06-12 18:00:00,2024-06-12 18:45:00,-1,24
+238.213,Mo.,HS 18,,False,False,False,0,2024-06-17 15:30:00,2024-06-17 17:00:00,164,25
+238.213,Mi., ,Fragestunde zur Klausur (via Zoom),True,False,True,-1,2024-06-26 18:00:00,2024-06-26 18:45:00,-1,26
+238.213,Fr.,HS 1,Klausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-06-28 15:30:00,2024-06-28 17:00:00,-1,26
+238.213,Fr.,HS 7,Klausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-06-28 15:30:00,2024-06-28 17:00:00,-1,26
+238.213,Fr.,HS 2,Klausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-06-28 15:30:00,2024-06-28 17:00:00,-1,26
+238.213,Mo., ,Nachbesprechung (via Zoom),False,False,False,-1,2024-07-01 18:00:00,2024-07-01 18:45:00,-1,27
+238.213,Do.,HS 15,Nachklausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-09-26 15:30:00,2024-09-26 17:00:00,-1,39
+238.213,Do.,HS 16,Nachklausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-09-26 15:30:00,2024-09-26 17:00:00,-1,39
+150.004,Mi.,HS 10,,False,False,False,-1,2024-04-10 15:30:00,2024-04-10 18:45:00,-1,15
+150.004,Do.,HS 18,,False,False,False,0,2024-04-11 15:30:00,2024-04-11 18:45:00,164,15
+150.004,Di.,HS 3,,False,False,False,-1,2024-04-16 16:15:00,2024-04-16 19:45:00,-1,16
+150.004,Do.,HS 3,,False,False,False,-1,2024-04-18 15:30:00,2024-04-18 18:45:00,-1,16
+269.030,Mo.,HS 17,1. Termin Anwesenheitspflicht,False,False,False,-1,2024-03-04 10:15:00,2024-03-04 13:30:00,-1,10
+269.030,Mo.,ONLINE/ZOOM,,False,False,False,-1,2024-03-11 10:15:00,2024-03-11 13:30:00,-1,11
+269.030,Mo.,KEP 1,,False,False,False,-1,2024-03-18 10:15:00,2024-03-18 13:30:00,-1,12
+269.030,Mo.,ONLINE/ZOOM,,False,False,False,-1,2024-04-08 10:15:00,2024-04-08 13:30:00,-1,15
+269.030,Mo.,K 033C,,False,False,False,-1,2024-04-15 10:15:00,2024-04-15 13:30:00,-1,16
+269.030,Mo.,KEP 1,In Kooperation mit Firma Rosenbauer / Innovation Technology & Research,False,False,False,-1,2024-04-22 10:15:00,2024-04-22 13:30:00,-1,17
+269.030,Di.,HS 18,Klausur,True,False,False,0,2024-05-07 12:00:00,2024-05-07 13:30:00,164,19
+269.030,Fr.,HS 6,Nachklausur,True,False,False,-1,2024-06-07 12:00:00,2024-06-07 13:30:00,-1,23
+381.001,Mi.,S3 047,,False,False,False,-1,2024-03-06 13:45:00,2024-03-06 15:15:00,-1,10
+381.001,Mi.,S3 047,,False,False,False,-1,2024-03-13 13:45:00,2024-03-13 15:15:00,-1,11
+381.001,Mi.,S3 047,,False,False,False,-1,2024-03-20 13:45:00,2024-03-20 15:15:00,-1,12
+381.001,Mi.,S3 047,,False,False,False,-1,2024-04-10 13:45:00,2024-04-10 15:15:00,-1,15
+381.001,Mi.,S3 047,,False,False,False,-1,2024-04-17 13:45:00,2024-04-17 15:15:00,-1,16
+381.001,Mi.,S3 047,,False,False,False,-1,2024-04-24 13:45:00,2024-04-24 15:15:00,-1,17
+381.001,Mi.,S3 047,,False,False,False,-1,2024-05-08 13:45:00,2024-05-08 15:15:00,-1,19
+381.001,Mi.,S3 047,,False,False,False,-1,2024-05-15 13:45:00,2024-05-15 15:15:00,-1,20
+381.001,Mi.,S3 047,,False,False,False,-1,2024-05-22 13:45:00,2024-05-22 15:15:00,-1,21
+381.001,Mi.,S3 047,,False,False,False,-1,2024-05-29 13:45:00,2024-05-29 15:15:00,-1,22
+381.001,Mi.,S3 047,"Vortrag DI Dr. Johannes Kilian, ENGEL AUSTRIA GmbH - Werkzeugtemperierung",False,False,False,-1,2024-06-05 13:45:00,2024-06-05 15:15:00,-1,23
+381.001,Mi.,S3 047,,False,False,False,-1,2024-06-12 13:45:00,2024-06-12 15:15:00,-1,24
+381.001,Mi.,S3 047,,False,False,False,-1,2024-06-19 13:45:00,2024-06-19 15:15:00,-1,25
+381.001,Mi.,S3 047,,False,False,False,-1,2024-06-26 13:45:00,2024-06-26 15:15:00,-1,26
+381.001,Mo.,HS 18,Prüfung - bitte im KUSSS anmelden,True,False,False,0,2024-07-08 13:45:00,2024-07-08 15:15:00,164,28
+381.001,Mo.,HS 15,Prüfung - bitte im KUSSS anmelden,True,False,False,-1,2024-09-23 13:45:00,2024-09-23 15:15:00,-1,39
+381.001,Di.,HS 19,,False,False,False,1,2025-02-11 13:45:00,2025-02-11 15:15:00,152,7
+381.001,Di.,HS 19,,False,False,False,1,2025-07-08 13:45:00,2025-07-08 15:15:00,152,28
+367.044,Di.,HS 9,"Introduction: Organization, OO Programming Basics",False,False,False,-1,2024-03-05 13:45:00,2024-03-05 15:15:00,-1,10
+367.044,Di.,HS 9,Inheritance,False,False,False,-1,2024-03-12 13:45:00,2024-03-12 15:15:00,-1,11
+367.044,Di.,HS 9,Types of Classes and Interfaces,False,False,False,-1,2024-03-19 13:45:00,2024-03-19 15:15:00,-1,12
+367.044,Di.,HS 9,Generics,False,False,False,-1,2024-04-09 13:45:00,2024-04-09 15:15:00,-1,15
+367.044,Di.,HS 9,Collections,False,False,False,-1,2024-04-16 13:45:00,2024-04-16 15:15:00,-1,16
+367.044,Di.,HS 9,Lambda Expressions,False,False,False,-1,2024-04-23 13:45:00,2024-04-23 15:15:00,-1,17
+367.044,Di.,HS 9,Streams,False,False,False,-1,2024-04-30 13:45:00,2024-04-30 15:15:00,-1,18
+367.044,Di.,HS 9,Multithreading,False,False,False,-1,2024-05-07 13:45:00,2024-05-07 15:15:00,-1,19
+367.044,Di.,HS 9,Design and Test,False,True,False,-1,2024-05-14 13:45:00,2024-05-14 15:15:00,-1,20
+367.044,Di.,HS 9,Q&A,False,False,False,-1,2024-05-28 13:45:00,2024-05-28 15:15:00,-1,22
+367.044,Di.,HS 9,GUI and Model-View-Controller,False,False,False,-1,2024-06-04 13:45:00,2024-06-04 15:15:00,-1,23
+367.044,Di.,HS 9,Software Design Patterns,False,False,False,-1,2024-06-11 13:45:00,2024-06-11 15:15:00,-1,24
+367.044,Di.,HS 9,Q&A,False,False,False,-1,2024-06-18 13:45:00,2024-06-18 15:15:00,-1,25
+367.044,Do.,HS 10,Klausur HS Einteilung: Nachname A - M,True,False,False,-1,2024-06-27 13:45:00,2024-06-27 15:15:00,-1,26
+367.044,Do.,HS 16,Klausur HS Einteilung: Nachname N - Z,True,False,False,-1,2024-06-27 13:45:00,2024-06-27 15:15:00,-1,26
+367.044,Di.,HS 18,Nachklausur,True,False,False,0,2024-10-01 15:30:00,2024-10-01 17:00:00,164,40
+531.208,Di.,BA 9911,,False,False,False,-1,2024-03-05 13:45:00,2024-03-05 15:15:00,-1,10
+531.208,Do.,HS 18,,False,False,False,0,2024-03-07 13:45:00,2024-03-07 15:15:00,164,10
+531.208,Di.,HS 17,,False,False,False,-1,2024-03-12 13:45:00,2024-03-12 15:15:00,-1,11
+531.208,Do.,HS 18,,False,False,False,0,2024-03-14 13:45:00,2024-03-14 15:15:00,164,11
+531.208,Di.,MT 226,,False,False,False,-1,2024-03-19 13:45:00,2024-03-19 15:15:00,-1,12
+531.208,Di.,MT 226,,False,False,False,-1,2024-04-09 13:45:00,2024-04-09 15:15:00,-1,15
+531.208,Do.,HS 18,,False,False,False,0,2024-04-11 13:45:00,2024-04-11 15:15:00,164,15
+531.208,Fr.,BA 9910,,False,False,False,-1,2024-04-12 10:15:00,2024-04-12 11:45:00,-1,15
+531.208,Di.,MT 226,,False,False,False,-1,2024-04-16 13:45:00,2024-04-16 15:15:00,-1,16
+531.208,Do.,HS 18,,False,False,False,0,2024-04-18 13:45:00,2024-04-18 15:15:00,164,16
+531.208,Di.,MT 226,,False,False,False,-1,2024-04-23 13:45:00,2024-04-23 15:15:00,-1,17
+531.208,Do.,HS 18,,False,False,False,0,2024-04-25 13:45:00,2024-04-25 15:15:00,164,17
+531.208,Di.,MT 226,,False,False,False,-1,2024-04-30 13:45:00,2024-04-30 15:15:00,-1,18
+531.208,Do.,HS 18,,False,False,False,0,2024-05-02 13:45:00,2024-05-02 15:15:00,164,18
+531.208,Di.,MT 226,,False,False,False,-1,2024-05-07 13:45:00,2024-05-07 15:15:00,-1,19
+531.208,Di.,HS 7,,False,False,False,-1,2024-05-14 13:45:00,2024-05-14 15:15:00,-1,20
+531.208,Do.,HS 18,,False,False,False,0,2024-05-16 13:45:00,2024-05-16 15:15:00,164,20
+531.208,Do.,HS 18,,False,False,False,0,2024-05-23 13:45:00,2024-05-23 15:15:00,164,21
+531.208,Mo.,HF 9901,,False,False,False,-1,2024-05-27 10:15:00,2024-05-27 11:45:00,-1,22
+531.208,Di.,MT 226,,False,False,False,-1,2024-05-28 13:45:00,2024-05-28 15:15:00,-1,22
+531.208,Mo.,S4 025,,False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+531.208,Di.,BA 9910,,False,False,False,-1,2024-06-04 13:45:00,2024-06-04 15:15:00,-1,23
+531.208,Do.,HS 18,,False,False,False,0,2024-06-06 13:45:00,2024-06-06 15:15:00,164,23
+531.208,Di.,HS 3,,False,False,False,-1,2024-06-11 13:45:00,2024-06-11 15:15:00,-1,24
+531.208,Mo.,S2 054,,False,False,False,-1,2024-06-24 10:15:00,2024-06-24 11:45:00,-1,26
+531.208,Di.,BA 9910,,False,False,False,-1,2024-06-25 13:45:00,2024-06-25 15:15:00,-1,26
+531.208,Do.,HS 18,,False,False,False,0,2024-06-27 13:45:00,2024-06-27 15:15:00,164,26
+531.208,Mo.,HS 9,,False,False,False,-1,2024-07-08 10:00:00,2024-07-08 13:00:00,-1,28
+531.208,Di.,HS 19,,False,False,False,1,2024-09-17 10:15:00,2024-09-17 12:45:00,152,38
+531.208,Fr.,S2 048,,False,False,False,-1,2024-12-13 10:15:00,2024-12-13 12:45:00,-1,50
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-03-05 17:15:00,2024-03-05 18:45:00,-1,10
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-03-19 17:15:00,2024-03-19 18:45:00,-1,12
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-04-09 17:15:00,2024-04-09 18:45:00,-1,15
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-04-16 17:15:00,2024-04-16 18:45:00,-1,16
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-04-23 17:15:00,2024-04-23 18:45:00,-1,17
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-04-30 17:15:00,2024-04-30 18:45:00,-1,18
+233.KS2,Di.,HS 15,1. Teilklausur,True,False,False,-1,2024-05-07 19:00:00,2024-05-07 20:30:00,-1,19
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-05-14 17:15:00,2024-05-14 18:45:00,-1,20
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-05-28 17:15:00,2024-05-28 18:45:00,-1,22
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-06-04 17:15:00,2024-06-04 18:45:00,-1,23
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-06-11 17:15:00,2024-06-11 18:45:00,-1,24
+233.KS2,Di.,HS 5,,False,False,False,-1,2024-06-18 17:15:00,2024-06-18 18:45:00,-1,25
+233.KS2,Di.,HS 18,2. Teilklausur,True,False,False,0,2024-06-25 17:15:00,2024-06-25 18:45:00,164,26
+233.KS2,Di.,HS 9,Nachklausur,True,False,False,-1,2024-10-08 17:15:00,2024-10-08 18:45:00,-1,41
+367.144,Mo.,HS 18,,False,False,False,0,2024-03-04 08:30:00,2024-03-04 11:45:00,164,10
+367.144,Mo.,HS 18,,False,False,False,0,2024-03-11 08:30:00,2024-03-11 11:45:00,164,11
+367.144,Mo.,HS 18,,False,False,False,0,2024-03-18 08:30:00,2024-03-18 11:45:00,164,12
+367.144,Mo.,Zoom,,False,False,False,-1,2024-04-15 08:30:00,2024-04-15 11:45:00,-1,16
+367.144,Mo.,HS 18,,False,False,False,0,2024-05-06 08:30:00,2024-05-06 11:45:00,164,19
+367.144,Mo.,HS 18,"Klausur von 10-11 Uhr, online",True,False,False,0,2024-05-27 08:30:00,2024-05-27 11:45:00,164,22
+367.144,Mo.,online,Nachklausur,True,False,False,-1,2024-12-09 17:15:00,2024-12-09 18:45:00,-1,50
+367.145,Mo.,HS 18,,False,False,False,0,2024-03-04 08:30:00,2024-03-04 11:45:00,164,10
+367.145,Mo.,HS 18,,False,False,False,0,2024-03-11 08:30:00,2024-03-11 11:45:00,164,11
+367.145,Mo.,HS 18,,False,False,False,0,2024-03-18 08:30:00,2024-03-18 11:45:00,164,12
+367.145,Mo.,HS 18,,False,False,False,0,2024-04-15 08:30:00,2024-04-15 11:45:00,164,16
+367.145,Mo.,HS 18,,False,False,False,0,2024-05-06 08:30:00,2024-05-06 11:45:00,164,19
+367.145,Mo.,HS 18,"Klausur von 10-11 Uhr, online",True,False,False,0,2024-05-27 08:30:00,2024-05-27 11:45:00,164,22
+367.145,Mo.,online,Nachklausur,True,False,False,-1,2024-12-09 17:15:00,2024-12-09 18:45:00,-1,50
+300.951,Mo.,HS 19,"Vorbesprechung, Informationen zur Übung, Themenzuteilung für Seminararbeiten",False,False,False,1,2024-08-26 10:15:00,2024-08-26 11:45:00,152,35
+300.951,Do.,HS 18,Präsentationstermin Seminararbeiten,False,False,False,0,2024-09-19 13:45:00,2024-09-19 17:00:00,164,38
+300.951,Fr.,HS 10,Präsentationstermin Seminararbeiten,False,False,False,-1,2024-09-20 13:45:00,2024-09-20 17:00:00,-1,38
+300.951,Do.,HS 5,Präsentationstermin Seminararbeiten,False,False,False,-1,2024-09-26 13:45:00,2024-09-26 17:00:00,-1,39
+531.170,Mi.,HS 18,,False,False,False,0,2024-03-06 10:15:00,2024-03-06 11:45:00,164,10
+531.170,Mi.,HS 18,,False,False,False,0,2024-03-13 10:15:00,2024-03-13 11:45:00,164,11
+531.170,Do.,S2 120,Tutorium,False,False,True,-1,2024-03-14 15:30:00,2024-03-14 18:00:00,-1,11
+531.170,Mi.,HS 18,,False,False,False,0,2024-03-20 10:15:00,2024-03-20 11:45:00,164,12
+531.170,Do.,KG 519,Tutorium,False,False,True,-1,2024-03-21 15:30:00,2024-03-21 18:00:00,-1,12
+531.170,Mi.,HS 18,,False,False,False,0,2024-04-10 10:15:00,2024-04-10 11:45:00,164,15
+531.170,Do.,S2 120,Tutorium,False,False,True,-1,2024-04-11 15:30:00,2024-04-11 18:00:00,-1,15
+531.170,Mi.,HS 18,,False,False,False,0,2024-04-17 10:15:00,2024-04-17 11:45:00,164,16
+531.170,Do.,S2 219,Tutorium,False,False,True,-1,2024-04-18 15:30:00,2024-04-18 18:00:00,-1,16
+531.170,Mi.,HS 18,,False,False,False,0,2024-04-24 10:15:00,2024-04-24 11:45:00,164,17
+531.170,Do.,S2 219,Tutorium,False,False,True,-1,2024-04-25 15:30:00,2024-04-25 18:00:00,-1,17
+531.170,Do.,HS 14,Tutorium,False,False,True,-1,2024-05-02 15:30:00,2024-05-02 18:00:00,-1,18
+531.170,Mi.,HS 18,,False,False,False,0,2024-05-08 10:15:00,2024-05-08 11:45:00,164,19
+531.170,Mi.,HS 18,,False,False,False,0,2024-05-15 10:15:00,2024-05-15 11:45:00,164,20
+531.170,Do.,KG 519,Tutorium,False,False,True,-1,2024-05-16 15:30:00,2024-05-16 18:00:00,-1,20
+531.170,Mi.,HS 18,,False,False,False,0,2024-05-22 10:15:00,2024-05-22 11:45:00,164,21
+531.170,Do.,S2 120,Tutorium,False,False,True,-1,2024-05-23 15:30:00,2024-05-23 18:00:00,-1,21
+531.170,Mi.,HS 18,,False,False,False,0,2024-05-29 10:15:00,2024-05-29 11:45:00,164,22
+531.170,Mi.,HS 18,,False,False,False,0,2024-06-05 10:15:00,2024-06-05 11:45:00,164,23
+531.170,Do.,MT 327,Tutorium,False,False,True,-1,2024-06-06 15:30:00,2024-06-06 18:00:00,-1,23
+531.170,Mi.,HS 18,,False,False,False,0,2024-06-12 10:15:00,2024-06-12 11:45:00,164,24
+531.170,Do.,MT 327,Tutorium,False,False,True,-1,2024-06-13 15:30:00,2024-06-13 18:00:00,-1,24
+531.170,Mi.,HS 18,,False,False,False,0,2024-06-19 10:15:00,2024-06-19 11:45:00,164,25
+531.170,Do.,MT 327,Tutorium,False,False,True,-1,2024-06-20 15:30:00,2024-06-20 18:00:00,-1,25
+531.170,Mi.,BA 9911,,False,False,False,-1,2024-06-26 10:15:00,2024-06-26 11:45:00,-1,26
+531.170,Do.,MT 327,Tutorium,False,False,True,-1,2024-06-27 15:30:00,2024-06-27 18:00:00,-1,26
+531.170,Di.,HS 18,Klausur,True,False,False,0,2024-07-09 08:30:00,2024-07-09 10:00:00,164,28
+531.170,Di.,HS 16,Klausur,True,False,False,-1,2024-09-24 10:15:00,2024-09-24 11:45:00,-1,39
+531.170,Mi.,K 153C,Klausur,True,False,False,-1,2024-10-30 08:30:00,2024-10-30 10:00:00,-1,44
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-03-07 10:15:00,2024-03-07 11:45:00,-1,10
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-03-07 12:00:00,2024-03-07 13:30:00,-1,10
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-03-14 10:15:00,2024-03-14 11:45:00,-1,11
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-03-14 12:00:00,2024-03-14 13:30:00,-1,11
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-03-21 10:15:00,2024-03-21 11:45:00,-1,12
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-04-11 10:15:00,2024-04-11 11:45:00,-1,15
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-04-11 12:00:00,2024-04-11 13:30:00,-1,15
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-04-18 10:15:00,2024-04-18 11:45:00,-1,16
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-04-18 12:00:00,2024-04-18 13:30:00,-1,16
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-04-25 10:15:00,2024-04-25 11:45:00,-1,17
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-04-25 12:00:00,2024-04-25 13:30:00,-1,17
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-05-02 10:15:00,2024-05-02 11:45:00,-1,18
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-05-02 12:00:00,2024-05-02 13:30:00,-1,18
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-05-16 10:15:00,2024-05-16 11:45:00,-1,20
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-05-16 12:00:00,2024-05-16 13:30:00,-1,20
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-05-23 10:15:00,2024-05-23 11:45:00,-1,21
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-05-23 12:00:00,2024-05-23 13:30:00,-1,21
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-06-06 10:15:00,2024-06-06 11:45:00,-1,23
+239.301,Do.,HS 1,entfällt,False,False,False,-1,2024-06-06 12:00:00,2024-06-06 13:30:00,-1,23
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-06-13 10:15:00,2024-06-13 11:45:00,-1,24
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-06-13 12:00:00,2024-06-13 13:30:00,-1,24
+239.301,Do.,HS 15,BWL-Teil Andeßner,False,False,False,-1,2024-06-20 10:15:00,2024-06-20 11:45:00,-1,25
+239.301,Do.,HS 1,VWL-Teil,False,False,False,-1,2024-06-20 12:00:00,2024-06-20 13:30:00,-1,25
+239.301,Do.,HS 18,Klausur,True,False,False,0,2024-07-04 10:15:00,2024-07-04 11:45:00,164,27
+239.301,Do.,HS 9,Nachklausur,True,False,False,-1,2024-09-19 10:15:00,2024-09-19 11:45:00,-1,38
+368.190,Mo.,HS 7,,False,False,False,-1,2024-03-04 08:30:00,2024-03-04 10:00:00,-1,10
+368.190,Mo.,HS 16,,False,False,False,-1,2024-03-11 08:30:00,2024-03-11 10:00:00,-1,11
+368.190,Mo.,HS 16,,False,False,False,-1,2024-03-18 08:30:00,2024-03-18 10:00:00,-1,12
+368.190,Mo.,HS 16,,False,False,False,-1,2024-04-08 08:30:00,2024-04-08 10:00:00,-1,15
+368.190,Mo.,HS 16,,False,False,False,-1,2024-04-15 08:30:00,2024-04-15 10:00:00,-1,16
+368.190,Mo.,HS 19,,False,False,False,1,2024-04-22 08:30:00,2024-04-22 10:00:00,152,17
+368.190,Mo.,HS 16,,False,False,False,-1,2024-04-29 08:30:00,2024-04-29 10:00:00,-1,18
+368.190,Mo.,HS 19,,False,False,False,1,2024-05-06 08:30:00,2024-05-06 10:00:00,152,19
+368.190,Mo.,HS 16,,False,False,False,-1,2024-05-13 08:30:00,2024-05-13 10:00:00,-1,20
+368.190,Mo.,HS 16,,False,False,False,-1,2024-05-27 08:30:00,2024-05-27 10:00:00,-1,22
+368.190,Mo.,HS 16,,False,False,False,-1,2024-06-03 08:30:00,2024-06-03 10:00:00,-1,23
+368.190,Mo.,HS 19,,False,False,False,1,2024-06-10 08:30:00,2024-06-10 10:00:00,152,24
+368.190,Mo.,HS 16,,False,False,False,-1,2024-06-17 08:30:00,2024-06-17 10:00:00,-1,25
+368.190,Mo.,HS 19,,False,False,False,1,2024-06-24 08:30:00,2024-06-24 10:00:00,152,26
+368.190,Mo.,BA 9910,,False,False,False,-1,2024-06-24 15:30:00,2024-06-24 17:00:00,-1,26
+368.190,Di.,BA 9911,,False,False,False,-1,2024-07-02 13:45:00,2024-07-02 15:15:00,-1,27
+368.190,Mi.,BA 9911,,False,False,False,-1,2024-07-03 13:45:00,2024-07-03 15:15:00,-1,27
+368.190,Do.,HS 1,,False,False,False,-1,2024-07-04 13:45:00,2024-07-04 15:45:00,-1,27
+368.190,Do.,HS 10,,False,False,False,-1,2024-07-04 13:45:00,2024-07-04 15:45:00,-1,27
+368.190,Do.,HS 16,,False,False,False,-1,2024-07-04 13:45:00,2024-07-04 15:45:00,-1,27
+368.190,Mo.,--,,False,False,False,-1,2024-09-23 12:00:00,2024-09-23 14:00:00,-1,39
+368.190,Mo.,HS 2,,False,False,False,-1,2024-09-23 12:00:00,2024-09-23 14:00:00,-1,39
+368.190,Mo.,HS 17,,False,False,False,-1,2024-11-25 09:15:00,2024-11-25 11:45:00,-1,48
+379.012,Mi.,HS 13,findet in S2-157 statt,False,False,False,-1,2024-03-06 15:30:00,2024-03-06 17:00:00,-1,10
+379.012,Mi.,S2-157,,False,False,False,-1,2024-03-13 15:30:00,2024-03-13 17:00:00,-1,11
+379.012,Mi.,S2-157,,False,False,False,-1,2024-03-20 15:30:00,2024-03-20 17:00:00,-1,12
+379.012,Mi.,S2-157,,False,False,False,-1,2024-04-10 15:30:00,2024-04-10 17:00:00,-1,15
+379.012,Mi.,S2-157,,False,False,False,-1,2024-04-17 15:30:00,2024-04-17 17:00:00,-1,16
+379.012,Mi.,S2-157,Vorlesungsaufzeichnung - Link siehe zoom,True,False,False,-1,2024-04-24 15:30:00,2024-04-24 17:00:00,-1,17
+379.012,Mi.,S2-157,,False,False,False,-1,2024-05-08 15:30:00,2024-05-08 17:00:00,-1,19
+379.012,Mi.,S2-157,fällt aus - Online Aufzeichnung wird bereit gestellt,False,False,False,-1,2024-05-15 15:30:00,2024-05-15 17:00:00,-1,20
+379.012,Mi.,S2-157,Rechenbeispiele mit Löw-Baselli,False,False,False,-1,2024-05-22 15:30:00,2024-05-22 17:00:00,-1,21
+379.012,Mi.,S2-157,,False,False,False,-1,2024-06-05 15:30:00,2024-06-05 17:00:00,-1,23
+379.012,Mi.,S2-157,,False,False,False,-1,2024-06-12 15:30:00,2024-06-12 17:00:00,-1,24
+379.012,Mi.,S2-157,,False,False,False,-1,2024-06-19 15:30:00,2024-06-19 17:00:00,-1,25
+379.012,Mi.,S2-157,Kenntnisnachweis,False,False,False,-1,2024-06-26 15:30:00,2024-06-26 17:00:00,-1,26
+379.012,Mo.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2024-07-01 13:45:00,2024-07-01 15:15:00,152,27
+379.012,Mo.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2024-09-30 13:45:00,2024-09-30 15:15:00,152,40
+379.012,Di.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2025-02-04 13:45:00,2025-02-04 15:15:00,152,6
+379.012,Di.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2025-07-01 13:45:00,2025-07-01 15:15:00,152,27
+380.003,Di.,MT 127,,False,False,False,-1,2024-03-12 15:30:00,2024-03-12 16:15:00,-1,11
+380.003,Di.,Zoom-Lecture,,False,False,False,-1,2024-03-19 15:30:00,2024-03-19 16:15:00,-1,12
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-04-11 17:15:00,2024-04-11 18:00:00,-1,15
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-04-18 17:15:00,2024-04-18 18:00:00,-1,16
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-04-25 17:15:00,2024-04-25 18:00:00,-1,17
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-05-02 17:15:00,2024-05-02 18:00:00,-1,18
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-05-16 17:15:00,2024-05-16 18:00:00,-1,20
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-05-23 17:15:00,2024-05-23 18:00:00,-1,21
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-06-06 17:15:00,2024-06-06 18:00:00,-1,23
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-06-20 17:15:00,2024-06-20 18:00:00,-1,25
+380.003,Do.,Zoom-Lecture,,False,False,False,-1,2024-06-27 17:15:00,2024-06-27 18:00:00,-1,26
+380.003,Fr.,MT 128,1. Klausur,True,False,False,-1,2024-06-28 10:15:00,2024-06-28 11:45:00,-1,26
+380.003,Fr.,HS 19,2. Klausur,True,False,False,1,2024-07-19 10:15:00,2024-07-19 11:45:00,152,29
+380.003,Fr.,BA 9908,3. Klausur,True,False,False,-1,2024-09-20 10:15:00,2024-09-20 11:45:00,-1,38
+231.117,Mi.,HS 3,,False,False,False,-1,2024-03-06 08:30:00,2024-03-06 10:00:00,-1,10
+231.117,Mi.,HS 3,,False,False,False,-1,2024-03-13 08:30:00,2024-03-13 10:00:00,-1,11
+231.117,Mi.,HS 3,,False,False,False,-1,2024-03-20 08:30:00,2024-03-20 10:00:00,-1,12
+231.117,Mi.,HS 3,,False,False,False,-1,2024-04-10 08:30:00,2024-04-10 10:00:00,-1,15
+231.117,Mi.,HS 3,,False,False,False,-1,2024-04-17 08:30:00,2024-04-17 10:00:00,-1,16
+231.117,Mi.,HS 3,,False,False,False,-1,2024-04-24 08:30:00,2024-04-24 10:00:00,-1,17
+231.117,Mi.,HS 3,,False,False,False,-1,2024-05-08 08:30:00,2024-05-08 10:00:00,-1,19
+231.117,Mi.,HS 19,,False,False,False,1,2024-05-15 08:30:00,2024-05-15 10:00:00,152,20
+231.117,Mi.,HS 3,,False,False,False,-1,2024-05-22 08:30:00,2024-05-22 10:00:00,-1,21
+231.117,Mi.,HS 3,,False,False,False,-1,2024-05-29 08:30:00,2024-05-29 10:00:00,-1,22
+231.117,Mi.,HS 3,,False,False,False,-1,2024-06-05 08:30:00,2024-06-05 10:00:00,-1,23
+231.117,Mi.,HS 3,,False,False,False,-1,2024-06-12 08:30:00,2024-06-12 10:00:00,-1,24
+231.117,Mi.,HS 3,Klausur,True,False,False,-1,2024-06-19 08:30:00,2024-06-19 10:00:00,-1,25
+231.117,Mi.,HS 3,,False,False,False,-1,2024-06-26 08:30:00,2024-06-26 10:00:00,-1,26
+231.117,Mi.,K033C,Nachklausur,True,False,False,-1,2024-09-11 15:30:00,2024-09-11 16:30:00,-1,37
+231.117,Mi.,K 033C,,False,False,False,-1,2024-09-11 15:30:00,2024-09-11 16:30:00,-1,37
+266.002,Mo.,HS 15,"Anwesenheitspflicht 1. Termin, Nichterscheinen führt zum Ausschluss aus dem Kurs",False,False,False,-1,2024-03-11 10:15:00,2024-03-11 11:45:00,-1,11
+266.002,Mo.,HS 9,Organization,False,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+266.002,Mo.,HS 6,Organization Structure,False,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+266.002,Mo.,HS 15,Motivation,False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+266.002,Mo.,HS 7,Social Networks,False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+266.002,Mo.,HS 9,Power,False,False,False,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+266.002,Mo.,HS 9,Reflections,False,False,False,-1,2024-05-06 10:15:00,2024-05-06 11:45:00,-1,19
+266.002,Mi.,HS 1,Practice Talk I,False,False,False,-1,2024-05-22 19:00:00,2024-05-22 20:30:00,-1,21
+266.002,Mi.,HS 1,Practice Talk II,False,False,False,-1,2024-06-05 19:00:00,2024-06-05 20:30:00,-1,23
+266.002,Fr., ,Hackathon,False,False,False,-1,2024-06-07 14:00:00,2024-06-07 18:30:00,-1,23
+266.002,Mo.,HS 19,De-brief: Hackathon,False,False,False,1,2024-06-17 10:15:00,2024-06-17 11:45:00,152,25
+266.002,Fr.,HS 1,Exam,True,False,False,-1,2024-06-21 13:45:00,2024-06-21 15:15:00,-1,25
+266.002,Fr.,HS 1,Retake Exam,True,False,False,-1,2024-09-13 13:45:00,2024-09-13 15:15:00,-1,37
+380.020,Do.,S2 048,,False,False,False,-1,2024-03-07 15:30:00,2024-03-07 17:00:00,-1,10
+380.020,Do.,S2 048,,False,False,False,-1,2024-03-14 15:30:00,2024-03-14 17:00:00,-1,11
+380.020,Do.,S2 048,,False,False,False,-1,2024-03-21 15:30:00,2024-03-21 17:00:00,-1,12
+380.020,Do.,S2 048,,False,False,False,-1,2024-04-11 15:30:00,2024-04-11 17:00:00,-1,15
+380.020,Do.,S2 048,,False,False,False,-1,2024-04-18 15:30:00,2024-04-18 17:00:00,-1,16
+380.020,Do.,S2 048,,False,False,False,-1,2024-04-25 15:30:00,2024-04-25 17:00:00,-1,17
+380.020,Do.,S2 048,,False,False,False,-1,2024-05-02 15:30:00,2024-05-02 17:00:00,-1,18
+380.020,Do.,S2 048,,False,False,False,-1,2024-05-16 15:30:00,2024-05-16 17:00:00,-1,20
+380.020,Do.,S2 048,,False,False,False,-1,2024-05-23 15:30:00,2024-05-23 17:00:00,-1,21
+380.020,Do.,S2 048,,False,False,False,-1,2024-06-06 15:30:00,2024-06-06 17:00:00,-1,23
+380.020,Do.,S2 048,,False,False,False,-1,2024-06-13 15:30:00,2024-06-13 17:00:00,-1,24
+380.020,Do.,S2 048,,False,False,False,-1,2024-06-20 15:30:00,2024-06-20 17:00:00,-1,25
+380.020,Do.,S2 048,1. Klausur,True,False,False,-1,2024-06-27 15:30:00,2024-06-27 17:00:00,-1,26
+380.020,Do.,HS 19,2. Klausur,True,False,False,1,2024-07-11 15:30:00,2024-07-11 17:00:00,152,28
+380.020,Mi.,S2 120,3. Klausur,True,False,False,-1,2024-11-20 13:00:00,2024-11-20 14:30:00,-1,47
+239.203,Mo.,K 153C,,False,False,False,-1,2024-03-04 10:15:00,2024-03-04 11:45:00,-1,10
+239.203,Mo.,K 153C,,False,False,False,-1,2024-03-11 10:15:00,2024-03-11 11:45:00,-1,11
+239.203,Mo.,K 153C,,False,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+239.203,Mo.,K 153C,,False,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+239.203,Mo.,K 153C,,False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+239.203,Mo.,K 153C,,False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+239.203,Mo.,K 153C,,False,False,False,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+239.203,Mo.,K 153C,,False,False,False,-1,2024-05-06 10:15:00,2024-05-06 11:45:00,-1,19
+239.203,Mo.,K 153C,,False,False,False,-1,2024-05-13 10:15:00,2024-05-13 11:45:00,-1,20
+239.203,Mo.,K 153C,,False,False,False,-1,2024-05-27 10:15:00,2024-05-27 11:45:00,-1,22
+239.203,Mo.,K 153C,,False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+239.203,Mo.,K 153C,,False,False,False,-1,2024-06-10 10:15:00,2024-06-10 11:45:00,-1,24
+239.203,Mo.,K 153C,,False,False,False,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+239.203,Mo.,HS 10,Klausur,True,False,False,-1,2024-06-24 12:00:00,2024-06-24 13:30:00,-1,26
+239.203,Do.,HS 19,Nachklausur,True,False,False,1,2024-09-19 15:30:00,2024-09-19 17:00:00,152,38
+239.204,Mo.,K 269D,,False,False,False,-1,2024-03-04 12:00:00,2024-03-04 13:30:00,-1,10
+239.204,Mo.,K 269D,,False,False,False,-1,2024-03-11 12:00:00,2024-03-11 13:30:00,-1,11
+239.204,Mo.,K 269D,,False,False,False,-1,2024-03-18 12:00:00,2024-03-18 13:30:00,-1,12
+239.204,Mo.,K 269D,,False,False,False,-1,2024-04-08 12:00:00,2024-04-08 13:30:00,-1,15
+239.204,Mo.,K 269D,,False,False,False,-1,2024-04-15 12:00:00,2024-04-15 13:30:00,-1,16
+239.204,Mo.,K 269D,,False,False,False,-1,2024-04-22 12:00:00,2024-04-22 13:30:00,-1,17
+239.204,Mo.,K 269D,,False,False,False,-1,2024-04-29 12:00:00,2024-04-29 13:30:00,-1,18
+239.204,Mo.,K 269D,,False,False,False,-1,2024-05-06 12:00:00,2024-05-06 13:30:00,-1,19
+239.204,Mo.,K 269D,,False,False,False,-1,2024-05-13 12:00:00,2024-05-13 13:30:00,-1,20
+239.204,Mo.,K 269D,,False,False,False,-1,2024-05-27 12:00:00,2024-05-27 13:30:00,-1,22
+239.204,Mo.,K 269D,,False,False,False,-1,2024-06-03 12:00:00,2024-06-03 13:30:00,-1,23
+239.204,Mo.,K 269D,,False,False,False,-1,2024-06-10 12:00:00,2024-06-10 13:30:00,-1,24
+239.204,Mo.,K 269D,,False,False,False,-1,2024-06-17 12:00:00,2024-06-17 13:30:00,-1,25
+239.204,Mo.,HS 10,Klausur,True,False,False,-1,2024-06-24 12:00:00,2024-06-24 13:30:00,-1,26
+239.204,Do.,HS 19,Nachklausur,True,False,False,1,2024-09-19 15:30:00,2024-09-19 17:00:00,152,38
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-03-08 08:30:00,2024-03-08 10:00:00,-1,10
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-03-15 08:30:00,2024-03-15 10:00:00,-1,11
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-03-22 08:30:00,2024-03-22 10:00:00,-1,12
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-04-12 08:30:00,2024-04-12 10:00:00,-1,15
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-04-19 08:30:00,2024-04-19 10:00:00,-1,16
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-05-03 08:30:00,2024-05-03 10:00:00,-1,18
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-05-17 08:30:00,2024-05-17 10:00:00,-1,20
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-05-31 08:30:00,2024-05-31 10:00:00,-1,22
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-06-07 08:30:00,2024-06-07 10:00:00,-1,23
+239.706,Fr.,HS 17,,False,False,False,-1,2024-06-07 10:15:00,2024-06-07 11:45:00,-1,23
+239.706,Fr.,MZ 003A,,False,False,False,-1,2024-06-21 08:30:00,2024-06-21 10:00:00,-1,25
+239.706,Fr.,HS 19,Klausur,True,False,False,1,2024-06-28 08:30:00,2024-06-28 10:00:00,152,26
+239.706,Fr.,HS 6,Nachklausur,True,False,False,-1,2024-09-27 08:30:00,2024-09-27 10:00:00,-1,39
+335.003,Mo.,HS 3,,False,False,False,-1,2024-03-04 10:15:00,2024-03-04 11:45:00,-1,10
+335.003,Mo.,HS 3,,False,False,False,-1,2024-03-11 10:15:00,2024-03-11 11:45:00,-1,11
+335.003,Mo.,HS 3,,False,False,False,-1,2024-03-18 10:15:00,2024-03-18 11:45:00,-1,12
+335.003,Mo.,HS 3,,False,False,False,-1,2024-04-08 10:15:00,2024-04-08 11:45:00,-1,15
+335.003,Mo.,HS 3,,False,False,False,-1,2024-04-15 10:15:00,2024-04-15 11:45:00,-1,16
+335.003,Mo.,HS 3,,False,False,False,-1,2024-04-22 10:15:00,2024-04-22 11:45:00,-1,17
+335.003,Mo.,HS 3,,False,False,False,-1,2024-04-29 10:15:00,2024-04-29 11:45:00,-1,18
+335.003,Mo.,HS 3,,False,False,False,-1,2024-05-06 10:15:00,2024-05-06 11:45:00,-1,19
+335.003,Mo.,HS 3,,False,False,False,-1,2024-05-27 10:15:00,2024-05-27 11:45:00,-1,22
+335.003,Mo.,HS 3,,False,False,False,-1,2024-06-03 10:15:00,2024-06-03 11:45:00,-1,23
+335.003,Do.,MT 226/1,Tutorium,False,False,True,-1,2024-06-27 17:15:00,2024-06-27 18:45:00,-1,26
+335.003,Mi.,HS 19,Klausur,True,False,False,1,2024-07-03 13:00:00,2024-07-03 16:00:00,152,27
+335.003,Mi.,HS 5,Nachklausur,True,False,False,-1,2024-10-09 17:15:00,2024-10-09 20:30:00,-1,41
+335.003,Mi.,HS 5,Nachklausur,True,False,False,-1,2024-12-11 17:15:00,2024-12-11 20:30:00,-1,50
+252.031,Mo.,HS 15,"LV-Konzept, Aufbau Reflexionen, Einführung Ethik",False,False,False,-1,2024-03-11 13:45:00,2024-03-11 15:15:00,-1,11
+252.031,Mo.,HS 15,"Gastvortrag 1: Dr. Andreas Göttfert, Kapitalmarkt und Ethik",False,False,False,-1,2024-03-18 13:45:00,2024-03-18 15:15:00,-1,12
+252.031,Mo.,HS 15,"Gastvortrag 2: Dr. Silvia Payer-Langthaler, Nachhaltigkeit und CSR",False,False,False,-1,2024-04-08 13:45:00,2024-04-08 15:15:00,-1,15
+252.031,Mo., ,Abgabe Reflexion 1,False,False,False,-1,2024-04-15 00:00:00,2024-04-15 23:59:00,-1,16
+252.031,Mo.,HS 15,"Gastvortrag 3: Ass.-Prof. Dr. Silvia Traunwieser, Digitalisierung und Ethik",False,False,False,-1,2024-04-15 13:45:00,2024-04-15 15:15:00,-1,16
+252.031,Mo.,HS 19,Reflexion in Kleingruppen,False,False,False,1,2024-04-22 15:30:00,2024-04-22 17:00:00,152,17
+252.031,Mo.,MT 127,"Gastvortrag 4: Ass.-Prof. Dr. Albert Traxler, Sustainability Reporting and Control",False,False,False,-1,2024-05-06 13:45:00,2024-05-06 15:15:00,-1,19
+252.031,Mo.,HS 6,"Gastvortrag 5: Herr Otto Hirsch, Soziales Engagement von Unternehmen",False,False,False,-1,2024-05-13 13:45:00,2024-05-13 15:15:00,-1,20
+252.031,Fr., ,Abgabe Reflexion (gesamt),False,False,False,-1,2024-05-31 00:00:00,2024-05-31 23:59:00,-1,22
+383.028,Fr.,HS 19,,False,False,False,1,2024-03-08 12:00:00,2024-03-08 13:30:00,152,10
+383.028,Fr.,HS 19,,False,False,False,1,2024-03-15 12:00:00,2024-03-15 13:30:00,152,11
+383.028,Fr.,HS 19,,False,False,False,1,2024-03-22 12:00:00,2024-03-22 13:30:00,152,12
+383.028,Fr.,HS 19,,False,False,False,1,2024-04-12 12:00:00,2024-04-12 13:30:00,152,15
+383.028,Fr.,HS 19,,False,False,False,1,2024-06-07 12:00:00,2024-06-07 13:30:00,152,23
+229.054,Di.,HS 19,,False,False,False,1,2024-03-05 15:30:00,2024-03-05 18:00:00,152,10
+229.054,Di.,HS 19,,False,False,False,1,2024-03-12 15:30:00,2024-03-12 18:00:00,152,11
+229.054,Di.,HS 19,,False,False,False,1,2024-03-19 15:30:00,2024-03-19 18:00:00,152,12
+229.054,Di.,HS 19,,False,False,False,1,2024-04-09 15:30:00,2024-04-09 18:00:00,152,15
+229.054,Di.,HS 19,,False,False,False,1,2024-04-16 15:30:00,2024-04-16 18:00:00,152,16
+229.054,Di.,HS 19,,False,False,False,1,2024-04-23 15:30:00,2024-04-23 18:00:00,152,17
+229.054,Di.,HS 19,,False,False,False,1,2024-04-30 15:30:00,2024-04-30 18:00:00,152,18
+229.054,Di.,HS 3,,False,False,False,-1,2024-05-07 15:30:00,2024-05-07 18:00:00,-1,19
+229.054,Di.,HS 19,,False,False,False,1,2024-05-14 15:30:00,2024-05-14 18:00:00,152,20
+229.054,Di.,HS 4,,False,False,False,-1,2024-05-28 15:30:00,2024-05-28 18:00:00,-1,22
+229.054,Di.,HS 19,,False,False,False,1,2024-06-04 15:30:00,2024-06-04 18:00:00,152,23
+229.054,Di.,HS 19,,False,False,False,1,2024-06-11 15:30:00,2024-06-11 18:00:00,152,24
+229.054,Di.,HS 19,,False,False,False,1,2024-06-18 15:30:00,2024-06-18 18:00:00,152,25
+229.054,Di.,HS 19,,False,False,False,1,2024-06-25 15:30:00,2024-06-25 18:00:00,152,26
+229.054,Di.,HS 10,Klausur,True,False,False,-1,2024-07-02 15:30:00,2024-07-02 17:00:00,-1,27
+229.054,Di.,HS 16,Nachklausur,True,False,False,-1,2024-09-24 15:30:00,2024-09-24 17:00:00,-1,39
+250.900,Mi.,K 033C,,False,False,False,-1,2024-04-10 13:45:00,2024-04-10 17:00:00,-1,15
+250.900,Mi.,K 033C,,False,False,False,-1,2024-04-17 13:45:00,2024-04-17 17:00:00,-1,16
+250.900,Mi.,K 033C,,False,False,False,-1,2024-04-24 13:45:00,2024-04-24 17:00:00,-1,17
+250.900,Mi.,K 033C,,False,False,False,-1,2024-05-15 13:45:00,2024-05-15 17:00:00,-1,20
+250.900,Mi.,K 033C,,False,False,False,-1,2024-05-22 13:45:00,2024-05-22 17:00:00,-1,21
+250.900,Mi.,K 033C,,False,False,False,-1,2024-05-29 13:45:00,2024-05-29 17:00:00,-1,22
+250.900,Mi.,K 033C,,False,False,False,-1,2024-06-05 13:45:00,2024-06-05 17:00:00,-1,23
+250.900,Mi.,HS 19,Schlussklausur,True,False,False,1,2024-06-12 08:30:00,2024-06-12 10:00:00,152,24
+250.900,Mi.,HS 2,Nachklausur,True,False,False,-1,2024-06-26 13:45:00,2024-06-26 15:15:00,-1,26
+140.004,Mo.,HS 19,,False,False,False,1,2024-04-08 15:30:00,2024-04-08 18:00:00,152,15
+140.004,Mo.,HS 19,,False,False,False,1,2024-04-15 15:30:00,2024-04-15 18:00:00,152,16
+140.004,Mo.,ENTFÄLLT,,False,False,False,-1,2024-04-22 15:30:00,2024-04-22 18:00:00,-1,17
+140.004,Mo.,HS 19,,False,False,False,1,2024-04-29 15:30:00,2024-04-29 18:00:00,152,18
+140.004,Mo.,HS 19,,False,False,False,1,2024-05-06 15:30:00,2024-05-06 18:00:00,152,19
+231.115,Mo.,HS 19,,False,False,False,1,2024-03-11 12:00:00,2024-03-11 13:30:00,152,11
+231.115,Mo.,HS 19,,False,False,False,1,2024-03-18 12:00:00,2024-03-18 13:30:00,152,12
+231.115,Mo.,HS 19,,False,False,False,1,2024-04-08 12:00:00,2024-04-08 13:30:00,152,15
+231.115,Mo.,HS 19,,False,False,False,1,2024-04-15 12:00:00,2024-04-15 13:30:00,152,16
+231.115,Mo.,HS 19,,False,False,False,1,2024-04-22 12:00:00,2024-04-22 13:30:00,152,17
+231.115,Mo.,HS 19,,False,False,False,1,2024-04-29 12:00:00,2024-04-29 13:30:00,152,18
+231.115,Mo.,HS 19,,False,False,False,1,2024-05-06 12:00:00,2024-05-06 13:30:00,152,19
+231.115,Mo.,HS 19,,False,False,False,1,2024-05-13 12:00:00,2024-05-13 13:30:00,152,20
+231.115,Mo.,HS 19,,False,False,False,1,2024-05-27 12:00:00,2024-05-27 13:30:00,152,22
+231.115,Mo.,HS 19,,False,False,False,1,2024-06-03 12:00:00,2024-06-03 13:30:00,152,23
+231.115,Mo.,HS 19,,False,False,False,1,2024-06-10 12:00:00,2024-06-10 13:30:00,152,24
+231.115,Mo.,HS 19,,False,False,False,1,2024-06-17 12:00:00,2024-06-17 13:30:00,152,25
+231.115,Mo.,HS 19,,False,False,False,1,2024-06-24 12:00:00,2024-06-24 13:30:00,152,26
+231.115,Mo.,HS19,Klausur,True,False,False,1,2024-07-01 12:00:00,2024-07-01 13:30:00,152,27
+231.115,Mo.,K 224B,,False,False,False,-1,2024-09-16 12:00:00,2024-09-16 13:30:00,-1,38
+335.055,Mi.,MT 226,,False,False,False,-1,2024-03-06 16:15:00,2024-03-06 17:00:00,-1,10
+335.055,Mi.,MT 226,,False,False,False,-1,2024-03-13 16:15:00,2024-03-13 17:00:00,-1,11
+335.055,Mi.,MT 226,,False,False,False,-1,2024-03-20 16:15:00,2024-03-20 17:00:00,-1,12
+335.055,Mi.,MT 226,,False,False,False,-1,2024-04-10 16:15:00,2024-04-10 17:00:00,-1,15
+335.055,Mi.,MT 226,,False,False,False,-1,2024-04-17 16:15:00,2024-04-17 17:00:00,-1,16
+335.055,Mi.,MT 226,,False,False,False,-1,2024-04-24 16:15:00,2024-04-24 17:00:00,-1,17
+335.055,Mi.,MT 226,,False,False,False,-1,2024-05-08 16:15:00,2024-05-08 17:00:00,-1,19
+335.055,Mi.,MT 226,,False,False,False,-1,2024-05-15 16:15:00,2024-05-15 17:00:00,-1,20
+335.055,Mi.,MT 226,,False,False,False,-1,2024-05-22 16:15:00,2024-05-22 17:00:00,-1,21
+335.055,Mi.,MT 226,,False,False,False,-1,2024-05-29 16:15:00,2024-05-29 17:00:00,-1,22
+335.055,Mi.,MT 226,,False,False,False,-1,2024-06-05 16:15:00,2024-06-05 17:00:00,-1,23
+335.055,Mi.,MT 226,,False,False,False,-1,2024-06-12 16:15:00,2024-06-12 17:00:00,-1,24
+335.055,Mi.,MT 226,,False,False,False,-1,2024-06-19 16:15:00,2024-06-19 17:00:00,-1,25
+335.055,Do.,HS 19,Test,False,True,False,1,2024-08-08 10:00:00,2024-08-08 12:00:00,152,32
+256.503,Di.,HS 4,,False,False,False,-1,2024-03-12 15:30:00,2024-03-12 18:45:00,-1,11
+256.503,Di.,HS 4,,False,False,False,-1,2024-03-19 15:30:00,2024-03-19 18:45:00,-1,12
+256.503,Di.,S3 055,,False,False,False,-1,2024-04-23 15:30:00,2024-04-23 18:45:00,-1,17
+256.503,Di.,S3 134,,False,False,False,-1,2024-05-07 15:30:00,2024-05-07 18:45:00,-1,19
+256.503,Di.,S3 055,,False,False,False,-1,2024-05-28 15:30:00,2024-05-28 18:45:00,-1,22
+256.503,Di.,HS 4,https://jku.zoom.us/j/93878812763,False,False,False,-1,2024-06-04 15:30:00,2024-06-04 18:45:00,-1,23
+256.503,Di.,S3 055,Hauptklausur,True,False,False,-1,2024-06-25 15:30:00,2024-06-25 18:45:00,-1,26
+256.503,Di.,HS 19,Nachklausur,True,False,False,1,2024-09-17 15:30:00,2024-09-17 18:45:00,152,38
+256.503,Di.,Zoom,Klausur - Einsicht (Anmeldung per Mail),True,False,False,-1,2024-09-24 17:00:00,2024-09-24 18:00:00,-1,39
+239.010,Mi.,K 112A,Eröffnungseinheit,False,False,False,-1,2024-03-06 07:45:00,2024-03-06 10:00:00,-1,10
+239.010,Mi.,K 112A,,False,False,False,-1,2024-03-13 07:45:00,2024-03-13 10:00:00,-1,11
+239.010,Mi.,K 112A,,False,False,False,-1,2024-03-20 07:45:00,2024-03-20 10:00:00,-1,12
+239.010,Mi.,K 112A,,False,False,False,-1,2024-04-10 07:45:00,2024-04-10 10:00:00,-1,15
+239.010,Mi.,K 112A,,False,False,False,-1,2024-04-17 07:45:00,2024-04-17 10:00:00,-1,16
+239.010,Mi.,online,,False,False,False,-1,2024-05-15 07:45:00,2024-05-15 10:00:00,-1,20
+239.010,Mi.,online,,False,False,False,-1,2024-05-22 07:45:00,2024-05-22 10:00:00,-1,21
+239.010,Mi.,K 112A,,False,False,False,-1,2024-06-05 07:45:00,2024-06-05 10:00:00,-1,23
+239.010,Mi.,K 112A,,False,False,False,-1,2024-06-12 07:45:00,2024-06-12 10:00:00,-1,24
+239.010,Mi.,HS 19,Klausur,True,False,False,1,2024-06-19 08:30:00,2024-06-19 10:00:00,152,25
+334.005,Mi.,S2 053,,False,False,False,-1,2024-03-06 08:30:00,2024-03-06 10:00:00,-1,10
+334.005,Mi.,S2 053,,False,False,False,-1,2024-03-20 08:30:00,2024-03-20 10:00:00,-1,12
+334.005,Mi.,S2 053,,False,False,False,-1,2024-04-10 08:30:00,2024-04-10 10:00:00,-1,15
+334.005,Mi.,S2 053,,False,False,False,-1,2024-04-17 08:30:00,2024-04-17 10:00:00,-1,16
+334.005,Mi.,S2 053,,False,False,False,-1,2024-04-24 08:30:00,2024-04-24 10:00:00,-1,17
+334.005,Mi.,S2 053,,False,False,False,-1,2024-05-08 08:30:00,2024-05-08 10:00:00,-1,19
+334.005,Mi.,S2 053,,False,False,False,-1,2024-05-15 08:30:00,2024-05-15 10:00:00,-1,20
+334.005,Mi.,S2 053,,False,False,False,-1,2024-05-22 08:30:00,2024-05-22 10:00:00,-1,21
+334.005,Mi.,S2 053,,False,False,False,-1,2024-05-29 08:30:00,2024-05-29 10:00:00,-1,22
+334.005,Mi.,S2 053,,False,False,False,-1,2024-06-05 08:30:00,2024-06-05 10:00:00,-1,23
+334.005,Mi.,S2 053,,False,False,False,-1,2024-06-12 08:30:00,2024-06-12 10:00:00,-1,24
+334.005,Do.,MT 127,,False,False,False,-1,2024-06-13 08:00:00,2024-06-13 10:00:00,-1,24
+334.005,Mi.,S2 053,,False,False,False,-1,2024-06-19 08:30:00,2024-06-19 10:00:00,-1,25
+334.005,Di.,MT 127,,False,False,False,-1,2024-07-02 08:00:00,2024-07-02 11:00:00,-1,27
+334.005,Mi.,HS 19,,False,False,False,1,2024-07-17 08:00:00,2024-07-17 11:00:00,152,29
+100.100,Mi.,HS 19,,False,False,False,1,2024-03-20 15:30:00,2024-03-20 17:00:00,152,12
+378.014,Di.,MT 226/1,Maier / Gotterbarm,False,False,False,-1,2024-03-12 13:45:00,2024-03-12 17:00:00,-1,11
+378.014,Di.,MT 226/1,Ableidinger / Proier,False,False,False,-1,2024-04-09 13:45:00,2024-04-09 17:00:00,-1,15
+378.014,Di.,MT 226/1,Kapshammer / Böhler,False,False,False,-1,2024-04-23 13:45:00,2024-04-23 17:00:00,-1,17
+378.014,Di.,MT 226/1,Vereshchaga/ Priglinger,False,False,False,-1,2024-05-07 13:45:00,2024-05-07 17:00:00,-1,19
+378.014,Di.,MT 226/1,Odenwald / Odenwald,False,False,False,-1,2024-05-28 13:45:00,2024-05-28 17:00:00,-1,22
+378.014,Di.,MT 226,Odenwald,False,False,False,-1,2024-05-28 17:15:00,2024-05-28 18:45:00,-1,22
+378.014,Di.,MT 226/1,Schopper / Schopper,False,False,False,-1,2024-06-11 13:45:00,2024-06-11 17:00:00,-1,24
+378.014,Di.,MT 226/1,Moser / Major,False,False,False,-1,2024-06-25 13:45:00,2024-06-25 17:00:00,-1,26
+378.014,Di.,HS 19,"Prüfungstermin, über KUSSS anmelden",True,False,False,1,2024-07-09 09:00:00,2024-07-09 12:00:00,152,28
+378.014,Di.,HS 19,"Prüfungstermin, über KUSSS anmelden",True,False,False,1,2024-10-15 12:00:00,2024-10-15 15:15:00,152,42
+378.014,Di.,BA 9908,"Prüfungstermin, über KUSSS anmelden",True,False,False,-1,2025-01-21 08:30:00,2025-01-21 11:45:00,-1,4
+378.012,Di.,MT 226/1,"Start 15:30, Sölva",False,False,False,-1,2024-03-05 13:45:00,2024-03-05 17:00:00,-1,10
+378.012,Di.,MT 226/1,Hintermüller / Sölva,False,False,False,-1,2024-03-19 13:45:00,2024-03-19 17:00:00,-1,12
+378.012,Di.,MT 226/1,Hintermüller / Sölva,False,False,False,-1,2024-04-16 13:45:00,2024-04-16 17:00:00,-1,16
+378.012,Di.,MT 226/1,Kleiser / Kleiser,False,False,False,-1,2024-04-30 13:45:00,2024-04-30 17:00:00,-1,18
+378.012,Di.,MT 226/1,- / Gerardo-Giorda,False,False,False,-1,2024-05-14 13:45:00,2024-05-14 17:00:00,-1,20
+378.012,Di.,MT 226/1,Fenz / Sabrowsky-Hirsch,False,False,False,-1,2024-06-04 13:45:00,2024-06-04 17:00:00,-1,23
+378.012,Di.,MT 226/1,Tel / Schwarzbauer,False,False,False,-1,2024-06-18 13:45:00,2024-06-18 17:00:00,-1,25
+378.012,Di.,MT 226,Schaffelhofer,False,False,False,-1,2024-06-18 17:15:00,2024-06-18 18:45:00,-1,25
+378.012,Di.,HS 19,"Prüfungstermin, über KUSSS anmelden",True,False,False,1,2024-07-02 09:00:00,2024-07-02 12:00:00,152,27
+378.012,Di.,KEP 3,"Prüfungstermin, über KUSSS anmelden",True,False,False,-1,2024-10-08 12:00:00,2024-10-08 15:15:00,-1,41
+378.012,Di.,HS 12,"Prüfungstermin, über KUSSS anmelden",True,False,False,-1,2025-01-14 12:00:00,2025-01-14 15:15:00,-1,3
+327.029,Mi.,HS 19,,False,False,False,1,2024-03-06 10:15:00,2024-03-06 11:45:00,152,10
+327.029,Do.,HS 19,,False,False,False,1,2024-03-07 10:15:00,2024-03-07 11:45:00,152,10
+327.029,Mi.,HS 19,,False,False,False,1,2024-03-13 10:15:00,2024-03-13 11:45:00,152,11
+327.029,Do.,HS 19,,False,False,False,1,2024-03-14 10:15:00,2024-03-14 11:45:00,152,11
+327.029,Mi.,HS 19,,False,False,False,1,2024-03-20 10:15:00,2024-03-20 11:45:00,152,12
+327.029,Do.,HS 19,,False,False,False,1,2024-03-21 10:15:00,2024-03-21 11:45:00,152,12
+327.029,Mi.,HS 19,,False,False,False,1,2024-04-10 10:15:00,2024-04-10 11:45:00,152,15
+327.029,Do.,HS 19,,False,False,False,1,2024-04-11 10:15:00,2024-04-11 11:45:00,152,15
+327.029,Mi.,HS 19,,False,False,False,1,2024-04-17 10:15:00,2024-04-17 11:45:00,152,16
+327.029,Do.,HS 19,,False,False,False,1,2024-04-18 10:15:00,2024-04-18 11:45:00,152,16
+327.029,Mi.,HS 19,,False,False,False,1,2024-04-24 10:15:00,2024-04-24 11:45:00,152,17
+327.029,Do.,HS 19,,False,False,False,1,2024-04-25 10:15:00,2024-04-25 11:45:00,152,17
+327.029,Do.,HS 19,,False,False,False,1,2024-05-02 10:15:00,2024-05-02 11:45:00,152,18
+327.029,Di.,S3 055,Tutorium,False,False,True,-1,2024-05-07 15:30:00,2024-05-07 17:00:00,-1,19
+327.029,Mi.,HS 19,,False,False,False,1,2024-05-08 10:15:00,2024-05-08 11:45:00,152,19
+327.029,Mi.,HS 19,,False,False,False,1,2024-05-15 10:15:00,2024-05-15 11:45:00,152,20
+327.029,Do.,HS 19,,False,False,False,1,2024-05-16 10:15:00,2024-05-16 11:45:00,152,20
+327.029,Mi.,HS 19,,False,False,False,1,2024-05-22 08:30:00,2024-05-22 10:00:00,152,21
+327.029,Mi.,HS 19,,False,False,False,1,2024-05-22 10:15:00,2024-05-22 11:45:00,152,21
+327.029,Do.,HS 19,,False,False,False,1,2024-05-23 10:15:00,2024-05-23 11:45:00,152,21
+327.029,Mi.,HS 19,,False,False,False,1,2024-05-29 08:30:00,2024-05-29 10:00:00,152,22
+327.029,Mi.,HS 19,,False,False,False,1,2024-05-29 10:15:00,2024-05-29 11:45:00,152,22
+327.029,Do.,HS 19,Tutorium (diese Woche keine VL),False,False,True,1,2024-06-06 10:15:00,2024-06-06 11:45:00,152,23
+327.029,Mi.,HS 19,,False,False,False,1,2024-06-12 10:15:00,2024-06-12 11:45:00,152,24
+327.029,Do.,HS 19,,False,False,False,1,2024-06-13 10:15:00,2024-06-13 11:45:00,152,24
+327.029,Mi.,HS 19,,False,False,False,1,2024-06-19 10:15:00,2024-06-19 11:45:00,152,25
+327.029,Do.,HS 19,,False,False,False,1,2024-06-20 10:15:00,2024-06-20 11:45:00,152,25
+327.029,Mi.,HS 19,,False,False,False,1,2024-06-26 10:15:00,2024-06-26 11:45:00,152,26
+327.029,Do.,HS 19,,False,False,False,1,2024-06-27 10:15:00,2024-06-27 11:45:00,152,26
+379.020,Mi.,MT 128,,False,False,False,-1,2024-03-06 08:30:00,2024-03-06 10:00:00,-1,10
+379.020,Mi.,MT 128,,False,False,False,-1,2024-03-13 08:30:00,2024-03-13 10:00:00,-1,11
+379.020,Mi.,MT 128,,False,False,False,-1,2024-03-20 08:30:00,2024-03-20 10:00:00,-1,12
+379.020,Mi.,MT 128,,False,False,False,-1,2024-04-10 08:30:00,2024-04-10 10:00:00,-1,15
+379.020,Mi.,MT 128,,False,False,False,-1,2024-04-17 08:30:00,2024-04-17 10:00:00,-1,16
+379.020,Mi.,MT 128,,False,False,False,-1,2024-04-24 08:30:00,2024-04-24 10:00:00,-1,17
+379.020,Mi.,MT 128,,False,False,False,-1,2024-05-08 08:30:00,2024-05-08 10:00:00,-1,19
+379.020,Mi.,MT 128,,False,False,False,-1,2024-05-15 08:30:00,2024-05-15 10:00:00,-1,20
+379.020,Mi.,MT 128,,False,False,False,-1,2024-05-22 08:30:00,2024-05-22 10:00:00,-1,21
+379.020,Mi.,MT 128,,False,False,False,-1,2024-05-29 08:30:00,2024-05-29 10:00:00,-1,22
+379.020,Mi.,MT 128,,False,False,False,-1,2024-06-05 08:30:00,2024-06-05 10:00:00,-1,23
+379.020,Mi.,MT 128,,False,False,False,-1,2024-06-12 08:30:00,2024-06-12 10:00:00,-1,24
+379.020,Mi.,MT 128,,False,False,False,-1,2024-06-19 08:30:00,2024-06-19 10:00:00,-1,25
+379.020,Mo.,HS 19,EXAM - please register in Kusss,True,False,False,1,2024-07-01 13:45:00,2024-07-01 15:15:00,152,27
+379.020,Mo.,HS 19,EXAM - please register in Kusss,True,False,False,1,2024-09-30 13:45:00,2024-09-30 15:15:00,152,40
+379.020,Di.,HS 19,Exam - please register in Kusss,True,False,False,1,2025-02-04 13:45:00,2025-02-04 15:15:00,152,6
+379.020,Di.,HS 19,Exam - please register in Kusss,True,False,False,1,2025-07-01 13:45:00,2025-07-01 15:15:00,152,27
+380.010,Mi.,S2 046,,False,False,False,-1,2024-03-13 12:00:00,2024-03-13 13:30:00,-1,11
+380.010,Mi.,Zoom-Lecture,,False,False,False,-1,2024-03-20 12:00:00,2024-03-20 13:30:00,-1,12
+380.010,Mi.,Zoom-Lecture,,False,False,False,-1,2024-04-10 12:00:00,2024-04-10 13:30:00,-1,15
+380.010,Mi.,S2 046,,False,False,False,-1,2024-04-17 12:00:00,2024-04-17 13:30:00,-1,16
+380.010,Mi.,Zoom-Lecture,,False,False,False,-1,2024-04-24 12:00:00,2024-04-24 13:30:00,-1,17
+380.010,Mi.,Zoom-Lecture,,False,False,False,-1,2024-05-08 12:00:00,2024-05-08 13:30:00,-1,19
+380.010,Mi.,S2 046,,False,False,False,-1,2024-05-15 12:00:00,2024-05-15 13:30:00,-1,20
+380.010,Mi.,Zoom lecture,,False,False,False,-1,2024-05-22 12:00:00,2024-05-22 13:30:00,-1,21
+380.010,Mi.,S2 046,,False,False,False,-1,2024-06-05 12:00:00,2024-06-05 13:30:00,-1,23
+380.010,Mi.,Zoom lecture,,False,False,False,-1,2024-06-19 12:00:00,2024-06-19 13:30:00,-1,25
+380.010,Mi.,S2 046,,False,False,False,-1,2024-06-26 12:00:00,2024-06-26 13:30:00,-1,26
+380.010,Fr.,MT 128,1st Exam,True,False,False,-1,2024-06-28 10:15:00,2024-06-28 11:45:00,-1,26
+380.010,Fr.,HS 19,2nd Exam,True,False,False,1,2024-07-19 10:15:00,2024-07-19 11:45:00,152,29
+380.010,Fr.,BA 9908,3rd Exam,True,False,False,-1,2024-09-20 10:15:00,2024-09-20 11:45:00,-1,38
+190.300,Do.,HS 19,Grundlagen - Vertragsschluss,False,False,False,1,2024-03-07 17:15:00,2024-03-07 19:45:00,152,10
+190.300,Do.,HS 19,Vertragsschuss - AGB,False,False,False,1,2024-03-14 17:15:00,2024-03-14 19:45:00,152,11
+190.300,Do.,HS 19,Wurzelmängel - Grundlagen Leistungstörung- Ausgabe Hausarbeit,False,False,False,1,2024-03-21 17:15:00,2024-03-21 19:45:00,152,12
+190.300,Do.,HS 19,Leistungsstörung - Verzug - Gewährleistung - Fälle,False,False,False,1,2024-04-11 17:15:00,2024-04-11 19:45:00,152,15
+190.300,Do.,HS 19,Schadenersatz - Abgabe Hausarbeit,False,False,False,1,2024-04-18 17:15:00,2024-04-18 19:45:00,152,16
+190.300,Do.,HS 19,Schadenersatz,False,False,False,1,2024-04-25 17:15:00,2024-04-25 19:45:00,152,17
+190.300,Do.,HS 19,Stellvertretung,False,False,False,1,2024-05-02 17:15:00,2024-05-02 19:45:00,152,18
+190.300,Do.,HS 19,Besprechung HA - Sachenrecht,False,False,False,1,2024-05-16 17:15:00,2024-05-16 19:45:00,152,20
+190.300,Do.,HS 19,Rechtsformen Unternehmen,False,False,False,1,2024-05-23 17:15:00,2024-05-23 19:45:00,152,21
+190.300,Do.,HS 19,Datenschutz,False,False,False,1,2024-06-06 17:15:00,2024-06-06 19:45:00,152,23
+190.300,Mi.,HS 1,Klausur,True,False,False,-1,2024-06-19 17:15:00,2024-06-19 18:45:00,-1,25
+190.300,Do.,HS 19,Fragestunde online,False,False,True,1,2024-06-27 17:15:00,2024-06-27 19:45:00,152,26
+190.300,Mi.,HS 2,Klausur,True,False,False,-1,2024-07-03 17:15:00,2024-07-03 18:45:00,-1,27
+365.232,Mi.,HS 19,,False,False,False,1,2024-03-06 14:30:00,2024-03-06 15:15:00,152,10
+365.232,Mi.,HS 19,,False,False,False,1,2024-03-13 14:30:00,2024-03-13 15:15:00,152,11
+365.232,Mi.,HS 19,,False,False,False,1,2024-03-20 14:30:00,2024-03-20 15:15:00,152,12
+365.232,Mi.,HS 19,,False,False,False,1,2024-04-10 14:30:00,2024-04-10 15:15:00,152,15
+365.232,Mi.,HS 19,,False,False,False,1,2024-04-17 14:30:00,2024-04-17 15:15:00,152,16
+365.232,Mi.,HS 19,,False,False,False,1,2024-04-24 14:30:00,2024-04-24 15:15:00,152,17
+365.232,Mi.,HS 19,,False,False,False,1,2024-05-08 14:30:00,2024-05-08 15:15:00,152,19
+365.232,Mi.,HS 19,,False,False,False,1,2024-05-15 14:30:00,2024-05-15 15:15:00,152,20
+365.232,Mi.,HS 19,,False,False,False,1,2024-05-22 14:30:00,2024-05-22 15:15:00,152,21
+365.232,Mi.,HS 19,,False,False,False,1,2024-05-29 14:30:00,2024-05-29 15:15:00,152,22
+365.232,Mi.,HS 19,,False,False,False,1,2024-06-05 14:30:00,2024-06-05 15:15:00,152,23
+365.232,Mi.,HS 19,,False,False,False,1,2024-06-12 14:30:00,2024-06-12 15:15:00,152,24
+365.232,Mi.,HS 19,,False,False,False,1,2024-06-19 14:30:00,2024-06-19 15:15:00,152,25
+532.210,Do.,HS 9,,False,False,False,-1,2024-03-07 08:30:00,2024-03-07 10:00:00,-1,10
+532.210,Do.,HS 9,,False,False,False,-1,2024-03-14 08:30:00,2024-03-14 10:00:00,-1,11
+532.210,Do.,HS 9,,False,False,False,-1,2024-03-21 08:30:00,2024-03-21 10:00:00,-1,12
+532.210,Do.,HS 9,,False,False,False,-1,2024-04-11 08:30:00,2024-04-11 10:00:00,-1,15
+532.210,Do.,HS 9,,False,False,False,-1,2024-04-18 08:30:00,2024-04-18 10:00:00,-1,16
+532.210,Do.,HS 9,,False,False,False,-1,2024-04-25 08:30:00,2024-04-25 10:00:00,-1,17
+532.210,Do.,HS 9,,False,False,False,-1,2024-05-02 08:30:00,2024-05-02 10:00:00,-1,18
+532.210,Do.,HS 9,,False,False,False,-1,2024-05-16 08:30:00,2024-05-16 10:00:00,-1,20
+532.210,Do.,HS 9,,False,False,False,-1,2024-05-23 08:30:00,2024-05-23 10:00:00,-1,21
+532.210,Do.,HS 9,,False,False,False,-1,2024-06-06 08:30:00,2024-06-06 10:00:00,-1,23
+532.210,Do.,HS 9,,False,False,False,-1,2024-06-13 08:30:00,2024-06-13 10:00:00,-1,24
+532.210,Do.,HS 9,,False,False,False,-1,2024-06-20 08:30:00,2024-06-20 10:00:00,-1,25
+532.210,Do.,HS 9,,False,False,False,-1,2024-06-27 08:30:00,2024-06-27 10:00:00,-1,26
+532.210,Mo.,HS 19,,False,False,False,1,2024-07-01 09:00:00,2024-07-01 11:00:00,152,27
+532.210,Di.,HS 19,,False,False,False,1,2024-09-10 09:00:00,2024-09-10 11:00:00,152,37
+382.037,Mo.,S4 025,,False,False,False,-1,2024-03-04 10:15:00,2024-03-04 12:45:00,-1,10
+382.037,Di.,HS 19,,False,False,False,1,2024-03-05 12:00:00,2024-03-05 15:15:00,152,10
+382.037,Di.,HS 19,,False,False,False,1,2024-03-12 12:00:00,2024-03-12 15:15:00,152,11
+382.037,Di.,HS 19,,False,False,False,1,2024-03-19 12:00:00,2024-03-19 15:15:00,152,12
+382.037,Di.,HS 19,,False,False,False,1,2024-04-09 12:00:00,2024-04-09 15:15:00,152,15
+382.037,Di.,HS 19,,False,False,False,1,2024-04-16 12:00:00,2024-04-16 15:15:00,152,16
+382.037,Di.,HS 19,,False,False,False,1,2024-04-23 12:00:00,2024-04-23 15:15:00,152,17
+382.037,Di.,HS 19,,False,False,False,1,2024-04-30 12:00:00,2024-04-30 15:15:00,152,18
+382.037,Di.,HS 19,,False,False,False,1,2024-05-07 12:00:00,2024-05-07 15:15:00,152,19
+382.037,Di.,HS 19,,False,False,False,1,2024-05-14 12:00:00,2024-05-14 15:15:00,152,20
+382.037,Di.,HS 19,,False,False,False,1,2024-05-28 12:00:00,2024-05-28 15:15:00,152,22
+382.037,Di.,HS 19,,False,False,False,1,2024-06-04 12:00:00,2024-06-04 15:15:00,152,23
+382.037,Di.,HS 19,,False,False,False,1,2024-06-11 12:00:00,2024-06-11 15:15:00,152,24
+382.037,Di.,HS 19,,False,False,False,1,2024-06-18 12:00:00,2024-06-18 15:15:00,152,25
+382.037,Di.,HS 19,,False,False,False,1,2024-06-25 12:00:00,2024-06-25 15:15:00,152,26
+382.037,Do.,HS 7,,False,False,False,-1,2024-07-18 10:30:00,2024-07-18 12:00:00,-1,29
+382.037,Di.,HS 7,,False,False,False,-1,2024-09-10 10:30:00,2024-09-10 12:00:00,-1,37
+190.035,Mo.,HS 19,,False,False,False,1,2024-03-04 13:45:00,2024-03-04 15:15:00,152,10
+190.035,Di.,HS 5,,False,False,False,-1,2024-03-05 10:15:00,2024-03-05 11:45:00,-1,10
+190.035,Mo.,HS 19,!!! ABGESAGT !!!,False,False,False,1,2024-03-11 13:45:00,2024-03-11 15:15:00,152,11
+190.035,Di.,HS 5,,False,False,False,-1,2024-03-12 10:15:00,2024-03-12 11:45:00,-1,11
+190.035,Mo.,HS 19,,False,False,False,1,2024-03-18 13:45:00,2024-03-18 15:15:00,152,12
+190.035,Di.,HS 5,,False,False,False,-1,2024-03-19 10:15:00,2024-03-19 11:45:00,-1,12
+190.035,Mo.,HS 19,,False,False,False,1,2024-04-08 13:45:00,2024-04-08 15:15:00,152,15
+190.035,Di.,HS 5,,False,False,False,-1,2024-04-09 10:15:00,2024-04-09 11:45:00,-1,15
+190.035,Mi., ,1. Moodle-Test geöffnet bis 12.04.2024,False,True,False,-1,2024-04-10 00:00:00,2024-04-10 23:59:00,-1,15
+190.035,Mo.,HS 19,,False,False,False,1,2024-04-15 13:45:00,2024-04-15 15:15:00,152,16
+190.035,Di.,HS 5,,False,False,False,-1,2024-04-16 10:15:00,2024-04-16 11:45:00,-1,16
+190.035,Mo.,HS 19,,False,False,False,1,2024-04-22 13:45:00,2024-04-22 15:15:00,152,17
+190.035,Di.,HS 5,,False,False,False,-1,2024-04-23 10:15:00,2024-04-23 11:45:00,-1,17
+190.035,Mi., ,2. Moodle-Test geöffnet bis 26.04.2024,False,True,False,-1,2024-04-24 00:00:00,2024-04-24 23:59:00,-1,17
+190.035,Mo.,HS 19,,False,False,False,1,2024-04-29 13:45:00,2024-04-29 15:15:00,152,18
+190.035,Di.,HS 5,,False,False,False,-1,2024-04-30 10:15:00,2024-04-30 11:45:00,-1,18
+190.035,Mo.,HS 19,,False,False,False,1,2024-05-06 13:45:00,2024-05-06 15:15:00,152,19
+190.035,Mo.,HS 19,ABGESAGT!!!,False,False,False,1,2024-05-13 13:45:00,2024-05-13 15:15:00,152,20
+190.035,Mi., ,3. Moodle-Test geöffnet bis 17.05.2024,False,True,False,-1,2024-05-15 00:00:00,2024-05-15 23:59:00,-1,20
+190.035,Mo.,HS 19,,False,False,False,1,2024-05-27 13:45:00,2024-05-27 15:15:00,152,22
+190.035,Mo.,HS 19,,False,False,False,1,2024-06-03 13:45:00,2024-06-03 15:15:00,152,23
+190.035,Mo.,J 213 A,,False,False,False,-1,2024-06-10 13:45:00,2024-06-10 15:15:00,-1,24
+190.035,Mi., ,4. Moodle-Test geöffnet bis 14.06.2024,False,True,False,-1,2024-06-12 00:00:00,2024-06-12 23:59:00,-1,24
+190.035,Mo.,J 213 A,,False,False,False,-1,2024-06-17 13:45:00,2024-06-17 15:15:00,-1,25
+190.035,Mo.,J 213 A,,False,False,False,-1,2024-06-24 13:45:00,2024-06-24 15:15:00,-1,26
+190.035,Mi., ,5. Moodle-Test geöffnet bis 28.06.2024,False,True,False,-1,2024-06-26 00:00:00,2024-06-26 23:59:00,-1,26
+190.035,Mo., ,1. Gesamttest geöffnet bis 05.07.2024,False,True,False,-1,2024-07-01 08:00:00,2024-07-01 18:00:00,-1,27
+190.035,Mo., ,2. Gesamttest geöffnet bis 13.09.2024,False,True,False,-1,2024-09-09 08:00:00,2024-09-09 18:00:00,-1,37
+259.022,Mi.,HS 19,Introduction and Organisation,False,False,False,1,2024-03-06 12:00:00,2024-03-06 14:30:00,152,10
+259.022,Mi.,online,Themen der Präsentation erfolgt im Selbststudium (siehe Moodle),False,False,False,-1,2024-03-13 12:00:00,2024-03-13 14:30:00,-1,11
+259.022,Mi.,HS 19,Scenarios,False,False,False,1,2024-03-20 12:00:00,2024-03-20 14:30:00,152,12
+259.022,Mi.,HS 19,"OO Architecture, Tactics",False,False,False,1,2024-04-10 12:00:00,2024-04-10 14:30:00,152,15
+259.022,Mi., ,Video im Moodle (Selbststudium) Architecture Analysis,False,False,False,-1,2024-04-17 12:00:00,2024-04-17 14:30:00,-1,16
+259.022,Mi.,HS 19,Exercise Part 1: Discussion,False,False,False,1,2024-04-24 12:00:00,2024-04-24 14:30:00,152,17
+259.022,Mi.,HS 19,Architecture Documentation and Knowledge Management,False,False,False,1,2024-05-08 12:00:00,2024-05-08 14:30:00,152,19
+259.022,Mi.,HS 19,"Architecture Styles, Component-Based SA",False,False,False,1,2024-05-15 12:00:00,2024-05-15 14:30:00,152,20
+259.022,Mi.,HS 19,Distributed and Client/Server Software Architecture,False,False,False,1,2024-05-22 12:00:00,2024-05-22 14:30:00,152,21
+259.022,Mi.,HS 19,"Message-Based, Event-Based, SOA",False,False,False,1,2024-05-29 12:00:00,2024-05-29 14:30:00,152,22
+259.022,Mi.,HS 19,"REST, Microservice Architecture",False,False,False,1,2024-06-05 12:00:00,2024-06-05 14:30:00,152,23
+259.022,Mi.,HS 19,Exercise Part 2: Discussion,False,False,False,1,2024-06-19 12:00:00,2024-06-19 14:30:00,152,25
+259.022,Mi.,PR Raab 9901,Final Exam,True,False,False,-1,2024-06-26 12:45:00,2024-06-26 14:15:00,-1,26
+366.560,Di.,HS 19,,False,False,False,1,2024-03-05 08:30:00,2024-03-05 10:00:00,152,10
+366.560,Di.,HS 19,,False,False,False,1,2024-03-12 08:30:00,2024-03-12 10:00:00,152,11
+366.560,Di.,HS 19,,False,False,False,1,2024-03-19 08:30:00,2024-03-19 10:00:00,152,12
+366.560,Di.,HS 19,,False,False,False,1,2024-04-09 08:30:00,2024-04-09 10:00:00,152,15
+366.560,Di.,HS 19,,False,False,False,1,2024-04-16 08:30:00,2024-04-16 10:00:00,152,16
+366.560,Di.,HS 19,,False,False,False,1,2024-04-23 08:30:00,2024-04-23 10:00:00,152,17
+366.560,Di.,HS 19,,False,False,False,1,2024-04-30 08:30:00,2024-04-30 10:00:00,152,18
+366.560,Di.,HS 19,,False,False,False,1,2024-05-07 08:30:00,2024-05-07 10:00:00,152,19
+366.560,Di.,HS 19,,False,False,False,1,2024-05-14 08:30:00,2024-05-14 10:00:00,152,20
+366.560,Di.,HS 19,,False,False,False,1,2024-05-28 08:30:00,2024-05-28 10:00:00,152,22
+366.560,Di.,HS 19,,False,False,False,1,2024-06-04 08:30:00,2024-06-04 10:00:00,152,23
+366.560,Di.,HS 19,,False,False,False,1,2024-06-11 08:30:00,2024-06-11 10:00:00,152,24
+366.560,Di.,HS 19,,False,False,False,1,2024-06-18 08:30:00,2024-06-18 10:00:00,152,25
+366.560,Di.,HS 19,,False,False,False,1,2024-06-25 08:30:00,2024-06-25 10:00:00,152,26
+366.560,Fr.,HS 1,Klausur,True,False,False,-1,2024-06-28 13:45:00,2024-06-28 15:15:00,-1,26
+366.560,Fr.,HS 1,Nachklausur,True,False,False,-1,2024-10-18 13:45:00,2024-10-18 15:15:00,-1,42
+238.302,Mo.,HS 19,,False,False,False,1,2024-03-04 10:15:00,2024-03-04 11:45:00,152,10
+238.302,Mi., ,"Zoom-Tutorium (Alle Tutorien sind ein Angebot, keine Pflicht)",False,False,True,-1,2024-03-06 18:00:00,2024-03-06 18:45:00,-1,10
+238.302,Mo.,HS 19,,False,False,False,1,2024-03-11 10:15:00,2024-03-11 11:45:00,152,11
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-03-13 18:00:00,2024-03-13 18:45:00,-1,11
+238.302,Mo.,HS 19,,False,False,False,1,2024-03-18 10:15:00,2024-03-18 11:45:00,152,12
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-03-20 18:00:00,2024-03-20 18:45:00,-1,12
+238.302,Mo.,HS 19,,False,False,False,1,2024-04-08 10:15:00,2024-04-08 11:45:00,152,15
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-04-10 18:00:00,2024-04-10 18:45:00,-1,15
+238.302,Mo.,HS 19,,False,False,False,1,2024-04-15 10:15:00,2024-04-15 11:45:00,152,16
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-04-17 18:00:00,2024-04-17 18:45:00,-1,16
+238.302,Mo.,HS 19,,False,False,False,1,2024-04-22 10:15:00,2024-04-22 11:45:00,152,17
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-04-24 18:00:00,2024-04-24 18:45:00,-1,17
+238.302,Mo.,HS 19,,False,False,False,1,2024-04-29 10:15:00,2024-04-29 11:45:00,152,18
+238.302,Di., ,Zoom-Tutorium,False,False,True,-1,2024-04-30 18:00:00,2024-04-30 18:45:00,-1,18
+238.302,Mo.,HS 19,,False,False,False,1,2024-05-06 10:15:00,2024-05-06 11:45:00,152,19
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-05-08 18:00:00,2024-05-08 18:45:00,-1,19
+238.302,Mo.,HS 19,,False,False,False,1,2024-05-13 10:15:00,2024-05-13 11:45:00,152,20
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-05-15 18:00:00,2024-05-15 18:45:00,-1,20
+238.302,Mo.,HS 19,,False,False,False,1,2024-05-27 10:15:00,2024-05-27 11:45:00,152,22
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-05-29 18:00:00,2024-05-29 18:45:00,-1,22
+238.302,Mo.,HS 19,,False,False,False,1,2024-06-03 10:15:00,2024-06-03 11:45:00,152,23
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-06-05 18:00:00,2024-06-05 18:45:00,-1,23
+238.302,Mo.,HS 19,,False,False,False,1,2024-06-10 10:15:00,2024-06-10 11:45:00,152,24
+238.302,Mi., ,Zoom-Tutorium,False,False,True,-1,2024-06-12 18:00:00,2024-06-12 18:45:00,-1,24
+238.302,Mo.,HS 3,,False,False,False,-1,2024-06-17 10:15:00,2024-06-17 11:45:00,-1,25
+238.302,Mi., ,Fragestunde zur Klausur (via Zoom),True,False,True,-1,2024-06-26 18:00:00,2024-06-26 18:45:00,-1,26
+238.302,Fr.,HS 1,Klausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-06-28 15:30:00,2024-06-28 17:00:00,-1,26
+238.302,Fr.,HS 2,Klausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-06-28 15:30:00,2024-06-28 17:00:00,-1,26
+238.302,Fr.,HS 7,Klausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-06-28 15:30:00,2024-06-28 17:00:00,-1,26
+238.302,Mo., ,Nachbesprechung (via Zoom),False,False,False,-1,2024-07-01 18:00:00,2024-07-01 18:45:00,-1,27
+238.302,Do.,HS 16,Nachklausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-09-26 15:30:00,2024-09-26 17:00:00,-1,39
+238.302,Do.,HS 15,Nachklausur (Hörsaal wird zugeteilt),True,False,False,-1,2024-09-26 15:30:00,2024-09-26 17:00:00,-1,39
+150.005,Mo.,HS 19,,False,False,False,1,2024-06-03 15:30:00,2024-06-03 18:45:00,152,23
+150.005,Di.,HS 2,,False,False,False,-1,2024-06-04 15:30:00,2024-06-04 18:45:00,-1,23
+150.005,Mi.,HS 5,,False,False,False,-1,2024-06-05 15:30:00,2024-06-05 18:45:00,-1,23
+150.005,Do.,HS 3,,False,False,False,-1,2024-06-06 15:30:00,2024-06-06 18:45:00,-1,23
+269.031,Mi.,HS 4,Anwesenheitspflicht,False,False,False,-1,2024-04-24 10:15:00,2024-04-24 11:45:00,-1,17
+269.031,Mi.,--,via ZOOM Details siehe E- Mail / Moodle Nachrichtenforum,False,False,False,-1,2024-05-08 10:15:00,2024-05-08 11:45:00,-1,19
+269.031,Mi.,BA 9911,,False,False,False,-1,2024-05-15 10:15:00,2024-05-15 11:45:00,-1,20
+269.031,Mi.,HF 9904,"Gastvortrag Markus Sturm, CEO der TGW Mechanics GmbH : Dos and Don’ts der Strategieimplementierung",False,False,False,-1,2024-05-22 10:15:00,2024-05-22 11:45:00,-1,21
+269.031,Mi.,HS 19,Klausur,True,False,False,1,2024-06-05 10:15:00,2024-06-05 11:45:00,152,23
+269.031,Mo., ,Planspiel - gesamter Tag Anwesenheitspflicht,False,False,False,-1,2024-06-10 09:15:00,2024-06-10 18:00:00,-1,24
+269.031,Di., ,Planspiel - gesamter Tag Anwesenheitspflicht,False,False,False,-1,2024-06-11 09:15:00,2024-06-11 18:00:00,-1,24
+269.031,Mi.,MZ 412A,Nachklausur,True,False,False,-1,2024-06-26 10:15:00,2024-06-26 11:45:00,-1,26
+269.035,Mi.,HS 4,Anwesenheitspflicht,False,False,False,-1,2024-04-24 12:00:00,2024-04-24 13:30:00,-1,17
+269.035,Mi.,--,via ZOOM Details siehe E- Mail / Moodle Nachrichtenforum,False,False,False,-1,2024-05-08 12:00:00,2024-05-08 13:30:00,-1,19
+269.035,Mi.,BA 9911,,False,False,False,-1,2024-05-15 10:15:00,2024-05-15 11:45:00,-1,20
+269.035,Mi.,HF9004,"Gastvortrag Markus Sturm, CEO der TGW Mechanics GmbH : Dos and Don’ts der Strategieimplementierung",False,False,False,-1,2024-05-22 10:15:00,2024-05-22 11:45:00,-1,21
+269.035,Mi.,HS 19,Klausur,True,False,False,1,2024-06-05 10:15:00,2024-06-05 11:45:00,152,23
+269.035,Mo., ,Planspiel - gesamter Tag Anwesenheitspflicht,False,False,False,-1,2024-06-17 09:15:00,2024-06-17 18:00:00,-1,25
+269.035,Di., ,Planspiel - gesamter Tag Anwesenheitspflicht,False,False,False,-1,2024-06-18 09:15:00,2024-06-18 18:00:00,-1,25
+269.035,Mi.,MZ 412A,Nachklausur,True,False,False,-1,2024-06-26 10:15:00,2024-06-26 11:45:00,-1,26
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-03-08 10:15:00,2024-03-08 11:45:00,-1,10
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-03-15 10:15:00,2024-03-15 11:45:00,-1,11
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-03-22 10:15:00,2024-03-22 11:45:00,-1,12
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-04-12 10:15:00,2024-04-12 11:45:00,-1,15
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-04-19 10:15:00,2024-04-19 11:45:00,-1,16
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-04-26 10:15:00,2024-04-26 11:45:00,-1,17
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-05-03 10:15:00,2024-05-03 11:45:00,-1,18
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-05-10 10:15:00,2024-05-10 11:45:00,-1,19
+359.020,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-10 13:45:00,2024-05-10 15:15:00,-1,19
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-05-17 10:15:00,2024-05-17 11:45:00,-1,20
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-05-24 10:15:00,2024-05-24 11:45:00,-1,21
+359.020,Fr.,HS 19,,False,False,False,1,2024-06-07 10:15:00,2024-06-07 11:45:00,152,23
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-06-14 10:15:00,2024-06-14 11:45:00,-1,24
+359.020,Fr.,BA 9912,,False,False,False,-1,2024-06-21 10:15:00,2024-06-21 11:45:00,-1,25
+359.020,Di.,HS 10,2. Übungstest,False,True,False,-1,2024-06-25 08:30:00,2024-06-25 10:00:00,-1,26
+359.020,Mi.,HS 15,Nachtest,False,True,False,-1,2024-09-25 10:15:00,2024-09-25 11:45:00,-1,39
+359.022,Fr.,S4 025,,False,False,False,-1,2024-03-08 10:15:00,2024-03-08 11:45:00,-1,10
+359.022,Fr.,S4 025,,False,False,False,-1,2024-03-15 10:15:00,2024-03-15 11:45:00,-1,11
+359.022,Fr.,S4 025,,False,False,False,-1,2024-03-22 10:15:00,2024-03-22 11:45:00,-1,12
+359.022,Fr.,S4 025,,False,False,False,-1,2024-04-12 10:15:00,2024-04-12 11:45:00,-1,15
+359.022,Fr.,S4 025,,False,False,False,-1,2024-04-19 10:15:00,2024-04-19 11:45:00,-1,16
+359.022,Fr.,S4 025,,False,False,False,-1,2024-04-26 10:15:00,2024-04-26 11:45:00,-1,17
+359.022,Fr.,S4 025,,False,False,False,-1,2024-05-03 10:15:00,2024-05-03 11:45:00,-1,18
+359.022,Fr.,S4 025,,False,False,False,-1,2024-05-10 10:15:00,2024-05-10 11:45:00,-1,19
+359.022,Fr.,HS 10,1. Übungstest,False,True,False,-1,2024-05-10 13:45:00,2024-05-10 15:15:00,-1,19
+359.022,Fr.,S4 025,,False,False,False,-1,2024-05-17 10:15:00,2024-05-17 11:45:00,-1,20
+359.022,Fr.,S4 025,,False,False,False,-1,2024-05-24 10:15:00,2024-05-24 11:45:00,-1,21
+359.022,Fr.,HS 19,,False,False,False,1,2024-06-07 10:15:00,2024-06-07 11:45:00,152,23
+359.022,Fr.,S4 025,,False,False,False,-1,2024-06-14 10:15:00,2024-06-14 11:45:00,-1,24
+359.022,Fr.,S4 025,,False,False,False,-1,2024-06-21 10:15:00,2024-06-21 11:45:00,-1,25
+359.022,Di.,HS 4,2. Übungstest,False,True,False,-1,2024-06-25 08:30:00,2024-06-25 10:00:00,-1,26
+359.022,Mi.,HS 15,Nachtest,False,True,False,-1,2024-09-25 10:15:00,2024-09-25 11:45:00,-1,39
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-03-08 10:15:00,2024-03-08 11:45:00,-1,10
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-03-15 10:15:00,2024-03-15 11:45:00,-1,11
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-03-22 10:15:00,2024-03-22 11:45:00,-1,12
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-04-12 10:15:00,2024-04-12 11:45:00,-1,15
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-04-19 10:15:00,2024-04-19 11:45:00,-1,16
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-04-26 10:15:00,2024-04-26 11:45:00,-1,17
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-05-03 10:15:00,2024-05-03 11:45:00,-1,18
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-05-10 10:15:00,2024-05-10 11:45:00,-1,19
+359.024,Fr.,HS 16,1. Übungstest,False,True,False,-1,2024-05-10 13:45:00,2024-05-10 15:15:00,-1,19
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-05-17 10:15:00,2024-05-17 11:45:00,-1,20
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-05-24 10:15:00,2024-05-24 11:45:00,-1,21
+359.024,Fr.,HS 19,,False,False,False,1,2024-06-07 10:15:00,2024-06-07 11:45:00,152,23
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-06-14 10:15:00,2024-06-14 11:45:00,-1,24
+359.024,Fr.,BA 9908,,False,False,False,-1,2024-06-21 10:15:00,2024-06-21 11:45:00,-1,25
+359.024,Di.,HS 10,2. Übungstest,False,True,False,-1,2024-06-25 08:30:00,2024-06-25 10:00:00,-1,26
+359.024,Mi.,HS 15,Nachtest,False,True,False,-1,2024-09-25 10:15:00,2024-09-25 11:45:00,-1,39
+379.014,Di.,S2 044,,False,False,False,-1,2024-03-19 08:30:00,2024-03-19 10:00:00,-1,12
+379.014,Do.,HS 12,,False,False,False,-1,2024-03-21 12:00:00,2024-03-21 13:30:00,-1,12
+379.014,Di.,S2 044,,False,False,False,-1,2024-04-09 08:30:00,2024-04-09 10:00:00,-1,15
+379.014,Do.,HS 12,,False,False,False,-1,2024-04-11 12:00:00,2024-04-11 13:30:00,-1,15
+379.014,Do.,HS 12,,False,False,False,-1,2024-04-18 12:00:00,2024-04-18 13:30:00,-1,16
+379.014,Do.,HS 12,,False,False,False,-1,2024-04-25 12:00:00,2024-04-25 13:30:00,-1,17
+379.014,Do.,HS 12,,False,False,False,-1,2024-05-02 12:00:00,2024-05-02 13:30:00,-1,18
+379.014,Do.,HS 12,,False,False,False,-1,2024-05-16 12:00:00,2024-05-16 13:30:00,-1,20
+379.014,Do.,K 009D,,False,False,False,-1,2024-06-06 12:00:00,2024-06-06 15:15:00,-1,23
+379.014,Do.,HS 12,,False,False,False,-1,2024-06-13 12:00:00,2024-06-13 13:30:00,-1,24
+379.014,Do.,HS 12,,False,False,False,-1,2024-06-20 12:00:00,2024-06-20 13:30:00,-1,25
+379.014,Do.,HS 12,,False,False,False,-1,2024-06-27 12:00:00,2024-06-27 13:30:00,-1,26
+379.014,Mo.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2024-07-01 13:45:00,2024-07-01 15:15:00,152,27
+379.014,Mo.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2024-09-30 13:45:00,2024-09-30 15:15:00,152,40
+379.014,Di.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2025-02-04 13:45:00,2025-02-04 15:15:00,152,6
+379.014,Di.,HS 19,Klausur - bitte in Kusss anmelden,True,False,False,1,2025-07-01 13:45:00,2025-07-01 15:15:00,152,27
+365.041,Do.,HS 7,,False,False,False,-1,2024-03-07 10:15:00,2024-03-07 11:45:00,-1,10
+365.041,Do.,HS 7,,False,False,False,-1,2024-03-14 10:15:00,2024-03-14 11:45:00,-1,11
+365.041,Do.,HS 7,,False,False,False,-1,2024-03-21 10:15:00,2024-03-21 11:45:00,-1,12
+365.041,Do.,HS 7,,False,False,False,-1,2024-04-11 10:15:00,2024-04-11 11:45:00,-1,15
+365.041,Do.,HS 7,,False,False,False,-1,2024-04-18 10:15:00,2024-04-18 11:45:00,-1,16
+365.041,Do.,HS 7,,False,False,False,-1,2024-04-25 10:15:00,2024-04-25 11:45:00,-1,17
+365.041,Do.,HS 7,,False,False,False,-1,2024-05-16 10:15:00,2024-05-16 11:45:00,-1,20
+365.041,Do.,HS 7,,False,False,False,-1,2024-05-23 10:15:00,2024-05-23 11:45:00,-1,21
+365.041,Do.,HS 7,,False,False,False,-1,2024-06-06 10:15:00,2024-06-06 11:45:00,-1,23
+365.041,Do.,HS 7,,False,False,False,-1,2024-06-13 10:15:00,2024-06-13 11:45:00,-1,24
+365.041,Do.,HS 7,,False,False,False,-1,2024-06-20 10:15:00,2024-06-20 11:45:00,-1,25
+365.041,Do.,HS 19,EXAM,True,False,False,1,2024-07-11 10:15:00,2024-07-11 11:45:00,152,28
+102.016,Mo.,HS 19,,False,False,False,1,2024-03-04 15:30:00,2024-03-04 18:45:00,152,10
+102.016,Mo.,HS 19,,False,False,False,1,2024-03-11 15:30:00,2024-03-11 18:45:00,152,11
+102.016,Mo.,HS 19,,False,False,False,1,2024-03-18 15:30:00,2024-03-18 18:45:00,152,12
+102.016,Mo.,HS 16,Klausur,True,False,False,-1,2024-04-08 18:00:00,2024-04-08 18:45:00,-1,15
+102.016,Mo.,HS 15,Nachklausur,True,False,False,-1,2024-05-13 18:00:00,2024-05-13 18:45:00,-1,20
+256.902,Mi.,HS 19,,False,False,False,1,2024-03-06 17:15:00,2024-03-06 20:15:00,152,10
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-03-13 17:15:00,2024-03-13 20:30:00,-1,11
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-03-20 17:15:00,2024-03-20 20:30:00,-1,12
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-04-10 17:15:00,2024-04-10 20:30:00,-1,15
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-04-17 17:15:00,2024-04-17 20:30:00,-1,16
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-04-24 17:15:00,2024-04-24 20:30:00,-1,17
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-05-08 17:15:00,2024-05-08 20:30:00,-1,19
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-05-22 17:15:00,2024-05-22 20:30:00,-1,21
+256.902,Di.,S3 134,Ersatztermin für 15.5.,False,False,False,-1,2024-05-28 17:15:00,2024-05-28 20:30:00,-1,22
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-05-29 17:15:00,2024-05-29 20:30:00,-1,22
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-06-05 17:15:00,2024-06-05 20:30:00,-1,23
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-06-12 17:15:00,2024-06-12 20:30:00,-1,24
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-06-19 17:15:00,2024-06-19 20:30:00,-1,25
+256.902,Mi.,S2 Z74,,False,False,False,-1,2024-06-26 17:15:00,2024-06-26 20:30:00,-1,26
+231.010,Mo.,HS 9,,False,False,False,-1,2024-03-11 15:30:00,2024-03-11 17:00:00,-1,11
+231.010,Mo.,HS 9,,False,False,False,-1,2024-03-18 15:30:00,2024-03-18 17:00:00,-1,12
+231.010,Mo.,HS 9,,False,False,False,-1,2024-04-08 15:30:00,2024-04-08 17:00:00,-1,15
+231.010,Mo.,HS 9,,False,False,False,-1,2024-04-15 15:30:00,2024-04-15 17:00:00,-1,16
+231.010,Mo.,HS 9,,False,False,False,-1,2024-04-22 15:30:00,2024-04-22 17:00:00,-1,17
+231.010,Mo.,HS 9,,False,False,False,-1,2024-04-29 15:30:00,2024-04-29 17:00:00,-1,18
+231.010,Mo.,HS 9,,False,False,False,-1,2024-05-06 15:30:00,2024-05-06 17:00:00,-1,19
+231.010,Mo.,HS 9,,False,False,False,-1,2024-05-13 15:30:00,2024-05-13 17:00:00,-1,20
+231.010,Mo.,HS 9,,False,False,False,-1,2024-05-27 15:30:00,2024-05-27 17:00:00,-1,22
+231.010,Mo.,HS 9,,False,False,False,-1,2024-06-03 15:30:00,2024-06-03 17:00:00,-1,23
+231.010,Mo.,HS 9,,False,False,False,-1,2024-06-10 15:30:00,2024-06-10 17:00:00,-1,24
+231.010,Mo.,HS 19,,False,False,False,1,2024-06-17 15:30:00,2024-06-17 17:00:00,152,25
+231.010,Mo.,HS 9,,False,False,False,-1,2024-06-24 15:30:00,2024-06-24 17:00:00,-1,26

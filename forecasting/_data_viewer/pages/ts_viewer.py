@@ -8,7 +8,7 @@ import dash
 
 import os
 from _dfguru import DataFrameGuru as DFG
-from _forecasting import OccFeatureEngineer
+from _occupany_forecasting import OccFeatureEngineer
 
 import plotly.graph_objects as go
 
