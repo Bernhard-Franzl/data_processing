@@ -1,6 +1,7 @@
 import torch
 import torchmetrics
 from torch.optim import Adam
+from torch.utils.data import DataLoader
 
 import os
 import json
@@ -14,9 +15,345 @@ from _lecture_forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
 from _lecture_forecasting.data import  LectureDataset
 from _lecture_forecasting.data import load_data
 
+from torch.nn.utils.rnn import pad_sequence
+
 from _dfguru import DataFrameGuru as DFG
 
+class TestWriter():
+    
+    def __init__(self, filename):
+        
+        self.set_filename(filename)
+        self.erase_file()
+    
+    ########## Basic functions ##########
+    def set_filename(self, filename):
+        self.filename = filename
+        
+    def erase_file(self ):
+        with open(self.file_name, "w") as file:
+            file.write("") 
 
+    def write_new_line(self):
+        with open(self.filename, "a") as file:
+            file.write("\n")
+            
+    def write_text_to_file(self, text):
+        with open(self.filename, "a") as file:
+            file.write(text)
+            
+    ############## Advanced functions ##############
+    def write_header(self, run_id, data):
+        
+        header_txt = f""""#################
+                            Data: {data}
+                            Run: {run_id}
+                            Time: {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))}
+                            """
+        self.write_text_to_file(header_txt)
+        
+    def write_loss(self, loss_f, combinations, losses, baseline_losses):            
+        
+        loss_txt =  f"""Loss function: {loss_f}
+                        Combinations: {combinations.tolist()}
+                        Losses: {losses.tolist()}
+                        Baseline losses: {baseline_losses.tolist()}"""
+        self.write_text_to_file(loss_txt)
+        
+    def write_hyperparameters(self, hyperparameters):
+            
+        listy = [(key, hyperparameters[key])  for  key in sorted(hyperparameters.keys())]
+        hyperparameters_txt = f"Hyperparameters: {listy}\n"
+        self.write_text_to_file(hyperparameters_txt)
+
+
+class LectureTestSuite():
+    
+    def __init__(self, cp_log_dir, path_to_data, path_to_helpers):
+        
+        self.cp_log_dir = cp_log_dir
+        self.dfg = DFG()
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        
+        self.loss_types = ["MAE", "MSE", "RMSE"]
+        self.loss_functions = self.get_loss_functions()
+        
+        self.bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
+        
+        self.path_to_data = path_to_data
+        self.path_to_helpers = path_to_helpers
+        
+        self.hyperparameters = None
+    
+    def get_loss_functions(self):
+        
+        loss_functions = dict()
+        if "MAE" in self.loss_types:
+            loss_functions["MAE"] = torch.nn.L1Loss(reduction="none")
+        if "MSE" in self.loss_types:
+            loss_functions["MSE"] = torch.nn.MSELoss(reduction="none")
+        if "RMSE" in self.loss_types:
+            loss_functions["RMSE"] = lambda x, y: torch.sqrt(torch.nn.MSELoss(reduction="none")(x, y))
+            
+        return loss_functions
+    
+    
+    ########## Get list of checkpoints ##########    
+    def list_checkpoints(self, run_id):
+    
+        path_to_run = os.path.join(self.cp_log_dir, f"run_{run_id}")
+        
+        if os.path.exists(path_to_run):
+            comb_ids = list(map(lambda x: int(x.split("_")[-1]), os.listdir(path_to_run)))
+            run_comb_tuples = list(zip([run_id]*len(comb_ids), comb_ids))
+            del comb_ids
+            return run_comb_tuples
+        
+        else:
+            raise ValueError(f"Checkpoints of run {run_id} do not exist")  
+      
+    ########## Load checkpoints ##########
+    def handle_model_class(self, model_name:str):
+
+        if model_name == "simple_lecture_lstm":
+            return SimpleLectureLSTM
+        
+        elif model_name == "simple_lecture_densenet":
+            return SimpleLectureDenseNet
+        
+        else:
+            raise ValueError(f"Model {model_name} not recognized")
+        
+    def load_checkpoint(self, checkpoint_path:str, load_optimizer:bool):
+        
+        self.hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
+        
+        # ignore warnings    
+        model_class = self.handle_model_class(self.hyperparameters["model_class"])
+        model = model_class(self.hyperparameters)
+        model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
+        
+        if load_optimizer:
+            optimizer = Adam(model.parameters(), lr=self.hyperparameters["lr"], weight_decay=self.hyperparameters["weight_decay"])
+            optimizer.load_state_dict(torch.load(os.path.join(checkpoint_path, "optimizer.pt"), weights_only=True))
+            return model, optimizer
+
+        return model
+    
+    def prepare_data(self, split_by:str, dataset_mode:str):
+        
+        if dataset_mode in ["time_sequential", "time_onedateahead"]:
+        
+            train_df, val_df, test_df = load_data(
+                self.path_to_data, 
+                dfguru=self.dfg,
+                split_by=split_by)
+            
+            pth = os.path.join(self.path_to_helpers, f"helpers_lecture_{split_by}.json")
+            trainset = LectureDataset(
+                lecture_df=train_df, 
+                hyperparameters=self.hyperparameters, 
+                dataset_mode=dataset_mode, 
+                path_to_helpers=pth,
+                validation=False
+            )
+            valset = LectureDataset(
+                lecture_df=val_df, 
+                hyperparameters=self.hyperparameters, 
+                dataset_mode=dataset_mode, 
+                path_to_helpers=pth,
+                validation=True
+            )
+            testset = LectureDataset(
+                lecture_df=test_df, 
+                hyperparameters=self.hyperparameters, 
+                dataset_mode=dataset_mode, 
+                path_to_helpers=pth,
+                validation=True
+            )
+            
+            return trainset, valset, testset
+                
+        else:
+            raise ValueError(f"Mode {dataset_mode} not recognized")  
+    
+    def sequential_collate(self, x):
+        
+        info = [x_i[0] for x_i in x]
+        X = pad_sequence([x_i[1] for x_i in x], batch_first=True, padding_value=self.hyperparameters["padding_value"], padding_side="left")
+        #X = torch.stack([x_i[1] for x_i in x])
+        y_features = torch.stack([x_i[2] for x_i in x])
+        y = torch.stack([x_i[3] for x_i in x])
+        immutable_features = torch.stack([x_i[0][6] for x_i in x])
+
+        return info, X, y_features, y, immutable_features
+    
+    def dateahead_collate(self, x):
+        
+        info = [x_i[0] for x_i in x]
+        X = torch.stack([x_i[1] for x_i in x])
+        y_features = torch.stack([x_i[2] for x_i in x])
+        y = torch.stack([x_i[3] for x_i in x])
+        immutable_features = torch.stack([x_i[0][6] for x_i in x])
+                          
+        return info, X, y_features, y, immutable_features
+    
+    def prepare_data_loader(self, dataset, dataset_mode):
+        
+        if dataset_mode == "time_onedateahead":
+            collate_f = self.dateahead_collate
+        elif dataset_mode == "time_sequential":
+            collate_f = self.sequential_collate
+        else:
+            raise ValueError("Dataset mode not supported.")
+        
+        print("Warning: Batch size is set to 1")
+        data_loader = DataLoader(dataset, batch_size=1, shuffle=False, 
+                                  collate_fn=collate_f)
+        return data_loader
+    
+    
+    def calculate_losses(self, losses, pred, target):
+
+        for key, loss_f in self.loss_functions.items():
+            losses[key].append(loss_f(pred, target))
+        
+    def test_baseline(self, dataset, losses):
+        
+        # simply predicts the last observed value
+        
+        predictions = []
+        infos = []
+        inputs = []
+        targets = []
+        target_features = []
+        
+        for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=self.bar_format, leave=False):
+            
+            #print("output_size:", model.output_size)
+            
+            if len(X.shape)== 1:
+                preds = X[:1]
+                raise ValueError("X has strange shape")
+                
+            elif len(X.shape) == 2:
+                occrates = X[:, :1]
+                occrates_pos = occrates[occrates >= 0]
+                
+                preds = occrates_pos[-1:]
+                
+            else:
+                raise ValueError("X has unknown shape")
+            
+            if any(preds < 0):
+                print(preds)
+                raise ValueError("Negative value in prediction")
+        
+            self.calculate_losses(losses, preds, y)
+            
+            predictions.append(preds)
+            infos.append(info)
+            inputs.append(X)
+            targets.append(y)
+            target_features.append(y_features)
+
+        return losses, predictions, infos, targets, inputs, target_features
+    
+    def test_model(self, model, dataloader, losses):
+        
+        model.eval()
+        model = model.to(self.device)
+
+        with torch.no_grad():
+            
+            predictions = []
+            infos = []
+            inputs = []
+            targets = []
+            target_features = []
+
+            for info, X, y_features, y, immutable_features  in tqdm(dataloader, 
+                                                                    total=len(dataloader), 
+                                                                    bar_format=self.bar_format, 
+                                                                    leave=False):
+
+                immutable_features = immutable_features.to(self.device)
+                X = X.to(self.device)
+                y_features = y_features.to(self.device)
+                y = y.to("cpu").view(-1, model.output_size)
+            
+
+                model_output = model(X, y_features, immutable_features).cpu()
+
+                self.calculate_losses(losses, model_output, y)
+                predictions.extend(model_output)
+                infos.extend(info)
+                inputs.extend(X.cpu())
+                targets.extend(y)
+                target_features.extend(y_features.cpu())
+        
+        return losses, predictions, infos, targets, inputs, target_features
+    
+    def evaluate_combinations(self, comb_tuples, split_by, dataset_mode):
+        
+        list_combs = []
+        dict_losses = {key:[] for key in self.loss_types}
+        dict_baseline_losses = {key:[] for key in self.loss_types}
+        list_hyperparameters = []
+        
+        for n_run, n_comb in tqdm(comb_tuples, total=len(comb_tuples), bar_format=self.bar_format, leave=False):
+
+            checkpoint_path = os.path.join(self.cp_log_dir, f"run_{n_run}", f"comb_{n_comb}")
+            
+            model = self.load_checkpoint(checkpoint_path=checkpoint_path, load_optimizer=False)
+            
+            list_hyperparameters.append(self.hyperparameters)
+            
+            trainset, valset, testset = self.prepare_data(
+                split_by=split_by,
+                dataset_mode=dataset_mode
+            )
+            
+            
+            ###################################################
+            
+            for dataset in [trainset, valset]:
+                dataloader = self.prepare_data_loader(
+                    dataset=dataset,
+                    dataset_mode=dataset_mode,
+                )
+
+                dict_baseline_losses, bl_preds, bl_infos, bl_targets, bl_inputs, bl_target_features = self.test_baseline(dataset, dict_baseline_losses)
+                print("Baseline:", np.mean(dict_baseline_losses["MAE"]), len(dict_baseline_losses["MAE"]))
+                
+                losses, predictions, infos, targets, inputs, target_features = self.test_model(model, dataloader, dict_losses)
+                print("Model:", np.mean(dict_losses["MAE"]), len(dict_losses["MAE"]))
+                
+                if not torch.allclose(torch.cat(bl_targets).squeeze(), torch.cat(targets)):
+                    raise ValueError("Targets are not equal")
+
+            raise
+            for key in dict_losses:
+                dict_losses[key].append(losses[key])
+            
+            list_combs.append((n_run, n_comb))
+
+            losses_mae = np.array(losses["MAE"])
+            argsort_losses = np.argsort(losses_mae)[::-1]
+            greater_0 = argsort_losses[losses_mae[argsort_losses] > 0]
+            #print(argsort_losses)
+            
+            if plot:
+                if mode in ["normal", "dayahead", "unlimited"]:
+                    plot_predictions(infos, predictions, targets, room_ids, n_run, n_comb, target_features)
+                else:
+                    plot_predictions_lecture(infos, predictions, targets, room_ids, n_run, n_comb, naive_preds)
+                
+        if naive_baseline:
+            return list_combs, dict_losses, list_hyperparameters, baseline_losses
+        else:
+            return list_combs, dict_losses, list_hyperparameters     
+    
 ############### Load checkpoints ################
 def list_checkpoints(path_to_dir, run_id):
     
@@ -31,31 +368,6 @@ def list_checkpoints(path_to_dir, run_id):
     else:
         raise ValueError(f"Checkpoints of run {run_id} do not exist")    
   
-def handle_model_class(model_name:str):
-        
-        if model_name == "simple_densenet":
-            return SimpleOccDenseNet
-        
-        elif model_name == "simple_lstm":
-            return SimpleOccLSTM
-        
-        elif model_name == "simple_lecture_lstm":
-            return SimpleLectureLSTM
-        
-        elif model_name == "simple_lecture_densenet":
-            return SimpleLectureDenseNet
-        
-        elif model_name == "ed_lstm":
-            return EncDecOccLSTM
-        
-        elif model_name == "mc_lstm":
-            return MassConservingOccLSTM
-        
-        elif model_name == "simple_gru":  
-            return SimpleOccGRU
-        
-        else:
-            raise ValueError(f"Model {model_name} not recognized")
         
 def load_checkpoint(checkpoint_path:str, load_optimizer:bool, hyperparameters:dict):
     
@@ -71,67 +383,8 @@ def load_checkpoint(checkpoint_path:str, load_optimizer:bool, hyperparameters:di
     
     return model
 
-def prepare_model_and_data(checkpoint_path:str, dfg, device, mode:str, data:str):
-    
-    hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
-     
-    if mode in ["normal", "dayahead", "unlimited"]:
-        
-        train_dict, val_dict, test_dict = load_data_dicts(
-            "data", 
-            hyperparameters["frequency"], 
-            dfguru=dfg)
-        
-        if data == "train":
-            data_dict = train_dict
-        elif data == "val":
-            data_dict = val_dict
-        elif data == "test":
-            data_dict = test_dict
-        else:
-            raise ValueError(f"Data {data} not recognized")
 
-        dataset = OccupancyDataset(data_dict, hyperparameters, mode)
-        room_ids = data_dict.keys()
-        
-    elif mode in ["time_sequential", "time_onedateahead"]:
-        
-        train_df, val_df, test_df = load_data_lecture("data", dfguru=dfg)
-        
-        if data == "train":
-            data_dict = train_df
-            validation = False
-        elif data == "val":
-            data_dict = val_df
-            validation = True
-        elif data == "test":
-            data_dict = test_df
-            validation = True
-        else:
-            raise ValueError(f"Data {data} not recognized")
-        
-        
-        dataset = LectureDataset(data_dict, hyperparameters, mode, validation)
-        room_ids = None
-        
-        #y_samples = []
-        #for i in range(len(dataset)):
-        #    y_samples.append(dataset[i][3])
-            
-    else:
-        raise ValueError(f"Mode {mode} not recognized")
-    
-    
-    model = load_checkpoint(
-        checkpoint_path = checkpoint_path,
-        load_optimizer = False,
-        hyperparameters = hyperparameters,
-    )
-    model = model.to(device)
-    
-    return model, hyperparameters, dataset, room_ids
-    
-def run_detailed_test(model, dataset:OccupancyDataset, device):
+def run_detailed_test(model, dataset, device):
     
     model.eval()
     model = model.to(device)
@@ -196,7 +449,7 @@ def run_detailed_test(model, dataset:OccupancyDataset, device):
         
     return losses, predictions, infos, targets, inputs, target_features
 
-def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
+def run_detailed_test_forward(model, dataset, device):
     
     model.eval()
     model = model.to(device)
@@ -253,7 +506,7 @@ def run_detailed_test_forward(model, dataset:OccupancyDataset, device):
     
     return losses, predictions, infos, targets, inputs, target_features
 
-def run_naive_baseline_lecture(model, dataset:OccupancyDataset, device):
+def run_naive_baseline_lecture(model, dataset, device):
     # simply predicts the last observed value
     
     
@@ -503,21 +756,12 @@ def write_loss_to_txt_without_baseline(file_name, combinations, losses, loss_f):
             file.write(f"Loss function: {loss_f}\n")
             file.write(f"Combinations: {combinations.tolist()}\n")
             file.write(f"Losses: {losses.tolist()}\n")
-            
-def write_new_line(file_name):
-    with open(file_name, "a") as file:
-        file.write("\n")
 
 def write_hyperparameters_to_txt(file_name, hyperparameters):
     
     listy = [(key, hyperparameters[key])  for  key in sorted(hyperparameters.keys())]
     with open(file_name, "a") as file:
-        file.write(f"Hyperparameters: {listy}\n")
-
-def erase_file(file_name):
-    with open(file_name, "w") as file:
-        file.write("")      
-
+        file.write(f"Hyperparameters: {listy}\n") 
 
 ############## Evaluate results ####################
 def evaluate_results(filename, list_combs, dict_losses, list_hyperparameters, baseline_losses, top_k_params):

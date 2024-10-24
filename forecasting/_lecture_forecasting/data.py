@@ -509,7 +509,7 @@ class LectureDataset(Dataset):
         #self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
         # process data
         self.samples = self.process_data_df(dataset_mode)
-        
+        print("Size of Dataset:", len(self.samples))
         #len_list = [x[1].shape[0] for x in self.samples]
         #print(np.unique(len_list, return_counts=True))
         
@@ -731,12 +731,12 @@ class LectureDataset(Dataset):
                 
                 if X_df.loc[X_df.index[-1], "starttime"] == y_df["starttime"]:
                     
-                    print("Warning: Same Starttime")
+                    #print("Warning: Same Starttime")
                     
                     #print(X_df.loc[X_df.index[-1], "starttime"] , y_df["starttime"])
                     if X_df.loc[X_df.index[-1], "roomid"]  == y_df["roomid"]:
-                        print("room_id matches -> nothing to do")
-                        print()
+                        #print("room_id matches -> nothing to do")
+                        #print()
                         continue
                     
                     else:
@@ -745,8 +745,8 @@ class LectureDataset(Dataset):
                         (_, X_df_st_old, _, _, X_df_ri_old, _, _) = info_old
                         X = X_old
                         info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
-                        print("-> handled!")
-                        print()
+                        #print("-> handled!")
+                        #print()
                 
                 if y == -1:
                     continue
@@ -816,18 +816,18 @@ class LectureDataset(Dataset):
                     
                     
                     if X_df["starttime"] == y_df["starttime"]:
-                        print()
-                        print("Warning: Same Starttime")
+                        #print()
+                        #print("Warning: Same Starttime")
                         if X_df["roomid"] == y_df["roomid"]:
-                            print("room_id matches -> nothing to do")
+                            #print("room_id matches -> nothing to do")
                             continue
                         else:
                             info_old, X_old, _, _ = samples[-1]
                             (_, X_df_st_old, _, _, X_df_ri_old, _, _) = info_old
                             X = X_old
                             info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
-                            print("-> handled!")
-                            print()
+                            #print("-> handled!")
+                            #print()
                     
                     samples.append((info, X, y_features, y))
    
@@ -879,19 +879,19 @@ class LectureDataset(Dataset):
                 info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], lecture_immutable_features)
                 
                 if X_df.loc[X_df.index[-1], "starttime"] == y_df["starttime"]:
-                    print()
-                    print("Warning: Same Starttime")
+                    #print()
+                    #print("Warning: Same Starttime")
                     #print(X_df.loc[X_df.index[-1], "starttime"] , y_df["starttime"])
                     if X_df.loc[X_df.index[-1], "roomid"]  == y_df["roomid"]:
-                        print("room_id matches -> nothing to do")
+                        #print("room_id matches -> nothing to do")
                         continue
                     else:
                         info_old, X_old, _, _ = samples[-1]
                         (_, X_df_st_old, _, _, X_df_ri_old, _, _) = info_old
                         X = X_old
                         info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
-                        print("-> handled!")
-                        print()
+                        #print("-> handled!")
+                        #print()
                 
                 samples.append((info, X, y_features, y))
 

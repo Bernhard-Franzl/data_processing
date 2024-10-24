@@ -77,7 +77,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     train_loader, val_loader, test_loader, model, optimizer = mt.intialize_all(
         train_df, val_df, test_df, mode, "data/helpers_lecture_time_10.json")
     
-    raise
+
     # train model for n_updates
     mt.train_n_updates(train_loader, val_loader, 
                         model, optimizer, log_predictions=False)
@@ -90,6 +90,9 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     mt.test_one_epoch(train_loader, model, log_info=True)
     train_loss_final = mt.stats_logger.val_loss.pop()
     # Write final losses to tensorboard
-    mt.hyperparameters_to_writer(val_loss=np.mean(val_loss_final), train_loss=np.mean(train_loss_final))
+    mt.hyperparameters_to_writer(
+        val_loss=np.mean(val_loss_final), 
+        train_loss=np.mean(train_loss_final)
+    )
         
     writer.close()

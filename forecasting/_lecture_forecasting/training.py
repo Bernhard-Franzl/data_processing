@@ -10,7 +10,8 @@ import torch
 import torch.nn as nn
 from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset#, WeightedRandomSampler
-
+from torch.nn.utils.rnn import pad_sequence, unpad_sequence
+ 
 from _lecture_forecasting.data import LectureDataset
 from _lecture_forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
 
@@ -114,7 +115,8 @@ class MasterTrainerLecture:
     def sequential_collate(self, x):
         
         info = [x_i[0] for x_i in x]
-        X = torch.stack([x_i[1] for x_i in x])
+        X = pad_sequence([x_i[1] for x_i in x], batch_first=True, padding_value=self.hyperparameters["padding_value"], padding_side="left")
+        #X = torch.stack([x_i[1] for x_i in x])
         y_features = torch.stack([x_i[2] for x_i in x])
         y = torch.stack([x_i[3] for x_i in x])
         immutable_features = torch.stack([x_i[0][6] for x_i in x])
@@ -268,12 +270,12 @@ class MasterTrainerLecture:
             """
             trains a model for one epoch
             """
+            
             self.stats_logger.reset_train_loss_buffer()
-            
-            
             
             #optimizer.zero_grad()
             #losses = []
+            
             for info, X, y_features, y, room_id in dataloader:
                     
                 optimizer.zero_grad()
@@ -282,11 +284,10 @@ class MasterTrainerLecture:
                 X = X.to(self.device)
                 y_features = y_features.to(self.device)
                 y = y.to(self.device).view(-1, model.output_size)
-
+            
 
                 model_output = model(X, y_features, room_id)
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
-
                 loss = self.criterion(model_output, y)
                 #loss_i = self.criterion(model_output, y)
                 

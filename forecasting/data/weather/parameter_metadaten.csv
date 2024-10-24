@@ -1,0 +1,131 @@
+Parameterkürzel,Kurzbeschreibung,Beschreibung,Einheit
+bewd_i,Bewölkungsdichte zum Beobachtungstermin I,"Bewölkungsdichte zum Beobachtungstermin I (06 UTC) - Codeliste={0: gering, 1: mittel, 2: hoch, 9: keine Angabe}",code
+bewd_i_flag,Qualitätsflag für Bewölkungsdichte zum Beobachtungstermin I,Qualitätsflag für Bewölkungsdichte zum Beobachtungstermin I (06 UTC),code
+bewd_ii,Bewölkungsdichte zum Beobachtungstermin II,"Bewölkungsdichte zum Beobachtungstermin II (13 UTC) - Codeliste={0: gering, 1: mittel, 2: hoch, 9: keine Angabe}",code
+bewd_ii_flag,Qualitätsflag für Bewölkungsdichte zum Beobachtungstermin II,Qualitätsflag für Bewölkungsdichte zum Beobachtungstermin II (13 UTC),code
+bewd_iii,Bewölkungsdichte zum Beobachtungstermin III,"Bewölkungsdichte zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ) - Codeliste={0: gering, 1: mittel, 2: hoch, 9: keine Angabe}",code
+bewd_iii_flag,Qualitätsflag für Bewölkungsdichte zum Beobachtungstermin III,"Qualitätsflag für Bewölkungsdichte zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+bewm_i,Bewölkungsmenge zum Beobachtungstermin I,"Bewölkungsmenge zum Beobachtungstermin I (06 UTC) - Codeliste={0: wolkenlos, 1: 1/10 bedeckt, 2: 2/10 bedeckt, 3: 3/10 bedeckt, 4: 4/10 bedeckt, 5: 5/10 bedeckt, 6: 6/10 bedeckt, 7: 7/10 bedeckt, 8: 8/10 bedeckt, 9: 9/10 bedeckt, 10: bedeckt, 99: keine Angabe}",1/10
+bewm_i_flag,Qualitätsflag für Bewölkungsmenge zum Beobachtungstermin I,Qualitätsflag für Bewölkungsmenge zum Beobachtungstermin I (06 UTC),code
+bewm_ii,Bewölkungsmenge zum Beobachtungstermin II,"Bewölkungsmenge zum Beobachtungstermin II (13 UTC) - Codeliste={0: wolkenlos, 1: 1/10 bedeckt, 2: 2/10 bedeckt, 3: 3/10 bedeckt, 4: 4/10 bedeckt, 5: 5/10 bedeckt, 6: 6/10 bedeckt, 7: 7/10 bedeckt, 8: 8/10 bedeckt, 9: 9/10 bedeckt, 10: bedeckt, 99: keine Angabe}",1/10
+bewm_ii_flag,Qualitätsflag für Bewölkungsmenge zum Beobachtungstermin II,Qualitätsflag für Bewölkungsmenge zum Beobachtungstermin II (13 UTC),code
+bewm_iii,Bewölkungsmenge zum Beobachtungstermin III,"Bewölkungsmenge zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ) - Codeliste={0: wolkenlos, 1: 1/10 bedeckt, 2: 2/10 bedeckt, 3: 3/10 bedeckt, 4: 4/10 bedeckt, 5: 5/10 bedeckt, 6: 6/10 bedeckt, 7: 7/10 bedeckt, 8: 8/10 bedeckt, 9: 9/10 bedeckt, 10: bedeckt, 99: keine Angabe}",1/10
+bewm_iii_flag,Qualitätsflag für Bewölkungsmenge zum Beobachtungstermin III,"Qualitätsflag für Bewölkungsmenge zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+bewm_mittel,Bewölkungsmenge Mittelwert,"Bewölkungsmenge, Tagesmittelwert berechnet aus den Beobachtungsterminen I,II,III (06,13,18 UTC) * 10",1/100
+bewm_mittel_flag,Qualitätsflag für Bewölkungsmenge Mittelwert,"Qualitätsflag für Bewölkungsmenge, Tagesmittelwert berechnet aus den Beobachtungsterminen I,II,III (06,13,18 UTC) * 10",code
+bft6,Sturm Indikator,"Windstärke >= 6 Beaufort oder >= 60 km/h - Codeliste={0: nein, 1: ja}",bool
+bft6_flag,Qualitätsflag für Sturm Indikator,Qualitätsflag für Windstärke >= 6 Beaufort oder >= 60 km/h,code
+bft8,Schwerer Sturm Indikator,"Windstärke >= 8 Beaufort oder >= 80 km/h - Codeliste={0: nein, 1: ja}",bool
+bft8_flag,Qualitätsflag für Schwerer Sturm Indikator,Qualitätsflag für Windstärke >= 8 Beaufort oder >= 80 km/h,code
+cglo_j,Globalstrahlung,"Globalstrahlung, kalibrierte 24-Stundensumme aus den Stundenwerten 0-24 Uhr MOZ (23 Vortag - 23 Tag UTC)",J/cm²
+cglo_j_flag,Qualitätsflag für Globalstrahlung,"Qualitätsflag für Globalstrahlung, kalibrierte 24-Stundensumme aus den Stundenwerten 0-24 Uhr MOZ (23 Vortag - 23 Tag UTC)",code
+dampf_i,Dampfdruck zum Beobachtungstermin I,Dampfdruck zum Beobachtungstermin I (06 UTC),hPa
+dampf_i_flag,Qualitätsflag für Dampfdruck zum Beobachtungstermin I,Qualitätsflag für Dampfdruck zum Beobachtungstermin I (06 UTC),code
+dampf_ii,Dampfdruck zum Beobachtungstermin II,Dampfdruck zum Beobachtungstermin II (13 UTC),hPa
+dampf_ii_flag,Qualitätsflag für Dampfdruck zum Beobachtungstermin II,Qualitätsflag für Dampfdruck zum Beobachtungstermin II (13 UTC),code
+dampf_iii,Dampfdruck zum Beobachtungstermin III,"Dampfdruck zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",hPa
+dampf_iii_flag,Qualitätsflag für Dampfdruck zum Beobachtungstermin III,"Qualitätsflag für Dampfdruck zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+dampf_mittel,Dampfdruck Mittelwert,"Dampfdruck, Tagesmittelwert berechnet aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",hPa
+dampf_mittel_flag,Qualitätsflag für Dampfdruck Mittelwert,"Qualitätsflag für Dampfdruck, Tagesmittelwert berechnet aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",code
+dd32_i,Windrichtung zum Beobachtungstermin I,"Windrichtung in 32 Sektoren, aus dem Stundenwert zum Beobachtungstermin I (06 UTC)", 
+dd32_i_flag,Qualitätsflag für Windrichtung zum Beobachtungstermin I,"Qualitätsflag für Windrichtung in 32 Sektoren, aus dem Stundenwert zum Beobachtungstermin I (06 UTC)",code
+dd32_ii,Windrichtung zum Beobachtungstermin II,"Windrichtung in 32 Sektoren, aus dem Stundenwert zum Beobachtungstermin II (13 UTC)", 
+dd32_ii_flag,Qualitätsflag für Windrichtung zum Beobachtungstermin II,"Qualitätsflag für Windrichtung in 32 Sektoren, aus dem Stundenwert zum Beobachtungstermin II (13 UTC)",code
+dd32_iii,Windrichtung zum Beobachtungstermin III,"Windrichtung in 32 Sektoren, aus dem Stundenwert zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)", 
+dd32_iii_flag,Qualitätsflag für Windrichtung zum Beobachtungstermin III,"Qualitätsflag für Windrichtung in 32 Sektoren, aus dem Stundenwert zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+erdb_i,Erdbodenzustand zum Beobachtungstermin I,"Erdbodenzustand zum Beobachtungstermin I (06 UTC) - Codeliste={0: trocken, 1: feucht, 2: nass (Pfützen), 3: hartgefroren und trocken, 4: Glatteis, Schnee oder Schneematsch, 5: Eis, Schnee oder Schneematsch, weniger als die Hälfte des Bodens bedeckt (Flecken), 6: Eis, Schnee oder Schneematsch, mehr als die Hälfte des Bodens bedeckt (durchbrochen), 7: Eis, Schnee oder Schneematsch, vollständig bedeckt, 8: lockerer, trockener Schnee, mehr als die Hälfte aber nicht der ganze Boden bedeckt (durchbrochen), 9: lockerer, trockener Schnee, vollständig bedeckt, 99: keine Angabe}",code
+erdb_i_flag,Qualitätsflag für Erdbodenzustand zum Beobachtungstermin I,Qualitätsflag für Erdbodenzustand zum Beobachtungstermin I (06 UTC),code
+erdb_ii,Erdbodenzustand zum Beobachtungstermin II,"Erdbodenzustand zum Beobachtungstermin II (13 UTC) - Codeliste={0: trocken, 1: feucht, 2: nass (Pfützen), 3: hartgefroren und trocken, 4: Glatteis, Schnee oder Schneematsch, 5: Eis, Schnee oder Schneematsch, weniger als die Hälfte des Bodens bedeckt (Flecken), 6: Eis, Schnee oder Schneematsch, mehr als die Hälfte des Bodens bedeckt (durchbrochen), 7: Eis, Schnee oder Schneematsch, vollständig bedeckt, 8: lockerer, trockener Schnee, mehr als die Hälfte aber nicht der ganze Boden bedeckt (durchbrochen), 9: lockerer, trockener Schnee, vollständig bedeckt, 99: keine Angabe}",code
+erdb_ii_flag,Qualitätsflag für Erdbodenzustand zum Beobachtungstermin II,Qualitätsflag für Erdbodenzustand zum Beobachtungstermin II (13 UTC),code
+erdb_iii,Erdbodenzustand zum Beobachtungstermin III,"Erdbodenzustand zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ) - Codeliste={0: trocken, 1: feucht, 2: nass (Pfützen), 3: hartgefroren und trocken, 4: Glatteis, Schnee oder Schneematsch, 5: Eis, Schnee oder Schneematsch, weniger als die Hälfte des Bodens bedeckt (Flecken), 6: Eis, Schnee oder Schneematsch, mehr als die Hälfte des Bodens bedeckt (durchbrochen), 7: Eis, Schnee oder Schneematsch, vollständig bedeckt, 8: lockerer, trockener Schnee, mehr als die Hälfte aber nicht der ganze Boden bedeckt (durchbrochen), 9: lockerer, trockener Schnee, vollständig bedeckt, 99: keine Angabe}",code
+erdb_iii_flag,Qualitätsflag für Erdbodenzustand zum Beobachtungstermin III,"Qualitätsflag für Erdbodenzustand zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+ffx,Maximale Windgeschwindigkeit (Spitzenböe),"Windgeschwindigkeit, Tagesmaximum aus den Stundenwerten 0-24 Uhr MOZ (23 Vortag - 23 Tag UTC)",m/s
+ffx_flag,Qualitätsflag für Maximale Windgeschwindigkeit (Spitzenböe),"Qualitätsflag für Windgeschwindigkeit, Tagesmaximum aus den Stundenwerten 0-24 Uhr MOZ (23 Vortag - 23 Tag UTC)",code
+gew,Gewitter Indikator,"Beobachtung von Gewitter, historisch beobachtet, seit 01.01.2019 aus ALDIS Blitzmeldungen berechnet - Codeliste={0: nein, 1: ja}",bool
+gew_flag,Qualitätsflag für Gewitter Indikator,"Qualitätsflag für Beobachtung von Gewitter, historisch beobachtet, seit 01.01.2019 aus ALDIS Blitzmeldungen berechnet",code
+glatt,Glatteis Indikator,"Beobachtung von Glatteis - Codeliste={0: nein, 1: ja}",bool
+glatt_flag,Qualitätsflag für Glatteis Indikator,Qualitätsflag für Beobachtung von Glatteis,code
+nebel,Nebel Indikator,"Beobachtung von Nebel - Codeliste={0: nein, 1: ja}",bool
+nebel_flag,Qualitätsflag für Nebel Indikator,Qualitätsflag für Beobachtung von Nebel,code
+p_i,Luftdruck zum Beobachtungstermin I,Luftdruck zum Beobachtungstermin I (06 UTC),hPa
+p_i_flag,Qualitätsflag für Luftdruck zum Beobachtungstermin I,Qualitätsflag für Luftdruck zum Beobachtungstermin I (06 UTC),code
+p_ii,Luftdruck zum Beobachtungstermin II,Luftdruck zum Beobachtungstermin II (13 UTC),hPa
+p_ii_flag,Qualitätsflag für Luftdruck zum Beobachtungstermin II,Qualitätsflag für Luftdruck zum Beobachtungstermin II (13 UTC),code
+p_iii,Luftdruck zum Beobachtungstermin III,"Luftdruck zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",hPa
+p_iii_flag,Qualitätsflag für Luftdruck zum Beobachtungstermin III,"Qualitätsflag für Luftdruck zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+p_mittel,Luftdruck Mittelwert,"Luftdruck, Tagesmittel aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",hPa
+p_mittel_flag,Qualitätsflag für Luftdruck Mittelwert,"Qualitätsflag für Luftdruck, Tagesmittel aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",code
+raureif,Raureif Indikator,"Beobachtung von Raureif - Codeliste={0: nein, 1: ja}",bool
+raureif_flag,Qualitätsflag für Raureif Indikator,Qualitätsflag für Beobachtung von Raureif,code
+reif,Reif Indikator,"Beobachtung von Reif - Codeliste={0: nein, 1: ja}",bool
+reif_flag,Qualitätsflag für Reif Indikator,Qualitätsflag für Beobachtung von Reif,code
+rfb_i,Relative Feuchte aus Feuchttemperatur zum Beobachtungstermin I,"Relative Feuchte, berechnet aus Feuchttemperatur zum Beobachtungstermin I (06 UTC)",%
+rfb_i_flag,Qualitätsflag für Relative Feuchte aus Feuchttemperatur zum Beobachtungstermin I,"Qualitätsflag für Relative Feuchte, berechnet aus Feuchttemperatur zum Beobachtungstermin I (06 UTC)",code
+rfb_ii,Relative Feuchte aus Feuchttemperatur zum Beobachtungstermin II,"Relative Feuchte, berechnet aus Feuchttemperatur zum Beobachtungstermin II (13 UTC)",%
+rfb_ii_flag,Qualitätsflag für Relative Feuchte aus Feuchttemperatur zum Beobachtungstermin II,"Qualitätsflag für Relative Feuchte, berechnet aus Feuchttemperatur zum Beobachtungstermin II (13 UTC)",code
+rfb_iii,Relative Feuchte aus Feuchttemperatur zum Beobachtungstermin III,"Relative Feuchte, berechnet aus Feuchttemperatur zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",%
+rfb_iii_flag,Qualitätsflag für Relative Feuchte aus Feuchttemperatur zum Beobachtungstermin III,"Qualitätsflag für Relative Feuchte, berechnet aus Feuchttemperatur zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+rfb_mittel,Relative Feuchte Mittelwert aus Feuchttemperatur,"Relative Feuchte, Tagesmittel aus den berechneten Werten zu Beobachtungsterminen I,II,III (06,13,18 UTC)",%
+rfb_mittel_flag,Qualitätsflag für Relative Feuchte Mittelwert aus Feuchttemperatur,"Qualitätsflag für Relative Feuchte, Tagesmittel aus den berechneten Werten zu Beobachtungsterminen I,II,III (06,13,18 UTC)",code
+rf_i,Relative Feuchte zum Beobachtungstermin I,Relative Feuchte zum Beobachtungstermin I (06 UTC),%
+rf_i_flag,Qualitätsflag für Relative Feuchte zum Beobachtungstermin I,Qualitätsflag für Relative Feuchte zum Beobachtungstermin I (06 UTC),code
+rf_ii,Relative Feuchte zum Beobachtungstermin II,Relative Feuchte zum Beobachtungstermin II (13 UTC),%
+rf_ii_flag,Qualitätsflag für Relative Feuchte zum Beobachtungstermin II,Qualitätsflag für Relative Feuchte zum Beobachtungstermin II (13 UTC),code
+rf_iii,Relative Feuchte zum Beobachtungstermin III,"Relative Feuchte zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",%
+rf_iii_flag,Qualitätsflag für Relative Feuchte zum Beobachtungstermin III,"Qualitätsflag für Relative Feuchte zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+rf_mittel,Relative Feuchte Mittelwert,"Relative Feuchte, Tagesmittel aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",%
+rf_mittel_flag,Qualitätsflag für Relative Feuchte Mittelwert,"Qualitätsflag für Relative Feuchte, Tagesmittel aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",code
+rr,Niederschlag 24h Summe,"Niederschlag, 24-Stundensumme der Einminutenwerte von 06:01 UTC bis 06:00 UTC des Folgetags, -1=kein Niederschlag, 0=weniger als 1/10 mm",mm
+rra_manu,Niederschlagsart 24h,"Niederschlagsart, 24 Stunden, von 06:01 UTC bis 06:00 UTC des Folgetags - Codeliste={0: kein Niederschlag, 1: Regen, 2: Schnee, 3: Graupel, 4: Hagel, 5: Regen und Schnee, 6: Regen und Graupel, 7: Regen und Hagel, 8: Schnee und Graupel, 9: Graupel und Hagel, 10: Regen und Schnee und Graupel, 11: Regen und Graupel und Hagel, 12: Schnee und Hagel, 13: Regen und Schnee und Hagel, 14: Schnee und Graupel und Hagel, 15: Regen und Schnee und Graupel und Hagel, 99: keine Angabe}",code
+rra_manu_flag,Qualitätsflag für Niederschlagsart 24h,"Qualitätsflag für Niederschlagsart, 24 Stunden, von 06:01 UTC bis 06:00 UTC des Folgetags",code
+rra_manu_i,Niederschlagsart 12h zum Beobachtungstermin I,"Niederschlagsart, 12 Stunden, von 18:01 UTC Vortag bis 06:00 UTC - Codeliste={0: kein Niederschlag, 1: Regen, 2: Schnee, 3: Graupel, 4: Hagel, 5: Regen und Schnee, 6: Regen und Graupel, 7: Regen und Hagel, 8: Schnee und Graupel, 9: Graupel und Hagel, 10: Regen und Schnee und Graupel, 11: Regen und Graupel und Hagel, 12: Schnee und Hagel, 13: Regen und Schnee und Hagel, 14: Schnee und Graupel und Hagel, 15: Regen und Schnee und Graupel und Hagel, 99: keine Angabe}",code
+rra_manu_i_flag,Qualitätsflag für Niederschlagsart 12h zum Beobachtungstermin I,"Qualitätsflag für Niederschlagsart, 12 Stunden, von 18:01 UTC Vortag bis 06:00 UTC",code
+rra_manu_iii,Niederschlagsart 12h zum Beobachtungstermin III,"Niederschlagsart, 12 Stunden von 06:01 UTC bis 18:00 UTC - Codeliste={0: kein Niederschlag, 1: Regen, 2: Schnee, 3: Graupel, 4: Hagel, 5: Regen und Schnee, 6: Regen und Graupel, 7: Regen und Hagel, 8: Schnee und Graupel, 9: Graupel und Hagel, 10: Regen und Schnee und Graupel, 11: Regen und Graupel und Hagel, 12: Schnee und Hagel, 13: Regen und Schnee und Hagel, 14: Schnee und Graupel und Hagel, 15: Regen und Schnee und Graupel und Hagel, 99: keine Angabe}",code
+rra_manu_iii_flag,Qualitätsflag für Niederschlagsart 12h zum Beobachtungstermin III,"Qualitätsflag für Niederschlagsart, 12 Stunden von 06:01 UTC bis 18:00 UTC",code
+rr_flag,Qualitätsflag für Niederschlag 24h Summe,"Qualitätsflag für Niederschlag, 24-Stundensumme der Einminutenwerte von 06:01 UTC bis 06:00 UTC des Folgetags, -1=kein Niederschlag, 0=weniger als 1/10 mm",code
+rr_i,Niederschlag 12h Summe zum Beobachtungstermin I,"Niederschlag, 12-Stundensumme der Einminutenwerte von 18:01 UTC Vortag bis 06:00 UTC, -1=kein Niederschlag, 0=weniger als 1/10 mm",mm
+rr_i_flag,Qualitätsflag für Niederschlag 12h Summe zum Beobachtungstermin I,"Qualitätsflag für Niederschlag, 12-Stundensumme der Einminutenwerte von 18:01 UTC Vortag bis 06:00 UTC, -1=kein Niederschlag, 0=weniger als 1/10 mm",code
+rr_iii,Niederschlag 12h Summe zum Beobachtungstermin III,"Niederschlag, 12-Stundensumme der Einminutenwerte von 06:01 UTC bis 18:00 UTC, -1=kein Niederschlag, 0=weniger als 1/10 mm",mm
+rr_iii_flag,Qualitätsflag für Niederschlag 12h Summe zum Beobachtungstermin III,"Qualitätsflag für Niederschlag, 12-Stundensumme der Einminutenwerte von 06:01 UTC bis 18:00 UTC, -1=kein Niederschlag, 0=weniger als 1/10 mm",code
+sh,"Gesamtschneehöhe, Schneepegelmessung","Gesamtschneehöhe, aus automatischer Schneepegelmessung, Offset korrigiert, zum Beobachtungstermin I (06 UTC), -1=kein Schnee",cm
+sha_manu,Schneeart,"Schneeart, aus Erdbodenzustand berechnet zum Beobachtungstermin I (06:00 UTC) - Codeliste={0: kein Schnee, 1: Schneeflecken, 2: durchbrochene Schneedecke, 3: durchgängige Schneedecke, 9: keine Angabe}",code
+sha_manu_flag,Qualitätsflag für Schneeart,"Qualitätsflag für Schneeart, aus Erdbodenzustand berechnet zum Beobachtungstermin I (06:00 UTC)",code
+sh_flag,"Qualitätsflag für Gesamtschneehöhe, Schneepegelmessung","Qualitätsflag für Gesamtschneehöhe, aus automatischer Schneepegelmessung, Offset korrigiert, zum Beobachtungstermin I (06 UTC), -1=kein Schnee",code
+sh_manu,"Gesamtschneehöhe, Handmessung","Gesamtschneehöhe, Handmessung zum Beobachtungstermin I (06 UTC), -1=kein Schnee",cm
+sh_manu_flag,"Qualitätsflag für Gesamtschneehöhe, Handmessung","Qualitätsflag für Gesamtschneehöhe, Handmessung zum Beobachtungstermin I (06 UTC), -1=kein Schnee",code
+shneu_manu,"Neuschneehöhe, Handmessung","Neuschneehöhe, 24-Stundensumme, Handmessung zum Beobachtungstermin I (06 UTC), -1=kein Schnee",cm
+shneu_manu_flag,"Qualitätsflag für Neuschneehöhe, Handmessung","Qualitätsflag für Neuschneehöhe, 24-Stundensumme, Handmessung zum Beobachtungstermin I (06 UTC), -1=kein Schnee",code
+sicht_i,Sichtweite zum Beobachtungstermin I,Sichtweite zum Beobachtungstermin I (06 UTC),m
+sicht_i_flag,Qualitätsflag für Sichtweite zum Beobachtungstermin I,Qualitätsflag für Sichtweite zum Beobachtungstermin I (06 UTC),code
+sicht_ii,Sichtweite zum Beobachtungstermin II,Sichtweite zum Beobachtungstermin II (13 UTC),m
+sicht_ii_flag,Qualitätsflag für Sichtweite zum Beobachtungstermin II,Qualitätsflag für Sichtweite zum Beobachtungstermin II (13 UTC),code
+sicht_iii,Sichtweite zum Beobachtungstermin III,"Sichtweite zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",m
+sicht_iii_flag,Qualitätsflag für Sichtweite zum Beobachtungstermin III,"Qualitätsflag für Sichtweite zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+so_h,Sonnenscheindauer,"Sonnenscheindauer, Summe aus den Stundenwerten 0-24 Uhr MOZ (23 Vortag - 23 Tag UTC)",h
+so_h_flag,Qualitätsflag für Sonnenscheindauer,"Qualitätsflag für Sonnenscheindauer, Summe aus den Stundenwerten 0-24 Uhr MOZ (23 Vortag - 23 Tag UTC)",code
+tau,Tau Indikator,"Beobachtung von Tau - Codeliste={0: nein, 1: ja}",bool
+tau_flag,Qualitätsflag für Tau Indikator,Qualitätsflag für Beobachtung von Tau,code
+tl_i,Lufttemperatur 2m zum Beobachtungstermin I,Lufttemperatur in 2m Höhe zum Beobachtungstermin I (06 UTC),°C
+tl_i_flag,Qualitätsflag für Lufttemperatur 2m zum Beobachtungstermin I,Qualitätsflag für Lufttemperatur in 2m Höhe zum Beobachtungstermin I (06 UTC),code
+tl_ii,Lufttemperatur 2m zum Beobachtungstermin II,Lufttemperatur in 2m Höhe zum Beobachtungstermin II (13 UTC),°C
+tl_ii_flag,Qualitätsflag für Lufttemperatur 2m zum Beobachtungstermin II,Qualitätsflag für Lufttemperatur in 2m Höhe zum Beobachtungstermin II (13 UTC),code
+tl_iii,Lufttemperatur 2m zum Beobachtungstermin III,"Lufttemperatur in 2m Höhe zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",°C
+tl_iii_flag,Qualitätsflag für Lufttemperatur 2m zum Beobachtungstermin III,"Qualitätsflag für Lufttemperatur in 2m Höhe zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+tlmax,Lufttemperatur 2m Maximalwert,"Lufttemperatur in 2m Höhe, Maximum der Zehnminutenwerte (tlmax) von 18:10 UTC Vortag - 18:00 UTC aktueller Tag",°C
+tlmax_flag,Qualitätsflag für Lufttemperatur 2m Maximalwert,"Qualitätsflag für Lufttemperatur in 2m Höhe, Maximum der Zehnminutenwerte (tlmax) von 18:10 UTC Vortag - 18:00 UTC aktueller Tag",code
+tlmin,Lufttemperatur 2m Minimalwert,"Lufttemperatur in 2m Höhe, Minimum der Zehnminutenwerte (tlmin) von 18:10 UTC Vortag - 18:00 UTC aktueller Tag",°C
+tlmin_flag,Qualitätsflag für Lufttemperatur 2m Minimalwert,"Qualitätsflag für Lufttemperatur in 2m Höhe, Minimum der Zehnminutenwerte (tlmin) von 18:10 UTC Vortag - 18:00 UTC aktueller Tag",code
+tl_mittel,Lufttemperatur 2m Mittelwert,"Lufttemperatur in 2m Höhe, Mittelwert berechnet aus (tlmax + tlmin)/2",°C
+tl_mittel_flag,Qualitätsflag für Lufttemperatur 2m Mittelwert,"Qualitätsflag für Lufttemperatur in 2m Höhe, Mittelwert berechnet aus (tlmax + tlmin)/2",code
+tsmin,Lufttemperatur 5cm Nachtminimum (18 UTC Vortag bis 6 UTC),"Lufttemperatur in 5cm Höhe,  Minimalwert in der Nacht: 18:10 UTC Vortag  - 06:00 UTC aktueller Tag",°C
+tsmin_flag,Qualitätsflag für Lufttemperatur 5cm Nachtminimum (18 UTC Vortag bis 6 UTC),"Qualitätsflag für Lufttemperatur in 5cm Höhe,  Minimalwert in der Nacht: 18:10 UTC Vortag  - 06:00 UTC aktueller Tag",code
+vvbft_i,Windstärke zum Beobachtungstermin I,"Windstärke in Beaufort, aus dem Stundenwert zum Beobachtungstermin I (06 UTC)",Beaufort
+vvbft_i_flag,Qualitätsflag für Windstärke zum Beobachtungstermin I,"Qualitätsflag für Windstärke in Beaufort, aus dem Stundenwert zum Beobachtungstermin I (06 UTC)",code
+vvbft_ii,Windstärke zum Beobachtungstermin II,"Windstärke in Beaufort, aus dem Stundenwert zum Beobachtungstermin II (13 UTC)",Beaufort
+vvbft_ii_flag,Qualitätsflag für Windstärke zum Beobachtungstermin II,"Qualitätsflag für Windstärke in Beaufort, aus dem Stundenwert zum Beobachtungstermin II (13 UTC)",code
+vvbft_iii,Windstärke zum Beobachtungstermin III,"Windstärke in Beaufort, aus dem Stundenwert zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",Beaufort
+vvbft_iii_flag,Qualitätsflag für Windstärke zum Beobachtungstermin III,"Qualitätsflag für Windstärke in Beaufort, aus dem Stundenwert zum Beobachtungstermin III (18 UTC, vor 1971: 21 UHR MOZ)",code
+vv_mittel,Windgeschwindigkeit Mittelwert,"Windgeschwindigkeit, Tagesmittel aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",m/s
+vv_mittel_flag,Qualitätsflag für Windgeschwindigkeit Mittelwert,"Qualitätsflag für Windgeschwindigkeit, Tagesmittel aus den Beobachtungsterminen I,II,III (06,13,18 UTC)",code
+zeitx,Zeitpunkt der maximalen Windgeschwindigkeit (Spitzenböe),"Zeitpunkt der maximalen Windgeschwindigkeit, aus den Stundenwerten 0-24 Uhr MOZ (23 UTC Vortag - 23 Tag UTC)",hhmm
+zeitx_flag,Qualitätsflag für Zeitpunkt der maximalen Windgeschwindigkeit (Spitzenböe),"Qualitätsflag für Zeitpunkt der maximalen Windgeschwindigkeit, aus den Stundenwerten 0-24 Uhr MOZ (23 UTC Vortag - 23 Tag UTC)",code

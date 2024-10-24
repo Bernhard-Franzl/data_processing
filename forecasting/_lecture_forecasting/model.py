@@ -186,6 +186,7 @@ class SimpleLectureLSTM(torch.nn.Module):
         self.output_size = hyperparameters["y_size"]
     
         self.hidden_size = hyperparameters["hidden_size"]
+        self.proj_size = hyperparameters["proj_size"]
         
         self.batch_size = hyperparameters["batch_size"]
         self.immutable_size = hyperparameters["immutable_size"]
@@ -201,68 +202,59 @@ class SimpleLectureLSTM(torch.nn.Module):
                 self.helper = json.load(f)
                 
             self.course_numbers = self.helper["course_numbers"]
-            
+            raise NotImplementedError("Not implemented")
             weights = torch.zeros(len(self.course_numbers), self.hyperparameters["num_layers"]*self.emb_dim)
             self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
             
             self.linear_emb = torch.nn.Linear(self.hyperparameters["num_layers"]*self.emb_dim, self.hyperparameters["num_layers"]*self.hidden_size[0])
         
         # lstm layer
-        self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"])
+        self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"], proj_size=self.proj_size)
         
         # fc at end
+        if self.proj_size > 0:
+            in_size_fc = self.proj_size + self.y_features_size
+        else:
+            in_size_fc = self.hidden_size[0] + self.y_features_size
+            self.proj_size = self.hidden_size[0]
+            
         self.fc_end = nn.Sequential()
         if len(self.hidden_size) == 2:
             
-            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0]+ self.y_features_size + self.immutable_size -1, self.hidden_size[1]))
-            
-            if hyperparameters["layer_norm"]:
-                self.fc_end.add_module("layer_norm", nn.LayerNorm(self.hidden_size[1]))
-                
+            self.fc_end.add_module("input_layer", nn.Linear(in_size_fc, self.hidden_size[1]))
+
             self.fc_end.add_module("relu_0", nn.ReLU())
             self.fc_end.add_module("output_layer", nn.Linear(self.hidden_size[1], self.output_size))
         
         else:
-            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0]+ self.y_features_size + self.immutable_size, self.output_size))
-                    
-        # last activation function
-        if hyperparameters["occcount"]:
-            self.last_activation = nn.ReLU()    
-        elif self.discretization:
-            self.last_activation = nn.Identity()
-        else:
-            self.last_activation = nn.Identity()
+            self.fc_end.add_module("input_layer", nn.Linear(in_size_fc, self.output_size))
             
-        ## freeze h_0 
+        
+        self.init_nn = nn.Linear(self.immutable_size, self.hidden_size[0]*self.hyperparameters["num_layers"])
+            
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
-    def forward(self, x, y_features, room_id=None):
+    def forward(self, x, y_features, immutable_features):
         
-        x_shape_0, x_shape_1 = x.shape[0], x.shape[1]
-        
-        input_tensor = x#[None, :]
-        y_features = y_features#[None, :]
+        batch_size = x.shape[0]
         
         if "coursenumber" in self.hyperparameters["features"]:
+            raise NotImplementedError("Not implemented")
             course_id = room_id[:, -1].to(torch.int64)
             course_emb = self.course_embedding(course_id)
             c_0 = course_emb.view(-1, x_shape_0, self.hidden_size[0])
-            
             room_id = room_id[:, :-1]
             
         else:
-            c_0 = torch.zeros(self.hyperparameters["num_layers"], x_shape_0, self.hidden_size[0]).to(self.device)
+            c_0 = self.init_nn(immutable_features).view(self.hyperparameters["num_layers"], batch_size, self.hidden_size[0])
+            
+        h_0 = torch.zeros(self.hyperparameters["num_layers"], batch_size, self.proj_size).to(self.device)
         
+        out_lstm, (_, _) = self.lstm(x, (h_0, c_0))
         
-        h_0 = torch.zeros(self.hyperparameters["num_layers"], x_shape_0, self.hidden_size[0]).to(self.device)
-        
+        in_lin = torch.cat((out_lstm[:,-1,:], y_features[:,-1,:]), 1)
 
-        out_lstm, (_, _) = self.lstm(input_tensor, (h_0, c_0))
-        
-        in_lin = torch.cat((out_lstm[:, -1, :], y_features[:, -1, :], room_id), 1)
-
-        out_lin = self.fc_end(in_lin)
-        pred = self.last_activation(out_lin)
+        pred = self.fc_end(in_lin)
 
         return pred
         
@@ -326,30 +318,30 @@ class SimpleLectureLSTM(torch.nn.Module):
         
         return pred_list
     
-    def forecast_iter(self, x, y_features, len_y, room_id):
+    #def forecast_iter(self, x, y_features, len_y, room_id):
         
-        x = x[None, :]
-        y_features = y_features[None, :]
+    #    x = x[None, :]
+    #    y_features = y_features[None, :]
         
-        room_enc = self.room_embedding(room_id)
-        room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
+    #    room_enc = self.room_embedding(room_id)
+    #    room_enc = room_enc.repeat(self.hyperparameters["num_layers"], 1, 1)
 
-        h_0 = torch.zeros(self.hyperparameters["num_layers"], 1, self.hidden_size[0]).to(self.device)
+    #    h_0 = torch.zeros(self.hyperparameters["num_layers"], 1, self.hidden_size[0]).to(self.device)
         
-        out, (h_n, c_n) = self.lstm(x, (h_0, room_enc))       
+    #    out, (h_n, c_n) = self.lstm(x, (h_0, room_enc))       
     
-        y_t = self.last_activation(self.fc_end(out[:, -1, :]))[:, None, :]
-        pred_list = []
-        for i in range(0, len_y):
+    #    y_t = self.last_activation(self.fc_end(out[:, -1, :]))[:, None, :]
+    #    pred_list = []
+    #    for i in range(0, len_y):
             
-            y_feat_i = y_features[:, i, :][None, :]
-            y_t_in = torch.cat((y_t, y_feat_i), 2)
+    #        y_feat_i = y_features[:, i, :][None, :]
+    #        y_t_in = torch.cat((y_t, y_feat_i), 2)
             
-            out, (h_n, c_n) = self.lstm(y_t_in, (h_n, c_n))
+    #        out, (h_n, c_n) = self.lstm(y_t_in, (h_n, c_n))
 
-            y_t = self.last_activation(self.fc_end(out))
-            #print("lstm:", y_t.shape)
+    #        y_t = self.last_activation(self.fc_end(out))
+    #        #print("lstm:", y_t.shape)
 
-            pred_list.append(y_t.squeeze(-1))
+    #        pred_list.append(y_t.squeeze(-1))
         
-        return torch.cat(pred_list)    
+    #    return torch.cat(pred_list)    
