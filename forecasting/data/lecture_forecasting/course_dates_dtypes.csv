@@ -11,3 +11,4 @@ start_time,datetime64[ns]
 end_time,datetime64[ns]
 room_capacity,int64
 calendar_week,UInt32
+cancelled,bool

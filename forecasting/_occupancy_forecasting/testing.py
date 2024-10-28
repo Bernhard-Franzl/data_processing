@@ -10,10 +10,9 @@ import plotly.graph_objects as go
 import numpy as np
 from tqdm import tqdm
 
-from _occupany_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, SimpleOccGRU, MassConservingOccLSTM
-from _occupany_forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
-from _occupany_forecasting.data import OccupancyDataset, LectureDataset
-from _occupany_forecasting.data import load_data_dicts, load_data_lecture
+from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, SimpleOccGRU, MassConservingOccLSTM
+from _occupancy_forecasting.data import OccupancyDataset
+from _occupancy_forecasting.data import load_data_dicts
 
 from _dfguru import DataFrameGuru as DFG
 

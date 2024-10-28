@@ -4,141 +4,81 @@ import numpy as np
 import json
 class SimpleLectureDenseNet(nn.Module):
 
-    def __init__(self, hyperparameters):
+    def __init__(self, hyperparameters, path_to_helpers):
         super().__init__()
         
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
         self.hyperparameters = hyperparameters
 
-        self.x_size = hyperparameters["x_size"] 
-        self.y_features_size = hyperparameters["y_features_size"] 
         self.output_size = hyperparameters["y_size"]
-    
+
         self.hidden_size = hyperparameters["hidden_size"]
-        
-        self.occcount = hyperparameters["occcount"]
-        self.batch_size = hyperparameters["batch_size"]
-        
-        self.immutable_size = hyperparameters["immutable_size"]
-        self.dropout_p = hyperparameters["dropout"]
-        
+
         self.emb_dim = hyperparameters["embedding_dim"]
-        self.enc_size = 0
         if "coursenumber" in hyperparameters["features"]:
-            with open("data/helpers.json", "r") as f:
+            with open(path_to_helpers, "r") as f:
                 self.helper = json.load(f)
-                
-            self.course_numbers = self.helper["course_numbers"]
             
+            self.course_numbers = self.helper["course_numbers"]
+
             weights = torch.zeros(len(self.course_numbers), self.emb_dim)
             self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
-            
-            self.enc_size = self.emb_dim-1
-            
+            self.add_emb = self.emb_dim - 1
+        else:
+            self.add_emb = 0
         
+        # multi head structure
         #self.lin_1 = nn.Linear(self.x_size, self.hidden_size[0])
         #self.lin_2 = nn.Linear(self.y_features_size, self.hidden_size[0])
-       # self.lin_3 = nn.Linear(self.immutable_size-1+10, self.hidden_size[0])
-        
-        self.dropout = nn.Dropout(p=self.dropout_p)
-        self.lin_mid = nn.Linear(self.x_size + self.y_features_size + self.immutable_size + self.enc_size, self.hidden_size[1])
-        
-        self.batch_norm = nn.BatchNorm1d(self.hidden_size[1])
-        
-        self.lin_out = nn.Linear(self.hidden_size[1], self.output_size)
-        
-        self.relu = nn.ReLU()
-        self.leakyrelu = nn.LeakyReLU()
-        self.discretization = hyperparameters["discretization"]
-        
-        
-        if self.discretization:
-            self.last_activation = nn.Identity()
-        elif self.occcount:
-            self.last_activation = nn.ReLU()
-        else:
-            self.last_activation = nn.Identity()
-            
-        #self.room_encoding = torch.eye(2).to(self.device)
-        #self.room_enc_size = self.room_encoding.shape[1]
-        
-        #self.input_size = self.x_size + self.y_features_size + self.immutable_size
-        #self.model = nn.Sequential()
-        #if len(self.hidden_size) > 1:
-        #    self.model.add_module("input_layer", nn.Linear(self.input_size, self.hidden_size[0]))
-        #    self.model.add_module("relu_0", nn.LeakyReLU())
-            
-        #    for i in range(0, len(self.hidden_size)-1):
-        #        self.model.add_module(f"hidden_layer_{i}", nn.Linear(self.hidden_size[i], self.hidden_size[i+1]))
-        #        self.model.add_module(f"relu_{i+1}", nn.LeakyReLU())
-            
-        #    self.model.add_module("output_layer", nn.Linear(self.hidden_size[-1], self.output_size))  
-        #else:
-        #    if len(self.hidden_size) == 0:
-        #        self.model.add_module("input_layer", nn.Linear(self.input_size, self.output_size))
-        #    else:
-        #        self.model.add_module("input_layer", nn.Linear(self.input_size, self.hidden_size[0]))
-        #        self.model.add_module("relu_0", nn.LeakyReLU())
-        #        self.model.add_module("output_layer", nn.Linear(self.hidden_size[0], self.output_size))
-            
-        #if self.occcount:
-        #    if self.hyperparameters["differencing"] in ["sample", "whole"]:
-        #        raise ValueError("Not implemented")
-        #    else:
-        #        self.model.add_module("acti_out", nn.ReLU())
+        #self.lin_3 = nn.Linear(self.immutable_size, self.hidden_size[0])
 
-        #else:
-            #if self.hyperparameters["differencing"] in ["sample", "whole"]:
-            #    raise ValueError("Not implemented")
-            #    self.model.add_module("acti_out", nn.Tanh())
-            #    #print("Tanh added")
-            #else:
-            #    if self.hyperparameters["criterion"] == "CE":
-            #        print("nothing added")
-            #    else:   
-            #        self.model.add_module("acti_out", nn.Sigmoid())
+        self.in_size_fc = hyperparameters["x_size"] + hyperparameters["y_features_size"] \
+            + hyperparameters["immutable_size"] + self.add_emb
+        
+
+        self.fcnn = nn.Sequential()
+        if len(self.hidden_size) == 0:
+            self.fcnn.add_module("input_layer", nn.Linear(self.in_size_fc, self.output_size))
+            
+        elif len(self.hidden_size) == 1:
+            self.fcnn.add_module("input_layer", nn.Linear(self.in_size_fc, self.hidden_size[0]))
+            self.fcnn.add_module("relu_0", nn.ReLU())
+            self.fcnn.add_module("output_layer", nn.Linear(self.hidden_size[0], self.output_size))
+
+        elif len(self.hidden_size) == 2:
+            self.fcnn.add_module("input_layer", nn.Linear(self.in_size_fc, self.hidden_size[0]))
+            self.fcnn.add_module("relu_0", nn.ReLU())
+            self.fcnn.add_module("mid_layer", nn.Linear(self.hidden_size[0], self.hidden_size[1]))
+            self.fcnn.add_module("relu_1", nn.ReLU())
+            self.fcnn.add_module("output_layer", nn.Linear(self.hidden_size[1], self.output_size))
+            
+        else:
+            raise NotImplementedError("Not implemented")
+            
    
-    def forward(self, x, y_features, room_id=None):
+    def forward(self, x, y_features, immutable_features):
         
         #room_enc = self.room_encoding[room_id]
         #room_enc = room_enc.view(self.batch_size, -1)
 
         # room_id is actually immutable features array
-        
-        
+
         if "coursenumber" in self.hyperparameters["features"]:
-            course_id = room_id[:, -1].to(torch.int64)
+            course_id = immutable_features[:, -1].to(torch.int64)
             course_emb = self.course_embedding(course_id)
-            immutable_features = torch.cat((room_id[:, :-1], course_emb), 1)
-            
-        else:
-            immutable_features = room_id.view(self.batch_size, self.immutable_size)
-        
-        x = x.view(self.batch_size, self.x_size)
-        y_features = y_features.view(self.batch_size, self.y_features_size)
+            immutable_features = torch.cat((immutable_features[:, :-1], course_emb), 1)
         
         #manual model generation
         input_cat = torch.cat((x, y_features, immutable_features), 1)
         
-        #in_mid = self.dropout(in_mid)
-        out_mid = self.lin_mid(input_cat)
+        pred = self.fcnn(input_cat)
         
-        #out_mid = self.batch_norm(out_mid)
-        out_mid = self.relu(out_mid)
-        #out_mid = self.dropout(out_mid)
-        
-        pred = self.lin_out(out_mid)
-        #pred = self.last_activation(out)
-        
-        # advanced model generation
-        #input = torch.cat((x, y_features, immutable_features), 1)
-        #out = self.model(input)
-    
         return pred
     
     def forecast_iter(self, x, y_features, len_y, room_id=None):
         
+        raise NotImplementedError("Not implemented")
         room_enc = self.room_encoding[room_id]
 
         predicitons = []
@@ -175,7 +115,7 @@ class SimpleLectureDenseNet(nn.Module):
 
 class SimpleLectureLSTM(torch.nn.Module):
     
-    def __init__(self, hyperparameters, **kwargs):
+    def __init__(self, hyperparameters, path_to_helpers):
         
         super().__init__()
         self.hyperparameters = hyperparameters
@@ -193,21 +133,22 @@ class SimpleLectureLSTM(torch.nn.Module):
         self.discretization = hyperparameters["discretization"]
         
         ############ Model Definition ############
-           
+
+        self.emb_dim = hyperparameters["embedding_dim"]
         if "coursenumber" in hyperparameters["features"]:
-            
-            self.emb_dim = hyperparameters["embedding_dim"]
-            
-            with open("data/helpers_lecture_random_2.json", "r") as f:
+            with open(path_to_helpers, "r") as f:
                 self.helper = json.load(f)
-                
-            self.course_numbers = self.helper["course_numbers"]
-            raise NotImplementedError("Not implemented")
-            weights = torch.zeros(len(self.course_numbers), self.hyperparameters["num_layers"]*self.emb_dim)
-            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
             
-            self.linear_emb = torch.nn.Linear(self.hyperparameters["num_layers"]*self.emb_dim, self.hyperparameters["num_layers"]*self.hidden_size[0])
+            self.course_numbers = self.helper["course_numbers"]
+
+            weights = torch.zeros(len(self.course_numbers), self.emb_dim)
+            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+            self.add_emb = self.emb_dim - 1
+        else:
+            self.add_emb = 0
         
+
+
         # lstm layer
         self.lstm = torch.nn.LSTM(self.x_size, self.hidden_size[0], batch_first=True, num_layers=hyperparameters["num_layers"], proj_size=self.proj_size)
         
@@ -230,7 +171,7 @@ class SimpleLectureLSTM(torch.nn.Module):
             self.fc_end.add_module("input_layer", nn.Linear(in_size_fc, self.output_size))
             
         
-        self.init_nn = nn.Linear(self.immutable_size, self.hidden_size[0]*self.hyperparameters["num_layers"])
+        self.init_nn = nn.Linear(self.immutable_size + self.add_emb, self.hidden_size[0]*self.hyperparameters["num_layers"])
             
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         
@@ -239,12 +180,15 @@ class SimpleLectureLSTM(torch.nn.Module):
         batch_size = x.shape[0]
         
         if "coursenumber" in self.hyperparameters["features"]:
-            raise NotImplementedError("Not implemented")
-            course_id = room_id[:, -1].to(torch.int64)
+
+            course_id = immutable_features[:, -1].to(torch.int64)
             course_emb = self.course_embedding(course_id)
-            c_0 = course_emb.view(-1, x_shape_0, self.hidden_size[0])
-            room_id = room_id[:, :-1]
+            immutable_features = immutable_features[:, :-1]
             
+            in_nn = torch.cat((immutable_features, course_emb), 1)
+            
+            c_0 = self.init_nn(in_nn).view(self.hyperparameters["num_layers"], batch_size, self.hidden_size[0])
+
         else:
             c_0 = self.init_nn(immutable_features).view(self.hyperparameters["num_layers"], batch_size, self.hidden_size[0])
             

@@ -1,7 +1,6 @@
 import numpy as np 
 import json
 import os
-import random
 import warnings
 import tqdm
 warnings.filterwarnings("ignore")
@@ -11,9 +10,8 @@ import torch.nn as nn
 from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 
-from _occupany_forecasting.data import OccupancyDataset, LectureDataset
-from _occupany_forecasting.model import SimpleLectureDenseNet, SimpleLectureLSTM
-from _occupany_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet, SimpleOccGRU, MassConservingOccLSTM
+from _occupancy_forecasting.data import OccupancyDataset
+from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet, SimpleOccGRU, MassConservingOccLSTM
 
 class StatsLogger:
     

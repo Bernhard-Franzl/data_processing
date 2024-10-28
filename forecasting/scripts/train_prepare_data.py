@@ -2,9 +2,9 @@ import numpy as np
 import random
 import torch
 
-from _occupany_forecasting import prepare_data, load_data_dicts, prepare_data_lecture, load_data_lecture
+from _occupancy_forecasting import prepare_data, load_data_dicts, prepare_data_lecture, load_data_lecture
 from _dfguru import DataFrameGuru as DFG
-from _occupany_forecasting import OccFeatureEngineer, LectureFeatureEngineer
+from _occupancy_forecasting import OccFeatureEngineer, LectureFeatureEngineer
 dfg = DFG()
 
 

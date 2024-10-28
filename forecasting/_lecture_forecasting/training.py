@@ -165,7 +165,7 @@ class MasterTrainerLecture:
         
         train_loader, val_loader, test_loader = self.initialize_dataloader(train_set, val_set, test_set, dataset_mode)
         
-        model = self.initialize_model()
+        model = self.initialize_model(path_to_helpers)
         optimizer = self.initialize_optimizer(model)
         
         return train_loader, val_loader, test_loader, model, optimizer
@@ -243,12 +243,12 @@ class MasterTrainerLecture:
         
         return train_loader, val_loader, test_loader
 
-    def initialize_model(self) -> nn.Module:
+    def initialize_model(self, path_to_helpers) -> nn.Module:
         occcount = "occcount" in self.hyperparameters["features"]
         self.update_hyperparameters(
             {"occcount": occcount}
             )
-        model = self.model_class(self.hyperparameters)
+        model = self.model_class(self.hyperparameters, path_to_helpers)
         return model.to(self.device)    
     
     def initialize_optimizer(self, model:nn.Module) -> Optimizer:
@@ -437,12 +437,12 @@ class MasterTrainerLecture:
                       )
         return None
     
-    def load_checkpoint(self, checkpoint_path:str):
+    def load_checkpoint(self, checkpoint_path:str, path_to_helpers:str):
         
         # ignore warnings
         hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
         
-        model = self.model_class(hyperparameters)
+        model = self.model_class(hyperparameters, path_to_helpers)
         model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
         model = model.to(self.device)
         

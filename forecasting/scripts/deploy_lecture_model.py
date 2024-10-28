@@ -1,11 +1,11 @@
 import numpy as np
-from _occupany_forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
+from _occupancy_forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
 import os
 import torch
-from _occupany_forecasting.testing import load_checkpoint, run_detailed_test_forward
+from _occupancy_forecasting.testing import load_checkpoint, run_detailed_test_forward
 
 from _dfguru import DataFrameGuru as DFG
-from _occupany_forecasting import MasterTrainer, LectureDataset
+from _occupancy_forecasting import MasterTrainer, LectureDataset
 import json
         
         

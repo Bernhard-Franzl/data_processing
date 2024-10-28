@@ -318,7 +318,9 @@ class Snail():
     
     def derive_tutorium_dates(self, dates_dataframe):
         df = dates_dataframe.copy()
-        df["tutorium"] = df["Anmerkung"].str.contains("Tutorium|Fragestunde|Sprechstunde", case=False)
+        print(df["Anmerkung"])
+        raise
+        df["tutorium"] = df["Anmerkung"].str.contains("Tutorium|Fragestunde|Sprechstunde|Q & A|Q&A|Vorbereitung|Exam Preparation", case=False)
         return df
               
     def derive_regularity(self, dates_dataframe):

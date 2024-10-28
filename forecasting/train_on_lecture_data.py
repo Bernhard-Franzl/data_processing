@@ -27,10 +27,10 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 #n_run = args.n_run
 #n_param = args.n_param
 
-n_run = 0
+n_run = 5
 n_param = 0
-mode = "time_sequential"
-overwrite = True
+overwrite = False
+split_by = "time_10"
 
 "occrate_registered_exam_test_tutorium_starttime_endtime_calendarweek_weekday_type_studyarea_ects_level"
 ################################
@@ -54,13 +54,14 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     
     tb_path = os.path.join(tb_log_dir, f"run_{n_run}/comb_{n_comb}")
     cp_path = os.path.join(cp_log_dir, f"run_{n_run}/comb_{n_comb}")
+    helper_path = f"data/lecture_forecasting/helpers_lecture_{split_by}.json"
     
     # if overwrite delete old files at tb_path and cp_path
     #### Control Randomness ####
     torch_rng = torch.Generator()
     torch_rng.manual_seed(42)
     
-    train_df, val_df, test_df = load_data("data/lecture_forecasting", dfguru=dfg, split_by="time_10")
+    train_df, val_df, test_df = load_data("data/lecture_forecasting", dfguru=dfg, split_by=split_by)
     writer = SummaryWriter(
         log_dir=tb_path,
     )
@@ -75,7 +76,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
     mt.save_hyperparameters(save_path=cp_path)
     
     train_loader, val_loader, test_loader, model, optimizer = mt.intialize_all(
-        train_df, val_df, test_df, mode, "data/helpers_lecture_time_10.json")
+        train_df, val_df, test_df, hyperparameters["dataset_mode"], helper_path)
     
 
     # train model for n_updates
@@ -83,7 +84,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
                         model, optimizer, log_predictions=False)
     
     # Final Test on Validation and Training Set -> for logging purposes
-    model, _,  _ =  mt.load_checkpoint(cp_path)
+    model, _,  _ =  mt.load_checkpoint(cp_path, helper_path)
     mt.criterion = nn.L1Loss()
     mt.test_one_epoch(val_loader, model, log_info=True)
     val_loss_final = mt.stats_logger.val_loss.pop()

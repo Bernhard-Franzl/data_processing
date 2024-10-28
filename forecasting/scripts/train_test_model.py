@@ -1,5 +1,5 @@
 import numpy as np
-from _occupany_forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
+from _occupancy_forecasting import list_checkpoints, run_n_tests, write_header_to_txt, evaluate_results, evaluate_results_lecture
 import torch
   
 #mode = "normal"

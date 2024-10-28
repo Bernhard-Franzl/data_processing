@@ -8,7 +8,7 @@ import dash
 
 import os
 from _dfguru import DataFrameGuru as DFG
-from _occupany_forecasting import OccFeatureEngineer
+from _occupancy_forecasting import OccFeatureEngineer
 
 import plotly.graph_objects as go
 
@@ -17,11 +17,11 @@ global_feature_list = sorted(list(OccFeatureEngineer.permissible_features))
 
 def load_data(path_to_data_dir, frequency, feature_list, dfguru, room_id):
     course_dates_data = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
+        path_repo=path_to_data_dir + "/lecture_forecasting", 
         file_name="course_dates")
 
     course_info_data = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
+        path_repo=path_to_data_dir + "/lecture_forecasting",
         file_name="course_info")
     
     course_info_data.drop(columns=["room_id"], inplace=True)
@@ -57,7 +57,7 @@ global_occ_time_series = OccFeatureEngineer(
 )
     
 event_data = dfguru.load_dataframe(
-    path_repo=path_to_data_dir,
+    path_repo="data/data_viewer",
     file_name="cleaned_events_29_08"
 )
 
@@ -207,7 +207,7 @@ def update_ts_viewer(room_dropdown_value,
     )
 
     inverted_lecture = (~occ_time_series["lecture"].astype(bool)).astype(int)
-    y = occ_time_series["occcount"] * inverted_lecture
+    y = occ_time_series["occcount"] #* inverted_lecture
     fig.add_trace(
         go.Scattergl(
             x=occ_time_series["datetime"],

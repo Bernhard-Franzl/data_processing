@@ -12,6 +12,10 @@ for room in ["HS 18", "HS 19"]:
     snail = Snail()
     df_courses, df_dates = snail.get_courses_by_room(room)
 
+    
+    print(df_dates)
+    
+    raise
     snail.export_to_csv(df_courses, f"data/raw_data_22_10/{room}_courses.csv")
     snail.export_to_csv(df_dates, f"data/raw_data_22_10/{room}_dates.csv")
     

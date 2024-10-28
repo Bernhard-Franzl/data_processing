@@ -160,8 +160,8 @@ def train_val_test_split(course_dates, rng, split_by, test, verbose=True):
 class LectureFeatureEngineer():
     course_features = {"occcount", "occrate", "registered", "exam", "test", "tutorium", 
                        "starttime", "endtime", "calendarweek", "weekday",
-                       "roomid","roomcapacity", "type",
-                       "studyarea", "ects", "level", "coursenumber"}
+                       "roomid","roomcapacity", "type", "cancelled",
+                       "studyarea", "ects", "level", "coursenumber", "dailyweather"}
     permissible_features = course_features
     
     def __init__(self, data_dict, course_dates_data, course_info_data, dfguru, helpers_path):
@@ -187,6 +187,21 @@ class LectureFeatureEngineer():
             end_time = max_timestamp,
             time_column = "start_time"
         )
+                      
+        self.weather = dfguru.load_dataframe("data/weather", "measurements", dtypes=False)
+
+        # most important columns: tl_max, tl_min, p_mittel, vv_mittel, ff_max, rfb_mittel, rr, so_h
+        self.weather_columns = ["time", "tlmax", "tlmin", "p_mittel", "vv_mittel", "ffx", "rf_mittel", "rr", "so_h"]
+        self.weather = self.weather[self.weather_columns]
+        
+        self.weather["time"] = pd.to_datetime(self.weather["time"]).dt.date
+        # set time as index
+        self.weather.set_index("time", inplace=True)
+        
+        # normalize all columns and save the min and max 
+        min_columns = self.weather.min()
+        max_columns = self.weather.max()
+        self.weather = (self.weather - min_columns) / (max_columns - min_columns)
 
         self.course_info_table = course_info_data  
         self.course_info_table["level"].fillna("None_level", inplace=True)
@@ -222,6 +237,8 @@ class LectureFeatureEngineer():
             "levels": self.levels.tolist(),
             "course_types": self.course_types,
             "course_numbers": self.course_numbers.tolist(),
+            "weather_columns": self.weather_columns[1:],
+            "weather_data": {"min": min_columns.to_dict(), "max": max_columns.to_dict()}
         }
         # save auxillary data
         with open(file=self.helpers_path, mode="w") as file:
@@ -245,7 +262,7 @@ class LectureFeatureEngineer():
         course_dates, feature_set_diff = self.add_features(self.course_dates_table, feature_set_diff)
         
         feature_set = feature_set.union(feature_set_diff)
-        
+            
         # remove feature type from feature set
         if "type" in feature_set:
             feature_set.remove("type")
@@ -260,7 +277,13 @@ class LectureFeatureEngineer():
         if "level" in feature_set:
             feature_set.remove("level")
             feature_set = feature_set.union(self.levels)
+        
+        # remove feature dailyweather from feature set
+        if "dailyweather" in feature_set:
+            feature_set = feature_set.union({col for col in self.weather_columns[1:]})
+            feature_set.remove("dailyweather")
 
+        # save auxillary data
         with open(file=self.helpers_path, mode="r") as file:
             dictionary = json.load(file)
         dictionary["min_max_registered"] = [str(course_dates["registered"].min()), str(course_dates["registered"].max())]
@@ -289,7 +312,11 @@ class LectureFeatureEngineer():
                 course_dates.drop(columns=["level"], inplace=True)
                 for level in self.levels:
                     course_dates[level] = 0
-               
+        
+            if "dailyweather" in features:
+                course_dates.drop(columns=["dailyweather"], inplace=True)
+                for col in self.weather_columns[1:]:
+                    course_dates[col] = 0
             
             for grouping, subdf in course_dates.groupby(["start_time", "end_time", "course_number", "room_id"]):
                 
@@ -379,8 +406,12 @@ class LectureFeatureEngineer():
                 if "level" in features:
                     course_dates_entry[course_info["level"].values[0]] = 1
                 
+                if "dailyweather" in features:
+                    dailyweather = self.weather.loc[start_time.date()]
+                    for col in self.weather_columns[1:]:
+                        course_dates_entry[col] = dailyweather[col]
+            
                 course_dates[course_dates_mask] = course_dates_entry
-                
                 
             course_dates["starttime"] = pd.to_datetime(course_dates["starttime"])
             course_dates["endtime"] = pd.to_datetime(course_dates["endtime"])
@@ -408,7 +439,7 @@ class LectureFeatureEngineer():
                 course_dates = self.week_fourier_series(course_dates, "week")
                 course_dates.drop(columns=["week"], inplace=True)
                 features = features.union({"calendarweek1", "calendarweek2"})
-            
+                
             return course_dates, features
         
     def starttime_fourier_series(self, time_series, hourfloat_column):
@@ -444,6 +475,7 @@ class LectureDataset(Dataset):
         self.dataset_mode = dataset_mode
 
         self.lec_df = lecture_df
+
         self.hyperparameters = hyperparameters
         self.validation = validation
 
@@ -451,7 +483,7 @@ class LectureDataset(Dataset):
         self.features_list = hyperparameters["features"].split("_")
         self.features = set(self.features_list)
         
-        self.immutable_features = {"type", "studyarea", "ects", "level", "coursenumber"}
+        self.immutable_features = {"type", "studyarea", "ects", "level", "coursenumber", "dailyweather"}
         self.immutable_features = self.immutable_features.intersection(self.features)
         
         # derive main feature
@@ -495,6 +527,9 @@ class LectureDataset(Dataset):
             self.immutable_features.remove("studyarea")
             self.immutable_features = self.immutable_features.union(self.helper["study_areas"])
         
+        if "dailyweather" in self.immutable_features:
+            self.immutable_features = self.immutable_features.union(self.helper["weather_columns"])
+            self.immutable_features.remove("dailyweather")
         
         ############ Derive some helper variables ############
         self.include_x_features = hyperparameters["include_x_features"]
@@ -509,7 +544,6 @@ class LectureDataset(Dataset):
         #self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
         # process data
         self.samples = self.process_data_df(dataset_mode)
-        print("Size of Dataset:", len(self.samples))
         #len_list = [x[1].shape[0] for x in self.samples]
         #print(np.unique(len_list, return_counts=True))
         
@@ -652,6 +686,8 @@ class LectureDataset(Dataset):
                     
                 self.lec_df.loc[sub_df.index, ["registered", "occrate"]] = sub_df[["registered", "occrate"]]
 
+        
+        self.lec_df["registered_ori"] = self.lec_df["registered"].copy()
 
         self.lec_df["registered"]  = (self.lec_df["registered"] - self.min_registered) / (self.max_registered - self.min_registered)
         
@@ -660,9 +696,12 @@ class LectureDataset(Dataset):
         
         # normalize only where occrate is not -1
         mask = self.lec_df["occrate"] != -1
+        self.lec_df["occrate_ori"] = self.lec_df["occrate"].copy()
         self.lec_df["occrate"][mask] = (self.lec_df["occrate"][mask] - self.min_occrate) / (self.max_occrate - self.min_occrate)
         
         samples = sampling_function()
+        
+        #print(f"Number of Samples: {len(samples)}")
         
         return samples
 
@@ -828,6 +867,9 @@ class LectureDataset(Dataset):
                             info = (lecture_id, X_df_st_old, y_df["starttime"], self.exogenous_features, X_df_ri_old, y_df["roomid"], lecture_immutable_features)
                             #print("-> handled!")
                             #print()
+                    
+                    if y == -1:
+                        continue
                     
                     samples.append((info, X, y_features, y))
    
