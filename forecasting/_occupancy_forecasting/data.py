@@ -57,7 +57,7 @@ summer_break_2024 = [
 
 
 ########### Occupancy Dataset ###########
-def load_data_dicts(path_to_data_dir, frequency, dfguru):
+def load_data(path_to_data_dir, frequency, dfguru):
     
     train_dict = {}
     val_dict = {}
@@ -82,7 +82,7 @@ def load_data_dicts(path_to_data_dir, frequency, dfguru):
             
     return train_dict, val_dict, test_dict
       
-def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
+def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers_path, split_by):
     
     course_dates_data = dfguru.load_dataframe(
         path_repo=path_to_data_dir, 
@@ -91,7 +91,7 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
     course_info_data = dfguru.load_dataframe(
         path_repo=path_to_data_dir, 
         file_name="course_info")
-    
+
     course_info_data.drop(columns=["room_id"], inplace=True)
     course_info_data.drop_duplicates(inplace=True)
         
@@ -111,35 +111,20 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng):
             course_dates_data, 
             course_info_data, 
             dfguru,
-            frequency
+            frequency,
+            helpers_path
         ).derive_features(
             features=feature_list, 
             room_id=room_id
         )
           
         data_dict[room_id] = occ_time_series
-        
-    course_types = ["VL", "UE", "KS"]
-    course_numbers = set()
-    for room_id in data_dict:
-        occ_time_series = data_dict[room_id]
-        if "coursenumber" in feature_list:
-            course_numbers = course_numbers.union(set(occ_time_series["coursenumber"].unique()))
 
-    dictionary = {
-        "course_types": course_types,
-        "course_numbers": sorted(list(course_numbers)),
-    }
-    
-    # save auxillary data
-    with open(file=f"data/helpers_occpred.json", mode="w") as file:
-        json.dump(dictionary, file, indent=4)
-
-    train_dict, val_dict, test_dict = train_val_test_split(data_dict, rng, verbose=True)
+    train_dict, val_dict, test_dict = train_val_test_split(data_dict, rng, split_by, verbose=True)
     
     return train_dict, val_dict, test_dict
     
-def train_val_test_split(data_dict, rng, verbose=True):
+def train_val_test_split(data_dict, rng, split_by, verbose=True):
     
     # randomly exclude chunks of the data
     train_dict = {}
@@ -151,27 +136,62 @@ def train_val_test_split(data_dict, rng, verbose=True):
     test_size = 0
     train_size = 0
     
+    chunk_proportion = 0.05
+    test_set_factor = 2
+    
     for room_id in data_dict:
+         
+        if split_by == "random":
 
-        occ_time_series = data_dict[room_id]
-        total_size += len(occ_time_series)
-        
-        # generate chunks with size 0.05 of the data
-        index_shift = int(len(occ_time_series) * 0.05)
-        indices = np.arange(0, len(occ_time_series), index_shift)
-        if (len(occ_time_series)-indices[-1]) < index_shift:
-            indices = indices[:-1]
+            occ_time_series = data_dict[room_id]
+            total_size += len(occ_time_series)
             
-        rng.shuffle(indices)
-        
-        test_slice = int(len(indices) * 0.15)
-        val_indices = indices[:test_slice]
-        test_indices = indices[test_slice : 2*test_slice]
-        train_indices = indices[2*test_slice:]
-        
-        ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
-        ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
-        ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            # generate chunks with size 0.05 of the data
+            index_shift = int(len(occ_time_series) * chunk_proportion)
+            indices = np.arange(0, len(occ_time_series), index_shift)
+            if (len(occ_time_series)-indices[-1]) < index_shift:
+                indices = indices[:-1]
+                
+            rng.shuffle(indices)
+            
+            test_slice = int(len(indices) * chunk_proportion * test_set_factor)
+            val_indices = indices[:test_slice]
+            test_indices = indices[test_slice : 2*test_slice]
+            train_indices = indices[2*test_slice:]
+            
+            ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+
+        elif split_by == "time":
+            
+            occ_time_series = data_dict[room_id]
+            total_size += len(occ_time_series)
+
+            # generate chunks with size 0.05 of the data
+            index_shift = int(len(occ_time_series) * chunk_proportion)
+            indices = np.arange(0, len(occ_time_series), index_shift)
+            if (len(occ_time_series)-indices[-1]) < index_shift:
+                indices = indices[:-1]
+               
+            test_size_indices = chunk_proportion * test_set_factor
+            train_size_indices = 1 - (2*test_size_indices)
+
+            train_slice = int(len(indices) * train_size_indices)
+            test_slice = int(len(indices) * test_size_indices)
+            
+            train_indices = indices[ : train_slice]
+            val_indices = indices[train_slice : train_slice+test_slice]
+            
+            test_indices = indices[train_slice+test_slice : ]
+
+            ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+
+        else:
+            
+            raise ValueError("Unknown split method.")
         
         val_size += len(ts_val)
         test_size += len(ts_test)
@@ -180,9 +200,7 @@ def train_val_test_split(data_dict, rng, verbose=True):
         train_dict[room_id] = ts_train
         val_dict[room_id] = ts_val
         test_dict[room_id] = ts_test
-        
-        print(room_id, sorted(train_indices))
-        
+
     if verbose:
         print("############## Split Summary ##############")
         print("Size of Validationset:", val_size/total_size)
@@ -194,33 +212,48 @@ def train_val_test_split(data_dict, rng, verbose=True):
         
 class OccFeatureEngineer():
     
-    course_features = {"maxocccount","coursenumber", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate", "exam", "lecture", "lecturerampbefore", "lecturerampafter", "registered", "test", "tutorium", "type"}
+    course_features = {"maxocccount", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate",
+                       "coursenumber", "exam",  "test", "tutorium", "cancelled", 
+                       "lecture", "lecturerampbefore", "lecturerampafter",
+                       "registered", "type", "studyarea", "ects", "level"}
     datetime_features = {"dow", "hod", "week", "holiday", "zwickltag"}
     general_features = {"occcount", "occrate"}
+    weather_features = {"weather"}
     shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
     permissible_features = course_features.union(datetime_features)
     permissible_features = permissible_features.union(general_features)
+    permissible_features = permissible_features.union(weather_features)
     permissible_features = permissible_features.union(shift_features)
       
-    def __init__(self, cleaned_occ_data, course_dates_data, course_info_data, dfguru, frequency):
+    def __init__(self, cleaned_occ_data, course_dates_data, course_info_data, 
+                 dfguru, frequency, helpers_path):
 
         self.occ_time_series = cleaned_occ_data
         min_timestamp = self.occ_time_series["datetime"].min().replace(hour=0, minute=0, second=0, microsecond=0)
         max_timestamp = self.occ_time_series["datetime"].max().replace(hour=0, minute=0, second=0, microsecond=0) + DateOffset(days=1)
         
+        ##### Define Constants and DFGuru #####
+        self.helpers_path = os.path.join(helpers_path, "helpers_occpred.json")
         self.dfg = dfguru
         self.frequency = frequency
+        
+        ####### Load Data ########
         self.course_dates_table = dfguru.filter_by_timestamp(
             dataframe = course_dates_data,
             start_time = min_timestamp,
             end_time = max_timestamp,
             time_column = "start_time"
         )
+        self.course_numbers = self.course_dates_table["course_number"].unique()
         
-        self.course_info_table = self.dfg.filter_by_courses(course_info_data, self.course_dates_table["course_number"].unique())
+        self.course_info_table = dfguru.filter_by_courses(
+            dataframe = course_info_data,
+            course_numbers = self.course_numbers
+        )
 
+        ####### Define Helpers ########
+        # course types
         self.course_types = ["VL", "UE", "KS"]
-        
         self.type_mapping = {
             "VL": "VL",
             "VO": "VL",
@@ -234,8 +267,32 @@ class OccFeatureEngineer():
             "VU": "KS",
             "KV": "KS",
             "RE": "KS",
-            "UV": "KS",}       
+            "UV": "KS"
+        }       
         
+        self.course_info_table["level"].fillna("None_level", inplace=True)
+        self.course_info_table["study_area"].fillna("None_sa", inplace=True)
+
+        # study areas and levels
+        self.study_areas = self.course_info_table["study_area"].unique()
+        self.levels = self.course_info_table["level"].unique()
+                      
+        ###### Load & Handle Weather Data ######
+        # weather data
+        self.weather = dfguru.load_dataframe("data/weather", "measurements_10min", dtypes=False)
+        
+        # most important columns: tl_max, tl_min, p_mittel, vv_mittel, ff_max, rfb_mittel, rr, so_h
+        self.weather_columns = ["time", "tl", "p", "ff", "ffx", "rf", "rr", "so"]
+        self.weather = self.weather[self.weather_columns]
+
+        self.weather["time"] = pd.to_datetime(self.weather["time"], format="%Y-%m-%dT%H:%M+00:00")
+        
+        # set time as index
+        self.weather.set_index("time", inplace=True)
+        
+        self.weather["ff"] = self.weather["ff"].fillna(method="ffill")
+        self.weather["ffx"] = self.weather["ffx"].fillna(method="ffill")
+    
     def derive_features(self, features, room_id):
         
         # get the course number
@@ -256,13 +313,11 @@ class OccFeatureEngineer():
         
         # add course features
         course_features = self.course_features.intersection(feature_set)
-        
         if course_features:
             occ_time_series = self.add_course_features(occ_time_series, course_features, room_id)
         
         # add datetime features
         datetime_features = self.datetime_features.intersection(feature_set)
-        
         if datetime_features:
             occ_time_series = self.add_datetime_features(occ_time_series, datetime_features)
 
@@ -271,6 +326,67 @@ class OccFeatureEngineer():
         if shift_features:
             occ_time_series = self.add_shift_features(occ_time_series, shift_features)
         
+        # add weather features
+        weather_features = self.weather_features.intersection(feature_set)
+        if weather_features:
+            occ_time_series = self.add_weather_features(occ_time_series, weather_features)
+
+        
+        ###### save all helper data ######
+        if os.path.exists(self.helpers_path):
+            with open(self.helpers_path, "r") as f:
+                helper_dict = json.load(f)   
+            
+        else:
+            helper_dict = {
+                "course_types": set(),
+                "course_numbers": set(),
+                "study_areas": set(),
+                "levels": set(),
+                "weather_columns": set(),
+                "columns_to_normalize":{
+                    "occcount":{"min":np.inf, "max":-np.inf},
+                    "occcountdiff":{"min":np.inf, "max":-np.inf},
+                    "maxocccount":{"min":np.inf, "max":-np.inf},
+                    "registered":{"min":np.inf, "max":-np.inf},
+                    "ects":{"min":np.inf, "max":-np.inf},
+                    "tl":{"min":np.inf, "max":-np.inf},
+                    "p":{"min":np.inf, "max":-np.inf},
+                    "ff":{"min":np.inf, "max":-np.inf},
+                    "ffx":{"min":np.inf, "max":-np.inf},
+                    "rf":{"min":np.inf, "max":-np.inf},
+                    "rr":{"min":np.inf, "max":-np.inf},
+                    "so":{"min":np.inf, "max":-np.inf}
+                }
+            }
+        
+        
+        helper_dict["course_types"] = list(set(helper_dict["course_types"]).union(set(self.course_types)))
+        helper_dict["course_numbers"] = list(set(helper_dict["course_numbers"]).union(set(occ_time_series["coursenumber"].unique())))
+        helper_dict["study_areas"] = list(set(helper_dict["study_areas"]).union(set(self.study_areas)))
+        helper_dict["levels"] = list(set(helper_dict["levels"]).union(set(self.levels)))
+        helper_dict["weather_columns"] = list(set(helper_dict["weather_columns"]).union(set(self.weather_columns[1:])))
+
+        columns_to_normalize = [
+             'occcount', 'occcountdiff',
+             'maxocccount', 'registered', 'ects', 
+             'tl', 'p', 'ff', 'ffx', 'rf', 'rr', 'so'
+        ]
+        for col in columns_to_normalize:
+            
+            col_entry = helper_dict["columns_to_normalize"][col]
+            min, max = float(occ_time_series[col].min()), float(occ_time_series[col].max())
+            
+            if col_entry["min"] > min:
+                col_entry["min"] = min
+
+            if col_entry["max"] < max:
+                col_entry["max"] = max
+                
+        # save auxillary data
+        with open(file=self.helpers_path, mode="w") as file:
+            json.dump(helper_dict, file, indent=4)
+
         return occ_time_series
     
     ########### General Features ############
@@ -350,11 +466,13 @@ class OccFeatureEngineer():
         if room_id is None:
             raise ValueError("Room ID must be provided.")
         
-
         course_dates_in_room = self.dfg.filter_by_roomid(self.course_dates_table, room_id)
         
+        # get some constants
+        ramp_duration = pd.to_timedelta("15min")
         room_capa = course_dates_in_room["room_capacity"].unique()
         
+        # load lecture occrate extimates
         max_occrate_estimates = np.load("data/lecture_maxoccrate_estimates.npy", allow_pickle=True)
         pd_maxoccrate = pd.DataFrame(max_occrate_estimates, columns=["course_number", "starttime", "roomid", "maxoccrateestimate", "maxoccrate"])
         
@@ -368,9 +486,20 @@ class OccFeatureEngineer():
             for course_type in self.course_types:
                 time_series[course_type] = 0
         
+        if "studyarea" in features:
+            time_series.drop(columns=["studyarea"], inplace=True)
+            for study_area in self.study_areas:
+                time_series[study_area] = 0
+        
+        
+        if "level" in features:
+            time_series.drop(columns=["level"], inplace=True)
+            for level in self.levels:
+                time_series[level] = 0
+
         time_series["coursenumber"] = ''
         
-        ramp_duration = pd.to_timedelta("15min")
+
         
         for grouping, sub_df in course_dates_in_room.groupby(["start_time", "end_time"]):
             
@@ -417,8 +546,18 @@ class OccFeatureEngineer():
                 
             if "type" in features:
                 for course_type in course_info["type"].values:
-                    
                     time_series.loc[course_time_mask, self.type_mapping[course_type]] = 1
+
+            if "studyarea" in features:
+                for study_area in course_info["study_area"].values:
+                    time_series.loc[course_time_mask, study_area] = 1
+            
+            if "level" in features:
+                for level in course_info["level"].values:
+                    time_series.loc[course_time_mask, level] = 1
+            
+            if "ects" in features:
+                time_series.loc[course_time_mask, "ects"] = float(".".join(course_info["ects"].values[0].split(",")))
 
             if "exam" in features:
                 time_series.loc[course_time_mask, "exam"] = int(sub_df["exam"].values[0])
@@ -432,6 +571,9 @@ class OccFeatureEngineer():
             if "tutorium" in features:
                 time_series.loc[course_time_mask, "tutorium"] = int(sub_df["tutorium"].values[0])
                 
+            if "cancelled" in features:
+                time_series.loc[course_time_mask, "cancelled"] = int(sub_df["cancelled"].values[0])
+            
             if "lecturerampbefore" in features:
                 start_minus_15 = grouping[0] - ramp_duration
                 ramp_up_mask = (time_series["datetime"] >= start_minus_15) & (time_series["datetime"] < grouping[0])
@@ -459,6 +601,23 @@ class OccFeatureEngineer():
 
         return time_series
 
+    ########### Weather Features ############
+    def add_weather_features(self, time_series, features):
+
+        # resample the weather data to the frequency of the occupancy data       
+        self.weather = self.weather.resample(self.frequency).ffill()
+        self.weather = self.weather[(self.weather.index >= time_series["datetime"].min()) & (self.weather.index <= time_series["datetime"].max())]
+        
+        weathercols = self.weather_columns[1:]
+        # init weather features
+        for weathercol in weathercols:
+            time_series[weathercol] = 0
+
+        # add weather features
+        for weathercol in weathercols:
+            time_series[weathercol] = self.weather[weathercol].values
+
+        return time_series
 
     ########### Datetime Features ############
     def hod_fourier_series(self, time_series, hourfloat_column):
@@ -540,6 +699,10 @@ class OccupancyDataset(Dataset):
 
         ############ Handle Features ############
         self.features = set(hyperparameters["features"].split("_"))
+        
+        if "maxocccountestimate" in self.features:
+            raise ValueError("Feature 'maxocccountestimate' is not allowed.")
+        
         # derive main feature
         self.occ_feature = self.handle_occ_feature(self.features)
         # derive exogenous features
@@ -565,6 +728,15 @@ class OccupancyDataset(Dataset):
             self.course_numbers = self.helper["course_numbers"]
             self.coursenr_lookup = dict([(x,i) for i,x in enumerate(self.course_numbers)])
        
+       
+        ## remove column datetime and coursenumber
+        #without_datetime = occ_time_series.drop(columns=["datetime", "coursenumber"])
+        #critical_columns = without_datetime.columns[(without_datetime.min() < -1).values | (without_datetime.max() > 1).values]
+        #print(critical_columns)
+        
+        #min_columns = self.weather.min()
+        #max_columns = self.weather.max()
+        #self.weather = (self.weather - min_columns) / (max_columns - min_columns)
 
         # sort features
         self.exogenous_features = sorted(list(self.exogenous_features))

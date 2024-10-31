@@ -77,7 +77,7 @@ class MasterTrainerLecture:
     best_model = None
     best_loss = 1000
     
-    def __init__(self,  hyperparameters:dict, cp_path:str, summary_writer=None, torch_rng=None) -> None:
+    def __init__(self,  hyperparameters:dict, cp_path:str, split_by:str, summary_writer=None, torch_rng=None) -> None:
         
         self.hyperparameters = hyperparameters
         self.model_class = self.handle_model_class(hyperparameters["model_class"])
@@ -86,6 +86,7 @@ class MasterTrainerLecture:
         self.stats_logger = StatsLogger()
         self.cp_path = cp_path
         
+        self.split_by = split_by.split("_")[0]
         
         if summary_writer:
             self.summary_writer = summary_writer
@@ -114,7 +115,8 @@ class MasterTrainerLecture:
     
     def sequential_collate(self, x):
         
-        info = [x_i[0] for x_i in x]
+        info = [x_i[0] for x_i in x]            
+        
         X = pad_sequence([x_i[1] for x_i in x], batch_first=True, padding_value=self.hyperparameters["padding_value"], padding_side="left")
         #X = torch.stack([x_i[1] for x_i in x])
         y_features = torch.stack([x_i[2] for x_i in x])
@@ -159,9 +161,10 @@ class MasterTrainerLecture:
             raise ValueError("Model not supported.")
     
     ######## Initialization ########
-    def intialize_all(self, train_df:dict, val_df:dict, test_df:dict, dataset_mode:str, path_to_helpers:str=None):
-    
-        train_set, val_set, test_set = self.initialize_dataset(train_df, val_df, test_df, dataset_mode, path_to_helpers)
+    def intialize_all(self, dataframes: tuple, indices:tuple, dataset_mode:str, path_to_helpers:str=None):
+        
+        
+        train_set, val_set, test_set = self.initialize_dataset(dataframes, indices, dataset_mode, path_to_helpers)
         
         train_loader, val_loader, test_loader = self.initialize_dataloader(train_set, val_set, test_set, dataset_mode)
         
@@ -170,13 +173,24 @@ class MasterTrainerLecture:
         
         return train_loader, val_loader, test_loader, model, optimizer
 
-    def initialize_dataset(self, train_df:dict, val_df:dict, test_df:dict, dataset_mode:str, path_to_helpers:str):
+    def initialize_dataset(self, dataframes:tuple, indices:str, dataset_mode:str, path_to_helpers:str):
         
-        train_set = LectureDataset(train_df, self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=False)
-        val_set = LectureDataset(val_df, self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=True)
-        test_set = LectureDataset(test_df, self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=True)
+        if self.split_by == "random":
+            
+            train_set = LectureDataset(dataframes[0], self.hyperparameters, dataset_mode,
+                                       indices=indices[0], path_to_helpers=path_to_helpers, validation=False)
+            val_set = LectureDataset(dataframes[0], self.hyperparameters, dataset_mode, 
+                                     indices=indices[1], path_to_helpers=path_to_helpers, validation=False)
+            test_set = LectureDataset(dataframes[1], self.hyperparameters, dataset_mode, 
+                                      path_to_helpers=path_to_helpers, validation=True)
+            
+        else:
+            train_set = LectureDataset(dataframes[0], self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=False)
+            val_set = LectureDataset(dataframes[1], self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=True)
+            test_set = LectureDataset(dataframes[2], self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=True)      
         
         info, X, y_features, y = train_set[1]
+
         if len(X.shape) != 1:
             self.update_hyperparameters({
                 "x_size": int(X.shape[1]),
@@ -194,7 +208,6 @@ class MasterTrainerLecture:
                 "immutable_size": int(info[6].shape[0])
                 }
             )
-        
         return train_set, val_set, test_set
 
     def initialize_dataset_deployment(self, data_df, dataset_mode:str, path_to_helpers:str):
@@ -284,11 +297,12 @@ class MasterTrainerLecture:
                 X = X.to(self.device)
                 y_features = y_features.to(self.device)
                 y = y.to(self.device).view(-1, model.output_size)
-            
-
+ 
                 model_output = model(X, y_features, room_id)
+
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
                 loss = self.criterion(model_output, y)
+
                 #loss_i = self.criterion(model_output, y)
                 
                 #losses.append(loss_i)

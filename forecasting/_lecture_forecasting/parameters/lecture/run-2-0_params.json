@@ -1,22 +1,30 @@
-{   
-    "info": "Run 0: small lstm",
+{
+    "info": "Run 2: lstm with new train_val_test_split and weather",
     "model_class": ["simple_lecture_lstm"],
     "dataset_mode": ["time_sequential"],
-    "hidden_size": [[25], [10]],
+    "split_by":["random_10"],
+    "hidden_size": [[15], [15,15]],
     "embedding_dim": [5], 
-    "proj_size":[0],
+    "padding_value":[0, -1],
     "num_layers": [1, 3],
-    "padding_value":[0.0, -1],
     "lr": [1e-3],
     "batch_size": [4],
-    "inhall_threshold": [1, 0.9, 0.8],
-    "ndates_threshold": [3, 6],
+    "inhall_threshold": [0.9],
+    "ndates_threshold": [3],
     "features": [
+        "occrate_dailyweather",
+        "occrate",
         "occrate_tutorium_exam_test_cancelled_type",
-        "occrate_coursenumber_tutorium_exam_test_cancelled_type",
-        "occrate_coursenumber_tutorium_exam_test_cancelled_type_starttime_calendarweek_weekday",
+        "occrate_tutorium_exam_test_cancelled",
+        "occrate_tutorium_exam_test_cancelled_dailyweather",
+        "occrate_starttime_calendarweek_weekday_dailyweather",
+        "occrate_starttime_calendarweek_weekday",
         "occrate_tutorium_exam_test_cancelled_type_starttime_calendarweek_weekday",
-        "occrate_registered_coursenumber_tutorium_exam_test_cancelled_type_starttime_calendarweek_weekday"],
+        "occrate_registered_tutorium_exam_test_cancelled_type_starttime_calendarweek_weekday",
+        "occrate_tutorium_exam_test_cancelled_type_dailyweather",
+        "occrate_tutorium_exam_test_cancelled_type_starttime_calendarweek_weekday_dailyweather",
+        "occrate_registered_tutorium_exam_test_cancelled_type_starttime_calendarweek_weekday_dailyweather"
+    ],
     "max_n_updates": 50000,
     "------------------------":"--------------------------",
     "criterion": ["MAE"],
@@ -26,5 +34,6 @@
     "weight_decay": [0.0],
     "discretization": [false],
     "dropout": [0.0],
-    "binsize": [0.01]
-}
+    "binsize": [0.01],
+    "proj_size":[0]
+    }

@@ -2,12 +2,11 @@
 ####### Importing all the functions from the data.py file #######
 from _occupancy_forecasting.data import prepare_data
 from _occupancy_forecasting.data import OccFeatureEngineer
-from _occupancy_forecasting.data import train_val_test_split
 from _occupancy_forecasting.data import OccupancyDataset
-from _occupancy_forecasting.data import load_data_dicts 
+from _occupancy_forecasting.data import load_data
 
 ####### Importing all the functions from the model.py file #######
-from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, OccDenseNet
+from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM
 
 ####### Importing all the functions from the train.py file #######
 from _occupancy_forecasting.training import MasterTrainer

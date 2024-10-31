@@ -11,19 +11,36 @@ import os
 ########### Lecture Dataset ###########
 def load_data(path_to_data_dir, dfguru, split_by):
 
-    traindf = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name=f"lecture_train_{split_by}")
+    split_by_mode = split_by.split("_")[0]
+    if split_by_mode == "random":
+        traindf = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"lecture_train_{split_by}")
+        
+        testdf = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"lecture_test_{split_by}")
+        
+        train_indices = np.load(f"{path_to_data_dir}/lecture_train_idx_{split_by}.npy")
+        val_indices = np.load(f"{path_to_data_dir}/lecture_val_idx_{split_by}.npy")
+        
+        return (traindf, testdf), (train_indices, val_indices)
+        
+        
+    else:
+        traindf = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"lecture_train_{split_by}")
+        
+        valdf = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"lecture_val_{split_by}")
+        
+        testdf = dfguru.load_dataframe(
+            path_repo=path_to_data_dir, 
+            file_name=f"lecture_test_{split_by}")
     
-    valdf = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name=f"lecture_val_{split_by}")
-    
-    testdf = dfguru.load_dataframe(
-        path_repo=path_to_data_dir, 
-        file_name=f"lecture_test_{split_by}")
-    
-    return traindf, valdf, testdf
+    return (traindf, valdf, testdf), ()
     
 def prepare_data(path_to_data_dir, feature_list, dfguru, rng, split_by, test):
     
@@ -118,24 +135,30 @@ def train_val_test_split(course_dates, rng, split_by, test, verbose=True):
         
     elif split_by == "random":
         
+        # train set up to n_weeks
+        # val set randomly selected out of train set
+        # test set n_weeks+1 to n_weeks + 2
+        
+        
         all_weeks = sorted(course_dates["calendarweek"].unique())
-        weeks = all_weeks[:n_weeks]
         
-        dataset = course_dates[course_dates["calendarweek"].isin(weeks)].reset_index(drop=True)
+        train_weeks = all_weeks[:n_weeks]
+        test_weeks = all_weeks[:n_weeks+1]
         
-        indices = np.arange(0, len(dataset))
-        rng.shuffle(indices)
         
-        val_size_indices = int(len(indices) * val_size)
-        val_indices = indices[ :val_size_indices]
+        train_set = course_dates[course_dates["calendarweek"].isin(train_weeks)].reset_index(drop=True)
+        test_set = course_dates[course_dates["calendarweek"].isin(test_weeks)].reset_index(drop=True)
         
-        test_size_indices = int(len(indices) * test_size)
-        test_indices = indices[val_size_indices : val_size_indices + test_size_indices]
+        train_indices = np.arange(0, len(train_set))
+        rng.shuffle(train_indices)
+
+        val_size_indices = int(len(train_indices) * val_size)
+        val_indices = train_indices[ :val_size_indices]
+        train_indices = train_indices[val_size_indices:]
+
+        indices = (train_indices, val_indices)
         
-        train_indices = indices[val_size_indices + test_size_indices:]
-        
-        datasets = dataset
-        indices = (train_indices, val_indices, test_indices)
+        return (train_set, test_set), indices
         
     else:
         raise ValueError("Unknown split criteria.")
@@ -466,7 +489,7 @@ class LectureDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
     
-    def __init__(self, lecture_df: dict, hyperparameters:dict, dataset_mode:str, validation: bool, path_to_helpers, verbose:bool=True):
+    def __init__(self, lecture_df: dict, hyperparameters:dict, dataset_mode:str, validation: bool, path_to_helpers, verbose:bool=True, indices=[]):
         """ Constructor for the occupancy dataset
         Task: Convert the cleaned data into a list of samples
         """
@@ -475,6 +498,13 @@ class LectureDataset(Dataset):
         self.dataset_mode = dataset_mode
 
         self.lec_df = lecture_df
+        
+        # print nan values
+        self.lec_df["ffx"] = self.lec_df["ffx"].fillna(0)
+        
+        
+        self.indices = indices
+        self.indices_given = True if len(indices)>0 else False
 
         self.hyperparameters = hyperparameters
         self.validation = validation
@@ -483,7 +513,7 @@ class LectureDataset(Dataset):
         self.features_list = hyperparameters["features"].split("_")
         self.features = set(self.features_list)
         
-        self.immutable_features = {"type", "studyarea", "ects", "level", "coursenumber", "dailyweather"}
+        self.immutable_features = {"type", "studyarea", "ects", "level", "coursenumber"}
         self.immutable_features = self.immutable_features.intersection(self.features)
         
         # derive main feature
@@ -496,11 +526,6 @@ class LectureDataset(Dataset):
         
         # derive exogenous time features
         self.exogenous_features = self.handle_time_features(self.exogenous_features)
-          
-        # sort features
-        self.exogenous_features = sorted(list(self.exogenous_features))
-
-
         # derive differencing
         #self.differencing = hyperparameters["differencing"]
         #self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
@@ -527,10 +552,12 @@ class LectureDataset(Dataset):
             self.immutable_features.remove("studyarea")
             self.immutable_features = self.immutable_features.union(self.helper["study_areas"])
         
-        if "dailyweather" in self.immutable_features:
-            self.immutable_features = self.immutable_features.union(self.helper["weather_columns"])
-            self.immutable_features.remove("dailyweather")
-        
+        if "dailyweather" in self.exogenous_features:
+            self.exogenous_features = self.exogenous_features.union(self.helper["weather_columns"])
+            self.exogenous_features.remove("dailyweather")
+            
+        # sort features
+        self.exogenous_features = sorted(list(self.exogenous_features))
         ############ Derive some helper variables ############
         self.include_x_features = hyperparameters["include_x_features"]
         self.verbose = verbose      
@@ -544,6 +571,7 @@ class LectureDataset(Dataset):
         #self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
         # process data
         self.samples = self.process_data_df(dataset_mode)
+
         #len_list = [x[1].shape[0] for x in self.samples]
         #print(np.unique(len_list, return_counts=True))
         
@@ -742,7 +770,11 @@ class LectureDataset(Dataset):
                 if self.validation:
                     if y_df["calendarweek"] != max_week:
                         continue
-                
+                    
+                if self.indices_given:
+                        if y_df.name not in self.indices:
+                            continue
+                        
                 X = torch.Tensor(X_df[self.occ_feature].values)
                 y = torch.Tensor([y_df[self.occ_feature]])
                 
@@ -790,11 +822,13 @@ class LectureDataset(Dataset):
                 if y == -1:
                     continue
                 
+                if torch.all(X == 0):
+                    raise ValueError("X is zero!")
+
                 samples.append((info, X, y_features, y))
 
         return samples     
-     
-      
+        
     def create_samples_time_onedateahead(self):    
         
         samples = []
@@ -832,6 +866,10 @@ class LectureDataset(Dataset):
                     
                     if self.validation:
                         if y_df["calendarweek"] != max_week:
+                            continue
+                        
+                    if self.indices_given:
+                        if y_df.name not in self.indices:
                             continue
                         
                     X = torch.Tensor([X_df[self.occ_feature]])

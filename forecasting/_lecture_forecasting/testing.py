@@ -2,6 +2,7 @@ import torch
 import torchmetrics
 from torch.optim import Adam
 from torch.utils.data import DataLoader
+import pandas as pd
 
 import os
 import json
@@ -9,6 +10,7 @@ import time
 
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import plotly.express as px
 
 import numpy as np
 from tqdm import tqdm
@@ -130,13 +132,11 @@ class LectureTestSuite():
         else:
             raise ValueError(f"Model {model_name} not recognized")
         
-    def load_checkpoint(self, checkpoint_path:str, load_optimizer:bool, path_to_helpers:str):
-        
-        self.hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
-        
+    def load_checkpoint(self, checkpoint_path:str, load_optimizer:bool):
+
         # ignore warnings    
         model_class = self.handle_model_class(self.hyperparameters["model_class"])
-        model = model_class(self.hyperparameters, path_to_helpers)
+        model = model_class(self.hyperparameters, self.pth)
         model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
         
         if load_optimizer:
@@ -150,35 +150,49 @@ class LectureTestSuite():
         
         if dataset_mode in ["time_sequential", "time_onedateahead"]:
         
-            train_df, val_df, test_df = load_data(
+            dataframes, indices = load_data(
                 self.path_to_data, 
                 dfguru=self.dfg,
                 split_by=split_by)
             
+            split_by_mode = split_by.split("_")[0]
+            if split_by_mode == "random":
+                    
+                train_set = LectureDataset(dataframes[0], self.hyperparameters, dataset_mode,
+                                        indices=indices[0], path_to_helpers=path_to_helpers, validation=False)
+                val_set = LectureDataset(dataframes[0], self.hyperparameters, dataset_mode, 
+                                        indices=indices[1], path_to_helpers=path_to_helpers, validation=False)
+                test_set = LectureDataset(dataframes[1], self.hyperparameters, dataset_mode, 
+                                        path_to_helpers=path_to_helpers, validation=True)
+                    
+            else:
+                train_set = LectureDataset(dataframes[0], self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=False)
+                val_set = LectureDataset(dataframes[1], self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=True)
+                test_set = LectureDataset(dataframes[2], self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers, validation=True)
 
-            trainset = LectureDataset(
-                lecture_df=train_df, 
-                hyperparameters=self.hyperparameters, 
-                dataset_mode=dataset_mode, 
-                path_to_helpers=path_to_helpers,
-                validation=False
-            )
-            valset = LectureDataset(
-                lecture_df=val_df, 
-                hyperparameters=self.hyperparameters, 
-                dataset_mode=dataset_mode, 
-                path_to_helpers=path_to_helpers,
-                validation=True
-            )
-            testset = LectureDataset(
-                lecture_df=test_df, 
-                hyperparameters=self.hyperparameters, 
-                dataset_mode=dataset_mode, 
-                path_to_helpers=path_to_helpers,
-                validation=True
-            )
+            #trainset = LectureDataset(
+            #    lecture_df=train_df, 
+            #    hyperparameters=self.hyperparameters, 
+            #    dataset_mode=dataset_mode, 
+            #    path_to_helpers=path_to_helpers,
+            #    validation=False
+            #)
+            #valset = LectureDataset(
+            #    lecture_df=val_df, 
+            #    hyperparameters=self.hyperparameters, 
+            #    dataset_mode=dataset_mode, 
+            #    path_to_helpers=path_to_helpers,
+            #    validation=True
+            #)
+            #testset = LectureDataset(
+            #    lecture_df=test_df, 
+            #    hyperparameters=self.hyperparameters, 
+            #    dataset_mode=dataset_mode, 
+            #    path_to_helpers=path_to_helpers,
+            #    validation=True
+            #)
             
-            return trainset, valset, testset
+            return train_set, val_set, test_set
                 
         else:
             raise ValueError(f"Mode {dataset_mode} not recognized")  
@@ -356,14 +370,15 @@ class LectureTestSuite():
                 model_output = model(X, y_features, immutable_features).cpu()
                 
                 self.calculate_losses(losses, model_output, y)
-
+                
                 predictions.extend(model_output)
                 infos.extend(info)
                 inputs.extend(X.cpu())
                 targets.extend(y)
                 target_features.extend(y_features.cpu())
-        
+            
         return losses, predictions, infos, targets, inputs, target_features
+    
     
     def denormalize_predictions(self, list_of_predictions, targets, infos, dataset, convert_to_counts):
 
@@ -408,9 +423,8 @@ class LectureTestSuite():
             target_denorm = target_denorm * registered_denorm
         
         return tuple(list_denorm), target_denorm
-                
-                
-    def evaluate_combinations(self, comb_tuples, split_by, plot_results):
+                         
+    def evaluate_combinations(self, comb_tuples, plot_results):
         
         convert_to_counts = False
         
@@ -422,24 +436,32 @@ class LectureTestSuite():
         list_dataset_masks = []
         
         for n_run, n_comb in tqdm(comb_tuples, total=len(comb_tuples), bar_format=self.bar_format, leave=False):
-
-            checkpoint_path = os.path.join(self.cp_log_dir, f"run_{n_run}", f"comb_{n_comb}")
-            pth = os.path.join(self.path_to_helpers, f"helpers_lecture_{split_by}.json")
             
-            model = self.load_checkpoint(checkpoint_path=checkpoint_path, load_optimizer=False, path_to_helpers=pth)
+            checkpoint_path = os.path.join(self.cp_log_dir, f"run_{n_run}", f"comb_{n_comb}")
+            
+            
+            self.hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
+            
+            if (n_run == 5) or (n_run == 6):
+                self.hyperparameters.update({"split_by": "random_10"})
+                
+        
+            self.pth = os.path.join(self.path_to_helpers, f"helpers_lecture_{self.hyperparameters["split_by"]}.json")
+            
+            model = self.load_checkpoint(checkpoint_path=checkpoint_path, load_optimizer=False)
             
             list_hyperparameters.append(self.hyperparameters)
             list_combinations.append((n_run, n_comb))
-            
+
             if "dataset_mode" not in self.hyperparameters:
                 dataset_mode = "time_sequential"
             else:
                 dataset_mode = self.hyperparameters["dataset_mode"]
                 
             trainset, valset, testset = self.prepare_data(
-                split_by=split_by,
+                split_by=self.hyperparameters["split_by"],
                 dataset_mode=dataset_mode,
-                path_to_helpers=pth
+                path_to_helpers=self.pth
             )
             
             ###################################################
@@ -454,7 +476,7 @@ class LectureTestSuite():
             list_infos = []
             list_targets = []
             list_baseline_predictions = []
-                    
+            
             for dataset in [trainset, valset, testset]:
 
         
@@ -469,8 +491,8 @@ class LectureTestSuite():
                 
                 dict_losses, predictions, infos, targets, inputs, target_features = self.test_model(model, dataloader, dict_losses)
 
+
                 # denormalize the prediction
-                
                 (predictions, bl_preds), targets = self.denormalize_predictions(
                     [predictions, bl_preds], 
                     targets, 
@@ -505,15 +527,29 @@ class LectureTestSuite():
                 mse = torch.nn.MSELoss(reduction="mean")
                 
                 val_mask = (dataset_mask == 1)
+                train_mask = (dataset_mask == 0)
+                test_mask = (dataset_mask == 2)
+                
                 print(f"N_RUN: {n_run} | N_COMB: {n_comb}")
-                print(f"MAE: {mae(torch.Tensor(pred_array[val_mask]), torch.Tensor(target_array[val_mask]))}")
-                print(f"MSE: {mse(torch.Tensor(pred_array[val_mask]), torch.Tensor(target_array[val_mask]))}")
+                
+                val_preds = pred_array[val_mask]
+                val_targets = target_array[val_mask]
+                val_bl_preds = pred_baseline[val_mask]
+                print(f"MAE Val: {np.round(mae(torch.Tensor(val_preds), torch.Tensor(val_targets)).numpy(), 4)}| BL: {np.round(mae(torch.Tensor(val_bl_preds), torch.Tensor(val_targets)).numpy(), 4)}")
+                
+                train_preds = pred_array[train_mask]
+                train_targets = target_array[train_mask]
+                train_bl_preds = pred_baseline[train_mask]
+                print(f"MAE Train: {np.round(mae(torch.Tensor(train_preds), torch.Tensor(train_targets)).numpy(), 4)}| BL: {np.round(mae(torch.Tensor(train_bl_preds), torch.Tensor(train_targets)).numpy(), 4)}")
+                
+                test_preds = pred_array[test_mask]
+                test_targets = target_array[test_mask]
+                test_bl_preds = pred_baseline[test_mask]
+                print(f"MAE Test: {np.round(mae(torch.Tensor(test_preds), torch.Tensor(test_targets)).numpy(), 4)}| BL: {np.round(mae(torch.Tensor(test_bl_preds), torch.Tensor(test_targets)).numpy(), 4)}")
                 
                 
-                y_start_time = np.array([x[2] for x in list_infos]).squeeze()
-                y_room_id = np.array([x[5] for x in list_infos]).squeeze()
-                
-                
+                y_start_time = np.array([x[2] for x in list_infos])
+                y_room_id = np.array([x[5] for x in list_infos])    
                 room_id_list = [0,1]    
 
                 fig = make_subplots(rows=2, cols=1,
@@ -521,18 +557,26 @@ class LectureTestSuite():
                                     subplot_titles=[f"Room {room_id}" for room_id in room_id_list],)
                 
                 #fig, ax = plt.subplots(2, 1, figsize=(10, 10))
-                
+                     
                 #room 0
-                for room_id in [0, 1]:
-
-                    # plot validation set
-                    mask = (y_room_id == room_id) & (dataset_mask == 1)
+                for room_id in room_id_list:
                     
+                                    
+                    #for data_id in [0, 1, 2]:
 
+                        # plot validation set
+                    mask = y_room_id == room_id #& (dataset_mask == data_id)
+                    
                     y_start_time_room = y_start_time[mask]
+                    
+                    # sanity check
+                    if not all(np.unique(y_start_time_room, return_counts=True)[1] == 1):
+                        raise ValueError("Not all timestamps are unique")
+                    
                     pred_array_room = pred_array[mask]
                     target_array_room = target_array[mask]
                     pred_baseline_room = pred_baseline[mask]
+                    dataset_array_room = dataset_mask[mask]
                     
                     sort_indices = np.argsort(y_start_time_room)
                     y_start_time_room = y_start_time_room[sort_indices]
@@ -540,40 +584,75 @@ class LectureTestSuite():
                     pred_array_room = pred_array_room[sort_indices]      
                     target_array_room = target_array_room[sort_indices] 
                     pred_baseline_room = pred_baseline_room[sort_indices]  
-                            
+                    dataset_array_room = dataset_array_room[sort_indices]
+                    
+                    
+                    df_room = pd.DataFrame(
+                        {"Time": y_start_time_room,
+                        "Pred": pred_array_room,
+                        "Target": target_array_room,
+                        "Color_Target": dataset_array_room,
+                        "Index": np.arange(len(y_start_time_room))}
+                    )
+
+                    df_room["Color_Pred"] = df_room["Color_Target"] + 0.3
+                    
+                                        
                     if room_id == 0:
                         legend_name = "legend"
                     else:
                         legend_name = f"legend{room_id}"
-                        
+
                     fig.add_trace(
-                        go.Bar(
-                            x=y_start_time_room,
-                            y=pred_baseline_room,
-                            name=f"Baseline Model",
-                            legend=f"legend{room_id+1}"
-                        ),
+                        px.bar(
+                            data_frame=df_room,
+                            x="Index",
+                            y="Target",
+                            color="Color_Target",
+                        )["data"][0],
                         row=room_id+1, col=1
                     )
                     fig.add_trace(
-                        go.Bar(
-                            x=y_start_time_room,
-                            y=target_array_room,
-                            name=f"Targets",
-                            legend=f"legend{room_id+1}"
-                        ),
+                        px.bar(
+                            data_frame=df_room,
+                            x="Index",
+                            y="Pred",
+                            color="Color_Pred",
+                        )["data"][0],
                         row=room_id+1, col=1
                     )
-                    fig.add_trace(
-                        go.Bar(
-                            x=y_start_time_room,
-                            y=pred_array_room,
-                            name=f"Predictions Model",
-                            legend=f"legend{room_id+1}"
-                        ),
-                        row=room_id+1, col=1
-                    )
-                
+                    
+ 
+                #fig.update_traces(width=0.5)
+                    
+                #    fig.add_trace(
+                #        go.Bar(
+                #            x=y_start_time_room,
+                #            y=pred_baseline_room,
+                #            name=f"Baseline Model",
+                #            legend=f"legend{room_id+1}"
+                #        ),
+                #        row=room_id+1, col=1
+                #    )
+                #    fig.add_trace(
+                #        go.Bar(
+                #            x=y_start_time_room,
+                #            y=target_array_room,
+                #            name=f"Targets",
+                #            legend=f"legend{room_id+1}"
+                #        ),
+                #        row=room_id+1, col=1
+                #    )
+                #    fig.add_trace(
+                #    go.Bar(
+                #        x=y_start_time_room,
+                #        y=pred_array_room,
+                #        name=f"Predictions Model",
+                #        legend=f"legend{room_id+1}"
+                #    ),
+                #    row=room_id+1, col=1
+                #)
+            
                 # add title
                 fig.update_layout(
                     title=dict(
