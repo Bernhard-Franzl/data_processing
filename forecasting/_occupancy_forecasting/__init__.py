@@ -18,7 +18,4 @@ from _occupancy_forecasting.utilities import parse_arguments
 from _occupancy_forecasting.utilities import prompt_for_missing_arguments
 
 ####### Importing all the functions from the testing.py file #######
-from _occupancy_forecasting.testing import list_checkpoints
-from _occupancy_forecasting.testing import run_n_tests
-from _occupancy_forecasting.testing import write_header_to_txt
-from _occupancy_forecasting.testing import evaluate_results, evaluate_results_lecture
+from _occupancy_forecasting.testing import OccupancyTestSuite

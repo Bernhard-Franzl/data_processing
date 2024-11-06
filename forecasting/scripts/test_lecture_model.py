@@ -43,7 +43,7 @@ combs_to_plot = [
 combinations, hyperparameters, loss_dicts, baseline_loss_dicts, dataset_masks = testsuite.evaluate_combinations(
     comb_tuples=combs_to_plot,
     plot_results=True,
-    )   
+)   
 
 
 # Test chosen combinations

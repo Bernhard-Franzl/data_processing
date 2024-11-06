@@ -57,19 +57,24 @@ summer_break_2024 = [
 
 
 ########### Occupancy Dataset ###########
-def load_data(path_to_data_dir, frequency, dfguru):
+def load_data(path_to_data_dir, frequency, dfguru, split_by, with_examweek):
     
     train_dict = {}
     val_dict = {}
     test_dict = {}
     
     path_to_data = os.path.join(path_to_data_dir, f"freq_{frequency}")
+    if with_examweek:
+        add_to_string = "_with-examweek"
+    else:
+        add_to_string = "_without-examweek"
+        
     for room_id in [0, 1]:
         for type in ["train", "test", "val"]:
             
             df = dfguru.load_dataframe(
                 path_repo=path_to_data, 
-                file_name=f"room-{room_id}_{type}_dict")
+                file_name=f"room-{room_id}_{split_by}_{type}_dict" + add_to_string)
             
             if type == "train":
                 train_dict[room_id] = df
@@ -82,7 +87,7 @@ def load_data(path_to_data_dir, frequency, dfguru):
             
     return train_dict, val_dict, test_dict
       
-def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers_path, split_by):
+def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers_path, split_by, with_examweek):
     
     course_dates_data = dfguru.load_dataframe(
         path_repo=path_to_data_dir, 
@@ -94,7 +99,8 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers
 
     course_info_data.drop(columns=["room_id"], inplace=True)
     course_info_data.drop_duplicates(inplace=True)
-        
+
+    exam_weeks = [26]
     data_dict = {}
     path_to_occ_data = os.path.join(path_to_data_dir, f"freq_{frequency}")
     for room_id in [0, 1]:
@@ -104,7 +110,10 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers
             path_repo=path_to_occ_data, 
             file_name=f"room-{room_id}_cleaned_data_29_08", 
         )[:-1]
-          
+        
+        if not with_examweek:
+            occ_time_series = occ_time_series[~occ_time_series["datetime"].dt.isocalendar().week.isin(exam_weeks)]  
+
         ########## OccFeatureEngineer ##########
         occ_time_series = OccFeatureEngineer(
             occ_time_series, 
@@ -119,9 +128,11 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers
         )
           
         data_dict[room_id] = occ_time_series
+        
+        
 
     train_dict, val_dict, test_dict = train_val_test_split(data_dict, rng, split_by, verbose=True)
-    
+
     return train_dict, val_dict, test_dict
     
 def train_val_test_split(data_dict, rng, split_by, verbose=True):
@@ -162,7 +173,37 @@ def train_val_test_split(data_dict, rng, split_by, verbose=True):
             ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
             ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
             ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+        
+        elif split_by == "random-train-val":
+            
+            occ_time_series = data_dict[room_id]
+            total_size += len(occ_time_series)
+            
+            # generate chunks with size 0.05 of the data
+            index_shift = int(len(occ_time_series) * chunk_proportion)
+            indices = np.arange(0, len(occ_time_series), index_shift)
+            if (len(occ_time_series)-indices[-1]) < index_shift:
+                indices = indices[:-1]
+                
+            test_size_indices = chunk_proportion * test_set_factor
+            test_slice = int(len(indices) * chunk_proportion * test_set_factor)
+            
+            train_size_indices = 1 - (2*test_size_indices)
+            train_slice = int(len(indices) * train_size_indices)
+            
+            train_val_indices = indices[:train_slice + test_slice]
+            test_indices = indices[train_slice + test_slice :]
+            
+            rng.shuffle(train_val_indices)
+            
+            train_indices = train_val_indices[:train_slice]
+            val_indices = train_val_indices[train_slice:]
 
+            ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+        
+            
         elif split_by == "time":
             
             occ_time_series = data_dict[room_id]
@@ -683,13 +724,14 @@ class OccupancyDataset(Dataset):
     
     room_capacities = {0:164, 1:152}
     
-    def __init__(self, time_series_dict: dict, hyperparameters:dict, mode:str, verbose:bool=True):
+    def __init__(self, time_series_dict: dict, hyperparameters:dict, path_to_helpers:str, validation:bool, verbose:bool=True):
         """ Constructor for the occupancy dataset
         Task: Convert the cleaned data into a list of samples
         """
         super().__init__()
         
         self.rng = np.random.default_rng(42)
+        self.dataset_mode = hyperparameters["dataset_mode"]
         
         # the time series must be structured as a dictionary with the room_id as the key
         self.time_series_dict = time_series_dict
@@ -705,6 +747,7 @@ class OccupancyDataset(Dataset):
         
         # derive main feature
         self.occ_feature = self.handle_occ_feature(self.features)
+
         # derive exogenous features
         self.exogenous_features = self.features.difference({"occcount", "occrate"})
         # derive exogenous time features
@@ -714,9 +757,11 @@ class OccupancyDataset(Dataset):
         self.occ_feature, self.exogenous_features, self.sample_differencing = self.handle_differencing_features(self.differencing, self.features, self.occ_feature, self.exogenous_features)
 
             
-        with open("data/helpers_occpred.json", "r") as f:
+        helper_file = os.path.join(path_to_helpers, "helpers_occpred.json")
+        with open(helper_file, "r") as f:
             self.helper = json.load(f)       
-    
+
+
         if "type" in self.exogenous_features:
             self.exogenous_features.remove("type")
             self.exogenous_features = self.exogenous_features.union(self.helper["course_types"])
@@ -727,20 +772,22 @@ class OccupancyDataset(Dataset):
             self.extract_coursenumber = True
             self.course_numbers = self.helper["course_numbers"]
             self.coursenr_lookup = dict([(x,i) for i,x in enumerate(self.course_numbers)])
-       
-       
-        ## remove column datetime and coursenumber
-        #without_datetime = occ_time_series.drop(columns=["datetime", "coursenumber"])
-        #critical_columns = without_datetime.columns[(without_datetime.min() < -1).values | (without_datetime.max() > 1).values]
-        #print(critical_columns)
+            
+        if "studyarea" in self.exogenous_features:
+            self.exogenous_features.remove("studyarea")
+            self.exogenous_features = self.exogenous_features.union(self.helper["study_areas"])
         
-        #min_columns = self.weather.min()
-        #max_columns = self.weather.max()
-        #self.weather = (self.weather - min_columns) / (max_columns - min_columns)
+        if "level" in self.exogenous_features:
+            self.exogenous_features.remove("level")
+            self.exogenous_features = self.exogenous_features.union(self.helper["levels"])
+        
+        if "weather" in self.exogenous_features:
+            self.exogenous_features.remove("weather")
+            self.exogenous_features = self.exogenous_features.union(self.helper["weather_columns"])
 
         # sort features
         self.exogenous_features = sorted(list(self.exogenous_features))
-
+    
         ############ Derive some helper variables ############
         self.include_x_features = hyperparameters["include_x_features"]
         self.x_horizon = hyperparameters["x_horizon"]
@@ -751,10 +798,11 @@ class OccupancyDataset(Dataset):
         # convert frequency to timedelta
         self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
         # process data
-        self.samples = self.process_data_dictionaries(mode)
+        self.samples = self.process_data_dictionaries(self.dataset_mode)
         # correct samples
-        if mode == "normal":
-            self.corrected_samples = self.correct_samples(self.samples, verbose=self.verbose)
+        if not validation:
+            if self.dataset_mode == "normal":
+                self.correct_samples(self.samples, verbose=self.verbose)
 
     ############ Feature Functions ############ 
     def handle_occ_feature(self, features):
@@ -837,6 +885,18 @@ class OccupancyDataset(Dataset):
 
             occ_time_series = self.time_series_dict[room_id]
             
+            # normalize samples
+            for col, values in self.helper["columns_to_normalize"].items():
+                
+                if col in self.exogenous_features:
+                    occ_time_series[col] = (occ_time_series[col] - values["min"]) / (values["max"] - values["min"])
+      
+                elif col in self.occ_feature:
+                    occ_time_series[col] = (occ_time_series[col] - values["min"]) / (values["max"] - values["min"])
+     
+                else:
+                    pass
+
             ts_diff = occ_time_series["datetime"].diff()
             holes = occ_time_series[ts_diff > self.td_freq]
             
@@ -1105,7 +1165,7 @@ class OccupancyDataset(Dataset):
             #exam = y_features[:, exam_idx]
             #test = y_features[:, test_idx]
             #tuturium = y_features[:, tutorium_idx]
-            if all((y[:, 0] == 0)) and all((X[-one_hour:, 0] == 0)):
+            if all((y[:, 0] == 0)) and all((X[-1*one_hour:, 0] == 0)):
                 class_dict[i] = "zero"
                 
             else:
@@ -1126,7 +1186,6 @@ class OccupancyDataset(Dataset):
             #tutorium_dict[int(tuturium.sum())] += 1
             #test_dict[int(test.sum())] += 1
             
-            
             # old version
             #if (y[:, 0].sum() == 0) and (X[-one_hour:, 0].sum() == 0):
             #    if self.rng.random() < self.hyperparameters["zero_sample_drop_rate"]:
@@ -1137,12 +1196,11 @@ class OccupancyDataset(Dataset):
             #    corrected_samples.append((info, X, y_features, y))
             #    counter_else += 1
             
-
         class_counts["zero"] = class_counts["zero"]*0.05
         total = sum(class_counts.values())
         
         class_weights = dict([(i, v/total) for i,v in class_counts.items()])
-        
+
         sample_weights = np.zeros(len(samples))
         for i, class_label in class_dict.items():
             sample_weights[i] = class_weights[class_label]
@@ -1154,8 +1212,7 @@ class OccupancyDataset(Dataset):
         #    print("Number of Samples with y=0: ", counter_0, "Percentage: ", counter_0/len(corrected_samples))
         #    print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
         #    print("-----------------")
-            
-        return corrected_samples
+
        
     ############ Dataset Functions ############
     def __len__(self):

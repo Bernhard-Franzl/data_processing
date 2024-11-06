@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import json
+import os
 
 class SimpleOccDenseNet(nn.Module):
     
@@ -80,7 +81,7 @@ class SimpleOccDenseNet(nn.Module):
     def forward(self, x, y_features, room_id=None):
         
         if "coursenumber" in self.hyperparameters["features"]:
-            
+            raise NotImplementedError
             X_course_emb = self.course_embedding(room_id[:, :self.x_horizon])
             y_course_emb = self.course_embedding(room_id[:, self.x_horizon:])
             
@@ -155,61 +156,7 @@ class SimpleOccDenseNet(nn.Module):
             return torch.tensor([])
         else:
             return torch.cat(predicitons)
-    
-class OccDenseNet(nn.Module):
-    
-    def __init__(self, hyperparameters):
-        super().__init__()
-        
-        self.hyperparameters = hyperparameters
-
-        self.x_size = hyperparameters["x_size"] * hyperparameters["x_horizon"]
-        self.y_features_size = hyperparameters["y_features_size"] * hyperparameters["y_horizon"]
-        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
-        
-        
-        self.hidden_size = hyperparameters["hidden_size"]
-        
-        
-        self.occcount = hyperparameters["occcount"]
-        self.batch_size = hyperparameters["batch_size"]
-            
-            
-        self.model = nn.Sequential()
-        if len(self.hidden_size) > 1:
-            self.model.add_module("input_layer", nn.Linear(self.x_size, self.hidden_size[0]))
-            self.model.add_module("relu_0", nn.ReLU())
-            
-            for i in range(0, len(self.hidden_size)-1):
-                self.model.add_module(f"hidden_layer_{i}", nn.Linear(self.hidden_size[i], self.hidden_size[i+1]))
-                self.model.add_module(f"relu_{i+1}", nn.ReLU())
-            
-            self.model.add_module("output_layer", nn.Linear(self.hidden_size[-1], 15))  
-        else:
-            if len(self.hidden_size) == 0:
-                self.model.add_module("input_layer", nn.Linear(self.x_size, self.output_size))
-            else:
-                self.model.add_module("input_layer", nn.Linear(self.x_size, self.hidden_size[0]))
-                self.model.add_module("relu", nn.ReLU())
-                self.model.add_module("output_layer", nn.Linear(self.hidden_size[0], self.output_size))
-            
-        if self.occcount:
-            self.model.add_module("", nn.ReLU())
-        else:
-            self.model.add_module("sigmoid", nn.Sigmoid())
-            
-    def forward(self, x, y_features):
-            
-            x = x.view(self.batch_size, -1)
-            y_features = y_features.view(self.batch_size, -1)
-            input = torch.cat((x, y_features), 1)
-    
-            x = self.model(input)
-            
-            return x  
-     
-     
-        
+             
 class SimpleOccLSTM(torch.nn.Module):
     
     def __init__(self, hyperparameters, **kwargs):
@@ -289,7 +236,7 @@ class SimpleOccLSTM(torch.nn.Module):
     def forward(self, x, y_features, room_id=None):
         
         if "coursenumber" in self.hyperparameters["features"]:
-            
+            raise NotImplementedError
             X_course_emb = self.course_embedding(room_id[:, :self.x_horizon])
             y_course_emb = self.course_embedding(room_id[:, self.x_horizon:])
             
@@ -322,7 +269,7 @@ class SimpleOccLSTM(torch.nn.Module):
         y_features = y_features[None, :]
         
         if "coursenumber" in self.hyperparameters["features"]:
-            
+            raise NotImplementedError
             X_course_emb = self.course_embedding(room_id[:self.x_horizon])[None, :]
             y_course_emb = self.course_embedding(room_id[self.x_horizon:])[None, :]
             
@@ -352,7 +299,7 @@ class EncDecOccLSTM(torch.nn.Module):
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
-    def __init__(self, hyperparameters, **kwargs):
+    def __init__(self, hyperparameters, path_to_helper, **kwargs):
         
         super().__init__()
         
@@ -369,11 +316,12 @@ class EncDecOccLSTM(torch.nn.Module):
         encoding_dim = 0
         if "coursenumber" in hyperparameters["features"]:
             
-            with open("data/helpers_occpred.json", "r") as f:
+            helper_file = os.path.join(path_to_helper, "helpers_occpred.json")
+            with open(helper_file, "r") as f:
                 helper = json.load(f)
                 course_numbers = helper["course_numbers"]
                 del helper  
-        
+            
             encoding_dim = hyperparameters["course_encoding_dim"]
             weights = torch.zeros(len(course_numbers), encoding_dim)
             self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
@@ -408,9 +356,8 @@ class EncDecOccLSTM(torch.nn.Module):
         if hyperparameters["additive_noise"] > 0:
             self.additive_noise = torch.distributions.normal.Normal(0, hyperparameters["additive_noise"])
             self.add_noise = True
-            
-        
-    def forward(self, x, y_features, room_id=None):
+
+    def forward(self, x, y_features, additional_info=None):
         
         if self.add_noise:
             # add noise to make it more robust  
@@ -419,50 +366,42 @@ class EncDecOccLSTM(torch.nn.Module):
             x[:, :, 0] = torch.abs(x[:, :, 0])
         
         if "coursenumber" in self.hyperparameters["features"]:
-            
-            X_course_emb = self.course_embedding(room_id[:, :self.x_horizon])
-            y_course_emb = self.course_embedding(room_id[:, self.x_horizon:])
+        
+            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])
+            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])
             
             x = torch.cat((x, X_course_emb), -1)
             y_features = torch.cat((y_features, y_course_emb), -1)
         
         if self.hyperparameters["differencing"] == "whole":
             x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
-            raise
+            raise NotImplementedError
         
         _, (_, c_n) = self.encoder_lstm(x)
 
         h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.hidden_size[0]).to(self.device)
         out_dec, _ = self.decoder_lstm(y_features, (h_n, c_n))
-        
-        #pred = [self.fc_end(pred[:, i, :]) for i in range(self.y_horizon)]
-        #pred = torch.transpose(torch.stack(pred), 0, 1).squeeze(-1) 
+
         pred = self.fc_end(out_dec)
         pred = pred.squeeze(-1)
         
-        #if self.forward_print_count% 250 == 0:
-        #    print(pred.min(), pred.max())
-        #self.forward_print_count += 1
-        
         return pred  
-        
-    def forecast_iter(self, x, y_features, len_y, room_id):
-        x = x[None, :]
-        y_features = y_features[None, :]
-        
-        if "coursenumber" in self.hyperparameters["features"]:
-            X_course_emb = self.course_embedding(room_id[:self.x_horizon])[None, :]
-            y_course_emb = self.course_embedding(room_id[self.x_horizon:])[None, :]
     
+    def forecast_iter(self, x, y_features, len_y, additional_info):
+
+        if "coursenumber" in self.hyperparameters["features"]:
+            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])#[None, :]
+            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])#[None, :]
+
         predicitons = []
         for i in range(0, len_y, self.y_horizon):
             
             if self.hyperparameters["differencing"] == "whole":
-                raise
+                raise ValueError("The statement below is wrong -> some parts are already normalized!")
                 x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
                 
             y_feat_i = y_features[:, i:i+self.y_horizon]    
-            
+
             if y_feat_i.shape[1] < self.y_horizon:
                 break
             
@@ -470,56 +409,45 @@ class EncDecOccLSTM(torch.nn.Module):
                 
                 y_emb_i = y_course_emb[:, i:i+self.y_horizon]
                 x_emb_i = X_course_emb
-
+                
                 in_1 = torch.cat((x, x_emb_i), -1)
                 in_2 = torch.cat((y_feat_i, y_emb_i), -1)
-            
+                
             else:
-                raise
-                in_1 = torch.cat((x, x_emb_i), -1)
-                in_2 = torch.cat((y_feat_i, y_emb_i), -1)
+                in_1 = x
+                in_2 = y_feat_i
              
-            _, (_, c_n) = self.encoder_lstm(in_1)
 
-            #h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.y_size).to(self.device)
-            #pred, _ = self.decoder_lstm(in_2, (h_n, c_n))
-            #out = pred.squeeze(-1)
+            _, (_, c_n) = self.encoder_lstm(in_1)
 
             h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.hidden_size[0]).to(self.device)
             out_dec, _ = self.decoder_lstm(in_2, (h_n, c_n))
             
-            #pred = [self.fc_end(out_dec[:, i, :]) for i in range(self.y_horizon)]
-            #pred = torch.transpose(torch.stack(pred), 0, 1).squeeze(-1)
-            #print(pred.shape)
-            
             pred = self.fc_end(out_dec)
             pred = pred.squeeze(-1)
 
-            out = pred
-        
-            #out_dec, _ = self.decoder_lstm(in_2, (h_n, c_n))
-            #pred = [self.last_activation(self.fc_end(out_dec[:, i, :])) for i in range(self.y_horizon)]
-            #out = torch.transpose(torch.stack(pred), 0, 1).squeeze(-1) 
-            
-            predicitons.append(out[:, :, None])
+            predicitons.append(pred)
 
             if self.hyperparameters["include_x_features"]:
-                x_new = torch.cat((out[:, :, None], y_feat_i), dim=-1)
+                x_new = torch.cat((pred[:, :, None], y_feat_i), dim=-1)
             else:
-                x_new = out[:, None]
+                x_new = pred[:, None]
+                raise
             
             x = torch.cat((x, x_new), dim=1)[:, self.y_horizon:]
-              
+            
             if "coursenumber" in self.hyperparameters["features"]:
                 X_course_emb = torch.cat((X_course_emb, y_emb_i), dim=1)[:,self.y_horizon:]
 
         if len(predicitons) == 0:
             return torch.tensor([])
         else:
-            return torch.cat(predicitons, dim=1).squeeze(0)
+            return torch.cat(predicitons, dim=1)
                 
-    def forecast_iter_old(self, x, y_features, len_y, room_id):
+                
+    def forecast_iter_old(self, x, y_features, len_y, additional_info):
         
+        raise NotImplementedError
         x = x[None, :]
         y_features = y_features[None, :]
         
@@ -544,6 +472,65 @@ class EncDecOccLSTM(torch.nn.Module):
 
         return pred
 
+
+
+
+
+
+
+    
+class OccDenseNet(nn.Module):
+    
+    def __init__(self, hyperparameters):
+        super().__init__()
+        
+        self.hyperparameters = hyperparameters
+
+        self.x_size = hyperparameters["x_size"] * hyperparameters["x_horizon"]
+        self.y_features_size = hyperparameters["y_features_size"] * hyperparameters["y_horizon"]
+        self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
+        
+        
+        self.hidden_size = hyperparameters["hidden_size"]
+        
+        
+        self.occcount = hyperparameters["occcount"]
+        self.batch_size = hyperparameters["batch_size"]
+            
+            
+        self.model = nn.Sequential()
+        if len(self.hidden_size) > 1:
+            self.model.add_module("input_layer", nn.Linear(self.x_size, self.hidden_size[0]))
+            self.model.add_module("relu_0", nn.ReLU())
+            
+            for i in range(0, len(self.hidden_size)-1):
+                self.model.add_module(f"hidden_layer_{i}", nn.Linear(self.hidden_size[i], self.hidden_size[i+1]))
+                self.model.add_module(f"relu_{i+1}", nn.ReLU())
+            
+            self.model.add_module("output_layer", nn.Linear(self.hidden_size[-1], 15))  
+        else:
+            if len(self.hidden_size) == 0:
+                self.model.add_module("input_layer", nn.Linear(self.x_size, self.output_size))
+            else:
+                self.model.add_module("input_layer", nn.Linear(self.x_size, self.hidden_size[0]))
+                self.model.add_module("relu", nn.ReLU())
+                self.model.add_module("output_layer", nn.Linear(self.hidden_size[0], self.output_size))
+            
+        if self.occcount:
+            self.model.add_module("", nn.ReLU())
+        else:
+            self.model.add_module("sigmoid", nn.Sigmoid())
+            
+    def forward(self, x, y_features):
+            
+            x = x.view(self.batch_size, -1)
+            y_features = y_features.view(self.batch_size, -1)
+            input = torch.cat((x, y_features), 1)
+    
+            x = self.model(input)
+            
+            return x  
+     
 class EncDecOccLSTM1(torch.nn.Module):
     def __init__(self, hyperparameters, **kwargs):
         
@@ -739,12 +726,6 @@ class EncDecOccLSTM1(torch.nn.Module):
         pred = torch.stack(pred).squeeze(-1) 
 
         return pred
-
-
-
-
-
-
 
 class MassConservingOccLSTM(nn.Module):
     

@@ -11,7 +11,7 @@ from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 
 from _occupancy_forecasting.data import OccupancyDataset
-from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTM1, OccDenseNet, SimpleOccGRU, MassConservingOccLSTM
+from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM
 
 class StatsLogger:
     
@@ -75,12 +75,13 @@ class MasterTrainer:
     best_model = None
     best_loss = 1000
     
-    def __init__(self,  hyperparameters:dict, cp_path:str, summary_writer=None, torch_rng=None) -> None:
+    def __init__(self,  hyperparameters:dict, cp_path:str, path_to_helpers:str, summary_writer=None, torch_rng=None) -> None:
         
         self.hyperparameters = hyperparameters
         self.model_class = self.handle_model_class(hyperparameters["model_class"])
         self.criterion = self.handle_criterion(hyperparameters["criterion"])
         self.optimizer_class = self.handle_optimizer(hyperparameters["optimizer_class"])
+        self.path_to_helpers = path_to_helpers
         self.stats_logger = StatsLogger()
         self.cp_path = cp_path
         
@@ -118,26 +119,6 @@ class MasterTrainer:
         else:
             return info, X,  y_features, y, torch.Tensor([0])
     
-    def dateahead_collate(self, x):
-        
-        info = [x_i[0] for x_i in x]
-        X = torch.stack([x_i[1] for x_i in x])
-        y_features = torch.stack([x_i[2] for x_i in x])
-        y = torch.stack([x_i[3] for x_i in x])
-        immutable_features = torch.stack([x_i[0][6] for x_i in x])
-                          
-        return info, X, y_features, y, immutable_features
-    
-    def sequential_collate(self, x):
-        
-        info = [x_i[0] for x_i in x]
-        X = torch.stack([x_i[1] for x_i in x])
-        y_features = torch.stack([x_i[2] for x_i in x])
-        y = torch.stack([x_i[3] for x_i in x])
-        immutable_features = torch.stack([x_i[0][6] for x_i in x])
-
-        return info, X, y_features, y, immutable_features
-    
     def handle_criterion(self, criterion:str):
 
         if criterion == "SSE":
@@ -158,149 +139,52 @@ class MasterTrainer:
     def handle_optimizer(self, optimizer_class:str):
         if optimizer_class == "Adam":
             return torch.optim.Adam
+        
         elif optimizer_class == "SGD":
             return torch.optim.SGD
+        
         else:
             raise ValueError("Optimizer not supported.")
         
     def handle_model_class(self, model_class:str):
+        
         if model_class == "simple_lstm":
             return SimpleOccLSTM
-        
-        elif model_class == "simple_transformer":
-            raise ValueError("Model not supported.")
-            #return SimpleOccTransformer
-        
-        elif model_class == "simple_gru":
-            return SimpleOccGRU
-        
+
         elif model_class == "simple_densenet":
             return SimpleOccDenseNet
-        elif model_class == "densenet":
-            return OccDenseNet
-        
+
         elif model_class == "ed_lstm":
             return EncDecOccLSTM
-        elif model_class == "ed_lstm1":
-            return EncDecOccLSTM1
-        
-        elif model_class == "mc_lstm":
-            return MassConservingOccLSTM
-        
-        elif model_class == "simple_lecture_lstm":
-            return SimpleLectureLSTM
-        elif model_class == "simple_lecture_densenet":
-            return SimpleLectureDenseNet
-        
+
         else:
             raise ValueError("Model not supported.")
     
     ######## Initialization ########
-    def intialize_all_lecture(self, train_dict:dict, val_dict:dict, test_dict:dict, dataset_mode:str):
-    
-        train_set, val_set, test_set = self.initialize_lecture_dataset(train_dict, val_dict, test_dict, dataset_mode)
-
-        train_loader, val_loader, test_loader = self.initialize_lecture_dataloader(train_set, val_set, test_set, dataset_mode)
+    def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict):
         
-        model = self.initialize_model()
-        optimizer = self.initialize_optimizer(model)
-        
-        return train_loader, val_loader, test_loader, model, optimizer
-
-    def initialize_lecture_dataset(self, train_df:dict, val_df:dict, test_df:dict, dataset_mode:str):
-        
-        train_set = LectureDataset(train_df, self.hyperparameters, dataset_mode, validation=False)
-        val_set = LectureDataset(val_df, self.hyperparameters, dataset_mode, validation=True)
-        test_set = LectureDataset(test_df, self.hyperparameters, dataset_mode, validation=True)
-        
-        info, X, y_features, y = train_set[1]
-        if len(X.shape) != 1:
-            self.update_hyperparameters({
-                "x_size": int(X.shape[1]),
-                "y_features_size": int(y_features.shape[1]), 
-                "y_size": int(y.shape[1]),
-                "immutable_size": int(info[6].shape[0])
-                }
-            )
-
-        else:
-            self.update_hyperparameters({
-                "x_size": int(X.shape[0]),
-                "y_features_size": int(y_features.shape[0]), 
-                "y_size": int(y.shape[0]),
-                "immutable_size": int(info[6].shape[0])
-                }
-            )
-        
-        return train_set, val_set, test_set
-
-    def initialize_lecture_dataset_deployment(self, data_df, dataset_mode:str, path_to_helpers:str):
-        
-        dataset = LectureDataset(data_df, self.hyperparameters, dataset_mode, path_to_helpers=path_to_helpers,validation=False)
-        
-        info, X, y_features, y = dataset[1]
-        if len(X.shape) != 1:
-            self.update_hyperparameters({
-                "x_size": int(X.shape[1]),
-                "y_features_size": int(y_features.shape[1]), 
-                "y_size": int(y.shape[1]),
-                "immutable_size": int(info[6].shape[0])
-                }
-            )
-
-        else:
-            self.update_hyperparameters({
-                "x_size": int(X.shape[0]),
-                "y_features_size": int(y_features.shape[0]), 
-                "y_size": int(y.shape[0]),
-                "immutable_size": int(info[6].shape[0])
-                }
-            ) 
-            
-        return dataset
-        
-    def initialize_lecture_dataloader(self, train_set:Dataset, val_set:Dataset, test_set:Dataset, dataset_mode:str):
-        
-        if dataset_mode == "time_onedateahead":
-            collate_f = self.dateahead_collate
-        elif dataset_mode == "time_sequential":
-            collate_f = self.sequential_collate
-        else:
-            raise ValueError("Dataset mode not supported.")
-        
-        sampler = WeightedRandomSampler(train_set.sample_weight, len(train_set.samples))
-        train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], shuffle=True, 
-                                  collate_fn=collate_f, generator=self.torch_rng, drop_last=True, sampler=sampler)
-        
-        
-        raise
-        
-        val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=collate_f, drop_last=True)
-        
-        test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=collate_f, drop_last=True)
-        
-        return train_loader, val_loader, test_loader
- 
-    # initialize forecasting model
-    def initialize_all(self, train_dict:dict, val_dict:dict, test_dict:dict, set_mode:str):
-        
-        train_set, val_set, test_set = self.initialize_dataset(train_dict, val_dict, test_dict, set_mode)
+        train_set, val_set, test_set = self.initialize_dataset(
+            train_dict, 
+            val_dict, 
+            test_dict
+        )
 
         train_loader, val_loader, test_loader = self.initialize_dataloader(train_set, val_set, test_set)
-        
+
         model = self.initialize_model()
         optimizer = self.initialize_optimizer(model)
         
         return train_loader, val_loader, test_loader, model, optimizer
     
     def initialize_model(self) -> nn.Module:
+        
         occcount = "occcount" in self.hyperparameters["features"]
         self.update_hyperparameters(
             {"occcount": occcount}
             )
-        model = self.model_class(self.hyperparameters)
+        
+        model = self.model_class(self.hyperparameters, self.path_to_helpers)
+        
         return model.to(self.device)    
     
     def initialize_optimizer(self, model:nn.Module) -> Optimizer:
@@ -308,21 +192,22 @@ class MasterTrainer:
         if self.optimizer_class == torch.optim.Adam:
             optimizer = self.optimizer_class(model.parameters(), lr=self.hyperparameters["lr"], 
                                              weight_decay=self.hyperparameters["weight_decay"])
+            
         elif self.optimizer_class == torch.optim.SGD:
             optimizer = self.optimizer_class(model.parameters(), lr=self.hyperparameters["lr"], 
                                              momentum=self.hyperparameters["momentum"],
                                              weight_decay=self.hyperparameters["weight_decay"])
+            
         else:
             raise ValueError("Optimizer not supported.")
         
         return optimizer
     
-    def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict, mode:str):
+    def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
         
-        train_set = OccupancyDataset(train_dict, self.hyperparameters, mode)
-        val_set = OccupancyDataset(val_dict, self.hyperparameters, mode)
-        test_set = OccupancyDataset(test_dict, self.hyperparameters, mode)    
-        
+        train_set = OccupancyDataset(train_dict, self.hyperparameters, self.path_to_helpers, validation=False)
+        val_set = OccupancyDataset(val_dict, self.hyperparameters, self.path_to_helpers, validation=True)
+        test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)    
         
         _, X, y_features, y = train_set[0]
         
@@ -341,9 +226,9 @@ class MasterTrainer:
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], 
                                   collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True, sampler=train_sampler)
         
-        val_sampler = WeightedRandomSampler(val_set.sample_weights, len(val_set.samples)) 
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=self.custom_collate, drop_last=True, sampler=val_sampler)
+                                collate_fn=self.custom_collate, drop_last=True)
+        
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
                                  collate_fn=self.custom_collate, drop_last=True)
@@ -465,7 +350,7 @@ class MasterTrainer:
                 
                 model_output = model(X, y_features, room_id)
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device
-                
+
                 loss = self.criterion(model_output, y)
 
                 val_loss.append(loss.cpu().detach())
@@ -528,7 +413,7 @@ class MasterTrainer:
         # ignore warnings
         hyperparameters = json.load(open(os.path.join(checkpoint_path, "hyperparameters.json"), "r"))
         
-        model = self.model_class(hyperparameters)
+        model = self.model_class(hyperparameters, self.path_to_helpers)
         model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
         model = model.to(self.device)
         
