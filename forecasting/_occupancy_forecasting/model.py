@@ -344,12 +344,17 @@ class EncDecOccLSTM(torch.nn.Module):
         
         # predictor
         if len(self.hidden_size) == 2:
-            raise
-            #self.fc_end = nn.Sequential()
-            #self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0]*self.bidir_factor, self.hidden_size[1]))
-            #self.fc_end.add_module("relu_0", nn.ReLU())
-            #self.fc_end.add_module("output_layer", nn.Linear(self.hidden_size[1], self.y_size  )) 
-        self.fc_end = nn.Linear(self.hidden_size[0]*self.bidir_factor, hyperparameters["y_size"])
+            self.fc_end = nn.Sequential(
+                nn.Linear(self.hidden_size[0]*self.bidir_factor, self.hidden_size[1]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[1], hyperparameters["y_size"])
+                )
+            
+        elif len(self.hidden_size) == 1:
+            self.fc_end = nn.Linear(self.hidden_size[0]*self.bidir_factor, hyperparameters["y_size"])
+            
+        else:
+            raise ValueError("Only one or two hidden layers are supported")
 
         # additive noise
         self.add_noise = False

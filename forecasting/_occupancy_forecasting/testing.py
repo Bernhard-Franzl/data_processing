@@ -154,14 +154,14 @@ class OccupancyTestSuite():
     def prepare_data(self, dataset_mode):
         
         if dataset_mode in ["normal", "dayahead", "unlimited"]:
-                
+            
             train_dict, val_dict, test_dict = load_data(
                 path_to_data_dir=self.path_to_data, 
                 frequency=self.hyperparameters["frequency"], 
                 split_by=self.hyperparameters["split_by"],
-                dfguru=self.dfg
-            )
-                    
+                dfguru=self.dfg,
+                with_examweek=self.hyperparameters["with_examweek"]
+            )   
             
             train_set = OccupancyDataset(train_dict, self.hyperparameters, self.path_to_helpers, validation=True)
             val_set = OccupancyDataset(val_dict, self.hyperparameters, self.path_to_helpers, validation=True)
@@ -457,6 +457,8 @@ class OccupancyTestSuite():
             list_targets = []
             list_baseline_predictions = []
             
+            
+            lens=[]
             for dataset in [trainset, valset, testset]:
 
         
@@ -477,19 +479,19 @@ class OccupancyTestSuite():
                 #    dataset, 
                 #    True)
 
-                
+                lens.append(len(predictions))
                 list_predictions.extend(predictions)
                 list_infos.extend(infos)
                 list_targets.extend(targets)
                 #list_baseline_predictions.extend(bl_preds)
 
-                
+
             list_baseline_loss_dicts.append(dict_baseline_losses)
             list_avg_baseline_loss_dicts.append(dict_avg_losses)
             
             list_loss_dicts.append(dict_losses)
             
-            dataset_mask = np.array([0]*len(trainset) + [1]*len(valset) + [2]*len(testset)) 
+            dataset_mask = np.array([0]*lens[0] + [1]*lens[1] + [2]*lens[2]) 
             list_dataset_masks.append(dataset_mask)
             
             
@@ -777,7 +779,6 @@ class OccupancyTestSuite():
                 
         return list_combinations, list_hyperparameters, list_loss_dicts, list_baseline_loss_dicts, list_dataset_masks
 
-
     def write_data_loss(self, data_string, loss_f, combinations, hyperparameters, mean_loss, std_loss, mean_bl_loss, std_bl_loss, skip_baseline):
         
         if loss_f == "R2":
@@ -831,6 +832,7 @@ class OccupancyTestSuite():
             std_train_loss = []
             std_val_loss = []
             std_test_loss = []
+            
             std_bs_train_loss = []
             std_bs_val_loss = []
             std_bs_test_loss = []
@@ -843,6 +845,7 @@ class OccupancyTestSuite():
                 
                 losses_i = np.array(loss_dict_i[loss_f])
                 
+
                 train_losses_i = losses_i[dataset_mask_i == 0]
                 val_losses_i = losses_i[dataset_mask_i == 1]
                 test_losses_i = losses_i[dataset_mask_i == 2]
