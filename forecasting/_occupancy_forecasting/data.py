@@ -130,6 +130,18 @@ def prepare_data(path_to_data_dir, frequency, feature_list, dfguru, rng, helpers
         data_dict[room_id] = occ_time_series
         
         
+    if with_examweek:
+        add_to_string = "_with-examweek"
+    else:
+        add_to_string = "_without-examweek"
+        
+    # save unsplit data_dict
+    for room_id, df in data_dict.items():
+        dfguru.save_to_csv(
+            df, 
+            f"data/occupancy_forecasting/freq_{frequency}", 
+            f"room-{room_id}_unsplit-data-dict" + add_to_string)
+    
 
     train_dict, val_dict, test_dict = train_val_test_split(data_dict, rng, split_by, verbose=True)
 
@@ -147,8 +159,8 @@ def train_val_test_split(data_dict, rng, split_by, verbose=True):
     test_size = 0
     train_size = 0
     
-    chunk_proportion = 0.05
-    test_set_factor = 2
+    chunk_proportion = 0.025
+    test_set_factor = 4
     
     for room_id in data_dict:
          
@@ -202,8 +214,41 @@ def train_val_test_split(data_dict, rng, split_by, verbose=True):
             ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
             ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
             ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
-        
+           
+        elif split_by == "mixed":
             
+            occ_time_series = data_dict[room_id]
+            total_size += len(occ_time_series)
+
+            # generate chunks with size 0.05 of the data
+            index_shift = int(len(occ_time_series) * chunk_proportion)
+            indices = np.arange(0, len(occ_time_series), index_shift)
+            if (len(occ_time_series)-indices[-1]) < index_shift:
+                indices = indices[:-1]
+               
+               
+            test_size_indices = chunk_proportion * test_set_factor
+            train_size_indices = 1 - (2*test_size_indices)
+
+
+            train_slice = int(len(indices) * train_size_indices)
+            test_slice = int(len(indices) * test_size_indices)
+            
+            train_val_indices = indices[ : train_slice +test_slice//2].copy()
+            rng.shuffle(train_val_indices)
+            
+            train_indices = train_val_indices[ : train_slice]
+            val_indices_2 = train_val_indices[train_slice : ]
+            
+            val_indices = indices[train_slice+test_slice//2 : train_slice+test_slice]
+            val_indices = np.concatenate([val_indices, val_indices_2])
+            
+            test_indices = indices[train_slice+test_slice : ]
+
+            ts_val = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in val_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+            ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
+           
         elif split_by == "time":
             
             occ_time_series = data_dict[room_id]

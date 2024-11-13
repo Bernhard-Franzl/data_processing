@@ -11,7 +11,7 @@ from torch.optim.optimizer import Optimizer
 from torch.utils.data import DataLoader, Dataset, WeightedRandomSampler
 
 from _occupancy_forecasting.data import OccupancyDataset
-from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM
+from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTMExperimental
 
 class StatsLogger:
     
@@ -156,6 +156,9 @@ class MasterTrainer:
 
         elif model_class == "ed_lstm":
             return EncDecOccLSTM
+        
+        elif model_class == "ed_lstm_exp":
+            return EncDecOccLSTMExperimental
 
         else:
             raise ValueError("Model not supported.")
@@ -255,7 +258,6 @@ class MasterTrainer:
                 y_features = y_features.to(self.device)
                 y = y.to(self.device).view(-1, model.output_size)
 
-
                 model_output = model(X, y_features, room_id)
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device)
 
@@ -347,7 +349,7 @@ class MasterTrainer:
                 X = X.to(self.device)
                 y_features = y_features.to(self.device)
                 y = y.to(self.device).view(-1, model.output_size)
-                
+             
                 model_output = model(X, y_features, room_id)
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device
 

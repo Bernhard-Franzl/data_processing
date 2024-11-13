@@ -16,7 +16,7 @@ from tqdm import tqdm
 import pandas as pd
 
 
-from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM #,SimpleOccGRU, MassConservingOccLSTM
+from _occupancy_forecasting.model import SimpleOccDenseNet, SimpleOccLSTM, EncDecOccLSTM, EncDecOccLSTMExperimental
 from _occupancy_forecasting.data import OccupancyDataset
 from _occupancy_forecasting.data import load_data
 
@@ -71,6 +71,84 @@ class TestWriter():
         hyperparameters_txt = f"Hyperparameters: {listy}\n"
         self.write_text_to_file(hyperparameters_txt)
 
+
+class LoggerTestSuite():
+    
+    def __init__(self, loss_types, baseline_types, dataset_type):
+        
+        self.loss_types = loss_types
+        self.baseline_types = baseline_types
+        self.dataset_type = dataset_type
+        
+        self.model_types = self.baseline_types + ["model"]
+        
+
+    def init_run(self):
+        self.combinations = []
+        self.hyperparameters = []
+        
+        self.losses_comb = {key : {key : {key:[] for key in self.loss_types} for key in self.model_types} for key in self.dataset_type}
+        #self.predictions_comb = {key : {key:[] for key in self.model_types} for key in self.dataset_type}
+        #self.targets_comb = {key:[] for key in self.dataset_type}
+        #self.infos_comb = {key:[] for key in self.dataset_type}
+        #self.inputs_comb = []
+        #self.target_features_comb = []
+
+    def init_combination(self):
+        #logged for model and baselines
+        self.losses = {key : {key : {key:[] for key in self.loss_types} for key in self.model_types} for key in self.dataset_type}
+        self.predictions = {key : {key:[] for key in self.model_types} for key in self.dataset_type}
+        
+        #logged only for model
+        self.targets = {key:[] for key in self.dataset_type}
+        self.inputs = {key:[] for key in self.dataset_type}
+        self.target_features = {key:[] for key in self.dataset_type}
+        self.infos = {key:[] for key in self.dataset_type}
+     
+     
+    ########## Add functions: Run ##########   
+    def add_combination(self, combinations):
+        self.combinations.append(combinations)
+        
+    def add_hyperparameters(self, hyperparameters):
+        self.hyperparameters.append(hyperparameters)
+        
+    def add_comb_statistics(self):
+        
+        for dataset_type in self.dataset_type:
+            for model_type in self.model_types:
+                for loss_type in self.loss_types:
+                    self.losses_comb[dataset_type][model_type][loss_type].append(np.mean(self.losses[dataset_type][model_type][loss_type]))
+                
+                #self.predictions_comb[dataset_type][model_type].append(self.predictions[dataset_type][model_type])
+            #self.targets_comb[dataset_type].append(self.targets[dataset_type])
+            #self.infos_comb[dataset_type].append(self.infos[dataset_type])
+        
+        
+    ########## Add functions: Combination ##########
+    def add_losses(self, dataset_type, model_type, losses):
+        
+        # extend losses in dict with new losses
+        for key in self.loss_types:
+            self.losses[dataset_type][model_type][key].append(losses[key])
+            
+    def add_predictions(self, dataset_type, model_type, predictions):
+        
+        self.predictions[dataset_type][model_type].append(predictions)
+        
+    def add_target(self, dataset_type, targets):
+        self.targets[dataset_type].append(targets)
+    
+    def add_input(self, dataset_type, inputs):
+        self.inputs[dataset_type].append(inputs)
+        
+    def add_target_features(self, dataset_type, target_features):
+        self.target_features[dataset_type].append(target_features)
+        
+    def add_info(self, dataset_type, infos):
+        self.infos[dataset_type].append(infos)
+    
+        
 class OccupancyTestSuite():
     
     def __init__(self, cp_log_dir, path_to_data, path_to_helpers, path_to_results, erase_results_file):
@@ -82,6 +160,9 @@ class OccupancyTestSuite():
         self.loss_types = ["MAE", "R2"]
         self.loss_functions = self.get_loss_functions()
         
+        self.baseline_types = ["zero", "naive", "avg"]
+        self.dataset_types = ["train", "val", "test"]
+        
         self.bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
         
         self.path_to_data = path_to_data
@@ -90,7 +171,9 @@ class OccupancyTestSuite():
         self.hyperparameters = None
         
         self.writer = TestWriter(path_to_results, erase_results_file)
-    
+        self.logger = LoggerTestSuite(self.loss_types, self.baseline_types, self.dataset_types)
+        
+        
     def get_loss_functions(self):
         
         loss_functions = dict()
@@ -133,6 +216,9 @@ class OccupancyTestSuite():
         
         elif model_name == "ed_lstm":
             return EncDecOccLSTM
+        
+        elif model_name == "ed_lstm_exp":
+            return EncDecOccLSTMExperimental
         
         else:
             raise ValueError(f"Model {model_name} not recognized")
@@ -198,8 +284,9 @@ class OccupancyTestSuite():
         return dataloader
     
     
-    def calculate_losses(self, losses, pred, target):
-
+    def calculate_losses(self, pred, target):
+        
+        losses = {key:[] for key in self.loss_types}
         for key, loss_f in self.loss_functions.items():
             
             if key == "R2":
@@ -215,121 +302,168 @@ class OccupancyTestSuite():
             else:
                 loss = loss_f(pred, target)
                 losses[key].append(loss)
+                
+        return losses
+    
+    def test_zero_baseline(self, dataloader, dataset_type):
         
-    def test_naive_baseline(self, dataset, losses):
+        # predicts always zero
         
-        # simply predicts the last observed value
-        
-        predictions = []
-        infos = []
-        inputs = []
-        targets = []
-        target_features = []
-        
-        #for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=self.bar_format, leave=False):
-        for info, X, y_features, y in dataset:
+        for info, X, y_features, y, _ in dataloader:
             
-            if len(X.shape) == 1:
-                preds = X[:1]
+            if y.shape[1] < self.hyperparameters["y_horizon"]:
+                continue
                 
-                if preds < 0:
-                    preds = torch.Tensor([0])
-                
+            y = y.squeeze(-1)
+            preds = torch.zeros(y.shape)
 
-            elif len(X.shape) == 2:
-                occrates = X[:, :1]
-                occrates_pos = occrates[occrates >= 0]
-                
-                preds = occrates_pos[-1:]
-                y = y.squeeze(-1)
-                if preds.shape[0] == 0:
-                    preds = torch.Tensor([0])
-                
-            else:
-                raise ValueError("X has unknown shape")
-            
-            if any(preds < 0):
-                print(preds)
-                raise ValueError("Negative value in prediction")
-            
-            
             if preds.shape != y.shape:
-                print(X, preds, y)
                 raise ValueError("Prediction and target shape do not match")
+    
+            losses = self.calculate_losses(preds, y)
             
-        
-            self.calculate_losses(losses, preds, y)
-            
-            predictions.append(preds)
-            infos.append(info)
-            inputs.append(X)
-            targets.append(y)
-            target_features.append(y_features)
+            self.logger.add_losses(dataset_type, "zero", losses)
+            self.logger.add_predictions(dataset_type, "zero", preds)
 
-        return losses, predictions, infos, targets, inputs, target_features
- 
-    def test_avg_baseline(self, dataset, losses):
+               
+    def test_naive_baseline(self, dataloader, dataset_type):
         
-        # simply predicts the last observed value
-        
-        predictions = []
-        infos = []
-        inputs = []
-        targets = []
-        target_features = []
-        
-        #for info, X, y_features, y in tqdm(dataset, total=len(dataset), bar_format=self.bar_format, leave=False):
-        for info, X, y_features, y in dataset: 
-            
-            if len(X.shape)== 1:
-                preds = X[:1]
-                raise ValueError("X has strange shape")
-                
-            elif len(X.shape) == 2:
-                occrates = X[:, :1]
-                occrates_pos = occrates[occrates >= 0]
-            
-                if occrates_pos.shape[0] == 0:
-                    occrates_pos = torch.Tensor([0])
-                
-                preds = torch.mean(occrates_pos, dim=0, keepdim=True)
+        # predicts the occupancy of the last week
 
-            else:
-                raise ValueError("X has unknown shape")
+        path_to_file = os.path.join(self.path_to_data, f"freq_{self.hyperparameters['frequency']}")
+
+        if self.hyperparameters["with_examweek"]:
+            add_to_string = "_with-examweek"
+        else:
+            add_to_string = "_without-examweek"
             
-            if any(preds < 0):
-                print(preds)
-                raise ValueError("Negative value in prediction")
+        data_dict = {0: None, 1: None}
+        for room_id in [0, 1]:
+            df = self.dfg.load_dataframe(
+                path_repo=path_to_file, 
+                file_name=f"room-{room_id}_unsplit-data-dict" + add_to_string)
+            data_dict[room_id] = df
             
+            
+        for info, X, y_features, y, additional_info in dataloader:
+            
+            #room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course)
+            
+            if y.shape[1] < self.hyperparameters["y_horizon"]:
+                continue
+                           
+            list_room_id = [info_i[0] for info_i in info]
+            list_y_time = [info_i[2] for info_i in info]
+            
+            # get pred
+            list_pred = []
+            for room_id, y_time in zip(list_room_id, list_y_time):
+                    
+                # last week y_time 
+                y_time_last_week = y_time - pd.Timedelta(weeks=1)
+                mask = (data_dict[room_id]["datetime"].isin(y_time_last_week))
+                
+                pred = data_dict[room_id]["occrate"].loc[mask].values
+                
+                if pred.shape[0] == 0:
+                    pred = torch.zeros(y.shape).squeeze()
+                    
+                else:
+                    pred = torch.Tensor(pred)
+        
+                list_pred.append(pred)
+
+            preds = torch.stack(list_pred)
             y = y.squeeze(-1)
             
             if preds.shape != y.shape:
-                print(X, preds, y)
                 raise ValueError("Prediction and target shape do not match")
+    
+            losses = self.calculate_losses(preds, y)
             
-        
-            self.calculate_losses(losses, preds, y)
-            
-            predictions.append(preds)
-            infos.append(info)
-            inputs.append(X)
-            targets.append(y)
-            target_features.append(y_features)
+            self.logger.add_losses(dataset_type, "naive", losses)
+            self.logger.add_predictions(dataset_type, "naive", preds)
 
-        return losses, predictions, infos, targets, inputs, target_features
+        del data_dict
+ 
+    def test_avg_baseline(self, dataloader, dataset_type, k):
+        
+        # simply predicts the avg value of the last k weeks
+
+        path_to_file = os.path.join(self.path_to_data, f"freq_{self.hyperparameters['frequency']}")
+
+        if self.hyperparameters["with_examweek"]:
+            add_to_string = "_with-examweek"
+        else:
+            add_to_string = "_without-examweek"
+            
+        data_dict = {0: None, 1: None}
+        min_week = []
+        for room_id in [0, 1]:
+            df = self.dfg.load_dataframe(
+                path_repo=path_to_file, 
+                file_name=f"room-{room_id}_unsplit-data-dict" + add_to_string)
+            
+            # extract min week
+            min_week.append(df["datetime"].dt.isocalendar().week.min())
+            data_dict[room_id] = df
+            
+        min_week = min(min_week)
+
+        for info, X, y_features, y, additional_info in dataloader:
+            
+            if y.shape[1] < self.hyperparameters["y_horizon"]:
+                continue
+                           
+            list_room_id = [info_i[0] for info_i in info]
+            list_y_time = [info_i[2] for info_i in info]
+            
+            # get pred
+            list_pred = []
+            for room_id, y_time in zip(list_room_id, list_y_time):
+                    
+                    
+                # last week y_time 
+                cur_week = y_time.dt.isocalendar().week.min()
+                
+                week_diff = cur_week - min_week
+                
+                if week_diff > 0:
+                    
+                    pred = []
+                    for i in list(range(week_diff, 0, -1))[-k:]:
+                        y_time_subtract = y_time - pd.Timedelta(weeks=i)
+
+                        mask = (data_dict[room_id]["datetime"].isin(y_time_subtract))
+                        pred_i = data_dict[room_id]["occrate"].loc[mask].values
+                        pred_i = torch.Tensor(pred_i)
+                        pred.append(pred_i)
+                        
+                    list_pred.append(torch.mean(torch.stack(pred), axis=0))
+                else:
+                    pred = torch.zeros(y.shape).squeeze()
+                    list_pred.append(pred)
+            
+            preds = torch.stack(list_pred)
+            y = y.squeeze(-1)
+
+            if preds.shape != y.shape:
+                raise ValueError("Prediction and target shape do not match")
+    
+            losses = self.calculate_losses(preds, y)
+            
+            self.logger.add_losses(dataset_type, "avg", losses)
+            self.logger.add_predictions(dataset_type, "avg", preds)
+            
+
+        del data_dict
        
-    def test_model(self, model, dataloader, losses):
+    def test_model(self, model, dataloader, dataset_type):
         
         model.eval()
         model = model.to(self.device)
 
         with torch.no_grad():
-            
-            predictions = []
-            infos = []
-            inputs = []
-            targets = []
-            target_features = []
 
             #for info, X, y_features, y, immutable_features  in tqdm(dataloader, total=len(dataloader), bar_format=self.bar_format, leave=False):
             for info, X, y_features, y, additional_info in dataloader:
@@ -353,17 +487,17 @@ class OccupancyTestSuite():
                 info = [(info[0][0], info[0][1], info[0][2][:model_output.shape[1]], info[0][3], info[0][4], info[0][5])]
                 
                   
-                self.calculate_losses(losses, model_output, y_adjusted)
+                losses = self.calculate_losses(model_output, y_adjusted)
                 
-                predictions.extend(model_output)
-                infos.extend(info)
-                inputs.extend(X.cpu())
-                targets.extend(y_adjusted)
-                target_features.extend(y_features.cpu())
-            
-        return losses, predictions, infos, targets, inputs, target_features
-    
-    
+                self.logger.add_losses(dataset_type, "model", losses)
+                self.logger.add_predictions(dataset_type, "model", model_output)
+                
+                self.logger.add_target(dataset_type, y_adjusted)
+                self.logger.add_input(dataset_type, X.cpu())
+                self.logger.add_target_features(dataset_type, y_features.cpu())
+                self.logger.add_info(dataset_type, info)             
+                
+
     def denormalize_predictions(self, list_of_predictions, targets, infos, dataset, convert_to_counts):
 
         if convert_to_counts:
@@ -407,17 +541,30 @@ class OccupancyTestSuite():
             target_denorm = target_denorm * registered_denorm
         
         return tuple(list_denorm), target_denorm
-                         
+    
+    
+    def test_baselines(self, dataloader, dataset_type):
+
+        self.test_zero_baseline(
+            dataloader,
+            dataset_type
+        )
+
+        self.test_naive_baseline(
+            dataloader,
+            dataset_type
+        )
+
+        self.test_avg_baseline(
+            dataloader,
+            dataset_type,
+            k=5
+        )    
+                      
     def evaluate_combinations(self, comb_tuples, plot_results, print_results, dataset_mode):
         
-        convert_to_counts = False
-        
-        list_combinations = []
-        list_hyperparameters = []
-        list_loss_dicts = []
-        list_baseline_loss_dicts = []
-        list_avg_baseline_loss_dicts = []
-        list_dataset_masks = []
+        #convert_to_counts = False  
+        self.logger.init_run()
         
         for n_run, n_comb in tqdm(comb_tuples, total=len(comb_tuples), bar_format=self.bar_format, leave=False):
             
@@ -430,8 +577,8 @@ class OccupancyTestSuite():
             
             model = self.load_checkpoint(checkpoint_path=checkpoint_path, load_optimizer=False)
             
-            list_hyperparameters.append(self.hyperparameters)
-            list_combinations.append((n_run, n_comb))
+            self.logger.add_combination((n_run, n_comb))
+            self.logger.add_hyperparameters(self.hyperparameters)
 
 
             # handle dataset mode
@@ -446,57 +593,37 @@ class OccupancyTestSuite():
             )
  
             ###################################################
-            dict_losses= {key:[] for key in self.loss_types}
-            dict_baseline_losses = {key:[] for key in self.loss_types}
-            dict_avg_losses = {key:[] for key in self.loss_types}
             
-            
-            # for plotting
-            list_predictions = []
-            list_infos = []
-            list_targets = []
-            list_baseline_predictions = []
-            
-            
-            lens=[]
-            for dataset in [trainset, valset, testset]:
+            self.logger.init_combination()
+
+            list_datasets = zip(self.dataset_types, [trainset, valset, testset])
+            for dataset_type, dataset in list_datasets:
 
         
                 dataloader = self.prepare_data_loader(
                     dataset=dataset
                 )
-
-                #dict_baseline_losses, bl_preds, bl_infos, bl_targets, bl_inputs, bl_target_features = self.test_naive_baseline(dataset, dict_baseline_losses)
-                #dict_avg_losses, avg_preds, avg_infos, avg_targets, avg_inputs, avg_target_features = self.test_avg_baseline(dataset, dict_avg_losses)
                 
-                dict_losses, predictions, infos, targets, inputs, target_features = self.test_model(model, dataloader, dict_losses)
-                
-                # denormalize the prediction
-                #(predictions, bl_preds), targets = self.denormalize_predictions(
-                #    [predictions, bl_preds], 
-                #    targets, 
-                #    infos, 
-                #    dataset, 
-                #    True)
+                self.test_baselines(dataloader, dataset_type)
 
-                lens.append(len(predictions))
-                list_predictions.extend(predictions)
-                list_infos.extend(infos)
-                list_targets.extend(targets)
-                #list_baseline_predictions.extend(bl_preds)
+                self.test_model(
+                    model, 
+                    dataloader, 
+                    dataset_type
+                )
 
+            self.logger.add_comb_statistics()
 
-            list_baseline_loss_dicts.append(dict_baseline_losses)
-            list_avg_baseline_loss_dicts.append(dict_avg_losses)
+            #list_baseline_loss_dicts.append(dict_baseline_losses)
+            #list_avg_baseline_loss_dicts.append(dict_avg_losses)
+            #list_loss_dicts.append(dict_losses)
             
-            list_loss_dicts.append(dict_losses)
-            
-            dataset_mask = np.array([0]*lens[0] + [1]*lens[1] + [2]*lens[2]) 
-            list_dataset_masks.append(dataset_mask)
-            
+            #dataset_mask = np.array([0]*lens[0] + [1]*lens[1] + [2]*lens[2]) 
+            #list_dataset_masks.append(dataset_mask)
             
             if print_results:
                 
+                raise NotImplementedError("Printing not implemented")
                 mae_losses = np.array(dict_losses["MAE"])
                 r2_losses = np.array(dict_losses["R2"])
                 
@@ -506,28 +633,18 @@ class OccupancyTestSuite():
                 
                 print(f"N_RUN: {n_run} | N_COMB: {n_comb}")
                 
-                # without baseline
-                print(f"Train: MAE: {np.round(np.mean(mae_losses[train_mask]) ,4)} | R2: {np.round(np.mean(r2_losses[train_mask]) ,4)}")
-                print(f"Val: MAE: {np.round(np.mean(mae_losses[val_mask]) ,4)} | R2: {np.round(np.mean(r2_losses[val_mask]) ,4)}")
-                print(f"Test: MAE: {np.round(np.mean(mae_losses[test_mask]) ,4)} | R2: {np.round(np.mean(r2_losses[test_mask]) ,4)}")
 
-                
+                bl_mae_losses = np.array(dict_baseline_losses["MAE"])
+                bl_r2_losses = np.array(dict_baseline_losses["R2"])
                 # with baseline
-                #val_preds = pred_array[val_mask]
-                #val_targets = target_array[val_mask]
-                #val_bl_preds = pred_baseline[val_mask]
-                #print(f"MAE Val: {np.round(mae(torch.Tensor(val_preds), torch.Tensor(val_targets)).numpy(), 4)}| BL: {np.round(mae(torch.Tensor(val_bl_preds), torch.Tensor(val_targets)).numpy(), 4)}")
                 
-                #train_preds = pred_array[train_mask]
-                #train_targets = target_array[train_mask]
-                #train_bl_preds = pred_baseline[train_mask]
-                #print(f"MAE Train: {np.round(mae(torch.Tensor(train_preds), torch.Tensor(train_targets)).numpy(), 4)}| BL: {np.round(mae(torch.Tensor(train_bl_preds), torch.Tensor(train_targets)).numpy(), 4)}")
+                print(f"Train: MAE: {np.round(np.mean(mae_losses[train_mask]) ,4)} | BL: {np.round(np.mean(bl_mae_losses[train_mask]) ,4)}")
+                print(f"Val: MAE: {np.round(np.mean(mae_losses[val_mask]) ,4)} | BL: {np.round(np.mean(bl_mae_losses[val_mask]) ,4)}")
+                print(f"Test: MAE: {np.round(np.mean(mae_losses[test_mask]) ,4)} | BL: {np.round(np.mean(bl_mae_losses[test_mask]) ,4)}")
                 
-                #test_preds = pred_array[test_mask]
-                #test_targets = target_array[test_mask]
-                #test_bl_preds = pred_baseline[test_mask]
-                #print(f"MAE Test: {np.round(mae(torch.Tensor(test_preds), torch.Tensor(test_targets)).numpy(), 4)}| BL: {np.round(mae(torch.Tensor(test_bl_preds), torch.Tensor(test_targets)).numpy(), 4)}")
-            
+                print(f"Train: R2: {np.round(np.mean(r2_losses[train_mask]) ,4)} | BL: {np.round(np.mean(bl_r2_losses[train_mask]) ,4)}")
+                print(f"Val: R2: {np.round(np.mean(r2_losses[val_mask]) ,4)} | BL: {np.round(np.mean(bl_r2_losses[val_mask]) ,4)}")
+                print(f"Test: R2: {np.round(np.mean(r2_losses[test_mask]) ,4)} | BL: {np.round(np.mean(bl_r2_losses[test_mask]) ,4)}")            
                 
             if plot_results:
                 
@@ -535,7 +652,7 @@ class OccupancyTestSuite():
                 #pred_array = np.array(list_predictions).squeeze()
                 #pred_baseline = np.array(list_baseline_predictions).squeeze()
                 #target_array = np.array(list_targets).squeeze()
-
+                raise NotImplementedError("Plotting not implemented")
                 if dataset_mode=="dayahead":
                     
                     room_id_list = [0,1]
@@ -776,16 +893,14 @@ class OccupancyTestSuite():
                         )
                     )
                     fig.show()
-                
-        return list_combinations, list_hyperparameters, list_loss_dicts, list_baseline_loss_dicts, list_dataset_masks
+               
 
-    def write_data_loss(self, data_string, loss_f, combinations, hyperparameters, mean_loss, std_loss, mean_bl_loss, std_bl_loss, skip_baseline):
+    def write_data_loss(self, data_string, loss_f, combinations, hyperparameters, mean_loss, mean_bl_loss, skip_baseline):
         
         if loss_f == "R2":
             indices = np.argsort(mean_loss)[::-1]
         else:
             indices = np.argsort(mean_loss)
-            
             
         top_k_params=5
         
@@ -794,134 +909,76 @@ class OccupancyTestSuite():
 
         param_results = {}
         for key in all_keys:
-            vc = np.unique([params_dict[key] for params_dict in list_hyperparameters_k], return_counts=True, axis=0)
+            vc = np.unique([str(params_dict[key]) for params_dict in list_hyperparameters_k], return_counts=True, axis=0)
             # make vc readable
             vc = list(zip(vc[0], vc[1]))
             param_results[key] = vc
           
-        if skip_baseline:
-            bs_loss = np.empty(0)
-            bs_loss_std = np.empty(0)
-        else:
-            bs_loss = np.array(mean_bl_loss)[indices]
-            bs_loss_std = np.array(std_bl_loss)[indices]
-            
-        self.writer.write_loss(
-            loss_f=loss_f,
-            data=data_string,
-            combinations=np.array(combinations)[indices],
-            losses=np.array(mean_loss)[indices], losses_std=np.array(std_loss)[indices],
-            baseline_losses=bs_loss, bs_losses_std=bs_loss_std
-        )
+          
         self.writer.write_hyperparameters(param_results)
         self.writer.write_new_line()
-               
-    def analyse_results(self, combinations, hyperparameters, loss_dicts, 
-                            baseline_loss_dicts, dataset_masks):
+           
+    def top_k_hyperparameters(self, sort_indices, hyperparameters, keys_of_interest, k):
         
-        for loss_f in self.loss_types:
-            
-            mean_train_loss = []
-            mean_val_loss = []
-            mean_test_loss = []
-            
-            mean_bs_train_loss = []
-            mean_bs_val_loss = []
-            mean_bs_test_loss = []
-            
-            std_train_loss = []
-            std_val_loss = []
-            std_test_loss = []
-            
-            std_bs_train_loss = []
-            std_bs_val_loss = []
-            std_bs_test_loss = []
-            
-            skip_baseline = False
-            for i, (n_run, n_comb) in enumerate(combinations):
+        list_hyperparameters_k = [hyperparameters[i] for i in sort_indices[:k]]
 
-                loss_dict_i = loss_dicts[i]
-                dataset_mask_i = dataset_masks[i]
-                
-                losses_i = np.array(loss_dict_i[loss_f])
-                
-
-                train_losses_i = losses_i[dataset_mask_i == 0]
-                val_losses_i = losses_i[dataset_mask_i == 1]
-                test_losses_i = losses_i[dataset_mask_i == 2]
-
-
-                mean_train_loss.append(np.mean(train_losses_i))
-                mean_val_loss.append(np.mean(val_losses_i))
-                mean_test_loss.append(np.mean(test_losses_i))
-                
-                std_train_loss.append(np.std(train_losses_i))
-                std_val_loss.append(np.std(val_losses_i))
-                std_test_loss.append(np.std(test_losses_i))
-                        
-                # baseline stuff        
-                baseline_loss_dicts_i = baseline_loss_dicts[i]
-                baseline_losses_i = np.array(baseline_loss_dicts_i[loss_f])
+        param_results = {}
+        for key in keys_of_interest:
+            vc = np.unique([str(params_dict[key]) for params_dict in list_hyperparameters_k], return_counts=True, axis=0)
+            # make vc readable
+            vc = list(zip(vc[0], vc[1]))
+            param_results[key] = vc
+            
+        return param_results
         
-                if len(baseline_losses_i) == 0:
-                    skip_baseline = True
-                    continue
-                    
+        
+    def nparray_to_string(self, array):
+        prec = 6
+        return np.array2string(array.round(prec), precision=prec, separator=", ", max_line_width=1000)
+    
+    def analyse_results(self, hyperparameter_keys):
+        
+        
+
+        dataset_types = self.logger.losses_comb.keys() 
+        for dataset_type in dataset_types:
+            
+            dataset_losses = self.logger.losses_comb[dataset_type]
+
+            for loss_type in self.loss_types:
+
+                loss_txt = f"Dataset: {dataset_type} | Loss: {loss_type}\n"
+
+                # Sort indices
+                model_loss = dataset_losses["model"][loss_type]
+                if loss_type == "R2":
+                    sort_indices = np.argsort(model_loss)[::-1]
                 else:
-                    train_bs_losses_i = baseline_losses_i[dataset_mask_i == 0]
-                    val_bs_losses_i = baseline_losses_i[dataset_mask_i == 1]
-                                
-                    mean_bs_train_loss.append(np.mean(train_bs_losses_i))
-                    mean_bs_val_loss.append(np.mean(val_bs_losses_i))
-                    std_bs_train_loss.append(np.std(train_bs_losses_i))
-                    std_bs_val_loss.append(np.std(val_bs_losses_i))
-                    raise
+                    sort_indices = np.argsort(model_loss)
 
-            
-            # write train losses
-            self.write_data_loss(
-                data_string="train",
-                loss_f=loss_f,
-                combinations=combinations,
-                hyperparameters=hyperparameters,
-                mean_loss=mean_train_loss,
-                std_loss=std_train_loss,
-                mean_bl_loss=mean_bs_train_loss,
-                std_bl_loss=std_bs_train_loss,
-                skip_baseline=skip_baseline
-            )
-            
-            # write val losses
-            self.write_data_loss(
-                data_string="val",
-                loss_f=loss_f,
-                combinations=combinations,
-                hyperparameters=hyperparameters,
-                mean_loss=mean_val_loss,
-                std_loss=std_val_loss,
-                mean_bl_loss=mean_bs_val_loss,
-                std_bl_loss=std_bs_val_loss,
-                skip_baseline=skip_baseline
-            )
-            
-            # write val losses
-            self.write_data_loss(
-                data_string="test",
-                loss_f=loss_f,
-                combinations=combinations,
-                hyperparameters=hyperparameters,
-                mean_loss=mean_test_loss,
-                std_loss=std_test_loss,
-                mean_bl_loss=mean_bs_test_loss,
-                std_bl_loss=std_bs_test_loss,
-                skip_baseline=skip_baseline
-            )
+                # Combinations
+                loss_txt += f"Combinations: {np.array(self.logger.combinations)[sort_indices].tolist()}\n"
+                
+                # Model Losses
+                model_loss_sorted = np.array(model_loss)[sort_indices]
+                loss_txt += f"Model Losses: {self.nparray_to_string(model_loss_sorted)}\n"
+                
+                # Baseline Losses
+                for baseline_type in self.baseline_types:
+                    bl_loss = np.array(dataset_losses[baseline_type][loss_type])
+                    loss_txt += f"BL {baseline_type} Losses: {self.nparray_to_string(bl_loss)}\n"
+                
+                
+                self.writer.write_text_to_file(loss_txt)
+
+                param_results = self.top_k_hyperparameters(sort_indices, self.logger.hyperparameters, hyperparameter_keys, k=5)
+                
+                self.writer.write_hyperparameters(param_results)
+                self.writer.write_new_line()
                 
         self.writer.write_new_line()
-        self.writer.write_new_line()
-    
-    
-    
+        self.writer.write_new_line()   
+ 
     
 ############### Load checkpoints ################
 def list_checkpoints(path_to_dir, run_id):

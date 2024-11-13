@@ -1,13 +1,13 @@
 {   
-    "info": "Run 1: Features",
+    "info": "Run 1: Features and Horizon and Model Size",
     "model_class": ["ed_lstm"],
     "split_by":["time"],
     "with_examweek": [false],
     "dataset_mode":["normal"],
     "lr": [0.001],
     "batch_size": [32],
-    "hidden_size": [[32], [8], [128]],
-    "num_layers": [2, 3],
+    "hidden_size": [[32], [8], [128], [8,8], [32,16], [128, 16]],
+    "num_layers": [3],
     "bidirectional": [true],
     "additive_noise": [0],
     "course_encoding_dim": [0],
@@ -17,7 +17,8 @@
         "occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered",
         "occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag",
         "occrate_lecture_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag",
-        "occrate_lecture_test_exam_tutorium_cancelled_type_week_zwickltag"
+        "occrate_lecture_test_exam_tutorium_cancelled_type_week_zwickltag",
+        "occrate_lecture_test_exam_tutorium_cancelled"
     ],
     "frequency": "5min",
     "max_n_updates": 50000,

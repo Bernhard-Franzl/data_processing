@@ -313,6 +313,7 @@ class EncDecOccLSTM(torch.nn.Module):
         self.hidden_size = hyperparameters["hidden_size"]
         self.bidir_factor = 2 if hyperparameters["bidirectional"] else 1
         
+        # coursenumber
         encoding_dim = 0
         if "coursenumber" in hyperparameters["features"]:
             
@@ -326,19 +327,46 @@ class EncDecOccLSTM(torch.nn.Module):
             weights = torch.zeros(len(course_numbers), encoding_dim)
             self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
         
+        # dropout
+        if "dropout" not in hyperparameters:
+            hyperparameters["dropout"] = 0.0
+  
+        # prelayer
+        if self.hyperparameters["prelayer"]:  
+
+            self.fc_in_enc = nn.Sequential(
+                nn.Linear(hyperparameters["x_size"] + encoding_dim, self.hidden_size[0]),
+                nn.Dropout(p=hyperparameters["dropout"]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[0], self.hidden_size[0])
+                )
+            enc_input_size = self.hidden_size[0]
+            
+            self.fc_in_dec = nn.Sequential(
+                nn.Linear(hyperparameters["y_features_size"] + encoding_dim, self.hidden_size[0]),
+                nn.Dropout(p=hyperparameters["dropout"]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[0], self.hidden_size[0])
+                )
+            dec_input_size = self.hidden_size[0]
+        
+        else: 
+            enc_input_size = hyperparameters["x_size"] + encoding_dim
+            dec_input_size = hyperparameters["y_features_size"] + encoding_dim
+            
         # lstm encoder
-        enc_input_size = hyperparameters["x_size"] + encoding_dim
         self.encoder_lstm = torch.nn.LSTM(enc_input_size, 
                                           self.hidden_size[0], 
                                           batch_first=True,
+                                          dropout=hyperparameters["dropout"],
                                           bidirectional=hyperparameters["bidirectional"],
                                           num_layers=hyperparameters["num_layers"])
         
         # lstm decoder
-        dec_input_size = hyperparameters["y_features_size"] + encoding_dim
         self.decoder_lstm = torch.nn.LSTM(dec_input_size, 
                                           self.hidden_size[0], 
-                                          batch_first=True, 
+                                          batch_first=True,
+                                          dropout=hyperparameters["dropout"],
                                           bidirectional=hyperparameters["bidirectional"],
                                           num_layers=hyperparameters["num_layers"])
         
@@ -346,6 +374,7 @@ class EncDecOccLSTM(torch.nn.Module):
         if len(self.hidden_size) == 2:
             self.fc_end = nn.Sequential(
                 nn.Linear(self.hidden_size[0]*self.bidir_factor, self.hidden_size[1]),
+                nn.Dropout(hyperparameters["dropout"]),
                 nn.ReLU(),
                 nn.Linear(self.hidden_size[1], hyperparameters["y_size"])
                 )
@@ -381,6 +410,10 @@ class EncDecOccLSTM(torch.nn.Module):
         if self.hyperparameters["differencing"] == "whole":
             x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
             raise NotImplementedError
+        
+        if self.hyperparameters["prelayer"]:
+            x = self.fc_in_enc(x)
+            y_features = self.fc_in_dec(y_features)
         
         _, (_, c_n) = self.encoder_lstm(x)
 
@@ -422,6 +455,9 @@ class EncDecOccLSTM(torch.nn.Module):
                 in_1 = x
                 in_2 = y_feat_i
              
+            if self.hyperparameters["prelayer"]:
+                in_1 = self.fc_in_enc(in_1)
+                in_2 = self.fc_in_dec(in_2)
 
             _, (_, c_n) = self.encoder_lstm(in_1)
 
@@ -449,33 +485,230 @@ class EncDecOccLSTM(torch.nn.Module):
         else:
             return torch.cat(predicitons, dim=1)
                 
-                
-    def forecast_iter_old(self, x, y_features, len_y, additional_info):
+class EncDecOccLSTMExperimental(torch.nn.Module):
+    
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    
+    def __init__(self, hyperparameters, path_to_helper, **kwargs):
         
-        raise NotImplementedError
-        x = x[None, :]
-        y_features = y_features[None, :]
+        super().__init__()
+        
+        self.hyperparameters = hyperparameters
+        
+        self.x_horizon = hyperparameters["x_horizon"]
+        self.y_horizon = hyperparameters["y_horizon"]
+        
+        self.output_size = hyperparameters["y_size"] * self.y_horizon
+
+        self.hidden_size = hyperparameters["hidden_size"]
+        self.bidir_factor = 2 if hyperparameters["bidirectional"] else 1
+        
+        encoding_dim = 0
+        if "coursenumber" in hyperparameters["features"]:
+            
+            helper_file = os.path.join(path_to_helper, "helpers_occpred.json")
+            with open(helper_file, "r") as f:
+                helper = json.load(f)
+                course_numbers = helper["course_numbers"]
+                del helper  
+            
+            encoding_dim = hyperparameters["course_encoding_dim"]
+            weights = torch.zeros(len(course_numbers), encoding_dim)
+            self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+        
+        # lstm encoder
+        if "dropout" not in hyperparameters:
+            hyperparameters["dropout"] = 0.0
+          
+        if self.hyperparameters["prelayer"]:  
+            #self.fc_in_enc = nn.Linear(hyperparameters["x_size"] + encoding_dim, self.hidden_size[0])
+            self.fc_in_enc = nn.Sequential(
+                nn.Linear(hyperparameters["x_size"] + encoding_dim, self.hidden_size[0]),
+                nn.Dropout(p=hyperparameters["dropout"]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[0], self.hidden_size[0])
+                )
+            
+            enc_input_size = self.hidden_size[0]
+            
+            #self.fc_in_dec = nn.Linear(hyperparameters["y_features_size"] + encoding_dim, self.hidden_size[0])
+            self.fc_in_dec = nn.Sequential(
+                nn.Linear(hyperparameters["y_features_size"] + encoding_dim, self.hidden_size[0]),
+                nn.Dropout(p=hyperparameters["dropout"]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[0], self.hidden_size[0])
+                )
+            dec_input_size = self.hidden_size[0]
+        
+        else: 
+            enc_input_size = hyperparameters["x_size"] + encoding_dim
+            dec_input_size = hyperparameters["y_features_size"] + encoding_dim
+            
+        self.encoder_lstm = torch.nn.LSTM(enc_input_size, 
+                                          self.hidden_size[0], 
+                                          batch_first=True,
+                                          dropout=hyperparameters["dropout"],
+                                          bidirectional=hyperparameters["bidirectional"],
+                                          num_layers=hyperparameters["num_layers"])
+        
+        # lstm decoder
+        self.decoder_lstm = torch.nn.LSTM(dec_input_size, 
+                                          self.hidden_size[0], 
+                                          batch_first=True,
+                                          dropout=hyperparameters["dropout"],
+                                          bidirectional=hyperparameters["bidirectional"],
+                                          num_layers=hyperparameters["num_layers"])
+        
+        
+        ###### Flatten Predictor ######
+        if len(self.hidden_size) == 2:
+            self.fc_end = nn.Sequential(
+                nn.Linear(self.hidden_size[0]*self.bidir_factor*self.y_horizon, self.hidden_size[1]),
+                nn.Dropout(p=hyperparameters["dropout"]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[1], hyperparameters["y_horizon"])
+                )
+            
+        elif len(self.hidden_size) == 1:
+            self.fc_end = nn.Linear(self.hidden_size[0]*self.bidir_factor, hyperparameters["y_horizon"])
+            
+        else:
+            raise ValueError("Only one or two hidden layers are supported")
+        
+        ###### Original Predictor ######
+        ## predictor
+        #if len(self.hidden_size) == 2:
+        #    self.fc_end = nn.Sequential(
+        #        nn.Linear(self.hidden_size[0]*self.bidir_factor, self.hidden_size[1]),
+        #        nn.Dropout(hyperparameters["dropout"]),
+        #        nn.ReLU(),
+        #        nn.Linear(self.hidden_size[1], hyperparameters["y_size"])
+        #        )
+            
+        #elif len(self.hidden_size) == 1:
+        #    self.fc_end = nn.Linear(self.hidden_size[0]*self.bidir_factor, hyperparameters["y_size"])
+            
+        #else:
+        #    raise ValueError("Only one or two hidden layers are supported")
+
+        # additive noise
+        self.add_noise = False
+        if hyperparameters["additive_noise"] > 0:
+            self.additive_noise = torch.distributions.normal.Normal(0, hyperparameters["additive_noise"])
+            self.add_noise = True
+
+    def forward(self, x, y_features, additional_info=None):
+        
+        if self.add_noise:
+            # add noise to make it more robust  
+            x[:, :, 0] = x[:, :, 0] + self.additive_noise.sample(x[:, :, 0].shape).to(self.device)         
+            # remove negative values probably absolute value
+            x[:, :, 0] = torch.abs(x[:, :, 0])
         
         if "coursenumber" in self.hyperparameters["features"]:
-            
-            X_course_emb = self.course_embedding(room_id[:self.x_horizon])[None, :]
-            y_course_emb = self.course_embedding(room_id[self.x_horizon:])[None, :]
+        
+            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])
+            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])
             
             x = torch.cat((x, X_course_emb), -1)
             y_features = torch.cat((y_features, y_course_emb), -1)
         
         if self.hyperparameters["differencing"] == "whole":
             x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
+            raise NotImplementedError
+        
+        if self.hyperparameters["prelayer"]: 
+            x = self.fc_in_enc(x)
+            y_features = self.fc_in_dec(y_features)
             
         _, (_, c_n) = self.encoder_lstm(x)
 
         h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.hidden_size[0]).to(self.device)
-        pred, _ = self.decoder_lstm(y_features, (h_n, c_n))
-        
-        pred = [self.fc_end(pred[:, i, :]) for i in range(len_y)]
-        pred = torch.stack(pred).squeeze(-1) 
+        out_dec, _ = self.decoder_lstm(y_features, (h_n, c_n))
 
-        return pred
+        
+        # flatten predictor
+        in_lin = torch.flatten(out_dec, start_dim=1)
+    
+        # normal predictor
+        #in_lin = out_dec
+        
+        pred = self.fc_end(in_lin)
+        pred = pred.squeeze(-1)
+
+        return pred  
+    
+    def forecast_iter(self, x, y_features, len_y, additional_info):
+
+        if "coursenumber" in self.hyperparameters["features"]:
+            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])#[None, :]
+            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])#[None, :]
+
+        predicitons = []
+        for i in range(0, len_y, self.y_horizon):
+            
+            if self.hyperparameters["differencing"] == "whole":
+                raise ValueError("The statement below is wrong -> some parts are already normalized!")
+                x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
+                
+            y_feat_i = y_features[:, i:i+self.y_horizon]    
+
+            if y_feat_i.shape[1] < self.y_horizon:
+                break
+            
+            if "coursenumber" in self.hyperparameters["features"]:
+                
+                y_emb_i = y_course_emb[:, i:i+self.y_horizon]
+                x_emb_i = X_course_emb
+                
+                in_1 = torch.cat((x, x_emb_i), -1)
+                in_2 = torch.cat((y_feat_i, y_emb_i), -1)
+                
+            else:
+                in_1 = x
+                in_2 = y_feat_i
+            
+            if self.hyperparameters["prelayer"]: 
+                in_1 = self.fc_in_enc(in_1)
+                in_2 = self.fc_in_dec(in_2)
+                
+            _, (_, c_n) = self.encoder_lstm(in_1)
+
+            h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.hidden_size[0]).to(self.device)
+            out_dec, _ = self.decoder_lstm(in_2, (h_n, c_n))
+            
+            # flatten predictor
+            in_lin = torch.flatten(out_dec, start_dim=1)
+            
+            # normal predictor
+            #in_lin = out_dec
+            
+            pred = self.fc_end(in_lin)
+            pred = pred.squeeze(-1)
+
+            predicitons.append(pred)
+
+            if self.hyperparameters["include_x_features"]:
+                x_new = torch.cat((pred[:, :, None], y_feat_i), dim=-1)
+            else:
+                x_new = pred[:, None]
+                raise
+            
+            x = torch.cat((x, x_new), dim=1)[:, self.y_horizon:]
+            
+            if "coursenumber" in self.hyperparameters["features"]:
+                X_course_emb = torch.cat((X_course_emb, y_emb_i), dim=1)[:,self.y_horizon:]
+
+        if len(predicitons) == 0:
+            return torch.tensor([])
+        else:
+            return torch.cat(predicitons, dim=1)
+                
+                
+
+
+
+                
 
 
 
