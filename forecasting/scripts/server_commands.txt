@@ -20,7 +20,9 @@ source /system/apps/userenv/miniconda3/bashrc_students
 
 python3 "scriptname".py
 
-tensorboard --logdir _forecasting/training_logs/run_3 --port 6006
+tensorboard --logdir _occupancy_forecasting/training_logs/run_3 --port 6006
+
+tensorboard --logdir=/home/franzl/github_repos/data_processing/forecasting/_occupancy_forecasting/training_logs/run_6
 
 tensorboard --logdir=/home/berni/github_repos/data_processing/forecasting/_forecasting/training_logs/run_3
 

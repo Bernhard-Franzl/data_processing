@@ -119,6 +119,12 @@ class MasterTrainer:
         else:
             return info, X,  y_features, y, torch.Tensor([0])
     
+    def MBE(self, y_pred, y_true):
+        return torch.mean(y_true - y_pred)
+    
+    def LogCosh(self, y_pred, y_true):
+        return torch.mean(torch.log(torch.cosh(y_pred-y_true)))
+    
     def handle_criterion(self, criterion:str):
 
         if criterion == "SSE":
@@ -127,6 +133,10 @@ class MasterTrainer:
             return nn.MSELoss()
         elif criterion == "MAE":
             return nn.L1Loss()
+        elif criterion == "LogCosh":
+            return self.LogCosh
+        elif criterion == "MBE":
+            return self.MBE
         elif criterion == "SAE":
             return nn.L1Loss(reduction="sum")
         elif criterion == "CE":

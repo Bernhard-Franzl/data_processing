@@ -648,51 +648,58 @@ class OccupancyTestSuite():
                 
             if plot_results:
                 
-                #info = (lecture_id, X_df["starttime"], y_df["starttime"], self.exogenous_features, X_df["roomid"], y_df["roomid"], lecture_immutable_features)
-                #pred_array = np.array(list_predictions).squeeze()
-                #pred_baseline = np.array(list_baseline_predictions).squeeze()
-                #target_array = np.array(list_targets).squeeze()
-                raise NotImplementedError("Plotting not implemented")
                 if dataset_mode=="dayahead":
                     
-                    room_id_list = [0,1]
-                    dataset_id_list = [0, 1, 2]
-                    dataset_string = ["Train", "Val", "Test"]
-                    subplot_titles = [f"Room {room_id} - Data {data_id}" for room_id in room_id_list for data_id in dataset_id_list]
+                    room_id_list = [0, 1]
+                    dataset_id_list = [0,1,2]
+                    dataset_string_list = ["train", "val", "test"]
+                    
+                    subplot_titles = [f"Room {room_id} - {datasset_str}" for room_id in room_id_list for datasset_str in dataset_string_list]
                     fig = make_subplots(rows=2, cols=3,
                                         column_widths=[0.5, 0.25, 0.25],
                                         vertical_spacing = 0.2,
                                         subplot_titles=subplot_titles)
                     
-                    y_room_id = np.array([x[0] for x in list_infos])
+                    
+
+                    #y_room_id = np.array([x[0] for x in list_infos])
                     
                     color_sequence = px.colors.qualitative.Plotly
 
                     
+                    model_type = "model"
                     for room_id in room_id_list:
                         for dataset_id in dataset_id_list:
                             
-                            mask = (dataset_mask == dataset_id) & (y_room_id == room_id)
+                            dataset_str = dataset_string_list[dataset_id]
+                            predictions = self.logger.predictions[dataset_str][model_type]
+                            infos = self.logger.infos[dataset_str]
+                            targets = self.logger.targets[dataset_str]
                             
-                            masked_list_pred = [list_predictions[i] for i in range(len(list_predictions)) if mask[i]]
-                            masked_list_target = [list_targets[i] for i in range(len(list_targets)) if mask[i]]
-                            masked_list_y_time = [list_infos[i][2] for i in range(len(list_infos)) if mask[i]]
+                            y_room_id = np.array([x[0][0] for x in infos])
+                                              
+                            mask = y_room_id == room_id
+                            masked_list_pred = [predictions[i] for i in range(len(predictions)) if mask[i]]
+                            masked_list_target = [targets[i] for i in range(len(targets)) if mask[i]]
+                            masked_list_y_time = [infos[i][0][2] for i in range(len(infos)) if mask[i]]
                             
+                            for x in masked_list_pred:
+                                print(x.shape)
+                            raise       
+                                                  
                             pred_array = np.concatenate(masked_list_pred)
                             time_array = np.concatenate(masked_list_y_time)
                             target_array = np.concatenate(masked_list_target)
 
-                            dataset_array = np.full(len(pred_array), dataset_id)
                             
 
                             df_plot = pd.DataFrame(
                                 {"Time": time_array,
                                 "Pred": pred_array,
-                                "Target": target_array,
-                                "Color": dataset_array}
+                                "Target": target_array}
                             )
                             
-                            name = f"Target-{dataset_string[dataset_id]}-{room_id}"
+                            name = f"Target-{dataset_str}-{room_id}"
                             fig.add_trace(
                                 go.Scatter(
                                     x=df_plot["Time"],
@@ -705,7 +712,7 @@ class OccupancyTestSuite():
                                 row=room_id+1, col=dataset_id+1
                             )
                             
-                            name = f"Prediction-{dataset_string[dataset_id]}-{room_id}"
+                            name = f"Prediction-{dataset_str}-{room_id}"
                             fig.add_trace(
                                 go.Scatter(
                                     x=df_plot["Time"],
@@ -735,10 +742,11 @@ class OccupancyTestSuite():
                         height=1000,
                     )
                     fig.show()
-
+                    raise
                     
                 else:
-                                        
+                    
+                    raise NotImplementedError("Plotting not implemented")     
                     val_mask = (dataset_mask == 1)
                     train_mask = (dataset_mask == 0)
                     test_mask = (dataset_mask == 2)
