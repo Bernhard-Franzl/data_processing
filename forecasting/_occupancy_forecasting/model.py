@@ -511,7 +511,6 @@ class EncDecOccLSTM(torch.nn.Module):
 
             self.fc_in_enc = nn.Sequential(
                 nn.Linear(hyperparameters["x_size"] + encoding_dim, self.hidden_size[0]),
-                nn.Dropout(p=hyperparameters["dropout"]),
                 nn.ReLU(),
                 nn.Linear(self.hidden_size[0], self.hidden_size[0])
                 )
@@ -519,7 +518,6 @@ class EncDecOccLSTM(torch.nn.Module):
             
             self.fc_in_dec = nn.Sequential(
                 nn.Linear(hyperparameters["y_features_size"] + encoding_dim, self.hidden_size[0]),
-                nn.Dropout(p=hyperparameters["dropout"]),
                 nn.ReLU(),
                 nn.Linear(self.hidden_size[0], self.hidden_size[0])
                 )

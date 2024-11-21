@@ -26,7 +26,7 @@ torch.cuda.empty_cache()
 n_run = 2
 n_param = 0
 
-overwrite = True
+overwrite = False
 ################################
 
 param_dir = "_occupancy_forecasting/parameters/occrate"

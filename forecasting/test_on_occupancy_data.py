@@ -8,7 +8,7 @@ import torch
 cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
 
 for mode in ["normal"]:
-    for run_id in [9,10]:
+    for run_id in [2]:
    
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir,
