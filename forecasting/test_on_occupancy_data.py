@@ -7,8 +7,8 @@ import torch
 # Run n tests
 cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
 
-for mode in ["dayahead"]:
-    for run_id in [6]:
+for mode in ["normal"]:
+    for run_id in [6,7,8,9,10]:
    
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir,
@@ -22,9 +22,8 @@ for mode in ["dayahead"]:
         test_suite.evaluate_combinations(
             comb_tuples=tuples_run_comb,
             print_results=False,
-            plot_results=True,
+            plot_results=False,
             dataset_mode=mode,
-
         ) 
 
         test_suite.writer.write_header(run_id)

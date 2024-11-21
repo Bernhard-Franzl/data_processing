@@ -1,0 +1,30 @@
+{   
+    "info": "Run 0: different splits and if include exam week or not",
+    "model_class": ["ed_lstm"],
+    "split_by":["time", "random-train-val"],
+    "dataset_mode":["normal"],
+    "with_examweek": [true, false],
+    "lr": [0.001],
+    "batch_size": [32],
+    "hidden_size": [[32]],
+    "num_layers": [3],
+    "bidirectional": [true],
+    "additive_noise": [0],
+    "course_encoding_dim": [0],
+    "x_horizon": [144],
+    "y_horizon": [72],
+    "features": [
+        "occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_registered"
+    ],
+    "frequency": "5min",
+    "max_n_updates": 50000,
+    "----------------------------": ["---------------------------"],
+    "optimizer_class": ["Adam"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "layer_norm": [false],
+    "weight_decay": [0],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "zero_sample_drop_rate": [0.1]
+}

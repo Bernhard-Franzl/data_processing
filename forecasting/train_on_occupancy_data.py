@@ -23,10 +23,10 @@ torch.cuda.empty_cache()
 #n_run = args.n_run
 #n_param = args.n_param
 
-n_run = 6
+n_run = 9
 n_param = 0
 
-overwrite = True
+overwrite = False
 ################################
 
 param_dir = "_occupancy_forecasting/parameters/occrate"
@@ -81,7 +81,7 @@ for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
         val_dict, 
         test_dict
     )
-
+    
     # train model for n_updates
     mt.train_n_updates(train_loader, val_loader, 
                         model, optimizer, log_predictions=False)

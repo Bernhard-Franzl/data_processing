@@ -1,0 +1,33 @@
+{   
+    "info": "Run 9: densenet",
+    "model_class": ["multihead_densenet"],
+    "split_by":["time"],
+    "with_examweek": [false],
+    "room_ids":[[0]],
+    "prelayer": [true],
+    "dataset_mode":["normal"],
+    "lr": [0.001],
+    "batch_size": [32],
+    "hidden_size": [[64, 128]],
+    "num_layers": [3],
+    "bidirectional": [true],
+    "additive_noise": [0],
+    "course_encoding_dim": [5],
+    "dropout": [0],
+    "x_horizon": [36],
+    "y_horizon": [36],
+    "criterion": ["MAE"],
+    "features": [
+        "occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered"
+    ],
+    "frequency": "5min",
+    "max_n_updates": 25000,
+    "----------------------------": ["--------------------------- _dow_hod_week_holiday_zwickltag"],
+    "optimizer_class": ["Adam"],
+    "differencing": ["none"],
+    "layer_norm": [false],
+    "weight_decay": [0],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "zero_sample_drop_rate": [0.1]
+}
