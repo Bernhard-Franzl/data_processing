@@ -8,7 +8,7 @@ from _occupancy_forecasting import OccFeatureEngineer
 dfg = DFG()
 
 
-for split_by in ["mixed"]:
+for split_by in ["time"]:
     for frequency in ["1h", "1min", "5min", "15min", "30min"]:
         for with_examweek in [True, False]:
         

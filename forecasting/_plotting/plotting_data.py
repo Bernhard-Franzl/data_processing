@@ -95,8 +95,60 @@ class DataPlotter():
             
         fig.show(config=self.config)
     
-    ####### Plot Preprocessing Results ######
+    def plot_some_features(self, data, save=False):
+        
+        fig = make_subplots(
+            rows=3, 
+            cols=1, 
+            subplot_titles=("Occupancy Rate", "Registered Students", "Temperature in Linz")
+            )
+        
+        fig = self.apply_general_settings(fig)
+        
+        x_col = "datetime"
+        # occupancy rate
+        fig.add_trace(
+            go.Scatter(
+                x=data[x_col], 
+                y=data["occrate"],
+                mode='lines', 
+                name='Occupancy Rate'
+                ),
+            row=1, col=1
+            )
+        # registered students
+        fig.add_trace(
+            go.Scatter(
+                x=data[x_col], 
+                y=data["registered"] ,
+                mode='lines', 
+                name='Registered Students'
+                ),
+            row=2, col=1
+            )
+
+        # temperature
+        fig.add_trace(
+            go.Scatter(
+                x=data[x_col], 
+                y=data["tl"],
+                mode='lines', 
+                name='Temperature in Linz'
+                ),
+            row=3, col=1
+            )
+
+        # set y axis between 0 and 1
+        fig.update_yaxes(range=[-0.1, 1], row=1, col=1)
+        fig.update_yaxes(range=[-0.1, 1], row=2, col=1)
+        fig.update_yaxes(range=[-0.1, 1], row=3, col=1)
+        
+        if save:
+            fig.write_html(f"{self.save_path}.html")
+            
+        fig.show(config=self.config)
     
+    ####### Plot Preprocessing Results ######
     def plot_preprocessing(self, raw_data, processed_data, plcount_data, save_bool, show_bool, combined):
         
         if combined:

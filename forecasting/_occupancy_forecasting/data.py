@@ -299,11 +299,11 @@ def train_val_test_split(data_dict, rng, split_by, verbose=True):
 class OccFeatureEngineer():
     
     course_features = {"maxocccount", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate",
-                       "coursenumber", "exam",  "test", "tutorium", "cancelled", 
+                       "coursenumber", "exam",  "test", "tutorium", "cancelled","offsite", 
                        "lecture", "lecturerampbefore", "lecturerampafter",
                        "registered", "type", "studyarea", "ects", "level"}
     datetime_features = {"dow", "hod", "week", "holiday", "zwickltag"}
-    general_features = {"occcount", "occrate"}
+    general_features = {"occcount", "occrate", "avgocc"}
     weather_features = {"weather"}
     shift_features = {"occcount1week", "occrate1week", "occcount1day", "occrate1day"}
     permissible_features = course_features.union(datetime_features)
@@ -541,6 +541,10 @@ class OccFeatureEngineer():
             
         ################################################################################################
             
+        if "avgocc" in features:
+            pass
+        
+        
         time_series.drop(columns=["CC_estimates", "CC"], inplace=True)
         return time_series
     
@@ -828,6 +832,11 @@ class OccupancyDataset(Dataset):
             self.exogenous_features.remove("weather")
             self.exogenous_features = self.exogenous_features.union(self.helper["weather_columns"])
 
+        self.add_avgocc = False
+        if "avgocc" in self.exogenous_features:
+            self.exogenous_features.remove("avgocc")
+            self.add_avgocc = True
+            
         # sort features
         self.exogenous_features = sorted(list(self.exogenous_features))
     
@@ -837,6 +846,28 @@ class OccupancyDataset(Dataset):
         self.y_horizon = hyperparameters["y_horizon"]
         self.verbose = verbose       
          
+        ############ Some Stuff for the AvgOcc Feature ############
+        if self.add_avgocc:
+            from _dfguru import DataFrameGuru
+            dfg = DataFrameGuru()
+            
+            path_to_file = os.path.join("data/occupancy_forecasting", f"freq_{self.hyperparameters['frequency']}")
+            if self.hyperparameters["with_examweek"]:
+                add_to_string = "_with-examweek"
+            else:
+                add_to_string = "_without-examweek"
+            
+            self.data_dict = dict([(x,None) for x in self.hyperparameters["room_ids"]])
+            min_week = []
+            for room_id in self.hyperparameters["room_ids"]:
+                df = dfg.load_dataframe(
+                    path_repo=path_to_file, 
+                    file_name=f"room-{room_id}_unsplit-data-dict" + add_to_string)
+                # extract min week
+                min_week.append(df["datetime"].dt.isocalendar().week.min())
+                self.data_dict[room_id] = df
+            self.min_week = min(min_week)
+        
         ############ Process Data ############
         # convert frequency to timedelta
         self.td_freq = pd.to_timedelta(hyperparameters["frequency"])
@@ -962,10 +993,35 @@ class OccupancyDataset(Dataset):
                 
         return samples
           
+    def calc_avgocc(self, dataframe, occ_array, room_id, k):
+                    
+        time = dataframe["datetime"]
+                
+        cur_week = time.dt.isocalendar().week.min()
+        week_diff = cur_week - self.min_week
+
+        if week_diff > 0:
+            
+            occavg_list = []
+            for i in list(range(week_diff, 0, -1))[-k:]:
+                time_subtract = time - pd.Timedelta(weeks=i)
+
+                mask = (self.data_dict[room_id]["datetime"].isin(time_subtract))
+                occ__i = self.data_dict[room_id][self.occ_feature].loc[mask].values
+                occ__i = torch.Tensor(occ__i)
+                occavg_list.append(occ__i)
+                
+            occavg = torch.mean(torch.stack(occavg_list), axis=0)[:, None]
+            
+        else:
+            occavg = torch.zeros(occ_array.shape)
+                
+        return occavg
+    
     def create_samples_normal(self, time_series, room_id):
         
         occ_time_series = time_series.copy(deep=True)
-        
+          
         X_list = []
         y_list = []
         y_features_list = []
@@ -1003,12 +1059,22 @@ class OccupancyDataset(Dataset):
             if y.numel() != self.y_horizon:
                 continue
             else:
+                
+                y_features = torch.Tensor(y_df[self.exogenous_features].values)  
+                
+                if self.add_avgocc:
+                        k=5
+                        
+                        y_occavg = self.calc_avgocc(y_df, y, room_id, k)
+                        y_features = torch.cat([y_features, y_occavg], dim=1)
+                        
+                        x_occavg = self.calc_avgocc(X_df, X, room_id, k)
+                        X = torch.cat([X, x_occavg], dim=1)
 
-                y_features = torch.Tensor(y_df[self.exogenous_features].values)                    
 
                 if self.include_x_features:
                     X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-                    
+                        
                 if self.extract_coursenumber:
                     
                     X_course = X_df["coursenumber"].fillna("")
@@ -1024,8 +1090,8 @@ class OccupancyDataset(Dataset):
                 else:
                     X_course = None
                     y_course = None    
-
             
+        
             X_list.append(X)
             y_features_list.append(y_features)
             y_list.append(y) 
@@ -1077,6 +1143,9 @@ class OccupancyDataset(Dataset):
 
         y_features = torch.Tensor(y_df[self.exogenous_features].values)
 
+        if "avgocc" in self.exogenous_features:
+            raise NotImplementedError("Not implemented yet.")
+            
         if self.include_x_features:
             X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
 
@@ -1152,7 +1221,11 @@ class OccupancyDataset(Dataset):
                 X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
                 
             y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-            X = torch.Tensor(X_df[self.occ_feature].values[:, None])         
+            X = torch.Tensor(X_df[self.occ_feature].values[:, None])  
+                 
+            if "avgocc" in self.exogenous_features:
+                raise NotImplementedError("Not implemented yet.")
+                  
             y_features = torch.Tensor(y_df[self.exogenous_features].values)
             
             if self.include_x_features:
@@ -1256,7 +1329,6 @@ class OccupancyDataset(Dataset):
         #    print("Number of Samples with y!=0: ", counter_else, "Percentage: ", counter_else/len(corrected_samples))
         #    print("-----------------")
 
-       
     ############ Dataset Functions ############
     def __len__(self):
         return len(self.samples)

@@ -332,11 +332,12 @@ class MultiHeadOccDenseNet(nn.Module):
               
 class SimpleOccLSTM(torch.nn.Module):
     
-    def __init__(self, hyperparameters, **kwargs):
+    def __init__(self, hyperparameters, path_to_helper, **kwargs):
         
         super().__init__()
-        #self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        
+
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"    
+            
         self.hyperparameters = hyperparameters
 
         self.x_size = hyperparameters["x_size"]
@@ -347,7 +348,7 @@ class SimpleOccLSTM(torch.nn.Module):
         self.y_size = hyperparameters["y_size"]
         
         self.output_size = hyperparameters["y_size"] * hyperparameters["y_horizon"]
-    
+
         self.hidden_size = hyperparameters["hidden_size"]
         
         self.batch_size = hyperparameters["batch_size"]
@@ -356,56 +357,62 @@ class SimpleOccLSTM(torch.nn.Module):
         self.enc_size = 0
         self.bdir_factor = 2 if hyperparameters["bidirectional"] else 1
         
+        # coursenumber
+        encoding_dim = 0
         if "coursenumber" in hyperparameters["features"]:
             
-            with open("data/helpers_occpred.json", "r") as f:
-                self.helper = json.load(f)       
-        
-            self.enc_dim = 5
-            course_numbers = self.helper["course_numbers"]
-            weights = torch.zeros(len(course_numbers), self.enc_dim)
+            helper_file = os.path.join(path_to_helper, "helpers_occpred.json")
+            with open(helper_file, "r") as f:
+                helper = json.load(f)
+                course_numbers = helper["course_numbers"]
+                del helper  
+            
+            encoding_dim = hyperparameters["course_encoding_dim"]
+            weights = torch.zeros(len(course_numbers), encoding_dim)
             self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
             
-            self.enc_size = self.enc_dim
-          
-        self.input_size = self.x_size + self.enc_size
+        # prelayer
+        if self.hyperparameters["prelayer"]:  
+            self.fc_in_enc = nn.Sequential(
+                nn.Linear(hyperparameters["x_size"] + encoding_dim, self.hidden_size[0]),
+                nn.ReLU(),
+                nn.Linear(self.hidden_size[0], self.hidden_size[0])
+                )
+            self.lstm_input_size = self.hidden_size[0]
+        
+        else: 
+            self.lstm_input_size = hyperparameters["x_size"] + encoding_dim
         
         # lstm layer
-        self.lstm = torch.nn.LSTM(self.input_size,  self.hidden_size[0], 
-                                  batch_first=True, bidirectional=hyperparameters["bidirectional"],
-                                  num_layers=hyperparameters["num_layers"])
+        self.lstm = torch.nn.LSTM(
+            self.lstm_input_size,  
+            self.hidden_size[0],
+            dropout=hyperparameters["dropout"], 
+            batch_first=True, 
+            bidirectional=hyperparameters["bidirectional"],
+            num_layers=hyperparameters["num_layers"]
+        )
           
         # fc at end
         self.fc_end = nn.Sequential()
         if len(self.hidden_size) == 2:
-            raise
-            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0], self.hidden_size[1]))
-            
-            if hyperparameters["layer_norm"]:
-                self.fc_end.add_module("layer_norm", nn.LayerNorm(self.hidden_size[1]))
-                
+            self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0]*self.bdir_factor, self.hidden_size[1]))
+            nn.Dropout(hyperparameters["dropout"]),
             self.fc_end.add_module("relu_0", nn.ReLU())
             self.fc_end.add_module("output_layer", nn.Linear(self.hidden_size[1], self.y_size))
         
-        else:
+        elif len(self.hidden_size) == 1:
             self.fc_end.add_module("input_layer", nn.Linear(self.hidden_size[0]*self.bdir_factor, self.y_size))
             
-        if "forget_gate" in hyperparameters:
-            if not hyperparameters["forget_gate"]:
-                for name, param in self.lstm.named_parameters():
-                    if 'bias_ih' in name or 'bias_hh' in name:
-                        bias_size = param.size(0) // 4 
-                        param.data[bias_size:2*bias_size].fill_(25)
-                    
-        # last activation function
-        if hyperparameters["occcount"]:
-            self.last_activation = nn.ReLU()    
         else:
-            self.last_activation = nn.Identity()
-            
-        ## freeze h_0 
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        
+            raise ValueError("Only one or two hidden layers are supported")
+
+        # additive noise
+        self.add_noise = False
+        if hyperparameters["additive_noise"] > 0:
+            self.additive_noise = torch.distributions.normal.Normal(0, hyperparameters["additive_noise"])
+            self.add_noise = True
+                    
     def forward(self, x, y_features, room_id=None):
         
         if "coursenumber" in self.hyperparameters["features"]:
@@ -416,9 +423,12 @@ class SimpleOccLSTM(torch.nn.Module):
             x = torch.cat((x, X_course_emb), -1)
             y_features = torch.cat((y_features, y_course_emb), -1)
 
+        if self.hyperparameters["prelayer"]:
+            x = self.fc_in_enc(x)
+            
         out, (h_n, c_n) = self.lstm(x)       
         
-        y_t = self.last_activation(self.fc_end(out[:, -1, :]))  
+        y_t = self.fc_end(out[:, -1, :])
         y_t = y_t[:, None, :]
         
         pred_list = []
@@ -427,8 +437,11 @@ class SimpleOccLSTM(torch.nn.Module):
             y_feat_t = y_features[:, i, :]
             y_in = torch.cat((y_t, y_feat_t[:, None, :]), 2)
             
+            if self.hyperparameters["prelayer"]:
+                y_in = self.fc_in_enc(y_in)
+                
             h_t1, (h_n, c_n) = self.lstm(y_in, (h_n, c_n))
-            y_t = self.last_activation(self.fc_end(h_t1))
+            y_t = self.fc_end(h_t1)
 
             pred_list.append(y_t)
         
@@ -532,7 +545,7 @@ class EncDecOccLSTM(torch.nn.Module):
                                           self.hidden_size[0], 
                                           batch_first=True,
                                           dropout=hyperparameters["dropout"],
-                                          bidirectional=hyperparameters["bidirectional"],
+                                          bidirectional=False,
                                           num_layers=hyperparameters["num_layers"])
         
         # lstm decoder
@@ -567,13 +580,14 @@ class EncDecOccLSTM(torch.nn.Module):
     def forward(self, x, y_features, additional_info=None):
         
         if self.add_noise:
+            raise NotImplementedError
             # add noise to make it more robust  
             x[:, :, 0] = x[:, :, 0] + self.additive_noise.sample(x[:, :, 0].shape).to(self.device)         
             # remove negative values probably absolute value
             x[:, :, 0] = torch.abs(x[:, :, 0])
         
         if "coursenumber" in self.hyperparameters["features"]:
-        
+            
             X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])
             y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])
             
@@ -583,19 +597,21 @@ class EncDecOccLSTM(torch.nn.Module):
         if self.hyperparameters["differencing"] == "whole":
             x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
             raise NotImplementedError
-
+        
         if self.hyperparameters["prelayer"]:
+            
             x = self.fc_in_enc(x)
             y_features = self.fc_in_dec(y_features)
         
         _, (_, c_n) = self.encoder_lstm(x)
-
+        
+        c_n = c_n.repeat(self.bidir_factor, 1, 1)
         h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.hidden_size[0]).to(self.device)
         out_dec, _ = self.decoder_lstm(y_features, (h_n, c_n))
 
         pred = self.fc_end(out_dec)
         pred = pred.squeeze(-1)
-        
+
         return pred  
     
     def forecast_iter(self, x, y_features, len_y, additional_info):
@@ -633,6 +649,7 @@ class EncDecOccLSTM(torch.nn.Module):
                 in_2 = self.fc_in_dec(in_2)
 
             _, (_, c_n) = self.encoder_lstm(in_1)
+            c_n = c_n.repeat(self.bidir_factor, 1, 1)
 
             h_n = torch.zeros(self.hyperparameters["num_layers"]*self.bidir_factor, x.shape[0],  self.hidden_size[0]).to(self.device)
             out_dec, _ = self.decoder_lstm(in_2, (h_n, c_n))

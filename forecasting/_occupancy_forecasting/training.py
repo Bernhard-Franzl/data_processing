@@ -226,7 +226,7 @@ class MasterTrainer:
         test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)    
         
         _, X, y_features, y = train_set[0]
-        
+
         self.update_hyperparameters({
             "x_size": int(X.shape[1]),
             "y_features_size": int(y_features.shape[1]), 
@@ -240,14 +240,14 @@ class MasterTrainer:
         
         train_sampler = WeightedRandomSampler(train_set.sample_weights, len(train_set.samples), generator=self.torch_rng)       
         train_loader = DataLoader(train_set, batch_size=self.hyperparameters["batch_size"], 
-                                  collate_fn=self.custom_collate, generator=self.torch_rng, drop_last=True, sampler=train_sampler)
+                                  collate_fn=self.custom_collate, generator=self.torch_rng, sampler=train_sampler)
         
         val_loader = DataLoader(val_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                collate_fn=self.custom_collate, drop_last=True)
+                                collate_fn=self.custom_collate)
         
         
         test_loader = DataLoader(test_set, batch_size=self.hyperparameters["batch_size"], shuffle=False, 
-                                 collate_fn=self.custom_collate, drop_last=True)
+                                 collate_fn=self.custom_collate)
         
         return train_loader, val_loader, test_loader
         
@@ -390,6 +390,7 @@ class MasterTrainer:
         hyperparams_writer = self.hyperparameters.copy()
         hyperparams_writer["hidden_size"] = "_".join([str(x) for x in hyperparams_writer["hidden_size"]])
         hyperparams_writer["room_ids"] = "_".join([str(x) for x in hyperparams_writer["room_ids"]])
+        hyperparams_writer["permissible_features"] = "_".join(hyperparams_writer["permissible_features"])
         
         self.summary_writer.add_hparams(
             hparam_dict=hyperparams_writer, 

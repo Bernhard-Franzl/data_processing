@@ -159,107 +159,108 @@ Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(4))]), ('data
 
 
 
-################# Run: 2 #################
-Time: 2024-11-21 12:56:11
+
+################# Run: 9 #################
+Time: 2024-11-25 11:38:18
 Dataset: train | Loss: MAE
-Combinations: [[2, 0]]
-Model Losses: [0.005345]
-BL zero Losses: [0.02561]
-BL naive Losses: [0.023352]
-BL avg Losses: [0.02354]
-Hyperparameters: [('course_encoding_dim', [('5', 1)]), ('dataset_mode', [('normal', 1)]), ('dropout', [('0', 1)]), ('features', [('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 1)]), ('num_layers', [('3', 1)]), ('split_by', [('time', 1)]), ('with_examweek', [('False', 1)]), ('x_horizon', [('36', 1)]), ('y_horizon', [('36', 1)])]
+Combinations: [[9, 0], [9, 2], [9, 3], [9, 5], [9, 1], [9, 4]]
+Model Losses: [0.015644, 0.01567 , 0.015744, 0.016512, 0.01705 , 0.018208]
+BL zero Losses: [0.02561, 0.02561, 0.02561, 0.02561, 0.02561, 0.02561]
+BL naive Losses: [0.023352, 0.023352, 0.023352, 0.023352, 0.023352, 0.023352]
+BL avg Losses: [0.02354, 0.02354, 0.02354, 0.02354, 0.02354, 0.02354]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(4)), (np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered_weather'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 256]'), np.int64(1)), (np.str_('[32, 36]'), np.int64(1)), (np.str_('[32, 64]'), np.int64(1)), (np.str_('[64, 72]'), np.int64(2))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 Dataset: train | Loss: R2
-Combinations: [[2, 0]]
-Model Losses: [-1.322814]
-BL zero Losses: [-1.428183]
-BL naive Losses: [-9.82973]
-BL avg Losses: [-12.817318]
-Hyperparameters: [('course_encoding_dim', [('5', 1)]), ('dataset_mode', [('normal', 1)]), ('dropout', [('0', 1)]), ('features', [('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 1)]), ('num_layers', [('3', 1)]), ('split_by', [('time', 1)]), ('with_examweek', [('False', 1)]), ('x_horizon', [('36', 1)]), ('y_horizon', [('36', 1)])]
+Combinations: [[9, 4], [9, 2], [9, 0], [9, 3], [9, 1], [9, 5]]
+Model Losses: [ -9.557421, -16.72374 , -19.421476, -25.169415, -25.412443, -25.604548]
+BL zero Losses: [-1.428183, -1.428183, -1.428183, -1.428183, -1.428183, -1.428183]
+BL naive Losses: [-9.82973, -9.82973, -9.82973, -9.82973, -9.82973, -9.82973]
+BL avg Losses: [-12.817318, -12.817318, -12.817318, -12.817318, -12.817318, -12.817318]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(4)), (np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered_weather'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 256]'), np.int64(1)), (np.str_('[32, 36]'), np.int64(1)), (np.str_('[32, 64]'), np.int64(2)), (np.str_('[64, 72]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 Dataset: val | Loss: MAE
-Combinations: [[2, 0]]
-Model Losses: [0.007026]
-BL zero Losses: [0.022474]
-BL naive Losses: [0.015314]
-BL avg Losses: [0.013863]
-Hyperparameters: [('course_encoding_dim', [('5', 1)]), ('dataset_mode', [('normal', 1)]), ('dropout', [('0', 1)]), ('features', [('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 1)]), ('num_layers', [('3', 1)]), ('split_by', [('time', 1)]), ('with_examweek', [('False', 1)]), ('x_horizon', [('36', 1)]), ('y_horizon', [('36', 1)])]
+Combinations: [[9, 0], [9, 3], [9, 2], [9, 1], [9, 5], [9, 4]]
+Model Losses: [0.01223 , 0.01331 , 0.013481, 0.014065, 0.014674, 0.016679]
+BL zero Losses: [0.022474, 0.022474, 0.022474, 0.022474, 0.022474, 0.022474]
+BL naive Losses: [0.015314, 0.015314, 0.015314, 0.015314, 0.015314, 0.015314]
+BL avg Losses: [0.013863, 0.013863, 0.013863, 0.013863, 0.013863, 0.013863]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(4)), (np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered_weather'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 256]'), np.int64(1)), (np.str_('[32, 36]'), np.int64(1)), (np.str_('[32, 64]'), np.int64(1)), (np.str_('[64, 72]'), np.int64(2))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 Dataset: val | Loss: R2
-Combinations: [[2, 0]]
-Model Losses: [0.578611]
-BL zero Losses: [-0.069942]
-BL naive Losses: [-24.859194]
-BL avg Losses: [-1.166233]
-Hyperparameters: [('course_encoding_dim', [('5', 1)]), ('dataset_mode', [('normal', 1)]), ('dropout', [('0', 1)]), ('features', [('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 1)]), ('num_layers', [('3', 1)]), ('split_by', [('time', 1)]), ('with_examweek', [('False', 1)]), ('x_horizon', [('36', 1)]), ('y_horizon', [('36', 1)])]
+Combinations: [[9, 5], [9, 0], [9, 2], [9, 1], [9, 3], [9, 4]]
+Model Losses: [ 0.229981,  0.130632, -0.033178, -0.089509, -0.182175, -1.555235]
+BL zero Losses: [-0.069942, -0.069942, -0.069942, -0.069942, -0.069942, -0.069942]
+BL naive Losses: [-24.859194, -24.859194, -24.859194, -24.859194, -24.859194, -24.859194]
+BL avg Losses: [-1.166233, -1.166233, -1.166233, -1.166233, -1.166233, -1.166233]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(4)), (np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered_weather'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 256]'), np.int64(1)), (np.str_('[32, 36]'), np.int64(1)), (np.str_('[32, 64]'), np.int64(1)), (np.str_('[64, 72]'), np.int64(2))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 Dataset: test | Loss: MAE
-Combinations: [[2, 0]]
-Model Losses: [0.01012]
-BL zero Losses: [0.017787]
-BL naive Losses: [0.016627]
-BL avg Losses: [0.011299]
-Hyperparameters: [('course_encoding_dim', [('5', 1)]), ('dataset_mode', [('normal', 1)]), ('dropout', [('0', 1)]), ('features', [('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 1)]), ('num_layers', [('3', 1)]), ('split_by', [('time', 1)]), ('with_examweek', [('False', 1)]), ('x_horizon', [('36', 1)]), ('y_horizon', [('36', 1)])]
+Combinations: [[9, 0], [9, 2], [9, 3], [9, 1], [9, 5], [9, 4]]
+Model Losses: [0.012726, 0.013049, 0.014195, 0.014351, 0.016543, 0.018166]
+BL zero Losses: [0.017787, 0.017787, 0.017787, 0.017787, 0.017787, 0.017787]
+BL naive Losses: [0.016627, 0.016627, 0.016627, 0.016627, 0.016627, 0.016627]
+BL avg Losses: [0.011299, 0.011299, 0.011299, 0.011299, 0.011299, 0.011299]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(4)), (np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered_weather'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 256]'), np.int64(1)), (np.str_('[32, 36]'), np.int64(1)), (np.str_('[32, 64]'), np.int64(1)), (np.str_('[64, 72]'), np.int64(2))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 Dataset: test | Loss: R2
-Combinations: [[2, 0]]
-Model Losses: [0.190008]
-BL zero Losses: [-0.447933]
-BL naive Losses: [-21.106226]
-BL avg Losses: [-0.86614]
-Hyperparameters: [('course_encoding_dim', [('5', 1)]), ('dataset_mode', [('normal', 1)]), ('dropout', [('0', 1)]), ('features', [('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 1)]), ('num_layers', [('3', 1)]), ('split_by', [('time', 1)]), ('with_examweek', [('False', 1)]), ('x_horizon', [('36', 1)]), ('y_horizon', [('36', 1)])]
+Combinations: [[9, 2], [9, 1], [9, 0], [9, 4], [9, 5], [9, 3]]
+Model Losses: [ -1.022898,  -1.518209,  -1.843696,  -2.527546, -12.187074, -12.729027]
+BL zero Losses: [-0.447933, -0.447933, -0.447933, -0.447933, -0.447933, -0.447933]
+BL naive Losses: [-21.106226, -21.106226, -21.106226, -21.106226, -21.106226, -21.106226]
+BL avg Losses: [-0.86614, -0.86614, -0.86614, -0.86614, -0.86614, -0.86614]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(3)), (np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered_weather'), np.int64(2))]), ('hidden_size', [(np.str_('[32, 256]'), np.int64(1)), (np.str_('[32, 36]'), np.int64(1)), (np.str_('[32, 64]'), np.int64(2)), (np.str_('[64, 72]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 
 
-################# Run: 2 #################
-Time: 2024-11-21 14:10:28
+################# Run: 10 #################
+Time: 2024-11-25 11:43:00
 Dataset: train | Loss: MAE
-Combinations: [[2, 1], [2, 0]]
-Model Losses: [0.002553, 0.005345]
+Combinations: [[10, 1], [10, 0]]
+Model Losses: [0.01735 , 0.020234]
 BL zero Losses: [0.02561, 0.02561]
 BL naive Losses: [0.023352, 0.023352]
 BL avg Losses: [0.02354, 0.02354]
-Hyperparameters: [('course_encoding_dim', [('5', 2)]), ('dataset_mode', [('normal', 2)]), ('dropout', [('0', 2)]), ('features', [('occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered_coursenumber', 1), ('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 2)]), ('num_layers', [('3', 2)]), ('split_by', [('time', 2)]), ('with_examweek', [('False', 2)]), ('x_horizon', [('36', 2)]), ('y_horizon', [('36', 2)])]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(2))]), ('dataset_mode', [(np.str_('normal'), np.int64(2))]), ('dropout', [(np.str_('0'), np.int64(2))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(2))]), ('hidden_size', [(np.str_('[36]'), np.int64(1)), (np.str_('[]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(2))]), ('split_by', [(np.str_('time'), np.int64(2))]), ('with_examweek', [(np.str_('False'), np.int64(2))]), ('x_horizon', [(np.str_('36'), np.int64(2))]), ('y_horizon', [(np.str_('36'), np.int64(2))])]
 
 Dataset: train | Loss: R2
-Combinations: [[2, 1], [2, 0]]
-Model Losses: [ 0.881262, -1.322814]
+Combinations: [[10, 1], [10, 0]]
+Model Losses: [-12.91896 , -14.943417]
 BL zero Losses: [-1.428183, -1.428183]
 BL naive Losses: [-9.82973, -9.82973]
 BL avg Losses: [-12.817318, -12.817318]
-Hyperparameters: [('course_encoding_dim', [('5', 2)]), ('dataset_mode', [('normal', 2)]), ('dropout', [('0', 2)]), ('features', [('occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered_coursenumber', 1), ('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 2)]), ('num_layers', [('3', 2)]), ('split_by', [('time', 2)]), ('with_examweek', [('False', 2)]), ('x_horizon', [('36', 2)]), ('y_horizon', [('36', 2)])]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(2))]), ('dataset_mode', [(np.str_('normal'), np.int64(2))]), ('dropout', [(np.str_('0'), np.int64(2))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(2))]), ('hidden_size', [(np.str_('[36]'), np.int64(1)), (np.str_('[]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(2))]), ('split_by', [(np.str_('time'), np.int64(2))]), ('with_examweek', [(np.str_('False'), np.int64(2))]), ('x_horizon', [(np.str_('36'), np.int64(2))]), ('y_horizon', [(np.str_('36'), np.int64(2))])]
 
 Dataset: val | Loss: MAE
-Combinations: [[2, 0], [2, 1]]
-Model Losses: [0.007026, 0.0086  ]
+Combinations: [[10, 1], [10, 0]]
+Model Losses: [0.014385, 0.016793]
 BL zero Losses: [0.022474, 0.022474]
 BL naive Losses: [0.015314, 0.015314]
 BL avg Losses: [0.013863, 0.013863]
-Hyperparameters: [('course_encoding_dim', [('5', 2)]), ('dataset_mode', [('normal', 2)]), ('dropout', [('0', 2)]), ('features', [('occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered_coursenumber', 1), ('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 2)]), ('num_layers', [('3', 2)]), ('split_by', [('time', 2)]), ('with_examweek', [('False', 2)]), ('x_horizon', [('36', 2)]), ('y_horizon', [('36', 2)])]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(2))]), ('dataset_mode', [(np.str_('normal'), np.int64(2))]), ('dropout', [(np.str_('0'), np.int64(2))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(2))]), ('hidden_size', [(np.str_('[36]'), np.int64(1)), (np.str_('[]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(2))]), ('split_by', [(np.str_('time'), np.int64(2))]), ('with_examweek', [(np.str_('False'), np.int64(2))]), ('x_horizon', [(np.str_('36'), np.int64(2))]), ('y_horizon', [(np.str_('36'), np.int64(2))])]
 
 Dataset: val | Loss: R2
-Combinations: [[2, 1], [2, 0]]
-Model Losses: [0.592475, 0.578611]
+Combinations: [[10, 1], [10, 0]]
+Model Losses: [-0.035275, -0.731985]
 BL zero Losses: [-0.069942, -0.069942]
 BL naive Losses: [-24.859194, -24.859194]
 BL avg Losses: [-1.166233, -1.166233]
-Hyperparameters: [('course_encoding_dim', [('5', 2)]), ('dataset_mode', [('normal', 2)]), ('dropout', [('0', 2)]), ('features', [('occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered_coursenumber', 1), ('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 2)]), ('num_layers', [('3', 2)]), ('split_by', [('time', 2)]), ('with_examweek', [('False', 2)]), ('x_horizon', [('36', 2)]), ('y_horizon', [('36', 2)])]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(2))]), ('dataset_mode', [(np.str_('normal'), np.int64(2))]), ('dropout', [(np.str_('0'), np.int64(2))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(2))]), ('hidden_size', [(np.str_('[36]'), np.int64(1)), (np.str_('[]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(2))]), ('split_by', [(np.str_('time'), np.int64(2))]), ('with_examweek', [(np.str_('False'), np.int64(2))]), ('x_horizon', [(np.str_('36'), np.int64(2))]), ('y_horizon', [(np.str_('36'), np.int64(2))])]
 
 Dataset: test | Loss: MAE
-Combinations: [[2, 1], [2, 0]]
-Model Losses: [0.009035, 0.01012 ]
+Combinations: [[10, 1], [10, 0]]
+Model Losses: [0.014628, 0.016629]
 BL zero Losses: [0.017787, 0.017787]
 BL naive Losses: [0.016627, 0.016627]
 BL avg Losses: [0.011299, 0.011299]
-Hyperparameters: [('course_encoding_dim', [('5', 2)]), ('dataset_mode', [('normal', 2)]), ('dropout', [('0', 2)]), ('features', [('occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered_coursenumber', 1), ('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 2)]), ('num_layers', [('3', 2)]), ('split_by', [('time', 2)]), ('with_examweek', [('False', 2)]), ('x_horizon', [('36', 2)]), ('y_horizon', [('36', 2)])]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(2))]), ('dataset_mode', [(np.str_('normal'), np.int64(2))]), ('dropout', [(np.str_('0'), np.int64(2))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(2))]), ('hidden_size', [(np.str_('[36]'), np.int64(1)), (np.str_('[]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(2))]), ('split_by', [(np.str_('time'), np.int64(2))]), ('with_examweek', [(np.str_('False'), np.int64(2))]), ('x_horizon', [(np.str_('36'), np.int64(2))]), ('y_horizon', [(np.str_('36'), np.int64(2))])]
 
 Dataset: test | Loss: R2
-Combinations: [[2, 1], [2, 0]]
-Model Losses: [0.492119, 0.190008]
+Combinations: [[10, 1], [10, 0]]
+Model Losses: [-0.539954, -1.562544]
 BL zero Losses: [-0.447933, -0.447933]
 BL naive Losses: [-21.106226, -21.106226]
 BL avg Losses: [-0.86614, -0.86614]
-Hyperparameters: [('course_encoding_dim', [('5', 2)]), ('dataset_mode', [('normal', 2)]), ('dropout', [('0', 2)]), ('features', [('occrate_lecture_lecturerampbefore_test_exam_tutorium_cancelled_type_dow_hod_week_holiday_zwickltag_studyarea_level_registered_coursenumber', 1), ('occrate_lecture_test_exam_tutorium_cancelled_type_registered_coursenumber', 1)]), ('hidden_size', [('[32, 32]', 2)]), ('num_layers', [('3', 2)]), ('split_by', [('time', 2)]), ('with_examweek', [('False', 2)]), ('x_horizon', [('36', 2)]), ('y_horizon', [('36', 2)])]
+Hyperparameters: [('course_encoding_dim', [(np.str_('5'), np.int64(2))]), ('dataset_mode', [(np.str_('normal'), np.int64(2))]), ('dropout', [(np.str_('0'), np.int64(2))]), ('features', [(np.str_('occrate_lecture_test_exam_tutorium_cancelled_coursenumber_registered'), np.int64(2))]), ('hidden_size', [(np.str_('[36]'), np.int64(1)), (np.str_('[]'), np.int64(1))]), ('num_layers', [(np.str_('3'), np.int64(2))]), ('split_by', [(np.str_('time'), np.int64(2))]), ('with_examweek', [(np.str_('False'), np.int64(2))]), ('x_horizon', [(np.str_('36'), np.int64(2))]), ('y_horizon', [(np.str_('36'), np.int64(2))])]
 
 
 

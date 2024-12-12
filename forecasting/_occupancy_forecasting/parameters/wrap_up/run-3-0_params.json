@@ -1,0 +1,57 @@
+{   
+    "info": "Run 3: ed lstm withput prelayer",
+    "model_class": ["ed_lstm"],
+    "split_by":["time"],
+    "room_ids":[[0]],
+    "with_examweek": [false],
+    "prelayer": [false],
+    "dataset_mode":["normal"],
+    "lr": [0.001],
+    "batch_size": [32],
+    "hidden_size": [[16, 16]],
+    "num_layers": [2, 3],
+    "bidirectional": [true, false],
+    "additive_noise": [0],
+    "course_encoding_dim": [1],
+    "dropout": [0],
+    "x_horizon": [24],
+    "y_horizon": [12],
+    "features": [
+        "occrate",
+        "occrate_lecture",
+        "occrate_lecture_exam",
+        "occrate_lecture_exam_cancelled",
+        "occrate_lecture_exam_cancelled_tutorium_test",
+        "occrate_lecture_exam_cancelled_tutorium_test_offsite",
+        "occrate_type_registered",
+        "occrate_type_registered_exam_lecture",
+        "occrate_type_registered_exam_test_tutorium_cancelled_offsite",
+        "occrate_type_registered_exam_test_tutorium_cancelled_offsite_lecture",
+        "occrate_type_registered_exam_test_tutorium_cancelled_offsite_lecture_week"
+    ],
+    "frequency": "5min",
+    "max_n_updates": 50000,
+    "----------------------------": ["--------------------------- [128, 32]"],
+    "permissible_features":[
+    [
+    "occcount", "occrate",
+    "lecture", "lecturerampbefore", "lecturerampafter",
+    "exam",  "test", "tutorium", "cancelled", "offsite",
+    "coursenumber", 
+    "registered", "type", "studyarea", "ects", "level", 
+    "dow", "hod", "week", "holiday", "zwickltag",
+    "weather",
+    "occcount1week", "occrate1week", "occcount1day", "occrate1day",
+    "maxocccount", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate"
+    ]
+    ],
+    "optimizer_class": ["Adam"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "layer_norm": [false],
+    "weight_decay": [0],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "zero_sample_drop_rate": [0.1]
+}
+

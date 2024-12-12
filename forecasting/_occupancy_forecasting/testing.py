@@ -159,7 +159,8 @@ class OccupancyTestSuite():
         self.loss_functions = self.get_loss_functions()
         
         self.baseline_types = ["zero", "naive", "avg"]
-        self.dataset_types = ["train", "val", "test"]
+        #self.dataset_types = ["train", "val", "test"]
+        self.dataset_types = ["val", "test"]
         
         self.bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
         
@@ -247,13 +248,26 @@ class OccupancyTestSuite():
                 split_by=self.hyperparameters["split_by"],
                 dfguru=self.dfg,
                 with_examweek=self.hyperparameters["with_examweek"]
-            )   
-            
-            train_set = OccupancyDataset(train_dict, self.hyperparameters, self.path_to_helpers, validation=True)
-            val_set = OccupancyDataset(val_dict, self.hyperparameters, self.path_to_helpers, validation=True)
-            test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)    
+            ) 
 
-            return train_set, val_set, test_set
+            dataset_list = []
+            for dataset_type in self.dataset_types:
+                
+                if dataset_type == "train":
+                    train_set = OccupancyDataset(train_dict, self.hyperparameters, self.path_to_helpers, validation=True)
+                    dataset_list.append(train_set)
+                    
+                elif dataset_type == "val":
+                    val_set = OccupancyDataset(val_dict, self.hyperparameters, self.path_to_helpers, validation=True)
+                    dataset_list.append(val_set)
+                    
+                elif dataset_type == "test":
+                    test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)
+                    dataset_list.append(test_set)
+            
+            del train_dict, val_dict, test_dict
+            
+            return dataset_list
                 
         else:
             raise ValueError(f"Mode {dataset_mode} not recognized")  
@@ -279,11 +293,11 @@ class OccupancyTestSuite():
     def prepare_data_loader(self, dataset):
         
         if self.hyperparameters["dataset_mode"] == "normal":
-            dataloader = DataLoader(dataset, batch_size=1, 
+            dataloader = DataLoader(dataset, batch_size=64, 
                             shuffle=False, collate_fn=self.custom_collate)
         else:
-            dataloader = DataLoader(dataset, batch_size=1, shuffle=False,  
-                                  collate_fn=self.custom_collate)
+            dataloader = DataLoader(dataset, batch_size=1, 
+                            shuffle=False, collate_fn=self.custom_collate)
         return dataloader
     
     
@@ -312,7 +326,6 @@ class OccupancyTestSuite():
     def test_zero_baseline(self, dataloader, dataset_type):
         
         # predicts always zero
-        
         for info, X, y_features, y, _ in dataloader:
             
             if y.shape[1] < self.hyperparameters["y_horizon"]:
@@ -685,7 +698,7 @@ class OccupancyTestSuite():
                 dataset_mode = dataset_mode
                 self.hyperparameters["dataset_mode"] = dataset_mode
             
-            trainset, valset, testset = self.prepare_data(
+            dataset_list = self.prepare_data(
                 dataset_mode=dataset_mode
             )
 
@@ -695,7 +708,7 @@ class OccupancyTestSuite():
             
             self.logger.init_combination()
 
-            list_datasets = zip(self.dataset_types, [trainset, valset, testset])
+            list_datasets = zip(self.dataset_types, dataset_list)
             for dataset_type, dataset in list_datasets:
                 
 

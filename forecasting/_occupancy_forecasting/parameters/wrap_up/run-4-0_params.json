@@ -1,0 +1,50 @@
+{   
+    "info": "Run 2: ed lstm",
+    "model_class": ["ed_lstm"],
+    "split_by":["time"],
+    "room_ids":[[0]],
+    "with_examweek": [false],
+    "prelayer": [true],
+    "dataset_mode":["normal"],
+    "lr": [0.001],
+    "batch_size": [32],
+    "hidden_size": [[16, 16]],
+    "num_layers": [2],
+    "bidirectional": [true],
+    "additive_noise": [0],
+    "course_encoding_dim": [1],
+    "dropout": [0],
+    "x_horizon": [72],
+    "y_horizon": [36],
+    "features": [
+        "occrate",
+        "occrate_type_registered_exam",
+        "occrate_type_registered_exam_test_tutorium_cancelled_offsite",
+        "occrate_type_registered_exam_test_tutorium_cancelled_offsite_lecture"
+    ],
+    "frequency": "5min",
+    "max_n_updates": 50000,
+    "----------------------------": ["--------------------------- [128, 32]"],
+    "permissible_features":[
+    [
+    "occcount", "occrate",
+    "lecture", "lecturerampbefore", "lecturerampafter",
+    "exam",  "test", "tutorium", "cancelled", "offsite",
+    "coursenumber", 
+    "registered", "type", "studyarea", "ects", "level", 
+    "dow", "hod", "week", "holiday", "zwickltag",
+    "weather",
+    "occcount1week", "occrate1week", "occcount1day", "occrate1day",
+    "maxocccount", "maxoccrate" ,"maxoccrateestimate", "maxocccountestimate"
+    ]
+    ],
+    "optimizer_class": ["Adam"],
+    "differencing": ["none"],
+    "criterion": ["MAE"],
+    "layer_norm": [false],
+    "weight_decay": [0],
+    "forget_gate": [true],
+    "include_x_features": [true],
+    "zero_sample_drop_rate": [0.1]
+}
+

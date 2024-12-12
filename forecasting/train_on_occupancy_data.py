@@ -23,15 +23,15 @@ torch.cuda.empty_cache()
 #n_run = args.n_run
 #n_param = args.n_param
 
-n_run = 2
+n_run = 10
 n_param = 0
 
-overwrite = False
+overwrite = True
 ################################
 
-param_dir = "_occupancy_forecasting/parameters/occrate"
-tb_log_dir = "_occupancy_forecasting/training_logs/occrate"
-cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
+param_dir = "_occupancy_forecasting/parameters/wrap_up"
+tb_log_dir = "_occupancy_forecasting/training_logs/wrap_up"
+cp_log_dir = "_occupancy_forecasting/checkpoints/wrap_up"
 path_to_data = "data/occupancy_forecasting"
 
 if overwrite:

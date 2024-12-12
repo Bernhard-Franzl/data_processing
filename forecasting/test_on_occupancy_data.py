@@ -5,22 +5,24 @@ import torch
 
 ##############################
 # Run n tests
-cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
+#cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
+cp_log_dir = "_occupancy_forecasting/checkpoints/wrap_up"
 
 for mode in ["normal"]:
-    for run_id in [2]:
+    for run_id in [10]:
    
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir,
             path_to_data="data/occupancy_forecasting",
             path_to_helpers="data/occupancy_forecasting",
-            path_to_results=f"results_{mode}.txt",
+            path_to_results=f"results_wrapup_{mode}.txt",
+            #path_to_results=f"results_{mode}.txt",
             erase_results_file=False,
         )
         tuples_run_comb = sorted(test_suite.list_checkpoints(run_id))
 
         test_suite.evaluate_combinations(
-            comb_tuples=tuples_run_comb,
+            comb_tuples=tuples_run_comb[-8:],
             print_results=False,
             plot_results=False,
             dataset_mode=mode,
