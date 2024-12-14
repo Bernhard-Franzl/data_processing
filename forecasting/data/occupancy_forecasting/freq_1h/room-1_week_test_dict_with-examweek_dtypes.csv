@@ -1,0 +1,74 @@
+,0
+datetime,datetime64[ns]
+occcount,int64
+occrate,float64
+avgocc,int64
+occcountdiff,float64
+occratediff,float64
+registered,int64
+tutorium,int64
+lecturerampbefore,int64
+coursenumber,object
+maxocccountestimate,int64
+maxoccrate,float64
+cancelled,int64
+maxoccrateestimate,float64
+lecturerampafter,int64
+lecture,int64
+offsite,int64
+test,int64
+maxocccount,int64
+exam,int64
+ects,float64
+VL,int64
+UE,int64
+KS,int64
+Informatik,int64
+None_sa,int64
+Volkswirtschaftslehre,int64
+Chemie,int64
+Wirtschaftsinformatik,int64
+Maschinenbau,int64
+Betriebswirtschaftslehre,int64
+Rechtswissenschaften,int64
+Mathematik,int64
+Mechatronik,int64
+Informationselektronik,int64
+Biologische Chemie,int64
+Sozialwissenschaften,int64
+Artificial Intelligence,int64
+Kunststofftechnik,int64
+Statistik,int64
+Pädagogik,int64
+Medical Engineering,int64
+B1 - Bachelor 1. Jahr,int64
+None_level,int64
+B2 - Bachelor 2. Jahr,int64
+M1 - Master 1. Jahr,int64
+B3 - Bachelor 3. Jahr,int64
+D - Diplom,int64
+M2 - Master 2. Jahr,int64
+hod1,float64
+hod2,float64
+dow1,float64
+dow2,float64
+week1,float64
+week2,float64
+holiday,int64
+zwickltag,int64
+occrate1day,float64
+occcount1day,float64
+occrate1week,float64
+occcount1week,float64
+occcountdiff1week,float64
+occcountdiff1day,float64
+occratediff1week,float64
+occratediff1day,float64
+tl,float64
+p,float64
+ff,float64
+ffx,float64
+rf,int64
+rr,float64
+so,int64
+week,UInt32

@@ -275,8 +275,23 @@ def train_val_test_split(data_dict, rng, split_by, verbose=True):
             ts_test = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in test_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
             ts_train = occ_time_series.iloc[np.array([np.arange(x, x+index_shift) for x in train_indices]).flatten()].sort_values(by="datetime").reset_index(drop=True)
 
-        else:
+        elif split_by == "week":
+            # easy split just last week for test, week before for val and rest for train
+            occ_time_series = data_dict[room_id]
+            total_size += len(occ_time_series)
             
+            occ_time_series["week"] = occ_time_series["datetime"].dt.isocalendar().week
+            
+            unique_weeks = occ_time_series["week"].unique()
+            train_weeks = unique_weeks[:-2]
+            val_weeks = unique_weeks[-2:-1]
+            test_weeks = unique_weeks[-1:]
+            
+            ts_train = occ_time_series[occ_time_series["week"].isin(train_weeks)]
+            ts_val = occ_time_series[occ_time_series["week"].isin(val_weeks)]
+            ts_test = occ_time_series[occ_time_series["week"].isin(test_weeks)]
+        
+        else:
             raise ValueError("Unknown split method.")
         
         val_size += len(ts_val)
