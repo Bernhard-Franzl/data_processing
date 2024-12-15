@@ -513,12 +513,38 @@ class EncDecOccLSTM(torch.nn.Module):
             weights = torch.zeros(len(course_numbers), encoding_dim)
             self.course_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
         
+        if self.hyperparameters["more_embeddings"]: 
+            
+            helper_file = os.path.join(path_to_helper, "helpers_occpred.json")
+            with open(helper_file, "r") as f:
+                helper = json.load(f)
+                   
+            if "type" in hyperparameters["features"]:
+                types = helper["course_types"]
+                encoding_dim += 1
+                weights = torch.zeros(len(types), 1)
+                self.type_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+                
+            if "level" in hyperparameters["features"]:
+                levels = helper["levels"]
+                encoding_dim += 1
+                weights = torch.zeros(len(levels), 1)
+                self.level_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+                
+            if "studyarea" in hyperparameters["features"]:
+                studyareas = helper["study_areas"]
+                encoding_dim += 1
+                weights = torch.zeros(len(studyareas), 1)
+                self.studyarea_embedding = nn.Embedding.from_pretrained(weights, freeze=False)
+        
+    
         # dropout
         if "dropout" not in hyperparameters:
             hyperparameters["dropout"] = 0.0
 
         if "prelayer" not in hyperparameters:
             hyperparameters["prelayer"] = False
+        
         # prelayer
         if self.hyperparameters["prelayer"]:  
 
@@ -576,7 +602,11 @@ class EncDecOccLSTM(torch.nn.Module):
         if hyperparameters["additive_noise"] > 0:
             self.additive_noise = torch.distributions.normal.Normal(0, hyperparameters["additive_noise"])
             self.add_noise = True
-
+    
+    def handle_embeddings(self, additional_info, iter):
+        
+        pass 
+    
     def forward(self, x, y_features, additional_info=None):
         
         if self.add_noise:
@@ -588,12 +618,46 @@ class EncDecOccLSTM(torch.nn.Module):
         
         if "coursenumber" in self.hyperparameters["features"]:
             
-            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])
-            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])
+            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon, 0])
+            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:, 0])
+
+            additional_info = additional_info[:, :, 1:] 
             
             x = torch.cat((x, X_course_emb), -1)
             y_features = torch.cat((y_features, y_course_emb), -1)
-        
+            
+        if self.hyperparameters["more_embeddings"]:
+            
+            if "level" in self.hyperparameters["features"]:
+                
+                X_level_emb = self.level_embedding(additional_info[:, :self.x_horizon, 0])
+                y_level_emb = self.level_embedding(additional_info[:, self.x_horizon:, 0])
+                
+                x = torch.cat((x, X_level_emb), -1)
+                y_features = torch.cat((y_features, y_level_emb), -1)
+                
+                additional_info = additional_info[:, :, 1:]
+
+            if "studyarea" in self.hyperparameters["features"]:
+
+                X_studyarea_emb = self.studyarea_embedding(additional_info[:, :self.x_horizon, 0])
+                y_studyarea_emb = self.studyarea_embedding(additional_info[:, self.x_horizon:, 0])
+                
+                x = torch.cat((x, X_studyarea_emb), -1)
+                y_features = torch.cat((y_features, y_studyarea_emb), -1)
+
+                additional_info = additional_info[:, :, 1:]
+            
+            if "type" in self.hyperparameters["features"]:
+                
+                X_type_emb = self.type_embedding(additional_info[:, :self.x_horizon, 0])
+                y_type_emb = self.type_embedding(additional_info[:, self.x_horizon:, 0])
+                
+                x = torch.cat((x, X_type_emb), -1)
+                y_features = torch.cat((y_features, y_type_emb), -1)
+                
+                additional_info = additional_info[:, :, 1:]
+
         if self.hyperparameters["differencing"] == "whole":
             x[:, :, 0] = x[:, :, 0]*0.5 +  0.5
             raise NotImplementedError
@@ -615,11 +679,52 @@ class EncDecOccLSTM(torch.nn.Module):
         return pred  
     
     def forecast_iter(self, x, y_features, len_y, additional_info):
-
+        
+        use_embedding = False
         if "coursenumber" in self.hyperparameters["features"]:
-            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon])#[None, :]
-            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:])#[None, :]
 
+            X_course_emb = self.course_embedding(additional_info[:, :self.x_horizon, 0])#[None, :]
+            y_course_emb = self.course_embedding(additional_info[:, self.x_horizon:, 0])#[None, :]
+            additional_info = additional_info[:, :, 1:]
+            
+            use_embedding = True
+
+        else:
+            X_course_emb = torch.empty(self.x_horizon)
+            y_course_emb = torch.empty(self.y_horizon)
+            
+        if self.hyperparameters["more_embeddings"]:
+            
+            if "level" in self.hyperparameters["features"]:
+                use_embedding = True
+                X_level_emb = self.level_embedding(additional_info[:, :self.x_horizon, 0])
+                y_level_emb = self.level_embedding(additional_info[:, self.x_horizon:, 0])
+                
+                additional_info = additional_info[:, :, 1:]
+                
+                X_course_emb = torch.cat((X_course_emb, X_level_emb), -1)
+                y_course_emb = torch.cat((y_course_emb, y_level_emb), -1)
+
+            if "studyarea" in self.hyperparameters["features"]:
+                use_embedding = True
+                X_studyarea_emb = self.studyarea_embedding(additional_info[:, :self.x_horizon, 0])
+                y_studyarea_emb = self.studyarea_embedding(additional_info[:, self.x_horizon:, 0])
+                
+                additional_info = additional_info[:, :, 1:]
+                
+                X_course_emb = torch.cat((X_course_emb, X_studyarea_emb), -1)
+                y_course_emb = torch.cat((y_course_emb, y_studyarea_emb), -1)
+    
+            if "type" in self.hyperparameters["features"]:
+                use_embedding = True
+                X_type_emb = self.type_embedding(additional_info[:, :self.x_horizon, 0])
+                y_type_emb = self.type_embedding(additional_info[:, self.x_horizon:, 0])
+                
+                additional_info = additional_info[:, :, 1:]
+
+                X_course_emb = torch.cat((X_course_emb, X_type_emb), -1)
+                y_course_emb = torch.cat((y_course_emb, y_type_emb), -1)
+        
         predicitons = []
         for i in range(0, len_y, self.y_horizon):
             
@@ -632,7 +737,7 @@ class EncDecOccLSTM(torch.nn.Module):
             if y_feat_i.shape[1] < self.y_horizon:
                 break
             
-            if "coursenumber" in self.hyperparameters["features"]:
+            if use_embedding:
                 
                 y_emb_i = y_course_emb[:, i:i+self.y_horizon]
                 x_emb_i = X_course_emb
@@ -643,7 +748,8 @@ class EncDecOccLSTM(torch.nn.Module):
             else:
                 in_1 = x
                 in_2 = y_feat_i
-             
+                
+                
             if self.hyperparameters["prelayer"]:
                 in_1 = self.fc_in_enc(in_1)
                 in_2 = self.fc_in_dec(in_2)

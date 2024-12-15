@@ -587,23 +587,22 @@ class OccFeatureEngineer():
             time_series[feature] = 0
             
         if "type" in features:
-            time_series.drop(columns=["type"], inplace=True)
             for course_type in self.course_types:
                 time_series[course_type] = 0
         
         if "studyarea" in features:
-            time_series.drop(columns=["studyarea"], inplace=True)
             for study_area in self.study_areas:
                 time_series[study_area] = 0
         
         
         if "level" in features:
-            time_series.drop(columns=["level"], inplace=True)
             for level in self.levels:
                 time_series[level] = 0
 
         time_series["coursenumber"] = ''
-        
+        time_series["type"] = ""
+        time_series["studyarea"] = ""
+        time_series["level"] = ""
 
         
         for grouping, sub_df in course_dates_in_room.groupby(["start_time", "end_time"]):
@@ -615,6 +614,12 @@ class OccFeatureEngineer():
             course_number_list = sub_df["course_number"].values
             time_series.loc[course_time_mask, "coursenumber"] = ",".join(sorted(course_number_list))
             course_info = self.dfg.filter_by_courses(self.course_info_table, course_number_list)
+            
+            # save level and studyarea and type
+            time_series.loc[course_time_mask, "level"] = course_info["level"].values[0]
+            time_series.loc[course_time_mask, "studyarea"] = course_info["study_area"].values[0]
+            time_series.loc[course_time_mask, "type"] = self.type_mapping[course_info["type"].values[0]]
+            
 
             if "maxocccount" in features:
                 time_series.loc[course_time_mask, "maxocccount"] = time_series.loc[course_time_mask, "occcount"].max()
@@ -824,10 +829,7 @@ class OccupancyDataset(Dataset):
         with open(helper_file, "r") as f:
             self.helper = json.load(f)       
 
-        if "type" in self.exogenous_features:
-            self.exogenous_features.remove("type")
-            self.exogenous_features = self.exogenous_features.union(self.helper["course_types"])
-        
+
         self.extract_coursenumber = False
         if "coursenumber" in self.exogenous_features:
             self.exogenous_features.remove("coursenumber")
@@ -835,13 +837,43 @@ class OccupancyDataset(Dataset):
             self.course_numbers = self.helper["course_numbers"]
             self.coursenr_lookup = dict([(x,i) for i,x in enumerate(self.course_numbers)])
             
-        if "studyarea" in self.exogenous_features:
-            self.exogenous_features.remove("studyarea")
-            self.exogenous_features = self.exogenous_features.union(self.helper["study_areas"])
-        
-        if "level" in self.exogenous_features:
-            self.exogenous_features.remove("level")
-            self.exogenous_features = self.exogenous_features.union(self.helper["levels"])
+        if self.hyperparameters["more_embeddings"]:
+            
+            self.extract_type = False
+            if "type" in self.exogenous_features:
+                self.extract_type = True
+                self.exogenous_features.remove("type")
+                self.course_types = self.helper["course_types"]
+                self.type_lookup = dict([(x,i) for i,x in enumerate(self.course_types)])
+            
+            self.extract_studyarea = False
+            if "studyarea" in self.exogenous_features:
+                self.extract_studyarea = True
+                self.exogenous_features.remove("studyarea")
+                self.study_areas = self.helper["study_areas"]
+                self.studyarea_lookup = dict([(x,i) for i,x in enumerate(self.study_areas)])
+
+            self.extract_level = False
+            if "level" in self.exogenous_features:
+                self.extract_level = True
+                self.exogenous_features.remove("level")
+                self.levels = self.helper["levels"]
+                self.course_types = self.helper["course_types"]
+                self.level_lookup = dict([(x,i) for i,x in enumerate(self.levels)])
+            
+        else:
+            
+            if "type" in self.exogenous_features:
+                self.exogenous_features.remove("type")
+                self.exogenous_features = self.exogenous_features.union(self.helper["course_types"])
+            
+            if "studyarea" in self.exogenous_features:
+                self.exogenous_features.remove("studyarea")
+                self.exogenous_features = self.exogenous_features.union(self.helper["study_areas"])
+            
+            if "level" in self.exogenous_features:
+                self.exogenous_features.remove("level")
+                self.exogenous_features = self.exogenous_features.union(self.helper["levels"])
         
         if "weather" in self.exogenous_features:
             self.exogenous_features.remove("weather")
@@ -1086,32 +1118,69 @@ class OccupancyDataset(Dataset):
                         x_occavg = self.calc_avgocc(X_df, X, room_id, k)
                         X = torch.cat([X, x_occavg], dim=1)
 
-
                 if self.include_x_features:
                     X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
                         
+                
                 if self.extract_coursenumber:
                     
                     X_course = X_df["coursenumber"].fillna("")
                     X_course = X_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
                     X_course = X_course.apply(lambda x: self.coursenr_lookup[x])
-                    X_course = torch.Tensor(X_course.values)
+                    X_course = torch.Tensor(X_course.values)[:, None]
                     
                     y_course = y_df["coursenumber"].fillna("")
                     y_course = y_course.apply(lambda x: "{:.3f}".format(x) if type(x) == float else x)
                     y_course = y_course.apply(lambda x: self.coursenr_lookup[x])
-                    y_course = torch.Tensor(y_course.values)    
+                    y_course = torch.Tensor(y_course.values)[:, None] 
                     
                 else:
-                    X_course = None
-                    y_course = None    
-            
+                    X_course = torch.empty(36,0)
+                    y_course = torch.empty(36,0)   
+
+                if self.hyperparameters["more_embeddings"]:
+                    
+                    if self.extract_level:
+                        X_level = X_df["level"].fillna("")
+                        X_level = X_level.apply(lambda x: self.level_lookup[x])
+                        X_level = torch.Tensor(X_level.values)[:, None]
+                        
+                        y_level = y_df["level"].fillna("")
+                        y_level = y_level.apply(lambda x: self.level_lookup[x])
+                        y_level = torch.Tensor(y_level.values)[:, None]
+                        
+                        X_course = torch.hstack([X_course, X_level])
+                        y_course = torch.hstack([y_course, y_level])
+
+                    if self.extract_studyarea:
+                        X_studyarea = X_df["studyarea"].fillna("")
+                        X_studyarea = X_studyarea.apply(lambda x: self.studyarea_lookup[x])
+                        X_studyarea = torch.Tensor(X_studyarea.values)[:, None]
+                        
+                        y_studyarea = y_df["studyarea"].fillna("")
+                        y_studyarea = y_studyarea.apply(lambda x: self.studyarea_lookup[x])
+                        y_studyarea = torch.Tensor(y_studyarea.values)[:, None]
+                        
+                        X_course = torch.hstack([X_course, X_studyarea])
+                        y_course = torch.hstack([y_course, y_studyarea])
+                        
+                    if self.extract_type:
+                        X_type = X_df["type"].fillna("")
+                        X_type = X_type.apply(lambda x: self.type_lookup[x])
+                        X_type = torch.Tensor(X_type.values)[:, None]
+                        
+                        y_type = y_df["type"].fillna("")
+                        y_type = y_type.apply(lambda x: self.type_lookup[x])
+                        y_type = torch.Tensor(y_type.values)[:, None]
+                        
+                        X_course = torch.hstack([X_course, X_type])
+                        y_course = torch.hstack([y_course, y_type])
         
             X_list.append(X)
             y_features_list.append(y_features)
             y_list.append(y) 
         
-            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course)))
+            sample_info.append((room_id, X_df["datetime"], y_df["datetime"], self.exogenous_features, self.room_capacities[room_id], (X_course, y_course), ))
 
         sanity_check_1 = [len(x)==self.x_horizon for x in X_list]
         sanity_check_2 = [len(y)==self.y_horizon for y in y_list]

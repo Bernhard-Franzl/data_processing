@@ -363,7 +363,7 @@ class MasterTrainer:
                 X = X.to(self.device)
                 y_features = y_features.to(self.device)
                 y = y.to(self.device).view(-1, model.output_size)
-             
+
                 model_output = model(X, y_features, room_id)
                 #room_capa = torch.Tensor([x[-1] for x in info]).to(self.device
 
