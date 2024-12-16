@@ -1,6 +1,5 @@
 {
     "course_types": [
-        "",
         "VL",
         "KS",
         "UE"
@@ -76,7 +75,6 @@
         "269.031,269.035"
     ],
     "study_areas": [
-        "",
         "Artificial Intelligence",
         "Sozialwissenschaften",
         "Maschinenbau",
@@ -97,7 +95,6 @@
         "None_sa"
     ],
     "levels": [
-        "",
         "D - Diplom",
         "B3 - Bachelor 3. Jahr",
         "M1 - Master 1. Jahr",

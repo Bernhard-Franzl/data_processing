@@ -1,10 +1,10 @@
 {   
-    "info": "Run 11: extended embeddings",
+    "info": "Run 11: more feature combinations",
     "model_class": ["ed_lstm"],
     "split_by":["time"],
     "room_ids":[[0]],
     "with_examweek": [false],
-    "more_embeddings": [true],
+    "more_embeddings": [false],
     "prelayer": [true],
     "dataset_mode":["normal"],
     "lr": [0.001],
@@ -13,17 +13,19 @@
     "num_layers": [3],
     "bidirectional": [true],
     "additive_noise": [0],
-    "course_encoding_dim": [1],
+    "course_encoding_dim": [3],
     "dropout": [0],
     "x_horizon": [36],
     "y_horizon": [36],
     "features": [
-        "occrate_avgocc_coursenumber",
-        "occrate_coursenumber_type_studyarea_level",
         "occrate_avgocc_coursenumber_type_studyarea_level",
+        "occrate_coursenumber_type_studyarea_level",
+        "occrate_coursenumber_type_studyarea_level_registered",
         "occrate_avgocc_coursenumber_type_studyarea_level_registered",
-        "occrate_avgocc_coursenumber_type_studyarea_level_exam_test_tutorium"
-
+        "occrate_avgocc_coursenumber_type_studyarea_level_exam_test_tutorium",
+        "occrate_avgocc_coursenumber_dow",
+        "occrate_avgocc_coursenumber_hod",
+        "occrate_avgocc_coursenumber_dow_hod_exam_test_tutorium_registered"
     ],
     "frequency": "5min",
     "max_n_updates": 25000,
@@ -51,4 +53,3 @@
     "include_x_features": [true],
     "zero_sample_drop_rate": [0.1]
 }
-
