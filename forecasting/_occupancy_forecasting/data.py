@@ -160,7 +160,7 @@ def train_val_test_split(data_dict, rng, split_by, verbose=True):
     train_size = 0
     
     chunk_proportion = 0.025
-    test_set_factor = 4
+    test_set_factor = 5
     
     for room_id in data_dict:
          

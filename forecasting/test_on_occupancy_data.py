@@ -9,7 +9,7 @@ import torch
 cp_log_dir = "_occupancy_forecasting/checkpoints/wrap_up"
 
 for mode in ["normal"]:
-    for run_id in [11]:
+    for run_id in [13, 14, 15]:
    
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir,

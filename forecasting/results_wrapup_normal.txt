@@ -611,3 +611,219 @@ BL avg Losses: [-0.86614, -0.86614, -0.86614, -0.86614, -0.86614, -0.86614, -0.8
 Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_avgocc_coursenumber'), np.int64(2)), (np.str_('occrate_avgocc_coursenumber_tl'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_weather'), np.int64(2))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
 
 
+################# Run: 11 #################
+Time: 2024-12-16 20:36:42
+Dataset: val | Loss: MAE
+Combinations: [[11, 2], [11, 1], [11, 3], [11, 0]]
+Model Losses: [0.00762 , 0.008128, 0.008248, 0.008541]
+BL zero Losses: [0.022474, 0.022474, 0.022474, 0.022474]
+BL naive Losses: [0.015314, 0.015314, 0.015314, 0.015314]
+BL avg Losses: [0.013863, 0.013863, 0.013863, 0.013863]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_registered'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('False'), np.int64(4))]), ('x_horizon', [(np.str_('36'), np.int64(4))]), ('y_horizon', [(np.str_('36'), np.int64(4))])]
+
+Dataset: val | Loss: R2
+Combinations: [[11, 3], [11, 2], [11, 1], [11, 0]]
+Model Losses: [0.641767, 0.639651, 0.610826, 0.604311]
+BL zero Losses: [-0.069942, -0.069942, -0.069942, -0.069942]
+BL naive Losses: [-24.859194, -24.859194, -24.859194, -24.859194]
+BL avg Losses: [-1.166233, -1.166233, -1.166233, -1.166233]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_registered'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('False'), np.int64(4))]), ('x_horizon', [(np.str_('36'), np.int64(4))]), ('y_horizon', [(np.str_('36'), np.int64(4))])]
+
+Dataset: test | Loss: MAE
+Combinations: [[11, 2], [11, 0], [11, 1], [11, 3]]
+Model Losses: [0.009765, 0.010129, 0.010192, 0.010507]
+BL zero Losses: [0.017787, 0.017787, 0.017787, 0.017787]
+BL naive Losses: [0.016627, 0.016627, 0.016627, 0.016627]
+BL avg Losses: [0.011299, 0.011299, 0.011299, 0.011299]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_registered'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('False'), np.int64(4))]), ('x_horizon', [(np.str_('36'), np.int64(4))]), ('y_horizon', [(np.str_('36'), np.int64(4))])]
+
+Dataset: test | Loss: R2
+Combinations: [[11, 0], [11, 2], [11, 1], [11, 3]]
+Model Losses: [ 0.449613,  0.154474, -0.703272, -0.742051]
+BL zero Losses: [-0.447933, -0.447933, -0.447933, -0.447933]
+BL naive Losses: [-21.106226, -21.106226, -21.106226, -21.106226]
+BL avg Losses: [-0.86614, -0.86614, -0.86614, -0.86614]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_registered'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('False'), np.int64(4))]), ('x_horizon', [(np.str_('36'), np.int64(4))]), ('y_horizon', [(np.str_('36'), np.int64(4))])]
+
+
+
+################# Run: 11 #################
+Time: 2024-12-16 21:11:00
+Dataset: val | Loss: MAE
+Combinations: [[11, 4], [11, 7], [11, 2], [11, 5], [11, 6], [11, 1], [11, 3], [11, 0]]
+Model Losses: [0.007372, 0.007473, 0.00762 , 0.007826, 0.007827, 0.008128, 0.008248, 0.008541]
+BL zero Losses: [0.022474, 0.022474, 0.022474, 0.022474, 0.022474, 0.022474, 0.022474, 0.022474]
+BL naive Losses: [0.015314, 0.015314, 0.015314, 0.015314, 0.015314, 0.015314, 0.015314, 0.015314]
+BL avg Losses: [0.013863, 0.013863, 0.013863, 0.013863, 0.013863, 0.013863, 0.013863, 0.013863]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_avgocc_coursenumber_dow'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_dow_hod_exam_test_tutorium_registered'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_exam_test_tutorium'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
+
+Dataset: val | Loss: R2
+Combinations: [[11, 4], [11, 3], [11, 2], [11, 1], [11, 0], [11, 5], [11, 6], [11, 7]]
+Model Losses: [0.651463, 0.641767, 0.639651, 0.610826, 0.604311, 0.574051, 0.474853, 0.435377]
+BL zero Losses: [-0.069942, -0.069942, -0.069942, -0.069942, -0.069942, -0.069942, -0.069942, -0.069942]
+BL naive Losses: [-24.859194, -24.859194, -24.859194, -24.859194, -24.859194, -24.859194, -24.859194, -24.859194]
+BL avg Losses: [-1.166233, -1.166233, -1.166233, -1.166233, -1.166233, -1.166233, -1.166233, -1.166233]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_exam_test_tutorium'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_registered'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
+
+Dataset: test | Loss: MAE
+Combinations: [[11, 6], [11, 7], [11, 5], [11, 2], [11, 0], [11, 1], [11, 3], [11, 4]]
+Model Losses: [0.009253, 0.009334, 0.009434, 0.009765, 0.010129, 0.010192, 0.010507, 0.010559]
+BL zero Losses: [0.017787, 0.017787, 0.017787, 0.017787, 0.017787, 0.017787, 0.017787, 0.017787]
+BL naive Losses: [0.016627, 0.016627, 0.016627, 0.016627, 0.016627, 0.016627, 0.016627, 0.016627]
+BL avg Losses: [0.011299, 0.011299, 0.011299, 0.011299, 0.011299, 0.011299, 0.011299, 0.011299]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_avgocc_coursenumber_dow'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_dow_hod_exam_test_tutorium_registered'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_coursenumber_type_studyarea_level_registered'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
+
+Dataset: test | Loss: R2
+Combinations: [[11, 5], [11, 0], [11, 6], [11, 4], [11, 7], [11, 2], [11, 1], [11, 3]]
+Model Losses: [ 0.454924,  0.449613,  0.425372,  0.40445 ,  0.394774,  0.154474, -0.703272, -0.742051]
+BL zero Losses: [-0.447933, -0.447933, -0.447933, -0.447933, -0.447933, -0.447933, -0.447933, -0.447933]
+BL naive Losses: [-21.106226, -21.106226, -21.106226, -21.106226, -21.106226, -21.106226, -21.106226, -21.106226]
+BL avg Losses: [-0.86614, -0.86614, -0.86614, -0.86614, -0.86614, -0.86614, -0.86614, -0.86614]
+Hyperparameters: [('course_encoding_dim', [(np.str_('3'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate_avgocc_coursenumber_dow'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_dow_hod_exam_test_tutorium_registered'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_type_studyarea_level_exam_test_tutorium'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('False'), np.int64(5))]), ('x_horizon', [(np.str_('36'), np.int64(5))]), ('y_horizon', [(np.str_('36'), np.int64(5))])]
+
+
+
+################# Run: 12 #################
+Time: 2024-12-22 16:20:29
+Dataset: val | Loss: MAE
+Combinations: [[12, 3], [12, 4], [12, 9], [12, 0], [12, 5], [12, 10], [12, 11], [12, 6], [12, 1], [12, 2], [12, 7], [12, 8]]
+Model Losses: [0.006192, 0.008054, 0.00831 , 0.008884, 0.009067, 0.010995, 0.013329, 0.014448, 0.015501, 0.018781, 0.036227, 0.040218]
+BL zero Losses: [0.020519, 0.018247, 0.018612, 0.020519, 0.018247, 0.018612, 0.020519, 0.018247, 0.018612, 0.020519, 0.018247, 0.018612]
+BL naive Losses: [0.015809, 0.014358, 0.014663, 0.015809, 0.014358, 0.014663, 0.015809, 0.014358, 0.014663, 0.015809, 0.014358, 0.014663]
+BL avg Losses: [0.013431, 0.012195, 0.012207, 0.013431, 0.012195, 0.012207, 0.013431, 0.012195, 0.012207, 0.013431, 0.012195, 0.012207]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(4))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('True'), np.int64(5))]), ('x_horizon', [(np.str_('24'), np.int64(5))]), ('y_horizon', [(np.str_('12'), np.int64(5))])]
+
+Dataset: val | Loss: R2
+Combinations: [[12, 5], [12, 4], [12, 11], [12, 10], [12, 1], [12, 2], [12, 8], [12, 3], [12, 0], [12, 7], [12, 9], [12, 6]]
+Model Losses: [ 0.712765,  0.52137 ,  0.305434,  0.095344,  0.015795, -0.00538 , -0.70123 , -0.86736 , -1.501677, -1.675928, -1.698227, -3.031904]
+BL zero Losses: [-27.330751,  -0.441705,   0.085425, -27.330751,  -0.441705,   0.085425, -27.330751,  -0.441705,   0.085425, -27.330751,  -0.441705,   0.085425]
+BL naive Losses: [-18.013397,  -2.803663,  -0.152335, -18.013397,  -2.803663,  -0.152335, -18.013397,  -2.803663,  -0.152335, -18.013397,  -2.803663,  -0.152335]
+BL avg Losses: [-11.710587,   0.123909,   0.46484 , -11.710587,   0.123909,   0.46484 , -11.710587,   0.123909,   0.46484 , -11.710587,   0.123909,   0.46484 ]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(4))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('True'), np.int64(5))]), ('x_horizon', [(np.str_('24'), np.int64(5))]), ('y_horizon', [(np.str_('12'), np.int64(5))])]
+
+Dataset: test | Loss: MAE
+Combinations: [[12, 0], [12, 3], [12, 9], [12, 4], [12, 6], [12, 10], [12, 5], [12, 11], [12, 1], [12, 2], [12, 7], [12, 8]]
+Model Losses: [0.011464, 0.011954, 0.013062, 0.016119, 0.016209, 0.01676 , 0.017908, 0.020414, 0.021094, 0.024009, 0.038312, 0.042709]
+BL zero Losses: [0.025621, 0.026335, 0.026437, 0.025621, 0.026335, 0.026437, 0.025621, 0.026335, 0.026437, 0.025621, 0.026335, 0.026437]
+BL naive Losses: [0.022586, 0.022605, 0.022297, 0.022586, 0.022605, 0.022297, 0.022586, 0.022605, 0.022297, 0.022586, 0.022605, 0.022297]
+BL avg Losses: [0.020453, 0.020618, 0.020486, 0.020453, 0.020618, 0.020486, 0.020453, 0.020618, 0.020486, 0.020453, 0.020618, 0.020486]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate'), np.int64(2)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(3))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('True'), np.int64(5))]), ('x_horizon', [(np.str_('24'), np.int64(5))]), ('y_horizon', [(np.str_('12'), np.int64(5))])]
+
+Dataset: test | Loss: R2
+Combinations: [[12, 1], [12, 2], [12, 0], [12, 10], [12, 11], [12, 5], [12, 9], [12, 4], [12, 8], [12, 6], [12, 3], [12, 7]]
+Model Losses: [-0.345438, -0.573679, -0.926171, -1.020708, -1.272773, -1.51287 , -2.090469, -2.313196, -2.389688, -2.390769, -2.984782, -3.021099]
+BL zero Losses: [-20.696457,  -0.523346,   0.07378 , -20.696457,  -0.523346,   0.07378 , -20.696457,  -0.523346,   0.07378 , -20.696457,  -0.523346,   0.07378 ]
+BL naive Losses: [-14.390378,  -4.60688 ,  -3.270787, -14.390378,  -4.60688 ,  -3.270787, -14.390378,  -4.60688 ,  -3.270787, -14.390378,  -4.60688 ,  -3.270787]
+BL avg Losses: [-9.621417, -1.702704, -0.566013, -9.621417, -1.702704, -0.566013, -9.621417, -1.702704, -0.566013, -9.621417, -1.702704, -0.566013]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(5))]), ('dataset_mode', [(np.str_('normal'), np.int64(5))]), ('dropout', [(np.str_('0'), np.int64(5))]), ('features', [(np.str_('occrate'), np.int64(3)), (np.str_('occrate_avgocc_coursenumber_hod'), np.int64(2))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(5))]), ('num_layers', [(np.str_('3'), np.int64(5))]), ('split_by', [(np.str_('time'), np.int64(5))]), ('with_examweek', [(np.str_('True'), np.int64(5))]), ('x_horizon', [(np.str_('24'), np.int64(5))]), ('y_horizon', [(np.str_('12'), np.int64(5))])]
+
+
+
+################# Run: 13 #################
+Time: 2024-12-23 15:11:49
+Dataset: val | Loss: MAE
+Combinations: [[13, 3], [13, 1], [13, 2], [13, 0]]
+Model Losses: [0.008218, 0.008601, 0.011386, 0.01501 ]
+BL zero Losses: [0.018247, 0.018247, 0.018247, 0.018247]
+BL naive Losses: [0.014358, 0.014358, 0.014358, 0.014358]
+BL avg Losses: [0.012195, 0.012195, 0.012195, 0.012195]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: val | Loss: R2
+Combinations: [[13, 3], [13, 1], [13, 2], [13, 0]]
+Model Losses: [ 0.569246,  0.417125,  0.338269, -0.049801]
+BL zero Losses: [-0.441705, -0.441705, -0.441705, -0.441705]
+BL naive Losses: [-2.803663, -2.803663, -2.803663, -2.803663]
+BL avg Losses: [0.123909, 0.123909, 0.123909, 0.123909]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: test | Loss: MAE
+Combinations: [[13, 1], [13, 3], [13, 2], [13, 0]]
+Model Losses: [0.016267, 0.016713, 0.01907 , 0.020217]
+BL zero Losses: [0.026335, 0.026335, 0.026335, 0.026335]
+BL naive Losses: [0.022605, 0.022605, 0.022605, 0.022605]
+BL avg Losses: [0.020618, 0.020618, 0.020618, 0.020618]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: test | Loss: R2
+Combinations: [[13, 3], [13, 0], [13, 2], [13, 1]]
+Model Losses: [-0.351239, -0.526043, -1.154288, -1.2511  ]
+BL zero Losses: [-0.523346, -0.523346, -0.523346, -0.523346]
+BL naive Losses: [-4.60688, -4.60688, -4.60688, -4.60688]
+BL avg Losses: [-1.702704, -1.702704, -1.702704, -1.702704]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+
+
+################# Run: 14 #################
+Time: 2024-12-23 15:14:34
+Dataset: val | Loss: MAE
+Combinations: [[14, 1], [14, 3], [14, 2], [14, 0]]
+Model Losses: [0.00804 , 0.008247, 0.01136 , 0.015677]
+BL zero Losses: [0.018247, 0.018247, 0.018247, 0.018247]
+BL naive Losses: [0.014358, 0.014358, 0.014358, 0.014358]
+BL avg Losses: [0.012195, 0.012195, 0.012195, 0.012195]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: val | Loss: R2
+Combinations: [[14, 1], [14, 3], [14, 2], [14, 0]]
+Model Losses: [ 0.632874,  0.564222,  0.168236, -0.634094]
+BL zero Losses: [-0.441705, -0.441705, -0.441705, -0.441705]
+BL naive Losses: [-2.803663, -2.803663, -2.803663, -2.803663]
+BL avg Losses: [0.123909, 0.123909, 0.123909, 0.123909]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: test | Loss: MAE
+Combinations: [[14, 1], [14, 3], [14, 2], [14, 0]]
+Model Losses: [0.016066, 0.016968, 0.018379, 0.020431]
+BL zero Losses: [0.026335, 0.026335, 0.026335, 0.026335]
+BL naive Losses: [0.022605, 0.022605, 0.022605, 0.022605]
+BL avg Losses: [0.020618, 0.020618, 0.020618, 0.020618]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: test | Loss: R2
+Combinations: [[14, 1], [14, 3], [14, 0], [14, 2]]
+Model Losses: [-0.448516, -0.688057, -0.87719 , -1.338619]
+BL zero Losses: [-0.523346, -0.523346, -0.523346, -0.523346]
+BL naive Losses: [-4.60688, -4.60688, -4.60688, -4.60688]
+BL avg Losses: [-1.702704, -1.702704, -1.702704, -1.702704]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+
+
+################# Run: 15 #################
+Time: 2024-12-23 15:17:16
+Dataset: val | Loss: MAE
+Combinations: [[15, 1], [15, 3], [15, 2], [15, 0]]
+Model Losses: [0.008257, 0.008608, 0.010919, 0.015186]
+BL zero Losses: [0.018247, 0.018247, 0.018247, 0.018247]
+BL naive Losses: [0.014358, 0.014358, 0.014358, 0.014358]
+BL avg Losses: [0.012195, 0.012195, 0.012195, 0.012195]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: val | Loss: R2
+Combinations: [[15, 3], [15, 1], [15, 2], [15, 0]]
+Model Losses: [0.629832, 0.582551, 0.373923, 0.076452]
+BL zero Losses: [-0.441705, -0.441705, -0.441705, -0.441705]
+BL naive Losses: [-2.803663, -2.803663, -2.803663, -2.803663]
+BL avg Losses: [0.123909, 0.123909, 0.123909, 0.123909]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: test | Loss: MAE
+Combinations: [[15, 3], [15, 1], [15, 2], [15, 0]]
+Model Losses: [0.016157, 0.016479, 0.018512, 0.020667]
+BL zero Losses: [0.026335, 0.026335, 0.026335, 0.026335]
+BL naive Losses: [0.022605, 0.022605, 0.022605, 0.022605]
+BL avg Losses: [0.020618, 0.020618, 0.020618, 0.020618]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+Dataset: test | Loss: R2
+Combinations: [[15, 3], [15, 0], [15, 1], [15, 2]]
+Model Losses: [-0.387595, -0.662434, -0.725742, -1.405641]
+BL zero Losses: [-0.523346, -0.523346, -0.523346, -0.523346]
+BL naive Losses: [-4.60688, -4.60688, -4.60688, -4.60688]
+BL avg Losses: [-1.702704, -1.702704, -1.702704, -1.702704]
+Hyperparameters: [('course_encoding_dim', [(np.str_('1'), np.int64(4))]), ('dataset_mode', [(np.str_('normal'), np.int64(4))]), ('dropout', [(np.str_('0'), np.int64(4))]), ('features', [(np.str_('occrate'), np.int64(1)), (np.str_('occrate_avgocc'), np.int64(1)), (np.str_('occrate_avgocc_coursenumber'), np.int64(1)), (np.str_('occrate_coursenumber'), np.int64(1))]), ('hidden_size', [(np.str_('[32, 32]'), np.int64(4))]), ('num_layers', [(np.str_('3'), np.int64(4))]), ('split_by', [(np.str_('time'), np.int64(4))]), ('with_examweek', [(np.str_('True'), np.int64(4))]), ('x_horizon', [(np.str_('24'), np.int64(4))]), ('y_horizon', [(np.str_('12'), np.int64(4))])]
+
+
+

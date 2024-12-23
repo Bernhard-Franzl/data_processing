@@ -68,9 +68,9 @@ class MasterTrainer:
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     n_updates = 0
-    test_interval = 250
+    test_interval = 100
     n_test = 0
-    train_log_inteval = 50
+    train_log_inteval = 250
     room_capacities = {0:164, 1:152}
     best_model = None
     best_loss = 1000
