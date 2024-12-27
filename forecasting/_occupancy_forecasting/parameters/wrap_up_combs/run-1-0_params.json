@@ -1,6 +1,7 @@
 {   
     "info": "Run 1: exhaustive feature combinations",
     "model_class": ["ed_lstm"],
+    "device": ["cuda:1"],
     "split_by":["time"],
     "room_ids":[[0, 1]],
     "with_examweek": [true],
@@ -22,7 +23,7 @@
         "occrate_avgocc_coursenumber_exam_weather_dow_hod_tutorium_test_cancelled_type_registered"
     ],
     "frequency": ["15min"],
-    "max_n_updates": 500000,
+    "max_n_updates": 25000,
     "----------------------------": ["--------------------------- [128, 32]"],
     "feature_store": ["occrate_coursenumber_exam_test_tutorium_cancelled_offsite_hod_dow_week_holiday_zwickltag"],
     "permissible_features":[

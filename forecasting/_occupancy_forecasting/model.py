@@ -9,7 +9,7 @@ class SimpleOccDenseNet(nn.Module):
     def __init__(self, hyperparameters, path_to_helper):
         super().__init__()
         
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = hyperparameters["device"]
         
         self.hyperparameters = hyperparameters
 
@@ -165,7 +165,7 @@ class MultiHeadOccDenseNet(nn.Module):
     def __init__(self, hyperparameters, path_to_helper):
         super().__init__()
         
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = hyperparameters["device"]
         
         self.hyperparameters = hyperparameters
 
@@ -336,7 +336,7 @@ class SimpleOccLSTM(torch.nn.Module):
         
         super().__init__()
 
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"    
+        self.device = hyperparameters["device"]  
             
         self.hyperparameters = hyperparameters
 
@@ -483,13 +483,12 @@ class SimpleOccLSTM(torch.nn.Module):
 
 class EncDecOccLSTM(torch.nn.Module):
     
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    
     def __init__(self, hyperparameters, path_to_helper, **kwargs):
         
         super().__init__()
         
         self.hyperparameters = hyperparameters
+        self.device = hyperparameters["device"]
         
         self.x_horizon = hyperparameters["x_horizon"]
         self.y_horizon = hyperparameters["y_horizon"]
@@ -1126,7 +1125,7 @@ class EncDecOccLSTM1(torch.nn.Module):
                                         proj_size=1,
                                         num_layers=hyperparameters["num_layers"])
             
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = hyperparameters["device"]
         
         self.forward_print_count = 0
 
@@ -1330,7 +1329,7 @@ class MassConservingOccLSTM(nn.Module):
             raise
             self.last_activation = nn.ReLU()    
             
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = hyperparameters["device"]
         
         self.forward_print_count = 0
 
@@ -1818,7 +1817,7 @@ class SimpleOccGRU(torch.nn.Module):
             self.last_activation = nn.Identity()
             
         ## freeze h_0 
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = hyperparameters["device"]
         
     def forward(self, x, y_features, room_id=None):
         
@@ -1973,7 +1972,7 @@ class SimpleOccTransformer(torch.nn.Module):
             self.last_activation = nn.Identity()
             
         ## freeze h_0 
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = hyperparameters["device"]
         
     def forward(self, x, y_features, room_id=None):
     

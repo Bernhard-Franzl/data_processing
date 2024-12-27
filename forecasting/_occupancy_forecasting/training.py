@@ -66,7 +66,6 @@ class StatsLogger:
            
 class MasterTrainer:
     
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     n_updates = 0
     test_interval = 125
     n_test = 0
@@ -78,6 +77,7 @@ class MasterTrainer:
     def __init__(self,  hyperparameters:dict, cp_path:str, path_to_helpers:str, summary_writer=None, torch_rng=None) -> None:
         
         self.hyperparameters = hyperparameters
+        self.device = hyperparameters["device"]
         self.model_class = self.handle_model_class(hyperparameters["model_class"])
         self.criterion = self.handle_criterion(hyperparameters["criterion"])
         self.optimizer_class = self.handle_optimizer(hyperparameters["optimizer_class"])

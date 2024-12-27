@@ -16,6 +16,7 @@ git pull
 -> open tmux session as wanted
 
 in every tmux window:
+tmux split-window -h 
 
 source /system/apps/studentenv/miniconda3/bashrc 
 old: source /system/apps/userenv/miniconda3/bashrc_students
