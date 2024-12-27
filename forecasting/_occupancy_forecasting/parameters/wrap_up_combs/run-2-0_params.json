@@ -1,5 +1,5 @@
 {   
-    "info": "Run 0: exhaustive feature combinations",
+    "info": "Run 2: exhaustive feature combinations",
     "model_class": ["ed_lstm"],
     "split_by":["time"],
     "room_ids":[[0, 1]],

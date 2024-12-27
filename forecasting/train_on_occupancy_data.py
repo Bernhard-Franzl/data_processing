@@ -36,7 +36,7 @@ for n_run in [0]:
     path_to_data = "data/occupancy_forecasting"
     
     
-    raise NotImplementedError("This script is not up to date. Speedup in dataset generation is urgently needed.")
+    #raise NotImplementedError("This script is not up to date. Speedup in dataset generation is urgently needed.")
     # careful with overwriting features
     if overwrite:
         if os.path.exists(os.path.join(tb_log_dir, f"run_{n_run}")):
@@ -46,14 +46,13 @@ for n_run in [0]:
             
     path_to_params = os.path.join(param_dir, f"run-{n_run}-{n_param}_params.json")
     
-    # load all feature combinations
+    ## load all feature combinations
     import json 
-    with open("all_combinations.json", "r") as f:
-        features = json.load(f)
-        
     with open(path_to_params, "r") as file:
         parameter_dict = json.load(file)
 
+    with open("all_combinations.json", "r") as f:
+        features = json.load(f)
     parameter_dict["features"] = features
 
     start_comb = avoid_name_conflicts(tb_log_dir, cp_log_dir, n_run)

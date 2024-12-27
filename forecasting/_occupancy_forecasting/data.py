@@ -881,7 +881,6 @@ class OccupancyDataset(Dataset):
 
         self.add_avgocc = False
         if "avgocc" in self.exogenous_features:
-            self.exogenous_features.remove("avgocc")
             self.add_avgocc = True
             
         # sort features
@@ -1020,7 +1019,7 @@ class OccupancyDataset(Dataset):
 
             ts_diff = occ_time_series["datetime"].diff()
             holes = occ_time_series[ts_diff > self.td_freq]
-            
+
             if holes.empty:
 
                 info, X, y_features, y = sampling_function(occ_time_series, room_id)
@@ -1073,6 +1072,41 @@ class OccupancyDataset(Dataset):
         y_list = []
         y_features_list = []
         sample_info = []
+
+        # avg_occ alternative
+        if self.add_avgocc:
+            k=5
+            
+            min_time = occ_time_series["datetime"].min()
+            max_time = occ_time_series["datetime"].max()
+
+            mask = (self.data_dict[room_id]["datetime"] <= max_time)
+            occ_ori = self.data_dict[room_id].loc[mask]
+
+            #occ_ori = self.data_dict[room_id][self.occ_feature].loc[mask].values
+            #occ__i = torch.Tensor(occ__i)
+            #occavg_list.append(occ__i)
+                
+            # generate series of time deltas for the last k weeks
+            factor = pd.to_timedelta("1w") / pd.to_timedelta(self.hyperparameters["frequency"])
+            
+            time_series = occ_ori.copy(deep=True)
+            for i in range(1, k+1):
+                
+                if self.occ_feature != "occrate":
+                    raise ValueError("Feature 'avgocc' is only allowed for 'occrate'.")
+                
+                time_mask = (time_series["datetime"] >= min_time)
+                shift_time = time_series["datetime"].shift(int(i * factor)).loc[time_mask]
+                shift_occ = time_series[self.occ_feature].shift(int(i * factor)).loc[time_mask]
+
+                occ_time_series[f"occrate_{i}"] = shift_occ.values
+                occ_time_series[f"datetime_{i}"] = shift_time.values
+                
+            # average over all non NaN values in the occrate columns
+            occavg = occ_time_series[[f"occrate_{i}" for i in range(1, k+1)]].mean(axis=1)
+            occavg = occavg.fillna(0)
+            occ_time_series["avgocc"] = occavg
         
         if self.occ_feature == "occpresence":
             # occpresence is a binary feature -> 1 if occrate != 0, 0 otherwise
@@ -1087,21 +1121,21 @@ class OccupancyDataset(Dataset):
         window_size = self.x_horizon + self.y_horizon
         for window in occ_time_series.rolling(window=window_size):
             
-            if self.sample_differencing:
-                window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(window[self.occ_feature])
-                window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(window[self.occ_feature + "1week"])
-                window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(window[self.occ_feature + "1day"])
+            #if self.sample_differencing:
+            #    window[self.occ_feature+"samplediff"] = window[self.occ_feature].diff(1).combine_first(window[self.occ_feature])
+            #    window[self.occ_feature+"samplediff"+"1week"] = window[self.occ_feature + "1week"].diff(1).combine_first(window[self.occ_feature + "1week"])
+            #    window[self.occ_feature+"samplediff"+"1day"] = window[self.occ_feature + "1day"].diff(1).combine_first(window[self.occ_feature + "1day"])
             
             X_df = window.iloc[:self.x_horizon]
             y_df = window.iloc[self.x_horizon:]
 
-            if self.sample_differencing:
-                y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
-                X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
+            #if self.sample_differencing:
+            #    y = torch.Tensor(y_df[self.occ_feature+"samplediff"].values[:, None])
+            #    X = torch.Tensor(X_df[self.occ_feature+"samplediff"].values[:, None])
                 
-            else:
-                y = torch.Tensor(y_df[self.occ_feature].values[:, None])
-                X = torch.Tensor(X_df[self.occ_feature].values[:, None])
+            #else:
+            y = torch.Tensor(y_df[self.occ_feature].values[:, None])
+            X = torch.Tensor(X_df[self.occ_feature].values[:, None])
             
             if y.numel() != self.y_horizon:
                 continue
@@ -1109,19 +1143,21 @@ class OccupancyDataset(Dataset):
                 
                 y_features = torch.Tensor(y_df[self.exogenous_features].values)  
                 
-                if self.add_avgocc:
-                        k=5
+                #if self.add_avgocc:
+                #        k=5
                         
-                        y_occavg = self.calc_avgocc(y_df, y, room_id, k)
-                        y_features = torch.cat([y_features, y_occavg], dim=1)
+                #        y_occavg = self.calc_avgocc(y_df, y, room_id, k)
+                #        #y_features = torch.cat([y_features, y_occavg], dim=1)
+                #        x_occavg = self.calc_avgocc(X_df, X, room_id, k)
+                #        #X = torch.cat([X, x_occavg], dim=1)
                         
-                        x_occavg = self.calc_avgocc(X_df, X, room_id, k)
-                        X = torch.cat([X, x_occavg], dim=1)
+                        
+                #        if not torch.allclose(torch.Tensor(X_df["avgocc"].values).flatten(), x_occavg.flatten()):
+                #            raise ValueError("Dangerous")
 
                 if self.include_x_features:
                     X = torch.cat([X, torch.Tensor(X_df[self.exogenous_features].values)], dim=1)
-                        
-                
+                          
                 if self.extract_coursenumber:
                     
                     X_course = X_df["coursenumber"].fillna("")

@@ -68,7 +68,7 @@ class MasterTrainer:
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     n_updates = 0
-    test_interval = 100
+    test_interval = 125
     n_test = 0
     train_log_inteval = 250
     room_capacities = {0:164, 1:152}
@@ -221,9 +221,11 @@ class MasterTrainer:
     
     def initialize_dataset(self, train_dict:dict, val_dict:dict, test_dict:dict):
         
-        train_set = OccupancyDataset(train_dict, self.hyperparameters, self.path_to_helpers, validation=False)
         val_set = OccupancyDataset(val_dict, self.hyperparameters, self.path_to_helpers, validation=True)
-        test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)    
+        test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)
+        train_set = OccupancyDataset(train_dict, self.hyperparameters, self.path_to_helpers, validation=False)
+        #val_set = OccupancyDataset(val_dict, self.hyperparameters, self.path_to_helpers, validation=True)
+        #test_set = OccupancyDataset(test_dict, self.hyperparameters, self.path_to_helpers, validation=True)    
         
         _, X, y_features, y = train_set[0]
 
