@@ -153,12 +153,12 @@ class OccupancyTestSuite():
         
         self.cp_log_dir = cp_log_dir
         self.dfg = DFG()
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         
         self.loss_types = ["MAE", "R2"]
         self.loss_functions = self.get_loss_functions()
         
-        self.baseline_types = ["zero", "naive", "avg"]
+        self.baseline_types = ["zero"]
         #self.dataset_types = ["train", "val", "test"]
         self.dataset_types = ["val", "test"]
         
@@ -230,6 +230,8 @@ class OccupancyTestSuite():
         model_class = self.handle_model_class(self.hyperparameters["model_class"])
         model = model_class(self.hyperparameters, self.path_to_helpers)
         model.load_state_dict(torch.load(os.path.join(checkpoint_path, "model.pt"), weights_only=True))
+        
+        model.device = self.device
         
         if load_optimizer:
             optimizer = Adam(model.parameters(), lr=self.hyperparameters["lr"], weight_decay=self.hyperparameters["weight_decay"])
@@ -550,57 +552,56 @@ class OccupancyTestSuite():
                 self.logger.add_predictions(dataset_type, "zero", bl_zero_preds)
                 
                 ############### Naive Baseline  & AVG Baseline ###############
-                k = 5 
+                #k = 5 
                                            
-                list_room_id = [info_i[0] for info_i in info]
-                list_y_time = [info_i[2] for info_i in info]
+                #list_room_id = [info_i[0] for info_i in info]
+                #list_y_time = [info_i[2] for info_i in info]
                 
 
-                # get pred
-                list_pred_avg = []
-                list_pred_naive = []
-                for i, (room_id, y_time) in enumerate(zip(list_room_id, list_y_time)):
+                ## get pred
+                #list_pred_avg = []
+                #list_pred_naive = []
+                #for i, (room_id, y_time) in enumerate(zip(list_room_id, list_y_time)):
                         
-                        
-                    # last week y_time 
-                    cur_week = y_time.dt.isocalendar().week.min()
+                #    # last week y_time 
+                #    cur_week = y_time.dt.isocalendar().week.min()
                     
-                    week_diff = cur_week - min_week
+                #    week_diff = cur_week - min_week
                     
-                    if week_diff > 0:
+                #    if week_diff > 0:
                         
-                        pred = []
-                        for i in list(range(week_diff, 0, -1))[-k:]:
-                            y_time_subtract = y_time - pd.Timedelta(weeks=i)
+                #        pred = []
+                #        for i in list(range(week_diff, 0, -1))[-k:]:
+                #            y_time_subtract = y_time - pd.Timedelta(weeks=i)
 
-                            mask = (data_dict[room_id]["datetime"].isin(y_time_subtract))
-                            pred_i = data_dict[room_id]["occrate"].loc[mask].values
-                            pred_i = torch.Tensor(pred_i)
-                            pred.append(pred_i)
+                #            mask = (data_dict[room_id]["datetime"].isin(y_time_subtract))
+                #            pred_i = data_dict[room_id]["occrate"].loc[mask].values
+                #            pred_i = torch.Tensor(pred_i)
+                #            pred.append(pred_i)
                             
-                        list_pred_avg.append(torch.mean(torch.stack(pred), axis=0))
-                        list_pred_naive.append(pred[-1])
+                #        list_pred_avg.append(torch.mean(torch.stack(pred), axis=0))
+                #        list_pred_naive.append(pred[-1])
                         
-                    else:
-                        pred = torch.zeros(y_adjusted[i].shape).squeeze()
-                        list_pred_avg.append(pred)
-                        list_pred_naive.append(pred)
+                #    else:
+                #        pred = torch.zeros(y_adjusted[i].shape).squeeze()
+                #        list_pred_avg.append(pred)
+                #        list_pred_naive.append(pred)
                 
-                bl_avg_preds = torch.stack(list_pred_avg)
-                bl_naive_preds = torch.stack(list_pred_naive)
+                #bl_avg_preds = torch.stack(list_pred_avg)
+                #bl_naive_preds = torch.stack(list_pred_naive)
                 
-                if bl_avg_preds.shape != y_adjusted.shape:
-                    raise ValueError("Prediction and target shape do not match")
+                #if bl_avg_preds.shape != y_adjusted.shape:
+                #    raise ValueError("Prediction and target shape do not match")
         
-                bl_avg_losses = self.calculate_losses(bl_avg_preds, y_adjusted)
-                bl_naive_losses = self.calculate_losses(bl_naive_preds, y_adjusted)
+                #bl_avg_losses = self.calculate_losses(bl_avg_preds, y_adjusted)
+                #bl_naive_losses = self.calculate_losses(bl_naive_preds, y_adjusted)
                 
 
-                self.logger.add_losses(dataset_type, "avg", bl_avg_losses)
-                self.logger.add_predictions(dataset_type, "avg", bl_avg_preds)
+                #self.logger.add_losses(dataset_type, "avg", bl_avg_losses)
+                #self.logger.add_predictions(dataset_type, "avg", bl_avg_preds)
                 
-                self.logger.add_losses(dataset_type, "naive", bl_naive_losses)
-                self.logger.add_predictions(dataset_type, "naive", bl_naive_preds)
+                #self.logger.add_losses(dataset_type, "naive", bl_naive_losses)
+                #self.logger.add_predictions(dataset_type, "naive", bl_naive_preds)
 
         del data_dict
 
@@ -703,7 +704,7 @@ class OccupancyTestSuite():
             )
 
             dataset_time = time.time()
-            print(f"Dataset prepared:", dataset_time - start_time)
+            #print(f"Dataset prepared:", dataset_time - start_time)
             ###################################################
             
             self.logger.init_combination()
@@ -727,7 +728,7 @@ class OccupancyTestSuite():
                 )
                 
                 model_time = time.time()
-                print(f"Model and Baselines tested:", model_time - in_time)
+                #print(f"Model and Baselines tested:", model_time - in_time)
                 
                 #if dataset.occ_feature == "occrate":
                     
@@ -806,11 +807,11 @@ class OccupancyTestSuite():
 
             end_time = time.time()
             
-            print(f"Done: {end_time-dataset_time}")
+            #print(f"Done: {end_time-dataset_time}")
             
             if print_results:
                 
-                print(f"N_RUN: {n_run} | N_COMB: {n_comb}")
+                #print(f"N_RUN: {n_run} | N_COMB: {n_comb}")
                 
                 
                 room_id_list = self.hyperparameters["room_ids"]
@@ -833,8 +834,8 @@ class OccupancyTestSuite():
                         
                         array_str = self.nparray_to_string(losses[key][0].numpy())
                         
-                        print(f"{dataset_str}: {key}: {array_str}")
-                print("\n")  
+                        #print(f"{dataset_str}: {key}: {array_str}")
+                #print("\n")  
                         
                 #mae_losses = np.array(dict_losses["MAE"])
                 #r2_losses = np.array(dict_losses["R2"])

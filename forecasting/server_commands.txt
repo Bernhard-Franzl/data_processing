@@ -10,6 +10,7 @@ PWD: DNz83LUc
 Run these commands for nicest server experience:
 
 ssh -L 16007:127.0.0.1:6006 franzl@student06.ai-lab.jku.at -p 5792
+ssh franzl@student10.ai-lab.jku.at -p 5792
 
 git pull
 
@@ -18,8 +19,23 @@ git pull
 in every tmux window:
 tmux split-window -h 
 
+in every tmux pane:
 source /system/apps/studentenv/miniconda3/bashrc 
+
 old: source /system/apps/userenv/miniconda3/bashrc_students
+
+cd data_processing/forecasting/ 
+
+nano _occupancy_forecasting/parameters/wrap_up_combs/run-3-0_params.json 
+nano train_on_occupancy_data.py
+
+conda activate franzl
+
+python3 train_on_occupancy_data.py
+
+reconnect to tmux:
+tmux attach -t 0
+
 
 python3 "scriptname".py
 
