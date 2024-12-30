@@ -19,3 +19,7 @@ from _occupancy_forecasting.utilities import prompt_for_missing_arguments
 
 ####### Importing all the functions from the testing.py file #######
 from _occupancy_forecasting.testing import OccupancyTestSuite
+
+
+####### Importing all the functions from the analyze_results.py file #######
+from _occupancy_forecasting.analyze_results import ResultsAnalyis

@@ -9,7 +9,7 @@ import torch
 cp_log_dir = "/home/berni/transfer_from_server/wrap_up_combs_1"
 
 for mode in ["normal"]:
-    for run_id in [3,4]:
+    for run_id in [4]:
    
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir,
@@ -22,7 +22,7 @@ for mode in ["normal"]:
         tuples_run_comb = sorted(test_suite.list_checkpoints(run_id))
 
         test_suite.evaluate_combinations(
-            comb_tuples=tuples_run_comb[:],
+            comb_tuples=tuples_run_comb[:200],
             print_results=False,
             plot_results=False,
             dataset_mode=mode,
