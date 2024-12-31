@@ -49,8 +49,10 @@ tensorboard --logdir=/home/berni/github_repos/data_processing/forecasting/_forec
 ##################################################
 Sync files from server to local machine:
 
-rsync -chavzP -e "ssh -p 5792" franzl@student06.ai-lab.jku.at:data_processing/forecasting/_forecasting/training_logs  ~/github_repos/data_processing/forecasting/_forecasting/
+rsync -chavzP -e "ssh -p 5792" franzl@student10.ai-lab.jku.at:data_processing/forecasting/_occupancy_forecasting/checkpoints  ~/transfer_from_server
 
+old:
+rsync -chavzP -e "ssh -p 5792" franzl@student06.ai-lab.jku.at:data_processing/forecasting/_forecasting/training_logs  ~/github_repos/data_processing/forecasting/_forecasting/
 rsync -chavzP -e "ssh -p 5792" franzl@student06.ai-lab.jku.at:data_processing/forecasting/_forecasting/checkpoints  ~/github_repos/data_processing/forecasting/_forecasting
 
 #################################################
