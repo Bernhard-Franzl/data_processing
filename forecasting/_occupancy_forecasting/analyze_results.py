@@ -73,11 +73,9 @@ class StatsLogger():
     
 class ResultsAnalyis:
     
-    def __init__(self, path_to_resultsfile, path_to_data, path_to_checkpoints):
+    def __init__(self, path_to_data):
         
-        self.path_to_resultsfile = path_to_resultsfile
         self.path_to_data = path_to_data
-        self.path_to_checkpoints = path_to_checkpoints
         self.helper_path = os.path.join(path_to_data, "helpers")
         
         self.logger = StatsLogger()
@@ -85,9 +83,9 @@ class ResultsAnalyis:
         self.fundamental_features = ["occrate", "exam", "tutorium_test_cancelled", "registered", "type", "studyarea", "coursenumber", "dow", "hod", "weather", "avgocc"]
     
     ####### Loading results and parsing them #######
-    def load_results(self):
+    def load_results(self, path_to_resultsfile):
         
-        with open(self.path_to_resultsfile, "r") as f:
+        with open(path_to_resultsfile, "r") as f:
             lines = f.readlines()
             line_str = "".join(lines)
             
@@ -165,14 +163,14 @@ class ResultsAnalyis:
         
         return df_results
     
-    def add_hyperparameters(self, parsed_results):
+    def add_hyperparameters(self, parsed_results, path_to_checkpoints):
         
         dataframe = parsed_results.copy(deep=True)
         for idx, row in dataframe.iterrows():
             
             comb = row["combinations"]
     
-            comb_path = os.path.join(self.path_to_checkpoints, f"run_{comb[0]}/comb_{comb[1]}")
+            comb_path = os.path.join(path_to_checkpoints, f"run_{comb[0]}/comb_{comb[1]}")
             hyperparameters_path = os.path.join(comb_path, "hyperparameters.json")
 
             hyperparameters = json.load(open(hyperparameters_path, "r"))
@@ -186,19 +184,24 @@ class ResultsAnalyis:
         
         return dataframe
     
-    def data_preparation(self):
+    def data_preparation(self, paths_to_results, paths_to_checkpoints):
         
-        list_of_runs = self.load_results()
-        parsed_results = self.parse_list_of_runs(list_of_runs)
-        parsed_results = self.add_hyperparameters(parsed_results)
-        
-        return parsed_results
+        list_of_parsed_results = []
+        for path_to_resultsfile, path_to_checkpoints in zip(paths_to_results, paths_to_checkpoints):
+            list_of_runs = self.load_results(path_to_resultsfile)
+            parsed_results = self.parse_list_of_runs(list_of_runs)
+            parsed_results = self.add_hyperparameters(parsed_results, path_to_checkpoints)
+            list_of_parsed_results.append(parsed_results)
+            
+        return pd.concat(list_of_parsed_results).reset_index(drop=True)
+        #return parsed_results
     
     def filter_clean_pivot(self, dataframe, filter_dict):
         
         filtered_dataframe = self.filter_dataframe_by_dict(dataframe, filter_dict)
         
-        cleaned_dataframe = filtered_dataframe[["dataset", "features", "run_id", "model_losses"]]
+        cleaned_dataframe = filtered_dataframe[["dataset", "features", "run_id", "model_losses"]]        
+        cleaned_dataframe = cleaned_dataframe.drop_duplicates(subset=["dataset", "features", "run_id"])
         
         pivot_dataframe = cleaned_dataframe.pivot(index=['features', 'run_id'], columns='dataset', values='model_losses').reset_index()
         pivot_dataframe.columns = ['features', 'run_id', 'test_loss', 'val_loss']
