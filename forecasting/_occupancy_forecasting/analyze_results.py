@@ -1,10 +1,12 @@
-
-from _occupancy_forecasting.data import load_data
-import pandas as pd
 import os
 import ast
-import numpy as np
 import json
+import numpy as np
+import pandas as pd
+
+import plotly.express as px
+
+from _occupancy_forecasting.data import load_data
 
 class StatsLogger():
     
@@ -245,7 +247,7 @@ class ResultsAnalyis:
                 'std_test_mae': dataframe.loc[dataframe[feature], 'test_loss'].std()
             }
 
-        return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index()
+        return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index().rename(columns={"index": "features"})
         return return_df
     
     def group_by_fundamental_features(self, pivot_dataframe):
@@ -266,6 +268,43 @@ class ResultsAnalyis:
                 'std_test_mae': dataframe.loc[dataframe[feature], 'test_loss'].std()
             }
 
-        return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index()
+        return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index().rename(columns={"index": "features"})
         return return_df
     
+    ##### Plotting Functions ######
+    def scatter_plot_feature_group(self, dataframe, x_col='mean_test_mae', y_col='std_test_mae'):
+    
+        df = dataframe.copy(deep=True)
+        
+        # Add a column to differentiate the "occrate" feature
+        df['highlight'] = df['features'].apply(lambda x: 'occrate' if x == 'occrate' else 'other')
+
+        # Create the scatter plot
+        fig = px.scatter(
+            df,
+            x=x_col,
+            y=y_col,
+            color='highlight',  # Highlight "occrate" in a different color
+            hover_data=['features'],  # Show feature names on hover
+            #labels={'mean_test_mae': 'Mean Test MAE', 'std_test_mae': 'Std Test MAE'},
+            title='Performance of Feature Groups',
+        )
+
+        fig.update_traces(
+            hovertemplate=(
+                "<b>%{customdata}</b><br>"
+                "<b>Mean MAE:</b> %{x:.6f}<br>"
+                "<b>Std MAE:</b> %{y:.6f}<extra></extra>"
+            )
+        )
+        
+        # Customize the layout
+        fig.update_layout(
+            title_font_size=16,
+            title_x=0.5,
+            template='plotly_white',
+            legend_title_text='Feature Group'
+        )
+
+        # Show the plot
+        fig.show()
