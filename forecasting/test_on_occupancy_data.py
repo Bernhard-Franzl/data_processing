@@ -6,7 +6,7 @@ import torch
 ##############################
 # Run n tests
 #cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
-cp_log_dir = "/home/franzl/transfer_from_server/wrap_up_combs_2"
+cp_log_dir = "/home/franzl/transfer_from_server/wrap_up_combs_3"
 
 for mode in ["normal"]:
     for run_id in [0,1,2,3,4]:
@@ -15,7 +15,7 @@ for mode in ["normal"]:
             cp_log_dir=cp_log_dir,
             path_to_data="data/occupancy_forecasting",
             path_to_helpers="data/occupancy_forecasting",
-            path_to_results=f"results_wrapup_{mode}_combs_laptop.txt",
+            path_to_results=f"results_wrapup_{mode}_combs_3.txt",
             #path_to_results=f"results_{mode}.txt",
             erase_results_file=False,
         )
