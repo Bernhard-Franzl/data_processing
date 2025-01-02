@@ -5,6 +5,12 @@ import numpy as np
 import pandas as pd
 
 import plotly.express as px
+from matplotlib import pyplot as plt
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 
 from _occupancy_forecasting.data import load_data
 
@@ -75,15 +81,16 @@ class StatsLogger():
     
 class ResultsAnalyis:
     
-    def __init__(self, path_to_data):
+    def __init__(self, path_to_data, dfguru):
         
         self.path_to_data = path_to_data
         self.helper_path = os.path.join(path_to_data, "helpers")
         
         self.logger = StatsLogger()
+        self.dfg = dfguru
         
         self.fundamental_features = ["occrate", "exam", "tutorium_test_cancelled", "registered", "type", "studyarea", "coursenumber", "dow", "hod", "weather", "avgocc"]
-    
+
     ####### Loading results and parsing them #######
     def load_results(self, path_to_resultsfile):
         
@@ -210,6 +217,13 @@ class ResultsAnalyis:
         
         return pivot_dataframe
     
+    ###### Save & Load Dataframes ######
+    def save_dataframe(self, dataframe, path_to_repo, filename):
+        return self.dfg.save_to_csv(dataframe, path_to_repo, filename)
+    
+    def load_dataframe(self, path_to_repo, filename):
+        return self.dfg.load_dataframe(path_to_repo, filename)
+    
     ###### Filter functions ######
     def filter_dataframe_by_column_value(self, dataframe, column, value):
         return dataframe[dataframe[column] == value].reset_index(drop=True)
@@ -271,6 +285,80 @@ class ResultsAnalyis:
         return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index().rename(columns={"index": "features"})
         return return_df
     
+    ##### Analysis Functions ######
+    
+    def get_binary_features(self, dataframe):   
+
+        binary_features = pd.DataFrame()
+        for feature in self.fundamental_features:
+            binary_features[feature] = dataframe['features'].apply(lambda x: 1 if feature in x else 0)
+        
+        return binary_features   
+    
+    def correlate_features_with_loss(self, dataframe, target_column):
+        
+        binary_features = self.get_binary_features(dataframe)
+        target_metrics = dataframe[target_column]
+        
+        correlations = binary_features.corrwith(target_metrics)
+        return correlations
+    
+    def calc_feature_inclusion(self, dataframe, feature, target):
+        # feature inclusion
+        dataframe[feature] = dataframe['features'].apply(lambda x: feature in x)
+        feature_inclusion = dataframe.groupby(feature)[target].agg(['mean', 'std']).reset_index()
+        
+        # impact
+        with_feature = feature_inclusion[feature_inclusion[feature] == True]
+        without_feature = feature_inclusion[feature_inclusion[feature] == False]
+        impact = with_feature["mean"].values - without_feature["mean"].values
+        
+        return feature_inclusion, impact
+    
+    def calc_linear_regression(self, dataframe, target_column, intercept):
+        
+        binary_features = self.get_binary_features(dataframe)
+        X = binary_features
+        y = dataframe[target_column]
+        
+        if intercept:
+            model = LinearRegression().fit(X, y)
+            reg_results = pd.Series(np.append(model.coef_, model.intercept_), index=list(X.columns) + ['intercept'])
+        
+        else:
+            model = LinearRegression(fit_intercept=False).fit(X, y)
+            reg_results = pd.Series(model.coef_, index=X.columns)
+        
+        return reg_results, model, model.predict(X)
+    
+    def calc_decision_tree(self, dataframe, target_column, parameters=dict()):        
+        
+        binary_features = self.get_binary_features(dataframe)
+        X = binary_features
+        y = dataframe[target_column]
+        
+        model = DecisionTreeRegressor(random_state=42, **parameters)
+        model.fit(X, y)
+
+        # Predict
+        y_pred = model.predict(X)
+        
+        return model, y_pred
+
+    def calc_random_forest(self, dataframe, target_column, parameters=dict()):
+      
+        binary_features = self.get_binary_features(dataframe)
+        X = binary_features
+        y = dataframe[target_column]
+          
+        model = RandomForestRegressor(random_state=42, **parameters)
+
+        model.fit(X, y)
+        # Predict
+        y_pred = model.predict(X)
+        
+        return model, y_pred
+        
     ##### Plotting Functions ######
     def scatter_plot_feature_group(self, dataframe, x_col='mean_test_mae', y_col='std_test_mae'):
     
@@ -308,3 +396,20 @@ class ResultsAnalyis:
 
         # Show the plot
         fig.show()
+        
+    def scatter_plot_target_prediction(self, model_name, y_true, y_pred):
+    
+        plt.figure(figsize=(10, 6))
+
+        plt.scatter(y_true, y_pred, alpha=0.5)
+        plt.plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 'r--', lw=2)  # Perfect prediction line
+
+        plt.xlabel("Actual Values (y_true)")
+        plt.ylabel("Predicted Values (y_pred)")
+
+        mse = mean_squared_error(y_true, y_pred)
+        plt.title(f"y_true vs y_pred ({model_name}) - MSE: {mse}")
+
+        plt.grid(True)
+
+        plt.show()
