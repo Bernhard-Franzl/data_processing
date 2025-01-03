@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 from _occupancy_forecasting.data import load_data
 
@@ -77,7 +77,6 @@ class StatsLogger():
             dataframe_dict["avg_baselines"] = self.avg_baselines
         
         return pd.DataFrame(dataframe_dict)
-    
     
 class ResultsAnalyis:
     
@@ -314,6 +313,18 @@ class ResultsAnalyis:
         impact = with_feature["mean"].values - without_feature["mean"].values
         
         return feature_inclusion, impact
+    
+    def calc_benchmark_improvement(self, dataframe, feature, target):
+        # the benchmark is the feature: "occrate"
+        benchmark = dataframe[dataframe['features'] == "occrate"]
+        
+        dataframe[feature] = dataframe['features'].apply(lambda x: feature in x)
+        feature_inclusion = dataframe.groupby(feature)[target].agg(['mean', 'std']).reset_index()
+
+        feature_inclusion["benchmark"] = benchmark[target].values[0]
+        feature_inclusion["improvement"] = feature_inclusion["benchmark"] - feature_inclusion["mean"]
+
+        return feature_inclusion
     
     def calc_linear_regression(self, dataframe, target_column, intercept):
         
