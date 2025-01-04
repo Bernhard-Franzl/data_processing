@@ -3,6 +3,7 @@ import ast
 import json
 import numpy as np
 import pandas as pd
+import itertools
 
 import plotly.express as px
 from matplotlib import pyplot as plt
@@ -88,7 +89,10 @@ class ResultsAnalyis:
         self.logger = StatsLogger()
         self.dfg = dfguru
         
-        self.fundamental_features = ["occrate", "exam", "tutorium_test_cancelled", "registered", "type", "studyarea", "coursenumber", "dow", "hod", "weather", "avgocc"]
+        self.fundamental_features = ["occrate", "avgocc", "coursenumber", 'lecture', "exam", "tutorium_test_cancelled", "registered", "type", "studyarea", "dow", "hod", "weather"]
+        
+        self.fundamental_feature_combinations = self.generate_feature_combinations(self.fundamental_features)
+        
 
     ####### Loading results and parsing them #######
     def load_results(self, path_to_resultsfile):
@@ -232,60 +236,114 @@ class ResultsAnalyis:
             dataframe = self.filter_dataframe_by_column_value(dataframe, key, value)
         return dataframe
     
+    ##### Helper functions ######
+    def split_to_fundamental_features(self, feature):
+        feature_set = set()
+        for fundamental_feature in self.fundamental_features:
+            if fundamental_feature in feature:
+                feature_set.add(fundamental_feature)
+        return feature_set
+    
+    def generate_feature_combinations(self, feature_set):
+        # delete occrate from feature set
+        feature_set_copy = feature_set.copy()
+        feature_set_copy.remove("occrate")
+        
+        all_combs = []
+        for i in range(0, len(feature_set_copy)+1):
+            combs = list(itertools.combinations(feature_set_copy, i))
+            all_combs.extend(combs)
+            
+        all_combs = [["occrate"]+list(comb) for comb in all_combs]
+        all_combs = [set(comb) for comb in all_combs]
+        
+        return all_combs
+        
+    def top_k_rows(self, dataframe, target_column, k, ascending):
+        return dataframe.sort_values(target_column, ascending=ascending).head(k)
+
     ##### Grouping functions ######
-    def group_by_features(self, pivot_dataframe):
+    def group_by_features(self, dataframe, target_column):
         
-        return pivot_dataframe.groupby('features').agg(
-            mean_validation_mae=('val_loss', 'mean'),
-            std_validation_mae=('val_loss', 'std'),
-            mean_test_mae=('test_loss', 'mean'),
-            std_test_mae=('test_loss', 'std')
-        ).reset_index()
+        return dataframe.groupby('features').agg(
+            #mean_validation_mae=('val_loss', 'mean'),
+            #std_validation_mae=('val_loss', 'std'),
+            mean_loss=(target_column, 'mean'),
+            std_loss=(target_column, 'std')
+        ).reset_index().sort_values("mean_loss").reset_index(drop=True)
         
-    def group_by_subfeatures(self, pivot_dataframe):
+    def group_by_subfeatures(self, dataframe, target_column):
         
-        dataframe = pivot_dataframe.copy(deep=True)
+        df = dataframe.copy(deep=True)
         
-        all_features = set(list(dataframe['features']))
+        all_features = set(list(df['features']))
         for feature in all_features:
-            dataframe[feature] = dataframe['features'].apply(lambda x: feature in x)
+            df[feature] = df['features'].apply(lambda x: feature in x)
 
         # Group by individual features and calculate mean/std
         feature_analysis = {}
         for feature in all_features:
+            df_loc = df.loc[df[feature], target_column]
             feature_analysis[feature] = {
-                'mean_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].mean(),
-                'std_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].std(),
-                'mean_test_mae': dataframe.loc[dataframe[feature], 'test_loss'].mean(),
-                'std_test_mae': dataframe.loc[dataframe[feature], 'test_loss'].std()
+                #'mean_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].mean(),
+                #'std_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].std(),
+                'mean_loss': df_loc.mean(),
+                'std_loss': df_loc.std(),
+                'count': len(df_loc)
             }
 
         return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index().rename(columns={"index": "features"})
-        return return_df
+        return return_df.sort_values("mean_loss").reset_index(drop=True)
     
-    def group_by_fundamental_features(self, pivot_dataframe):
+    def group_by_fundamental_features(self, dataframe, target_column):
         
-        dataframe = pivot_dataframe.copy(deep=True)
+        df = dataframe.copy(deep=True)
         
         all_features = self.fundamental_features
         for feature in all_features:
-            dataframe[feature] = dataframe['features'].apply(lambda x: feature in x)
+            df[feature] = df['features'].apply(lambda x: feature in x)
 
         # Group by individual features and calculate mean/std
         feature_analysis = {}
         for feature in all_features:
+            df_loc = df.loc[df[feature], target_column]
             feature_analysis[feature] = {
-                'mean_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].mean(),
-                'std_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].std(),
-                'mean_test_mae': dataframe.loc[dataframe[feature], 'test_loss'].mean(),
-                'std_test_mae': dataframe.loc[dataframe[feature], 'test_loss'].std()
+                #'mean_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].mean(),
+                #'std_validation_mae': dataframe.loc[dataframe[feature], 'val_loss'].std(),
+                'mean_loss': df_loc.mean(),
+                'std_loss': df_loc.std(),
+                'count': len(df_loc)
             }
 
         return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index().rename(columns={"index": "features"})
-        return return_df
+        return return_df.sort_values("mean_loss").reset_index(drop=True)
     
+    def group_by_component_features(self, dataframe, target_column):
+        
+        df = dataframe.copy(deep=True)
+
+        df["fundamental_features"] = df["features"].apply(lambda x: self.split_to_fundamental_features(x))
+
+        # apply function to all rows
+        for fundamental_comb in self.fundamental_feature_combinations:
+            name = ",".join(sorted(list(fundamental_comb)))
+            df[name] = df["fundamental_features"].apply(lambda x: fundamental_comb.issubset(x))
+
+        feature_analysis = {}
+        for fundamental_comb in self.fundamental_feature_combinations:
+            name = ",".join(sorted(list(fundamental_comb)))
+            df_loc = df.loc[df[name], target_column]
+            feature_analysis[name] = {
+                'mean_loss': df_loc.mean(),
+                'std_loss': df_loc.std(),
+                'count': len(df_loc)
+            }
+            
+        return_df = pd.DataFrame.from_dict(feature_analysis, orient='index').sort_index().reset_index().rename(columns={"index": "features"})
+
+        return return_df.sort_values("mean_loss").reset_index(drop=True)
+        
     ##### Analysis Functions ######
-    
     def get_binary_features(self, dataframe):   
 
         binary_features = pd.DataFrame()
@@ -371,7 +429,7 @@ class ResultsAnalyis:
         return model, y_pred
         
     ##### Plotting Functions ######
-    def scatter_plot_feature_group(self, dataframe, x_col='mean_test_mae', y_col='std_test_mae'):
+    def scatter_plot_feature_group(self, dataframe, x_col='mean_loss', y_col='std_loss'):
     
         df = dataframe.copy(deep=True)
         
