@@ -1,0 +1,15 @@
+features,model_losses,avg_baselines,naive_baselines,zero_baselines
+"['occrate', 'avgocc', 'coursenumber']",0.008764,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'hod']",0.009253,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'dow', 'hod', 'exam', 'test', 'tutorium', 'registered']",0.009334,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'dow']",0.009434,0.011299,0.016627,0.017787
+"['occrate', 'coursenumber', 'type', 'studyarea', 'level', 'registered']",0.009765,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'exam', 'tutorium', 'test', 'cancelled', 'dow', 'hod', 'week']",0.009796,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'weather']",0.009796,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'type', 'studyarea', 'level']",0.010129,0.011299,0.016627,0.017787
+"['occrate', 'coursenumber', 'type', 'studyarea', 'level']",0.010192,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'type', 'studyarea', 'level', 'registered']",0.010507,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'type', 'studyarea', 'level', 'exam', 'test', 'tutorium']",0.010559,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'exam', 'tutorium', 'test', 'cancelled']",0.010636,0.011299,0.016627,0.017787
+['occrate'],0.013729,0.011299,0.016627,0.017787
+"['occrate', 'avgocc', 'coursenumber', 'tl']",0.014079,0.011299,0.016627,0.017787
