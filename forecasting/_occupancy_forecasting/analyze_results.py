@@ -12,6 +12,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
 
 from _occupancy_forecasting.data import load_data
 
@@ -400,11 +401,17 @@ class ResultsAnalyis:
         
         return reg_results, model, model.predict(X)
     
-    def calc_decision_tree(self, dataframe, target_column, parameters=dict()):        
+    def prepare_data_decision_tree(self, dataframe, target_column):
         
         binary_features = self.get_binary_features(dataframe)
         X = binary_features
         y = dataframe[target_column]
+        
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        
+        return X_train, X_test, y_train, y_test
+    
+    def calc_decision_tree(self, X, y, parameters):  
         
         model = DecisionTreeRegressor(random_state=42, **parameters)
         model.fit(X, y)
