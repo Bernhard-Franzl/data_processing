@@ -30,6 +30,9 @@ for n_weeks in [9]:
         split_by=split_by,
         test = test,
     )
+    
+    print(datasets[0].columns)
+    raise
 
     if "random" in split_by:
         
