@@ -24,15 +24,15 @@ torch.cuda.empty_cache()
 #n_param = args.n_param
 
 
-for n_run in [0]:
+for n_run in [1]:
     n_param = 0
 
     overwrite = True
     ################################
 
-    param_dir = "_occupancy_forecasting/parameters/wrap_up_combs"
-    tb_log_dir = "_occupancy_forecasting/training_logs/wrap_up_combs"
-    cp_log_dir = "_occupancy_forecasting/checkpoints/wrap_up_combs"
+    param_dir = "_occupancy_forecasting/parameters/wrap_up_final"
+    tb_log_dir = "_occupancy_forecasting/training_logs/wrap_up_final"
+    cp_log_dir = "_occupancy_forecasting/checkpoints/wrap_up_final"
     path_to_data = "data/occupancy_forecasting"
     
     
@@ -46,21 +46,20 @@ for n_run in [0]:
             
     path_to_params = os.path.join(param_dir, f"run-{n_run}-{n_param}_params.json")
     
-    ## load all feature combinations
-    import json 
-    with open(path_to_params, "r") as file:
-        parameter_dict = json.load(file)
+    ### load all feature combinations
+    #import json 
+    #with open(path_to_params, "r") as file:
+    #    parameter_dict = json.load(file)
 
-    with open("all_combinations.json", "r") as f:
-        features = json.load(f)
-    parameter_dict["features"] = features
+    #with open("all_combinations.json", "r") as f:
+    #    features = json.load(f)
+    #parameter_dict["features"] = features
 
     start_comb = avoid_name_conflicts(tb_log_dir, cp_log_dir, n_run)
-    #comb_iterator = ParameterSearch(path_to_json=path_to_params).grid_search_iterator(tqdm_bar=True)
-    
-    comb_iterator = ParameterSearch(parameter_dict=parameter_dict).grid_search_iterator(tqdm_bar=True)
+
+    comb_iterator = ParameterSearch(path_to_json=path_to_params).grid_search_iterator(tqdm_bar=True)
     for n_comb, hyperparameters in enumerate(comb_iterator, start=start_comb):
-        
+
         tb_path = os.path.join(tb_log_dir, f"run_{n_run}/comb_{n_comb}")
         cp_path = os.path.join(cp_log_dir, f"run_{n_run}/comb_{n_comb}")
         

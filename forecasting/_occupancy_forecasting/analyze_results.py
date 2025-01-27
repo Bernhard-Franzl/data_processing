@@ -401,15 +401,18 @@ class ResultsAnalyis:
         
         return reg_results, model, model.predict(X)
     
-    def prepare_data_decision_tree(self, dataframe, target_column):
+    def prepare_data_decision_tree(self, dataframe, target_column, train_test):
         
         binary_features = self.get_binary_features(dataframe)
         X = binary_features
         y = dataframe[target_column]
         
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        if train_test:
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+            return X_train, X_test, y_train, y_test
         
-        return X_train, X_test, y_train, y_test
+        else:
+            return X, y
     
     def calc_decision_tree(self, X, y, parameters):  
         
