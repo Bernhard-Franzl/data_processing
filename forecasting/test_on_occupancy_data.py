@@ -6,10 +6,10 @@ import torch
 ##############################
 # Run n tests
 #cp_log_dir = "_occupancy_forecasting/checkpoints/occrate"
-cp_log_dir = "/home/franzl/transfer_from_server/wrap_up_combs_3"
+cp_log_dir = "_occupancy_forecasting/checkpoints/wrap_up_final"
 
 for mode in ["normal"]:
-    for run_id in [0,1,2,3,4]:
+    for run_id in [0]:
    
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir,

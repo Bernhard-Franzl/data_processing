@@ -39,11 +39,15 @@ tmux attach -t 0
 
 python3 "scriptname".py
 
+###################################################
+Tensoraboard:
+
+tensorboard --logdir=/home/berni/github_repos/data_processing/forecasting/_occupancy_forecasting/training_logs/wrap_up_final
+
 tensorboard --logdir _occupancy_forecasting/training_logs/run_3 --port 6006
 
 tensorboard --logdir=/home/franzl/github_repos/data_processing/forecasting/_occupancy_forecasting/training_logs/run_6
 
-tensorboard --logdir=/home/berni/github_repos/data_processing/forecasting/_forecasting/training_logs/run_3
 
 
 ##################################################

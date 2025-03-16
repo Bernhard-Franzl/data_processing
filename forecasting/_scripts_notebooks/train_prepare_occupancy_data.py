@@ -8,6 +8,8 @@ from _occupancy_forecasting import OccFeatureEngineer
 dfg = DFG()
 
 
+print(OccFeatureEngineer.permissible_features)
+raise
 for split_by in ["time"]:
     for frequency in ["1h", "1min", "5min", "15min", "30min"]:
         for with_examweek in [True, False]:
@@ -33,7 +35,9 @@ for split_by in ["time"]:
                 add_to_string = "_with-examweek"
             else:
                 add_to_string = "_without-examweek"
-                
+            
+            
+            raise
             # save data_dict
             for room_id, df in train_dict.items():
                 dfg.save_to_csv(

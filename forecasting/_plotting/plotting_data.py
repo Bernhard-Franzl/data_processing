@@ -100,22 +100,25 @@ class DataPlotter():
         fig = make_subplots(
             rows=3, 
             cols=1, 
-            subplot_titles=("Occupancy Rate", "Registered Students", "Temperature in Linz")
+            subplot_titles=("Occupancy Count", "Registered Students", "Temperature in Linz"),
+            vertical_spacing=0.2,
             )
         
         fig = self.apply_general_settings(fig)
         
         x_col = "datetime"
+        
         # occupancy rate
         fig.add_trace(
             go.Scatter(
                 x=data[x_col], 
-                y=data["occrate"],
+                y=data["occcount"],
                 mode='lines', 
-                name='Occupancy Rate'
+                name='Occupancy Count'
                 ),
             row=1, col=1
             )
+        
         # registered students
         fig.add_trace(
             go.Scatter(
@@ -139,14 +142,24 @@ class DataPlotter():
             )
 
         # set y axis between 0 and 1
-        fig.update_yaxes(range=[-0.1, 1], row=1, col=1)
-        fig.update_yaxes(range=[-0.1, 1], row=2, col=1)
-        fig.update_yaxes(range=[-0.1, 1], row=3, col=1)
+        fig.update_yaxes(range=[-5, 60], row=1, col=1)
+        fig.update_yaxes(range=[-15, 220], row=2, col=1)
+        fig.update_yaxes(range=[6, 12], row=3, col=1)
         
-        if save:
-            fig.write_html(f"{self.save_path}.html")
+        # margin settings
+        fig.update_layout(margin=dict(l=75, r=50, t=50, b=50))
+        
+        # label the y-axis 
+        fig.update_yaxes(title_text="Occupancy Count", title_font=dict(size=13), row=1, col=1)
+        fig.update_yaxes(title_text="Registered Students", title_font=dict(size=13), row=2, col=1)
+        fig.update_yaxes(title_text="Temperature [°C]", title_font=dict(size=13), row=3, col=1)
+        
+        # remove legend
+        fig.update_layout(showlegend=False)
             
         fig.show(config=self.config)
+        
+        return fig
     
     ####### Plot Preprocessing Results ######
     def plot_preprocessing(self, raw_data, processed_data, plcount_data, save_bool, show_bool, combined):
@@ -199,21 +212,22 @@ class DataPlotter():
                 fig.show(config=self.config)
                               
         else:
-            n_col = 2
+            n_col = 1
             n_row = 2
-            self.plot_height = 750
-            self.plot_width = 1250
+            self.plot_height = 600
+            self.plot_width = 800
             
 
             fig = make_subplots(
                 rows=n_row, 
                 cols=n_col,
                 shared_yaxes=True,
-                vertical_spacing=0.125,
-                horizontal_spacing=0.025,
-                specs=[[{}, {}],
-                        [{"colspan": 2}, None]],
-                subplot_titles=("Raw Occupancy per Minute", "Error Correction Applied", "PLCount Applied"))
+                vertical_spacing=0.2,
+                #specs=[[{}, {}],
+                #        [{"colspan": 2}, None]],
+                subplot_titles=("Raw Occupancy Count",
+                                #"Error Correction Applied", 
+                                "Preprocessing Pipeline Applied"))
             fig.update_annotations(font_size=20)
             
             fig.add_trace(
@@ -226,15 +240,15 @@ class DataPlotter():
                 row=1, col=1
             )
             
-            fig.add_trace(
-                go.Scatter(
-                    x=processed_data["datetime"][:-1],
-                    y=processed_data["CC"][:-1],
-                    mode='lines',
-                    name="Simple Preprocessing"
-                ),
-                row=1, col=2
-            )
+            #fig.add_trace(
+            #    go.Scatter(
+            #        x=processed_data["datetime"][:-1],
+            #        y=processed_data["CC"][:-1],
+            #        mode='lines',
+            #        name="Simple Preprocessing"
+            #    ),
+            #    row=1, col=2
+            #)
             
             fig.add_trace(
                 go.Scatter(
@@ -276,7 +290,9 @@ class DataPlotter():
             
             if show_bool:  
                 fig.show(config=self.config)
-                   
+            
+            return fig
+             
     ########### PL Count Plot ###########
     def plot_plcount(self, raw_dataframe, plcount_dataframe, save_bool, show_bool):
         
