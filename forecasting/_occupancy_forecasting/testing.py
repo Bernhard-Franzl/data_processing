@@ -155,7 +155,7 @@ class OccupancyTestSuite():
         self.dfg = DFG()
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         
-        self.loss_types = ["MAE", "R2"]
+        self.loss_types = ["MAE", "MSE", "RMSE", "R2", "MAE_denorm", "MSE_denorm", "RMSE_denorm", "R2_denorm"]
         self.loss_functions = self.get_loss_functions()
         
         self.baseline_types = ["zero"]
@@ -184,7 +184,16 @@ class OccupancyTestSuite():
             loss_functions["RMSE"] = lambda x, y: torch.sqrt(torch.nn.MSELoss(reduction="mean")(x, y))
         if "R2" in self.loss_types:
             loss_functions["R2"] = torchmetrics.R2Score()
-              
+            
+        if "MAE_denorm" in self.loss_types:
+            loss_functions["MAE_denorm"] = torch.nn.L1Loss(reduction="mean")
+        if "MSE_denorm" in self.loss_types:
+            loss_functions["MSE_denorm"] = torch.nn.MSELoss(reduction="mean")
+        if "RMSE_denorm" in self.loss_types:
+            loss_functions["RMSE_denorm"] = lambda x, y: torch.sqrt(torch.nn.MSELoss(reduction="mean")(x, y))
+        if "R2_denorm" in self.loss_types:
+            loss_functions["R2_denorm"] = torchmetrics.R2Score()
+            
         return loss_functions
     
     
@@ -303,24 +312,41 @@ class OccupancyTestSuite():
         return dataloader
     
     
-    def calculate_losses(self, pred, target):
+    def calculate_losses(self, pred, target, room_ids):
         
         losses = {key:[] for key in self.loss_types}
         for key, loss_f in self.loss_functions.items():
             
-            if key == "R2":
-                
+            if (key == "R2") or (key == "R2_denorm"):
+            
                 if pred.shape[1] == 1:
                     raise
                     losses[key].append(None)
+                    
                 else:
+                    if "denorm" in key:
+                        pred = pred * room_ids
+                        target = target * room_ids
+                    else:
+                        pred_in = pred
+                        target_in = target
+                    
                     for i in range(pred.shape[0]):
-                        loss = loss_f(pred[i], target[i])
+                        loss = loss_f(pred_in[i], target_in[i])
                         losses[key].append(loss)
                     
             else:
+                
+                if "denorm" in key:
+                    pred_in = pred * room_ids
+                    target_in = target * room_ids
+                
+                else:
+                    pred_in = pred
+                    target_in = target
+                
                 for i in range(pred.shape[0]):
-                    loss = loss_f(pred[i], target[i])
+                    loss = loss_f(pred_in[i], target_in[i])
                     losses[key].append(loss)
                 
         return losses
@@ -483,6 +509,10 @@ class OccupancyTestSuite():
 
         del data_dict
        
+    
+    def denormalize(self, predictions, targets, room_ids):
+        return predictions * room_ids, targets * room_ids
+                    
     def test_model(self, model, dataloader, dataset_type):
 
         # Some Stuff for the Baselines
@@ -508,7 +538,7 @@ class OccupancyTestSuite():
 
         with torch.no_grad():
             for info, X, y_features, y, additional_info in dataloader:
-                
+                    
                 additional_info = additional_info.to(self.device)
                 X = X.to(self.device)
                 y_features = y_features.to(self.device)
@@ -524,10 +554,10 @@ class OccupancyTestSuite():
                 y_features[:, :model_output.shape[1]]
                 
                 info_list = [(x[0], x[1], x[2][:model_output.shape[1]], x[3], x[4], x[5]) for x in info]
-
-
-                losses = self.calculate_losses(model_output, y_adjusted)
+                room_ids = torch.tensor([x[4] for x in info_list])[:, None]
                 
+                losses = self.calculate_losses(model_output, y_adjusted, room_ids)
+
                 self.logger.add_losses(dataset_type, "model", losses)
                 self.logger.add_predictions(dataset_type, "model", model_output)
                 
@@ -547,61 +577,61 @@ class OccupancyTestSuite():
                 if bl_zero_preds.shape != y_adjusted.shape:
                     raise ValueError("Prediction and target shape do not match")
 
-                bl_zero_losses = self.calculate_losses(bl_zero_preds, y_adjusted)
+                bl_zero_losses = self.calculate_losses(bl_zero_preds, y_adjusted, room_ids)
                 self.logger.add_losses(dataset_type, "zero", bl_zero_losses)
                 self.logger.add_predictions(dataset_type, "zero", bl_zero_preds)
-                
-                ############### Naive Baseline  & AVG Baseline ###############
-                #k = 5 
-                                           
-                #list_room_id = [info_i[0] for info_i in info]
-                #list_y_time = [info_i[2] for info_i in info]
-                
-
-                ## get pred
-                #list_pred_avg = []
-                #list_pred_naive = []
-                #for i, (room_id, y_time) in enumerate(zip(list_room_id, list_y_time)):
-                        
-                #    # last week y_time 
-                #    cur_week = y_time.dt.isocalendar().week.min()
+            
+                    ############### Naive Baseline  & AVG Baseline ###############
+                    #k = 5 
+                                            
+                    #list_room_id = [info_i[0] for info_i in info]
+                    #list_y_time = [info_i[2] for info_i in info]
                     
-                #    week_diff = cur_week - min_week
-                    
-                #    if week_diff > 0:
-                        
-                #        pred = []
-                #        for i in list(range(week_diff, 0, -1))[-k:]:
-                #            y_time_subtract = y_time - pd.Timedelta(weeks=i)
 
-                #            mask = (data_dict[room_id]["datetime"].isin(y_time_subtract))
-                #            pred_i = data_dict[room_id]["occrate"].loc[mask].values
-                #            pred_i = torch.Tensor(pred_i)
-                #            pred.append(pred_i)
+                    ## get pred
+                    #list_pred_avg = []
+                    #list_pred_naive = []
+                    #for i, (room_id, y_time) in enumerate(zip(list_room_id, list_y_time)):
                             
-                #        list_pred_avg.append(torch.mean(torch.stack(pred), axis=0))
-                #        list_pred_naive.append(pred[-1])
+                    #    # last week y_time 
+                    #    cur_week = y_time.dt.isocalendar().week.min()
                         
-                #    else:
-                #        pred = torch.zeros(y_adjusted[i].shape).squeeze()
-                #        list_pred_avg.append(pred)
-                #        list_pred_naive.append(pred)
-                
-                #bl_avg_preds = torch.stack(list_pred_avg)
-                #bl_naive_preds = torch.stack(list_pred_naive)
-                
-                #if bl_avg_preds.shape != y_adjusted.shape:
-                #    raise ValueError("Prediction and target shape do not match")
-        
-                #bl_avg_losses = self.calculate_losses(bl_avg_preds, y_adjusted)
-                #bl_naive_losses = self.calculate_losses(bl_naive_preds, y_adjusted)
-                
+                    #    week_diff = cur_week - min_week
+                        
+                    #    if week_diff > 0:
+                            
+                    #        pred = []
+                    #        for i in list(range(week_diff, 0, -1))[-k:]:
+                    #            y_time_subtract = y_time - pd.Timedelta(weeks=i)
 
-                #self.logger.add_losses(dataset_type, "avg", bl_avg_losses)
-                #self.logger.add_predictions(dataset_type, "avg", bl_avg_preds)
-                
-                #self.logger.add_losses(dataset_type, "naive", bl_naive_losses)
-                #self.logger.add_predictions(dataset_type, "naive", bl_naive_preds)
+                    #            mask = (data_dict[room_id]["datetime"].isin(y_time_subtract))
+                    #            pred_i = data_dict[room_id]["occrate"].loc[mask].values
+                    #            pred_i = torch.Tensor(pred_i)
+                    #            pred.append(pred_i)
+                                
+                    #        list_pred_avg.append(torch.mean(torch.stack(pred), axis=0))
+                    #        list_pred_naive.append(pred[-1])
+                            
+                    #    else:
+                    #        pred = torch.zeros(y_adjusted[i].shape).squeeze()
+                    #        list_pred_avg.append(pred)
+                    #        list_pred_naive.append(pred)
+                    
+                    #bl_avg_preds = torch.stack(list_pred_avg)
+                    #bl_naive_preds = torch.stack(list_pred_naive)
+                    
+                    #if bl_avg_preds.shape != y_adjusted.shape:
+                    #    raise ValueError("Prediction and target shape do not match")
+            
+                    #bl_avg_losses = self.calculate_losses(bl_avg_preds, y_adjusted)
+                    #bl_naive_losses = self.calculate_losses(bl_naive_preds, y_adjusted)
+                    
+
+                    #self.logger.add_losses(dataset_type, "avg", bl_avg_losses)
+                    #self.logger.add_predictions(dataset_type, "avg", bl_avg_preds)
+                    
+                    #self.logger.add_losses(dataset_type, "naive", bl_naive_losses)
+                    #self.logger.add_predictions(dataset_type, "naive", bl_naive_preds)
 
         del data_dict
 

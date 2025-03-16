@@ -1,6 +1,0 @@
-Combination,Mean Loss (MSE)
-"coursenumber, registered, tutorium_test_cancelled, type",5.034601523333771e-08
-"coursenumber, registered, tutorium_test_cancelled, type, avgocc",4.981134704015525e-08
-"coursenumber, registered, tutorium_test_cancelled, type, avgocc, hod",4.9853062709992595e-08
-"coursenumber, registered, tutorium_test_cancelled, type, avgocc, hod, lecture",5.0211911365153926e-08
-"coursenumber, registered, tutorium_test_cancelled, type, avgocc, hod, lecture, dow, studyarea, exam",2.4925117766550835e-08

@@ -404,89 +404,97 @@ class OccFeatureEngineer():
         set_diff = feature_set.difference(self.permissible_features)
         if set_diff:
             raise ValueError(f"Features {set_diff} are not permissible.")
-        
+
         # check if features are already present
         feature_set = feature_set.difference(occ_time_series.columns)
 
+        print(feature_set)
         # Add general features 
         general_features = self.general_features.intersection(feature_set)
+        print(general_features)
         occ_time_series = self.add_general_features(occ_time_series, general_features, room_id)
         
         # add course features
         course_features = self.course_features.intersection(feature_set)
+        print(course_features)
         if course_features:
             occ_time_series = self.add_course_features(occ_time_series, course_features, room_id)
         
         # add datetime features
         datetime_features = self.datetime_features.intersection(feature_set)
+        print(datetime_features)
         if datetime_features:
             occ_time_series = self.add_datetime_features(occ_time_series, datetime_features)
 
         # add shift features
         shift_features = self.shift_features.intersection(feature_set)
+        print(shift_features)
         if shift_features:
+            print("I went in here")
             occ_time_series = self.add_shift_features(occ_time_series, shift_features)
         
         # add weather features
         weather_features = self.weather_features.intersection(feature_set)
+        print(weather_features)
         if weather_features:
             occ_time_series = self.add_weather_features(occ_time_series, weather_features)
 
         
+        print() 
         ###### save all helper data ######
-        if os.path.exists(self.helpers_path):
-            with open(self.helpers_path, "r") as f:
-                helper_dict = json.load(f)   
+        #if os.path.exists(self.helpers_path):
+        #    with open(self.helpers_path, "r") as f:
+        #        helper_dict = json.load(f)   
             
-        else:
-            helper_dict = {
-                "course_types": set(),
-                "course_numbers": set(),
-                "study_areas": set(),
-                "levels": set(),
-                "weather_columns": set(),
-                "columns_to_normalize":{
-                    "occcount":{"min":np.inf, "max":-np.inf},
-                    "occcountdiff":{"min":np.inf, "max":-np.inf},
-                    "maxocccount":{"min":np.inf, "max":-np.inf},
-                    "registered":{"min":np.inf, "max":-np.inf},
-                    "ects":{"min":np.inf, "max":-np.inf},
-                    "tl":{"min":np.inf, "max":-np.inf},
-                    "p":{"min":np.inf, "max":-np.inf},
-                    "ff":{"min":np.inf, "max":-np.inf},
-                    "ffx":{"min":np.inf, "max":-np.inf},
-                    "rf":{"min":np.inf, "max":-np.inf},
-                    "rr":{"min":np.inf, "max":-np.inf},
-                    "so":{"min":np.inf, "max":-np.inf}
-                }
-            }
+        #else:
+        #    helper_dict = {
+        #        "course_types": set(),
+        #        "course_numbers": set(),
+        #        "study_areas": set(),
+        #        "levels": set(),
+        #        "weather_columns": set(),
+        #        "columns_to_normalize":{
+        #            "occcount":{"min":np.inf, "max":-np.inf},
+        #            "occcountdiff":{"min":np.inf, "max":-np.inf},
+        #            "maxocccount":{"min":np.inf, "max":-np.inf},
+        #            "registered":{"min":np.inf, "max":-np.inf},
+        #            "ects":{"min":np.inf, "max":-np.inf},
+        #            "tl":{"min":np.inf, "max":-np.inf},
+        #            "p":{"min":np.inf, "max":-np.inf},
+        #            "ff":{"min":np.inf, "max":-np.inf},
+        #            "ffx":{"min":np.inf, "max":-np.inf},
+        #            "rf":{"min":np.inf, "max":-np.inf},
+        #            "rr":{"min":np.inf, "max":-np.inf},
+        #            "so":{"min":np.inf, "max":-np.inf}
+        #        }
+        #    }
         
         
-        helper_dict["course_types"] = list(set(helper_dict["course_types"]).union(set(self.course_types)))
-        helper_dict["course_numbers"] = list(set(helper_dict["course_numbers"]).union(set(occ_time_series["coursenumber"].unique())))
-        helper_dict["study_areas"] = list(set(helper_dict["study_areas"]).union(set(self.study_areas)))
-        helper_dict["levels"] = list(set(helper_dict["levels"]).union(set(self.levels)))
-        helper_dict["weather_columns"] = list(set(helper_dict["weather_columns"]).union(set(self.weather_columns[1:])))
+        #helper_dict["course_types"] = list(set(helper_dict["course_types"]).union(set(self.course_types)))
+        #helper_dict["course_numbers"] = list(set(helper_dict["course_numbers"]).union(set(occ_time_series["coursenumber"].unique())))
+        #helper_dict["study_areas"] = list(set(helper_dict["study_areas"]).union(set(self.study_areas)))
+        #helper_dict["levels"] = list(set(helper_dict["levels"]).union(set(self.levels)))
+        #helper_dict["weather_columns"] = list(set(helper_dict["weather_columns"]).union(set(self.weather_columns[1:])))
 
-        columns_to_normalize = [
-             'occcount', 'occcountdiff',
-             'maxocccount', 'registered', 'ects', 
-             'tl', 'p', 'ff', 'ffx', 'rf', 'rr', 'so'
-        ]
-        for col in columns_to_normalize:
+        #columns_to_normalize = [
+        #     'occcount', 'occcountdiff',
+        #     'maxocccount', 'registered', 'ects', 
+        #     'tl', 'p', 'ff', 'ffx', 'rf', 'rr', 'so'
+        #]
+        #for col in columns_to_normalize:
             
-            col_entry = helper_dict["columns_to_normalize"][col]
-            min, max = float(occ_time_series[col].min()), float(occ_time_series[col].max())
+        #    col_entry = helper_dict["columns_to_normalize"][col]
+        #    min, max = float(occ_time_series[col].min()), float(occ_time_series[col].max())
             
-            if col_entry["min"] > min:
-                col_entry["min"] = min
+        #    if col_entry["min"] > min:
+        #        col_entry["min"] = min
 
-            if col_entry["max"] < max:
-                col_entry["max"] = max
+        #    if col_entry["max"] < max:
+        #        col_entry["max"] = max
                 
-        # save auxillary data
-        with open(file=self.helpers_path, mode="w") as file:
-            json.dump(helper_dict, file, indent=4)
+        ## save auxillary data
+        #with open(file=self.helpers_path, mode="w") as file:
+        #    json.dump(helper_dict, file, indent=4)
 
         return occ_time_series
     
@@ -537,7 +545,8 @@ class OccFeatureEngineer():
         ################################################################################################
         if "occcount" in features:
             time_series["occcount"] = time_series["CC_estimates"]
-            time_series["occcountdiff"] = time_series["occcount"].diff(1).combine_first(time_series["occcount"])
+            
+            #time_series["occcountdiff"] = time_series["occcount"].diff(1).combine_first(time_series["occcount"])
 
         ################################################################################################
         
@@ -547,7 +556,7 @@ class OccFeatureEngineer():
         
             room_capa = self.dfg.filter_by_roomid(self.course_dates_table, room_id)["room_capacity"].unique()
             time_series["occrate"] = time_series["CC_estimates"] / int(room_capa)
-            time_series["occratediff"] = time_series["occrate"].diff(1).combine_first(time_series["occrate"])
+            #time_series["occratediff"] = time_series["occrate"].diff(1).combine_first(time_series["occrate"])
             del room_capa
             # differencing
             #time_series["undiffed_occrate"] = time_series["occrate_diff"].cumsum()

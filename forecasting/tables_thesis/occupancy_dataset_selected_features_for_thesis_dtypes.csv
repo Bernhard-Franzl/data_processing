@@ -1,0 +1,12 @@
+,0
+datetime,datetime64[ns]
+occcount,int64
+coursenumber,object
+registered,int64
+VL,int64
+Mechatronik,int64
+B1 - Bachelor 1. Jahr,int64
+hod1,float64
+hod2,float64
+tl,float64
+room_id,int64
