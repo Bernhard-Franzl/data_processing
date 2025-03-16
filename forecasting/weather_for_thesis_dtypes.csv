@@ -1,0 +1,9 @@
+,0
+time,datetime64[ns]
+air_temperature,float64
+air_pressure,float64
+wind_speed,float64
+wind_speed_max,float64
+rel_humidity,int64
+precipitation,float64
+sunshine_duration,float64
