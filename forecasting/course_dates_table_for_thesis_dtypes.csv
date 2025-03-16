@@ -1,0 +1,7 @@
+,0
+course_number,object
+room,object
+start_time,datetime64[ns]
+end_time,datetime64[ns]
+room_capacity,int64
+note,object
