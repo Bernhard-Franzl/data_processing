@@ -10,9 +10,15 @@ import torch
 
 mode = "normal"
 
-for comb_id in [1]: # [1,2,3]
-    cp_log_dir_run = f"/home/berni/transfer_from_server/wrap_up_combs_{comb_id}"
+for comb_id in [2, 3]: # [1,2,3]
+    cp_log_dir_run = f"/home/franzl/transfer_from_server/wrap_up_combs_{comb_id}"
     for run_id in [0, 1, 2, 3, 4]:
+
+        if comb_id == 2:
+            if run_id < 4:
+                continue
+        
+        print(comb_id, run_id)
         
         test_suite = OccupancyTestSuite(
             cp_log_dir=cp_log_dir_run,
