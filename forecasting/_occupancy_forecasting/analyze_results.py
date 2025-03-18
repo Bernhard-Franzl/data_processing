@@ -213,11 +213,16 @@ class ResultsAnalyis:
         
         filtered_dataframe = self.filter_dataframe_by_dict(dataframe, filter_dict)
         
-        cleaned_dataframe = filtered_dataframe[["dataset", "features", "run_id", "model_losses"]]        
-        cleaned_dataframe = cleaned_dataframe.drop_duplicates(subset=["dataset", "features", "run_id"])
+        list_of_features = list(filter_dict.keys()) + ["features", "run_id"]
+        print(list_of_features)
+         
+        cleaned_dataframe = filtered_dataframe[list_of_features + ["model_losses"]]       
+        cleaned_dataframe = cleaned_dataframe.drop_duplicates(subset=list_of_features)
         
-        pivot_dataframe = cleaned_dataframe.pivot(index=['features', 'run_id'], columns='dataset', values='model_losses').reset_index()
-        pivot_dataframe.columns = ['features', 'run_id', 'test_loss', 'val_loss']
+        print(cleaned_dataframe.shape)
+        
+        pivot_dataframe = cleaned_dataframe.pivot(index=['features', 'run_id'], columns="loss_type", values='model_losses')
+        #pivot_dataframe.columns = ['features', 'run_id', 'loss_type', 'test_loss', 'val_loss']
         
         return pivot_dataframe
     
@@ -230,7 +235,12 @@ class ResultsAnalyis:
     
     ###### Filter functions ######
     def filter_dataframe_by_column_value(self, dataframe, column, value):
-        return dataframe[dataframe[column] == value].reset_index(drop=True)
+        # also accept list as values:
+        # check if value is type list
+        if isinstance(value, list):
+            return dataframe[dataframe[column].isin(value)].reset_index(drop=True)
+        else:
+            return dataframe[dataframe[column] == value].reset_index(drop=True)
     
     def filter_dataframe_by_dict(self, dataframe, filter_dict):
         for key, value in filter_dict.items():
@@ -439,7 +449,7 @@ class ResultsAnalyis:
         return model, y_pred
         
     ##### Plotting Functions ######
-    def scatter_plot_feature_group(self, dataframe, x_col='mean_loss', y_col='std_loss'):
+    def scatter_plot_feature_group(self, dataframe, x_col, y_col):
     
         df = dataframe.copy(deep=True)
         

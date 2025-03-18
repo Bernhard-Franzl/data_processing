@@ -10,13 +10,13 @@ import torch
 
 mode = "normal"
 
-for comb_id in [2, 3]: # [1,2,3]
-    cp_log_dir_run = f"/home/franzl/transfer_from_server/wrap_up_combs_{comb_id}"
-    for run_id in [0, 1, 2, 3, 4]:
+for comb_id in [1]: # [1,2,3]
+    cp_log_dir_run = f"/home/berni/transfer_from_server/wrap_up_combs_{comb_id}"
+    for run_id in [0]:
 
-        if comb_id == 2:
-            if run_id < 4:
-                continue
+        #if comb_id == 2:
+        #    if run_id < 4:
+        #        continue
         
         print(comb_id, run_id)
         
@@ -24,7 +24,7 @@ for comb_id in [2, 3]: # [1,2,3]
             cp_log_dir=cp_log_dir_run,
             path_to_data="data/occupancy_forecasting",
             path_to_helpers="data/occupancy_forecasting",
-            path_to_results=f"results_server_{comb_id}.txt",
+            path_to_results=f"results_server_{comb_id}_test.txt",
             erase_results_file=False,
         )
         tuples_run_comb = sorted(test_suite.list_checkpoints(run_id))
