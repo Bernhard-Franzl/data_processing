@@ -155,12 +155,12 @@ class OccupancyTestSuite():
         self.dfg = DFG()
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
         
-        self.loss_types = ["MAE", "MSE", "RMSE", "R2", "MAE_denorm", "MSE_denorm", "RMSE_denorm", "R2_denorm"]
+        self.loss_types = ["MAE", "MSE", "RMSE", "MAE_denorm", "MSE_denorm", "RMSE_denorm"]
         self.loss_functions = self.get_loss_functions()
         
         self.baseline_types = ["zero"]
         #self.dataset_types = ["train", "val", "test"]
-        self.dataset_types = ["val", "test"]
+        self.dataset_types = ["test"]
         
         self.bar_format = '{l_bar}{bar:30}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]'
         
