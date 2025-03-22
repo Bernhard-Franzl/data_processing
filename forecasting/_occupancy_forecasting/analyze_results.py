@@ -15,6 +15,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
 from _occupancy_forecasting.data import load_data
+import plotly.io as pio
 
 class StatsLogger():
     
@@ -449,14 +450,13 @@ class ResultsAnalyis:
         return model, y_pred
         
     ##### Plotting Functions ######
-    def scatter_plot_feature_group(self, dataframe, x_col, y_col):
+    def scatter_plot_feature_group(self, dataframe, x_col, y_col, file_name):
     
         df = dataframe.copy(deep=True)
         
         # Add a column to differentiate the "occrate" feature
-        df['highlight'] = df['features'].apply(lambda x: 'occrate' if x == 'occrate' else 'other')
-        print(df['highlight'])
-
+        df['highlight'] = df['FeatureSet'].apply(lambda x: 'occrate' if x == ["OccupancyRate"] else 'other')
+        
         color_sequence = px.colors.qualitative.Plotly
         # Create the scatter plot
         fig = px.scatter(
@@ -465,9 +465,8 @@ class ResultsAnalyis:
             y=y_col,
             color='highlight',  # Highlight "occrate" in a different color
             color_discrete_map={'occrate': color_sequence[1], 'other': color_sequence[0]},
-            hover_data=['features'],  # Show feature names on hover
-            #labels={'mean_test_mae': 'Mean Test MAE', 'std_test_mae': 'Std Test MAE'},
-            title='All <br> MAE vs MSE',
+            hover_data=['FeatureSet'],  # Show feature names on hover
+            title='Avg. Denormalized MAE VS Avg. Denormalized MSE',
         )
 
         fig.update_traces(
@@ -480,21 +479,26 @@ class ResultsAnalyis:
         
         # Customize the layout
         fig.update_layout(
-            title_font_size=20,
+            title_font_size=25,
             title_x=0.5,
             template='plotly_white',
             width=1000,
             height=1000,
             margin=dict(l=100, r=50, t=50, b=100),
-            xaxis_title="MAE",
-            yaxis_title="MSE",
+            xaxis_title="Avg. Denormalized MAE",
+            yaxis_title="Avg. Denormalized MSE",
             font=dict(
-                size=16,
+                size=18,
                 color="Black"
             ),
             showlegend=False
         )
-        
+        # save figure with high resolution
+        #save a figure of 300dpi, with 1.5 inches, and  height 0.75inches
+        scale = 3
+        dpi = 1000
+        pio.write_image(fig, file_name, width=1*dpi, height=1*dpi, scale=scale)
+
         # Show the plot
         fig.show()
         

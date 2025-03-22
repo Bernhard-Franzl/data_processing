@@ -1,0 +1,6 @@
+FeatureSet,AvgMAE,AvgRMSE,AvgMSE,AvgDenormMAE,AvgDenormRMSE,AvgDenormMSE
+"['OccupancyRate', 'AvgOccupancy', 'CourseNumber', 'CourseType', 'DayOfWeek', 'HourOfDay', 'Weather']",0.01669,0.02134,0.00258,2.65874,3.39728,66.65595
+"['OccupancyRate', 'AvgOccupancy', 'CourseNumber', 'CourseType', 'DayOfWeek', 'HourOfDay']",0.01597,0.0206,0.00215,2.53511,3.26946,55.05867
+"['OccupancyRate', 'AvgOccupancy', 'CourseNumber', 'CourseType', 'DayOfWeek', 'Weather']",0.01679,0.02142,0.00254,2.67119,3.40608,65.54993
+"['OccupancyRate', 'AvgOccupancy', 'CourseNumber', 'CourseType', 'DayOfWeek']",0.01662,0.02113,0.00225,2.63786,3.35237,57.44201
+"['OccupancyRate', 'AvgOccupancy', 'CourseNumber', 'CourseType', 'HourOfDay', 'Weather']",0.01684,0.02152,0.00264,2.68204,3.42556,68.32815

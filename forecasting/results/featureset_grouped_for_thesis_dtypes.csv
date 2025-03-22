@@ -1,0 +1,8 @@
+,0
+FeatureSet,object
+AvgMAE,float64
+AvgRMSE,float64
+AvgMSE,float64
+AvgDenormMAE,float64
+AvgDenormRMSE,float64
+AvgDenormMSE,float64
