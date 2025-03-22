@@ -455,34 +455,46 @@ class ResultsAnalyis:
         
         # Add a column to differentiate the "occrate" feature
         df['highlight'] = df['features'].apply(lambda x: 'occrate' if x == 'occrate' else 'other')
+        print(df['highlight'])
 
+        color_sequence = px.colors.qualitative.Plotly
         # Create the scatter plot
         fig = px.scatter(
             df,
             x=x_col,
             y=y_col,
             color='highlight',  # Highlight "occrate" in a different color
+            color_discrete_map={'occrate': color_sequence[1], 'other': color_sequence[0]},
             hover_data=['features'],  # Show feature names on hover
             #labels={'mean_test_mae': 'Mean Test MAE', 'std_test_mae': 'Std Test MAE'},
-            title='Performance of Feature Groups',
+            title='All <br> MAE vs MSE',
         )
 
         fig.update_traces(
             hovertemplate=(
-                "<b>%{customdata}</b><br>"
-                "<b>Mean MAE:</b> %{x:.6f}<br>"
-                "<b>Std MAE:</b> %{y:.6f}<extra></extra>"
+            "<b>%{customdata}</b><br>"
+            "<b>X:</b> %{x:.6f}<br>"
+            "<b>Y:</b> %{y:.6f}<extra></extra>"
             )
         )
         
         # Customize the layout
         fig.update_layout(
-            title_font_size=16,
+            title_font_size=20,
             title_x=0.5,
             template='plotly_white',
-            legend_title_text='Feature Group'
+            width=1000,
+            height=1000,
+            margin=dict(l=100, r=50, t=50, b=100),
+            xaxis_title="MAE",
+            yaxis_title="MSE",
+            font=dict(
+                size=16,
+                color="Black"
+            ),
+            showlegend=False
         )
-
+        
         # Show the plot
         fig.show()
         
