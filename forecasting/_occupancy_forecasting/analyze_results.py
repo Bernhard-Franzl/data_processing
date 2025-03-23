@@ -466,7 +466,7 @@ class ResultsAnalyis:
             color='highlight',  # Highlight "occrate" in a different color
             color_discrete_map={'occrate': color_sequence[1], 'other': color_sequence[0]},
             hover_data=['FeatureSet'],  # Show feature names on hover
-            title='Avg. Denormalized MAE VS Avg. Denormalized MSE',
+            #title='Avg. Denormalized MAE VS Avg. Denormalized MSE',
         )
 
         fig.update_traces(
@@ -495,7 +495,7 @@ class ResultsAnalyis:
         )
         # save figure with high resolution
         #save a figure of 300dpi, with 1.5 inches, and  height 0.75inches
-        scale = 3
+        scale = 4
         dpi = 1000
         pio.write_image(fig, file_name, width=1*dpi, height=1*dpi, scale=scale)
 
