@@ -1,0 +1,12 @@
+,CourseNumber,CourseType,Tutorium|Test|Cancelled,Registered,HourOfDay,AvgOccupancy,Lecture,DayOfWeek,Exam,StudyArea,Weather
+CourseNumber,6,6,6,5,5,4,2,1,0,0,0
+CourseType,6,6,6,5,5,4,2,1,0,0,0
+Tutorium|Test|Cancelled,6,6,6,5,5,4,2,1,0,0,0
+Registered,5,5,5,5,4,3,1,1,0,0,0
+HourOfDay,5,5,5,4,5,4,2,1,0,0,0
+AvgOccupancy,4,4,4,3,4,4,2,1,0,0,0
+Lecture,2,2,2,1,2,2,2,0,0,0,0
+DayOfWeek,1,1,1,1,1,1,0,1,0,0,0
+Exam,0,0,0,0,0,0,0,0,0,0,0
+StudyArea,0,0,0,0,0,0,0,0,0,0,0
+Weather,0,0,0,0,0,0,0,0,0,0,0

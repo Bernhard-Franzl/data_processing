@@ -1,0 +1,12 @@
+,Tutorium|Test|Cancelled,CourseNumber,CourseType,Lecture,Registered,HourOfDay,DayOfWeek,StudyArea,AvgOccupancy,Exam,Weather
+Tutorium|Test|Cancelled,111,82,72,71,63,59,58,49,49,9,0
+CourseNumber,82,103,75,63,55,53,42,41,39,10,0
+CourseType,72,75,96,48,58,52,43,40,36,8,0
+Lecture,71,63,48,86,48,48,39,36,40,3,0
+Registered,63,55,58,48,81,46,38,35,32,6,0
+HourOfDay,59,53,52,48,46,76,34,35,33,2,0
+DayOfWeek,58,42,43,39,38,34,62,30,24,6,0
+StudyArea,49,41,40,36,35,35,30,59,13,9,0
+AvgOccupancy,49,39,36,40,32,33,24,13,59,0,0
+Exam,9,10,8,3,6,2,6,9,0,10,0
+Weather,0,0,0,0,0,0,0,0,0,0,0
